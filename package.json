@@ -1,5 +1,5 @@
 {
-  "name": "console-playground",
+  "name": "dnd-companion-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,13 +14,13 @@
     "react-scripts": "1.0.17"
   },
   "scripts": {
-    "start-js": "react-scripts start",
+    "watch-js": "react-scripts start",
     "build-js": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "start": "npm-run-all -p watch-css start-js",
-    "build": "npm-run-all build-css build-js"
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "start": "npm-run-all -p watch-css watch-js",
+    "build": "npm-run-all build-css build-js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
