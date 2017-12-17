@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
+import AppRouter from './AppRouter';
 import registerServiceWorker from './registerServiceWorker';
 
 import './styles/bootstrap.min.css';
@@ -13,7 +13,7 @@ FocusStyleManager.onlyShowFocusOnTabs();
 
 ReactDOM.render((
   <BrowserRouter>
-    <App />
+    <AppRouter />
   </BrowserRouter>
 ), document.getElementById('root'));
 
