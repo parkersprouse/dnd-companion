@@ -1,27 +1,25 @@
 {
-  "name": "dnd-companion-app",
-  "version": "0.1.0",
+  "name": "dnd-companion-app-server",
+  "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "@blueprintjs/core": "^1.34.1",
-    "express": "^4.16.2",
-    "node-sass-chokidar": "0.0.3",
-    "npm-run-all": "^4.1.2",
-    "query-string": "^5.0.1",
-    "react": "^16.2.0",
-    "react-addons-css-transition-group": "^15.6.2",
-    "react-dom": "^16.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.17"
-  },
   "scripts": {
-    "watch-js": "react-scripts start",
-    "build-js": "react-scripts build",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "start": "npm-run-all -p watch-css watch-js",
-    "build": "npm-run-all build-css build-js",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "node server",
+    "dev": "cd client && npm run build && cd .. && node server",
+    "heroku-postbuild": "npm install --only=dev && cd client && npm install && npm run build"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "helmet": "^3.9.0",
+    "jsonwebtoken": "^8.1.0",
+    "lodash": "^4.17.4",
+    "morgan": "^1.9.0",
+    "pg-promise": "^7.3.2",
+    "query-string": "^5.0.1",
+    "validator": "^9.2.0"
   }
 }

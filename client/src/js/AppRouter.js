@@ -5,7 +5,7 @@ import Login from './pages/LoginPage';
 import NotFound from './pages/NotFound';
 
 function isAuthenticated() {
-  return true;
+  return false;
 }
 
 // User must be logged in to access this route
