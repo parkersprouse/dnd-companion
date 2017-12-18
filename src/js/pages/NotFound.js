@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { InputGroup, NonIdealState, AnchorButton, Intent } from "@blueprintjs/core";
-import Container from './Container';
+import { NonIdealState, AnchorButton, Intent } from "@blueprintjs/core";
+import Container from '../components/Container';
 
 export default class Home extends Component {
   render() {
