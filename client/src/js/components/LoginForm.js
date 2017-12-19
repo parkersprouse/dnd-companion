@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Intent } from '@blueprintjs/core';
+import { Row, Col } from 'react-bootstrap';
 
 export default class LoginPage extends Component {
   constructor(props) {
@@ -21,8 +22,8 @@ export default class LoginPage extends Component {
     return (
       <div>
         <h1 style={{ marginBottom: '2rem' }}>Login</h1>
-        <div className="row">
-          <div className="col-xs-12 col-md-4 col-md-offset-4">
+        <Row>
+          <Col xs={12} md={4} mdOffset={4}>
             <div className="pt-card">
               { this.renderError() }
               <form onSubmit={this.submit}>
@@ -49,8 +50,8 @@ export default class LoginPage extends Component {
                 </div>
               </form>
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </div>
     );
   }

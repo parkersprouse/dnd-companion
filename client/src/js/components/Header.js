@@ -61,7 +61,7 @@ export default class Header extends Component {
         <div className="heading">
           <Navbar>
             <NavbarGroup align="right">
-              <Button onClick={() => this.setState({ isOpen: !this.state.isOpen })} iconName="menu"></Button>
+              <Button onClick={() => this.setState({ isOpen: !this.state.isOpen })} className="pt-minimal" iconName="menu"></Button>
             </NavbarGroup>
           </Navbar>
           <Collapse isOpen={this.state.isOpen}>
