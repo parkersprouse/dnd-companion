@@ -9,6 +9,9 @@ export default class LoginPage extends Component {
       <Container>
         <Header />
         <LoginForm />
+        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <a href="/register">Need an account?</a> | <a href="/register">Forgot password?</a>
+        </div>
       </Container>
     );
   }
