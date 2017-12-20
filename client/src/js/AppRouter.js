@@ -4,9 +4,15 @@ import Home from './pages/Home';
 import Login from './pages/LoginPage';
 import Register from './pages/RegisterPage';
 import NotFound from './pages/NotFound';
+import utils from './lib/utils';
 
 function isAuthenticated() {
-  return false;
+  let isAuthed = null;
+  utils.isLoggedIn((loggedIn) => {
+    isAuthed = loggedIn;
+  });
+  console.log(isAuthed);
+  return isAuthed;
 }
 
 // User must be logged in to access this route

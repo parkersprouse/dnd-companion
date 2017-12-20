@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarGroup, AnchorButton, Popover, Menu, MenuItem, Position, PopoverInteractionKind, Button, Collapse } from '@blueprintjs/core';
+import utils from '../lib/utils';
 
 export default class Header extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      isLoggedIn: false,
       isOpen: false
     }
 
     this.configureDesktopMenu = this.configureDesktopMenu.bind(this);
+    this.configureMobileMenu = this.configureMobileMenu.bind(this);
 
     this.isMobile = false;
     if (window.innerWidth < 992)
       this.isMobile = true;
+  }
+
+  componentWillMount() {
+    utils.isLoggedIn((loggedIn) => {
+      this.setState({ isLoggedIn: loggedIn });
+    });
   }
 
   configureDesktopMenu() {
@@ -24,8 +33,7 @@ export default class Header extends Component {
       </Menu>;
 
     let rightSide = null;
-    const auth = false;
-    if (auth) {
+    if (this.state.isLoggedIn) {
       rightSide =
         <NavbarGroup align="right">
           <Popover content={userDropdown} position={Position.BOTTOM}
@@ -57,30 +65,46 @@ export default class Header extends Component {
     );
   }
 
-  render() {
-    if (this.isMobile) {
-      this.menu = (
-        <div className="heading">
-          <Navbar>
-            <div className="container">
-              <NavbarGroup align="right">
-                <Button onClick={() => this.setState({ isOpen: !this.state.isOpen })} className="pt-minimal" iconName="menu"></Button>
-              </NavbarGroup>
-            </div>
-          </Navbar>
-          <div className="container">
-            <Collapse isOpen={this.state.isOpen}>
-              <AnchorButton href="/" className="pt-minimal">Home</AnchorButton>
-              <AnchorButton href="/profile" className="pt-minimal">Profile</AnchorButton>
-              <AnchorButton href="/logout" className="pt-minimal">Logout</AnchorButton>
-            </Collapse>
-          </div>
-        </div>
-      );
+  configureMobileMenu() {
+    let items = null;
+    if (this.state.isLoggedIn) {
+      items =
+        <Collapse isOpen={this.state.isOpen}>
+          <AnchorButton href="/" className="pt-minimal">Home</AnchorButton>
+          <AnchorButton href="/profile" className="pt-minimal">Profile</AnchorButton>
+          <AnchorButton href="/logout" className="pt-minimal">Logout</AnchorButton>
+        </Collapse>;
     }
     else {
-      this.configureDesktopMenu();
+      items =
+        <Collapse isOpen={this.state.isOpen}>
+          <AnchorButton href="/" className="pt-minimal">Home</AnchorButton>
+          <AnchorButton href="/login" className="pt-minimal">Login</AnchorButton>
+          <AnchorButton href="/register" className="pt-minimal">Register</AnchorButton>
+        </Collapse>;
     }
+
+    this.menu = (
+      <div className="heading">
+        <Navbar>
+          <div className="container">
+            <NavbarGroup align="right">
+              <Button onClick={() => this.setState({ isOpen: !this.state.isOpen })} className="pt-minimal" iconName="menu"></Button>
+            </NavbarGroup>
+          </div>
+        </Navbar>
+        <div className="container">
+          { items }
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    if (this.isMobile)
+      this.configureMobileMenu();
+    else
+      this.configureDesktopMenu();
 
     return this.menu;
   }
