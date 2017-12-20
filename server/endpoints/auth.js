@@ -85,15 +85,17 @@ function login(req, res, next) {
 
 function register(req, res, next) {
   const email = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
   const confirmpassword = req.body.confirmpassword;
 
-  if (validator.isEmpty(email) || validator.isEmpty(password) || validator.isEmpty(confirmpassword)) {
+  if (validator.isEmpty(email) || validator.isEmpty(username) || validator.isEmpty(password) || validator.isEmpty(confirmpassword)) {
     res.status(constants.http_bad_request)
       .json({
         status: 'failure',
         content: {
           emailState: validator.isEmpty(email) ? false : true,
+          usernameState: validator.isEmpty(username) ? false : true,
           passwordState: validator.isEmpty(password) ? false : true,
           confirmPasswordState: validator.isEmpty(confirmpassword) ? false : true
         },
@@ -106,6 +108,7 @@ function register(req, res, next) {
         status: 'failure',
         content: {
           emailState: false,
+          usernameState: true,
           passwordState: true,
           confirmPasswordState: true
         },
@@ -118,6 +121,7 @@ function register(req, res, next) {
         status: 'failure',
         content: {
           emailState: true,
+          usernameState: true,
           passwordState: false,
           confirmPasswordState: true
         },
@@ -130,6 +134,7 @@ function register(req, res, next) {
         status: 'failure',
         content: {
           emailState: true,
+          usernameState: true,
           passwordState: false,
           confirmPasswordState: false
         },
@@ -141,12 +146,13 @@ function register(req, res, next) {
     const pw_hash = bcrypt.hashSync(password, salt);
     const data = {
       email: email,
+      username: username,
       pw_hash: pw_hash
     };
 
     let query = 'insert into users ' +
-                '(email, pw_hash) ' +
-                'values(${email}, ${pw_hash}) ' +
+                '(email, username, pw_hash) ' +
+                'values(${email}, ${username}, ${pw_hash}) ' +
                 'returning id';
     db.one(query, data)
       .then(function (data) {
@@ -159,15 +165,24 @@ function register(req, res, next) {
       .catch(function (err) {
         const content = {
           emailState: true,
+          usernameState: true,
           passwordState: true,
           confirmPasswordState: true
         };
         let message = 'There was an unknown problem when creating your account';
 
         if (err.code === constants.db_err_duplicate) {
-          message = 'An account with that email address already exists';
-          content.emailState = false;
+          if (err.constraint.indexOf('username') > -1) {
+            message = 'An account with that username already exists';
+            content.usernameState = false;
+          }
+          else if (err.constraint.indexOf('email') > -1) {
+            message = 'An account with that e-mail address already exists';
+            content.emailState = false;
+          }
         }
+
+        console.log(message)
 
         res.status(constants.http_bad_request)
           .json({

@@ -1,4 +1,5 @@
 $dark-red: #AA0000;
+$dark-green: #00AA00;
 $small-margin: 2rem;
 $large-margin: 4rem;
 
@@ -26,6 +27,11 @@ $large-margin: 4rem;
 
 .form-error-msg {
   color: $dark-red;
+  margin-bottom: $small-margin;
+}
+
+.form-success-msg {
+  color: $dark-green;
   margin-bottom: $small-margin;
 }
 

@@ -21,7 +21,7 @@ export default class LoginForm extends Component {
   render() {
     return (
       <Row>
-        <Col xs={12} md={4} mdOffset={4}>
+        <Col xs={12} md={6} mdOffset={3}>
           <div className="pt-card">
             { this.renderError() }
             <form onSubmit={this.submit}>

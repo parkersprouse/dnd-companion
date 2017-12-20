@@ -19,5 +19,9 @@
   color: #AA0000;
   margin-bottom: 2rem; }
 
+.form-success-msg {
+  color: #00AA00;
+  margin-bottom: 2rem; }
+
 .required-label {
   color: #AA0000; }
