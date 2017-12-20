@@ -7,12 +7,10 @@ import NotFound from './pages/NotFound';
 import utils from './lib/utils';
 
 function isAuthenticated() {
-  let isAuthed = null;
   utils.isLoggedIn((loggedIn) => {
-    isAuthed = loggedIn;
+    return loggedIn;
   });
-  console.log(isAuthed);
-  return isAuthed;
+  return true;
 }
 
 // User must be logged in to access this route
