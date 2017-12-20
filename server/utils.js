@@ -2,15 +2,13 @@
 'use strict';
 
 function generateJwtPayload(data) {
-  const payload = {
+  return {
     id: data.id,
     email: data.email,
-    first_name: data.first_name,
-    last_name: data.last_name,
+    username: data.username,
+    name: data.name,
     hash: data.pw_hash
-  };
-
-  return payload;
+  }
 }
 
 module.exports = {

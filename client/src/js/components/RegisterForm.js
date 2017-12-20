@@ -20,6 +20,7 @@ export default class RegisterForm extends Component {
       username: '',
       password: '',
       passwordConfirm: '',
+      name: '',
       emailStyle: 'pt-input',
       usernameStyle: 'pt-input',
       passwordStyle: 'pt-input',
@@ -40,6 +41,9 @@ export default class RegisterForm extends Component {
               </FormGroup>
               <FormGroup label="Username" labelFor="username-input">
                 <input id="username-input" name="username" className={this.state.usernameStyle} style={{ width: '100%' }} placeholder="Username" type="text" value={this.state.username} onChange={this.handleInputChange} />
+              </FormGroup>
+              <FormGroup label="Name" labelFor="name-input">
+                <input id="name-input" name="name" className="pt-input" style={{ width: '100%' }} placeholder="Name" type="text" value={this.state.name} onChange={this.handleInputChange} />
               </FormGroup>
               <FormGroup label="Password" labelFor="password-input">
                 <input id="password-input" name="password" className={this.state.passwordStyle} style={{ width: '100%' }} placeholder="Password" type="password" value={this.state.password} onChange={this.handleInputChange} />
@@ -63,7 +67,7 @@ export default class RegisterForm extends Component {
     if (this.state.errorMsg) {
       return (
         <div className="pt-callout pt-intent-danger form-error-msg">
-          { this.state.errorMsg }
+          <span className="pt-icon-issue"></span> { this.state.errorMsg }
         </div>
       );
     }
@@ -102,7 +106,8 @@ export default class RegisterForm extends Component {
       email: this.state.email,
       username: this.state.username,
       password: this.state.password,
-      confirmpassword: this.state.passwordConfirm
+      confirmpassword: this.state.passwordConfirm,
+      name: this.state.name
     }, (success, response) => {
       if (success) {
         this.setState({

@@ -13,26 +13,22 @@ const validator = require('validator');
 // public functions
 
 function login(req, res, next) {
-  const email = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
 
-  if (validator.isEmpty(email) || validator.isEmpty(password)) {
+  if (validator.isEmpty(username) || validator.isEmpty(password)) {
     res.status(constants.http_bad_request)
       .json({
         status: 'failure',
         content: {
-          emailState: validator.isEmpty(email) ? false : true,
+          usernameState: validator.isEmpty(username) ? false : true,
           passwordState: validator.isEmpty(password) ? false : true
         },
-        message: {
-          general: 'Please make sure all required fields are filled out',
-          email: validator.isEmpty(email) ? 'Please make sure your email is filled out' : null,
-          password: validator.isEmpty(password) ? 'Please make sure your password is filled out' : null
-        }
+        message: 'Please make sure all required fields are filled out'
       });
   }
   else {
-    db.one('select * from users where lower(email) = lower($1)', email)
+    db.one('select * from users where lower(username) = lower($1)', username)
       .then(function(data) {
         const match = bcrypt.compareSync(password, data.pw_hash);
         if (match) {
@@ -43,18 +39,14 @@ function login(req, res, next) {
             .json({
               status: 'success',
               content: token,
-              message: {
-                general: 'Successfully logged in'
-              }
+              message: 'Successfully logged in'
             });
         } else {
           res.status(constants.http_unauthorized)
             .json({
               status: 'failure',
               content: data,
-              message: {
-                general: 'Your email or password was incorrect'
-              }
+              message: 'Your username or password was incorrect'
             });
         }
       })
@@ -64,9 +56,7 @@ function login(req, res, next) {
             .json({
               status: 'failure',
               content: err,
-              message: {
-                general: 'Your email or password was incorrect'
-              }
+              message: 'Your username or password was incorrect'
             });
         }
         else {
@@ -74,9 +64,7 @@ function login(req, res, next) {
             .json({
               status: 'failure',
               content: err,
-              message: {
-                general: 'There was an unknown problem when attempting to log you in'
-              }
+              message: 'There was an unknown problem when attempting to log you in'
             });
         }
       });
@@ -88,6 +76,7 @@ function register(req, res, next) {
   const username = req.body.username;
   const password = req.body.password;
   const confirmpassword = req.body.confirmpassword;
+  const name = req.body.name;
 
   if (validator.isEmpty(email) || validator.isEmpty(username) || validator.isEmpty(password) || validator.isEmpty(confirmpassword)) {
     res.status(constants.http_bad_request)
@@ -147,12 +136,13 @@ function register(req, res, next) {
     const data = {
       email: email,
       username: username,
-      pw_hash: pw_hash
+      pw_hash: pw_hash,
+      name: name
     };
 
     let query = 'insert into users ' +
-                '(email, username, pw_hash) ' +
-                'values(${email}, ${username}, ${pw_hash}) ' +
+                '(email, username, pw_hash, name) ' +
+                'values(${email}, ${username}, ${pw_hash}, ${name}) ' +
                 'returning id';
     db.one(query, data)
       .then(function (data) {
