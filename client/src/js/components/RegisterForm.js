@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Intent, FormGroup } from '@blueprintjs/core';
 import { Row, Col } from 'react-bootstrap';
 
-export default class LoginForm extends Component {
+export default class RegisterForm extends Component {
   constructor(props) {
     super(props);
 
@@ -13,7 +13,9 @@ export default class LoginForm extends Component {
     this.state = {
       errorMsg: null,
       email: '',
+      username: '',
       password: '',
+      passwordConfirm: '',
       isSubmitting: false
     }
   }
@@ -28,12 +30,18 @@ export default class LoginForm extends Component {
               <FormGroup label="E-mail" labelFor="email-input">
                 <input id="email-input" name="email" className="pt-input" style={{ width: '100%' }} placeholder="E-mail" type="text" value={this.state.email} onChange={this.handleInputChange} />
               </FormGroup>
+              <FormGroup label="Username" labelFor="username-input">
+                <input id="username-input" name="username" className="pt-input" style={{ width: '100%' }} placeholder="Username" type="text" value={this.state.username} onChange={this.handleInputChange} />
+              </FormGroup>
               <FormGroup label="Password" labelFor="password-input">
                 <input id="password-input" name="password" className="pt-input" style={{ width: '100%' }} placeholder="Password" type="password" value={this.state.password} onChange={this.handleInputChange} />
               </FormGroup>
+              <FormGroup label="Confirm Password" labelFor="confirm-password-input">
+                <input id="confirm-password-input" name="passwordConfirm" className="pt-input" style={{ width: '100%' }} placeholder="Confirm Password" type="password" value={this.state.passwordConfirm} onChange={this.handleInputChange} />
+              </FormGroup>
               <div className="pt-form-group" style={{ marginBottom: '0' }}>
                 <div className="pt-form-content" style={{ textAlign: 'center' }}>
-                  <Button iconName="log-in" intent={Intent.PRIMARY} type="submit" loading={this.state.isSubmitting}>Login</Button>
+                  <Button intent={Intent.PRIMARY} type="submit" loading={this.state.isSubmitting}>Register</Button>
                 </div>
               </div>
             </form>

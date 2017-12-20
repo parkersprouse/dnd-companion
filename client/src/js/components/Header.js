@@ -46,10 +46,12 @@ export default class Header extends Component {
     this.menu = (
       <div className="heading">
         <Navbar>
-          <NavbarGroup>
-            <AnchorButton href="/" className="pt-minimal" iconName="home">Home</AnchorButton>
-          </NavbarGroup>
-          { rightSide }
+          <div className="container">
+            <NavbarGroup>
+              <AnchorButton href="/" className="pt-minimal" iconName="home">Home</AnchorButton>
+            </NavbarGroup>
+            { rightSide }
+          </div>
         </Navbar>
       </div>
     );
@@ -60,15 +62,19 @@ export default class Header extends Component {
       this.menu = (
         <div className="heading">
           <Navbar>
-            <NavbarGroup align="right">
-              <Button onClick={() => this.setState({ isOpen: !this.state.isOpen })} className="pt-minimal" iconName="menu"></Button>
-            </NavbarGroup>
+            <div className="container">
+              <NavbarGroup align="right">
+                <Button onClick={() => this.setState({ isOpen: !this.state.isOpen })} className="pt-minimal" iconName="menu"></Button>
+              </NavbarGroup>
+            </div>
           </Navbar>
-          <Collapse isOpen={this.state.isOpen}>
-            <AnchorButton href="/" className="pt-minimal">Home</AnchorButton>
-            <AnchorButton href="/profile" className="pt-minimal">Profile</AnchorButton>
-            <AnchorButton href="/logout" className="pt-minimal">Logout</AnchorButton>
-          </Collapse>
+          <div className="container">
+            <Collapse isOpen={this.state.isOpen}>
+              <AnchorButton href="/" className="pt-minimal">Home</AnchorButton>
+              <AnchorButton href="/profile" className="pt-minimal">Profile</AnchorButton>
+              <AnchorButton href="/logout" className="pt-minimal">Logout</AnchorButton>
+            </Collapse>
+          </div>
         </div>
       );
     }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-export default class Container extends Component {
+export default class InnerContainer extends Component {
   render() {
     return (
-      <div className="container main-container">
+      <div className="container">
         { this.props.children }
       </div>
     );

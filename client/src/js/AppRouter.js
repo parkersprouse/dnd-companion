@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/LoginPage';
+import Register from './pages/RegisterPage';
 import NotFound from './pages/NotFound';
 
 function isAuthenticated() {
@@ -30,6 +31,7 @@ export default class AppRouter extends Component {
       <Switch>
         <Route exact path='/' component={Home} />
         <OnlyPublicRoute exact path='/login' component={Login} />
+        <OnlyPublicRoute exact path='/register' component={Register} />
         <PrivateRoute exact path='/profile' component={Home} />
         <Route path='*' component={NotFound} />
       </Switch>

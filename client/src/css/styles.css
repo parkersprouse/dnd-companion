@@ -4,6 +4,20 @@
 .heading {
   margin-bottom: 4rem; }
 
+.page-title {
+  margin-bottom: 2rem; }
+
 .login-form-container {
   margin-left: auto;
   margin-right: auto; }
+
+.login-form-extra-links {
+  margin-top: 2rem;
+  text-align: center; }
+
+.form-error-msg {
+  color: #AA0000;
+  margin-bottom: 2rem; }
+
+.required-label {
+  color: #AA0000; }
