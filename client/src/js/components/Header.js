@@ -7,7 +7,7 @@ export default class Header extends Component {
     super(props);
 
     this.state = {
-      isLoggedIn: false,
+      isLoggedIn: null,
       isOpen: false
     }
 
@@ -33,22 +33,24 @@ export default class Header extends Component {
       </Menu>;
 
     let rightSide = null;
-    if (this.state.isLoggedIn) {
-      rightSide =
-        <NavbarGroup align="right">
-          <Popover content={userDropdown} position={Position.BOTTOM}
-                   interactionKind={PopoverInteractionKind.HOVER}
-                   hoverOpenDelay={0} hoverCloseDelay={150}>
-            <AnchorButton className="pt-minimal" iconName="user" rightIconName="caret-down">User</AnchorButton>
-          </Popover>
-        </NavbarGroup>;
-    }
-    else {
-      rightSide =
-        <NavbarGroup align="right">
-          <AnchorButton href="/login" className="pt-minimal" iconName="log-in">Login</AnchorButton>
-          <AnchorButton href="/register" className="pt-minimal" iconName="new-person">Register</AnchorButton>
-        </NavbarGroup>;
+    if (this.state.isLoggedIn !== null) {
+      if (this.state.isLoggedIn) {
+        rightSide =
+          <NavbarGroup align="right">
+            <Popover content={userDropdown} position={Position.BOTTOM}
+                     interactionKind={PopoverInteractionKind.HOVER}
+                     hoverOpenDelay={0} hoverCloseDelay={150}>
+              <AnchorButton className="pt-minimal" iconName="user" rightIconName="caret-down">User</AnchorButton>
+            </Popover>
+          </NavbarGroup>;
+      }
+      else {
+        rightSide =
+          <NavbarGroup align="right">
+            <AnchorButton href="/login" className="pt-minimal" iconName="log-in">Login</AnchorButton>
+            <AnchorButton href="/register" className="pt-minimal" iconName="new-person">Register</AnchorButton>
+          </NavbarGroup>;
+      }
     }
 
     this.menu = (

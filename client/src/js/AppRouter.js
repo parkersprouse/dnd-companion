@@ -6,28 +6,37 @@ import Register from './pages/RegisterPage';
 import NotFound from './pages/NotFound';
 import utils from './lib/utils';
 
-function isAuthenticated() {
-  utils.isLoggedIn((loggedIn) => {
-    return loggedIn;
-  });
-  return true;
+class PrivateRoute extends Route {
+  componentWillMount() {
+    utils.isLoggedIn((loggedIn) => {
+      this.setState({ isLoggedIn: loggedIn });
+    });
+  }
+
+  render() {
+    if(this.state.isLoggedIn !== undefined) {
+      if(this.state.isLoggedIn) return <this.props.component {...this.props} />
+      else return <Redirect to={{ pathname: '/login', state: { next: this.props.location.pathname } }} />
+    }
+    return null;
+  }
 }
 
-// User must be logged in to access this route
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    isAuthenticated() ? <Component {...props} /> :
-    <Redirect to={{pathname: '/login', state: {next: props.location.pathname}}} />
-  )} />
-)
+class OnlyPublicRoute extends Route {
+  componentWillMount() {
+    utils.isLoggedIn((loggedIn) => {
+      this.setState({ isLoggedIn: loggedIn });
+    });
+  }
 
-// User must be logged out to access this route
-const OnlyPublicRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    !isAuthenticated() ? <Component {...props} /> :
-    <Redirect to='/' />
-  )} />
-)
+  render() {
+    if(this.state.isLoggedIn !== undefined) {
+      if(this.state.isLoggedIn) return <Redirect to='/' />
+      else return <this.props.component {...this.props} />
+    }
+    return null;
+  }
+}
 
 export default class AppRouter extends Component {
   render() {
@@ -37,6 +46,7 @@ export default class AppRouter extends Component {
         <OnlyPublicRoute exact path='/login' component={Login} />
         <OnlyPublicRoute exact path='/register' component={Register} />
         <PrivateRoute exact path='/profile' component={Home} />
+        <Route exact path='/logout' render={() => { utils.logout(); return <Redirect to='/' /> }} />
         <Route path='*' component={NotFound} />
       </Switch>
     );

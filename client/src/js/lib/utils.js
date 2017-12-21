@@ -19,9 +19,8 @@ module.exports = {
     }
   },
 
-  logout: function(to, from, next) {
+  logout: function() {
     cookies.remove('token');
-    next('/');
   },
 
   getCurrentUserInfo: function(callback) {
@@ -40,7 +39,7 @@ module.exports = {
   },
 
   isMobile: function() {
-    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1) || (window.innerWidth < 992);
+    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1) || (window.innerWidth <= 992);
   }
 
 }
