@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './js/AppRouter';
-import registerServiceWorker from './js/registerServiceWorker';
+import { unregister } from './js/registerServiceWorker';
 
 import './css/bootstrap.min.css';
 import '@blueprintjs/core/dist/blueprint.css';
@@ -17,4 +17,4 @@ ReactDOM.render((
   </BrowserRouter>
 ), document.getElementById('root'));
 
-registerServiceWorker();
+unregister();

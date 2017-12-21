@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Intent, FormGroup } from '@blueprintjs/core';
 import { Row, Col } from 'react-bootstrap';
 import api from '../lib/api';
+import FormLabel from './FormLabel';
 
 export default class LoginForm extends Component {
   constructor(props) {
@@ -28,15 +29,33 @@ export default class LoginForm extends Component {
           <div className="pt-card">
             { this.renderError() }
             <form onSubmit={this.submit}>
-              <FormGroup label="Username" labelFor="username-input">
-                <input id="username-input" name="username" className={this.state.usernameStyle} style={{ width: '100%' }} placeholder="Username" type="text" value={this.state.username} onChange={this.handleInputChange} />
+              <FormGroup label={<FormLabel required>Username</FormLabel>} labelFor="username-input">
+                <input id="username-input"
+                       name="username"
+                       className={this.state.usernameStyle}
+                       style={{ width: '100%' }}
+                       placeholder="Username"
+                       type="text"
+                       value={this.state.username}
+                       onChange={this.handleInputChange} />
               </FormGroup>
-              <FormGroup label="Password" labelFor="password-input">
-                <input id="password-input" name="password" className={this.state.passwordStyle} style={{ width: '100%' }} placeholder="Password" type="password" value={this.state.password} onChange={this.handleInputChange} />
+              <FormGroup label={<FormLabel required>Password</FormLabel>} labelFor="password-input">
+                <input id="password-input"
+                       name="password"
+                       className={this.state.passwordStyle}
+                       style={{ width: '100%' }}
+                       placeholder="Password"
+                       type="password"
+                       value={this.state.password}
+                       onChange={this.handleInputChange} />
               </FormGroup>
               <div className="pt-form-group" style={{ marginBottom: '0' }}>
                 <div className="pt-form-content" style={{ textAlign: 'center' }}>
-                  <Button iconName="log-in" intent={Intent.PRIMARY} type="submit" loading={this.state.isSubmitting}>Login</Button>
+                  <Button iconName="log-in"
+                          intent={Intent.PRIMARY}
+                          type="submit"
+                          loading={this.state.isSubmitting}>Login
+                  </Button>
                 </div>
               </div>
             </form>

@@ -13,10 +13,6 @@ export default class Header extends Component {
 
     this.configureDesktopMenu = this.configureDesktopMenu.bind(this);
     this.configureMobileMenu = this.configureMobileMenu.bind(this);
-
-    this.isMobile = false;
-    if (window.innerWidth < 992)
-      this.isMobile = true;
   }
 
   componentWillMount() {
@@ -40,7 +36,7 @@ export default class Header extends Component {
             <Popover content={userDropdown} position={Position.BOTTOM}
                      interactionKind={PopoverInteractionKind.HOVER}
                      hoverOpenDelay={0} hoverCloseDelay={150}>
-              <AnchorButton className="pt-minimal" iconName="user" rightIconName="caret-down">User</AnchorButton>
+              <AnchorButton className="pt-minimal" iconName="user" rightIconName="caret-down">Account</AnchorButton>
             </Popover>
           </NavbarGroup>;
       }
@@ -103,7 +99,7 @@ export default class Header extends Component {
   }
 
   render() {
-    if (this.isMobile)
+    if (utils.isMobile())
       this.configureMobileMenu();
     else
       this.configureDesktopMenu();

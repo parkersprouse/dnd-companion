@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Intent, FormGroup } from '@blueprintjs/core';
 import { Row, Col } from 'react-bootstrap';
 import api from '../lib/api';
+import FormLabel from './FormLabel';
 
 export default class RegisterForm extends Component {
   constructor(props) {
@@ -36,24 +37,63 @@ export default class RegisterForm extends Component {
             { this.renderError() }
             { this.renderSuccess() }
             <form onSubmit={this.submit}>
-              <FormGroup label="E-mail" labelFor="email-input">
-                <input id="email-input" name="email" className={this.state.emailStyle} style={{ width: '100%' }} placeholder="E-mail" type="text" value={this.state.email} onChange={this.handleInputChange} />
+              <FormGroup label={<FormLabel required>E-mail</FormLabel>} labelFor="email-input">
+                <input id="email-input"
+                       name="email"
+                       className={this.state.emailStyle}
+                       style={{ width: '100%' }}
+                       placeholder="E-mail"
+                       type="text"
+                       value={this.state.email}
+                       onChange={this.handleInputChange} />
               </FormGroup>
-              <FormGroup label="Username" labelFor="username-input">
-                <input id="username-input" name="username" className={this.state.usernameStyle} style={{ width: '100%' }} placeholder="Username" type="text" value={this.state.username} onChange={this.handleInputChange} />
+              <FormGroup label={<FormLabel required>Username</FormLabel>} labelFor="username-input">
+                <input id="username-input"
+                       name="username"
+                       className={this.state.usernameStyle}
+                       style={{ width: '100%' }}
+                       placeholder="Username"
+                       type="text"
+                       value={this.state.username}
+                       onChange={this.handleInputChange} />
               </FormGroup>
-              <FormGroup label="Name" labelFor="name-input">
-                <input id="name-input" name="name" className="pt-input" style={{ width: '100%' }} placeholder="Name" type="text" value={this.state.name} onChange={this.handleInputChange} />
+              <FormGroup label={<FormLabel>Name</FormLabel>} labelFor="name-input">
+                <input id="name-input"
+                       name="name"
+                       className="pt-input"
+                       style={{ width: '100%' }}
+                       placeholder="Name"
+                       type="text"
+                       value={this.state.name}
+                       onChange={this.handleInputChange} />
               </FormGroup>
-              <FormGroup label="Password" labelFor="password-input">
-                <input id="password-input" name="password" className={this.state.passwordStyle} style={{ width: '100%' }} placeholder="Password" type="password" value={this.state.password} onChange={this.handleInputChange} />
+              <FormGroup label={<FormLabel required>Password</FormLabel>} labelFor="password-input">
+                <input id="password-input"
+                       name="password"
+                       className={this.state.passwordStyle}
+                       style={{ width: '100%' }}
+                       placeholder="Password"
+                       type="password"
+                       value={this.state.password}
+                       onChange={this.handleInputChange} />
               </FormGroup>
-              <FormGroup label="Confirm Password" labelFor="confirm-password-input">
-                <input id="confirm-password-input" name="passwordConfirm" className={this.state.passwordConfirmStyle} style={{ width: '100%' }} placeholder="Confirm Password" type="password" value={this.state.passwordConfirm} onChange={this.handleInputChange} />
+              <FormGroup label={<FormLabel required>Confirm Password</FormLabel>} labelFor="confirm-password-input">
+                <input id="confirm-password-input"
+                       name="passwordConfirm"
+                       className={this.state.passwordConfirmStyle}
+                       style={{ width: '100%' }}
+                       placeholder="Confirm Password"
+                       type="password"
+                       value={this.state.passwordConfirm}
+                       onChange={this.handleInputChange} />
               </FormGroup>
               <div className="pt-form-group" style={{ marginBottom: '0' }}>
                 <div className="pt-form-content" style={{ textAlign: 'center' }}>
-                  <Button iconName="new-person" intent={Intent.PRIMARY} type="submit" loading={this.state.isSubmitting}>Register</Button>
+                  <Button iconName="new-person"
+                          intent={Intent.PRIMARY}
+                          type="submit"
+                          loading={this.state.isSubmitting}>Register
+                  </Button>
                 </div>
               </div>
             </form>
@@ -126,11 +166,6 @@ export default class RegisterForm extends Component {
           passwordConfirmStyle: data.content.confirmPasswordState ? 'pt-input' : 'pt-input pt-intent-danger'
         });
       }
-    });
-
-    this.setState({
-      isSubmitting: true,
-      errorMsg: null
     });
   }
 
