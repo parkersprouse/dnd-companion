@@ -24,37 +24,37 @@ export default class Header extends Component {
   configureDesktopMenu() {
     let userDropdown =
       <Menu>
-        <MenuItem text="Settings" iconName="cog" href="/profile" shouldDismissPopover={false} />
-        <MenuItem text="Logout" iconName="log-out" href="/logout" shouldDismissPopover={false} />
+        <MenuItem text='Settings' iconName='cog' href='/profile' shouldDismissPopover={false} />
+        <MenuItem text='Logout' iconName='log-out' href='/logout' shouldDismissPopover={false} />
       </Menu>;
 
     let rightSide = null;
     if (this.state.isLoggedIn !== null) {
       if (this.state.isLoggedIn) {
         rightSide =
-          <NavbarGroup align="right">
+          <NavbarGroup align='right'>
             <Popover content={userDropdown} position={Position.BOTTOM}
                      interactionKind={PopoverInteractionKind.HOVER}
                      hoverOpenDelay={0} hoverCloseDelay={150}>
-              <AnchorButton className="pt-minimal" iconName="user" rightIconName="caret-down">Account</AnchorButton>
+              <AnchorButton className='pt-minimal' iconName='user' rightIconName='caret-down'>Account</AnchorButton>
             </Popover>
           </NavbarGroup>;
       }
       else {
         rightSide =
-          <NavbarGroup align="right">
-            <AnchorButton href="/login" className="pt-minimal" iconName="log-in">Login</AnchorButton>
-            <AnchorButton href="/register" className="pt-minimal" iconName="new-person">Register</AnchorButton>
+          <NavbarGroup align='right'>
+            <AnchorButton href='/login' className='pt-minimal' iconName='log-in'>Login</AnchorButton>
+            <AnchorButton href='/register' className='pt-minimal' iconName='new-person'>Register</AnchorButton>
           </NavbarGroup>;
       }
     }
 
     this.menu = (
-      <div className="heading">
+      <div className='heading'>
         <Navbar>
-          <div className="container">
+          <div className='container'>
             <NavbarGroup>
-              <AnchorButton href="/" className="pt-minimal" iconName="home">Home</AnchorButton>
+              <AnchorButton href='/' className='pt-minimal' iconName='home'>Home</AnchorButton>
             </NavbarGroup>
             { rightSide }
           </div>
@@ -68,30 +68,30 @@ export default class Header extends Component {
     if (this.state.isLoggedIn) {
       items =
         <Collapse isOpen={this.state.isOpen}>
-          <AnchorButton href="/" className="pt-minimal">Home</AnchorButton>
-          <AnchorButton href="/profile" className="pt-minimal">Profile</AnchorButton>
-          <AnchorButton href="/logout" className="pt-minimal">Logout</AnchorButton>
+          <AnchorButton href='/' className='pt-minimal'>Home</AnchorButton>
+          <AnchorButton href='/profile' className='pt-minimal'>Profile</AnchorButton>
+          <AnchorButton href='/logout' className='pt-minimal'>Logout</AnchorButton>
         </Collapse>;
     }
     else {
       items =
         <Collapse isOpen={this.state.isOpen}>
-          <AnchorButton href="/" className="pt-minimal">Home</AnchorButton>
-          <AnchorButton href="/login" className="pt-minimal">Login</AnchorButton>
-          <AnchorButton href="/register" className="pt-minimal">Register</AnchorButton>
+          <AnchorButton href='/' className='pt-minimal'>Home</AnchorButton>
+          <AnchorButton href='/login' className='pt-minimal'>Login</AnchorButton>
+          <AnchorButton href='/register' className='pt-minimal'>Register</AnchorButton>
         </Collapse>;
     }
 
     this.menu = (
-      <div className="heading">
+      <div className='heading'>
         <Navbar>
-          <div className="container">
-            <NavbarGroup align="right">
-              <Button onClick={() => this.setState({ isOpen: !this.state.isOpen })} className="pt-minimal" iconName="menu"></Button>
+          <div className='container'>
+            <NavbarGroup align='right'>
+              <Button onClick={() => this.setState({ isOpen: !this.state.isOpen })} className='pt-minimal' iconName='menu'></Button>
             </NavbarGroup>
           </div>
         </Navbar>
-        <div className="container">
+        <div className='container'>
           { items }
         </div>
       </div>

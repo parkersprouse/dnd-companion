@@ -10,10 +10,10 @@ export default class RegisterPage extends Component {
       <OuterContainer>
         <Header />
         <InnerContainer>
-          <h1 className="page-title">Register</h1>
+          <h1 className='page-title'>Register</h1>
           <RegisterForm />
-          <div className="login-form-extra-links">
-            <a href="/login">Already have an account?</a>
+          <div className='login-form-extra-links'>
+            <a href='/login'>Already have an account?</a>
           </div>
         </InnerContainer>
       </OuterContainer>

@@ -11,21 +11,21 @@ export default class LoginPage extends Component {
       <OuterContainer>
         <Header />
         <InnerContainer>
-          <h1 className="page-title">Login</h1>
+          <h1 className='page-title'>Login</h1>
           {
             !!this.props.location.state && !!this.props.location.state.next ?
             <Row>
               <Col xs={12} md={6} mdOffset={3}>
-                <div className="pt-callout pt-intent-danger form-error-msg">
-                  <span className="pt-icon-issue"></span> You must be logged in to view that page
+                <div className='pt-callout pt-intent-danger form-error-msg'>
+                  <span className='pt-icon-issue'></span> You must be logged in to view that page
                 </div>
               </Col>
             </Row>
             : null
           }
           <LoginForm location={this.props.location} />
-          <div className="login-form-extra-links">
-            <a href="/register">Need an account?</a> | <a href="/register">Forgot password?</a>
+          <div className='login-form-extra-links'>
+            <a href='/register'>Need an account?</a> | <a href='/register'>Forgot password?</a>
           </div>
         </InnerContainer>
       </OuterContainer>

@@ -8,7 +8,7 @@ import './css/bootstrap.min.css';
 import '@blueprintjs/core/dist/blueprint.css';
 import './css/styles.css';
 
-import { FocusStyleManager } from "@blueprintjs/core";
+import { FocusStyleManager } from '@blueprintjs/core';
 FocusStyleManager.onlyShowFocusOnTabs();
 
 ReactDOM.render((
