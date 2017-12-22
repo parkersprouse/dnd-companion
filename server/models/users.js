@@ -1,4 +1,4 @@
-const { db, Sequelize } = require('../db');
+const { db, Sequelize } = require('../config/db');
 
 const attributes = {
   id:       { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, unique: true, primaryKey: true },

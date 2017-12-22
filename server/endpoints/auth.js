@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt-nodejs');
 const config = require('../config');
-const constants = require('../constants');
-const db = require('../db').db;
+const constants = require('../config/constants');
+const db = require('../config/db').db;
 const jwt = require('jsonwebtoken');
-const utils = require('../utils.js');
+const utils = require('../config/utils.js');
 const validator = require('validator');
 
 
