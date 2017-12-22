@@ -1,15 +1,6 @@
 // eslint-disable-next-line
 'use strict';
 
-//const bluebird = require('bluebird');
-
-// var options = {
-//   promiseLib: bluebird // Switch our db promises to use bluebird instead of ES6 Promises
-// };
-
-// var pgp = require('pg-promise')(options);
-// var db = pgp(config.dbConfig);
-
 const config = require('./config');
 const Sequelize = require('sequelize');
 

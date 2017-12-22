@@ -34,21 +34,20 @@ router.patch('/users/updatepw', users.updateUserPassword);
 */
 
 const Users = require('./models/users');
-// Users.findOne({ where: { username: 'asd' } })
+//Users.sync({ force: true })
+// Users.findOne({ where: { username: {$iLike: 'PSPROUSE'} } })
 //   .then(user => {
 //     console.log(user);
 //   }).catch(error => {
 //     console.log(error);
 //   });
-
-Users.create({ username: 'PSprouse3', email: 'PArker.sprouse3@gmail.com', pw_hash: 'asd' })
-  .then(user => {
-    console.log(user);
-  })
-  .catch(error => {
-    console.log('err')
-    console.log(error);
-    //console.log(error);
-  });
+// Users.create({ username: 'PSPROUSE', email: 'parker.sprouse2@gmail.com', pw_hash: 'asd' })
+//   .then(user => {
+//     console.log(user);
+//   })
+//   .catch(error => {
+//     console.log('err')
+//     console.log(error);
+//   });
 
 module.exports = router;
