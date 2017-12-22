@@ -4,7 +4,7 @@
 const pgp = require('./db').pgp;
 
 module.exports = {
-  db_err_duplicate: '23505',
+  db_err_duplicate: 'SequelizeUniqueConstraintError',
   db_err_no_result: pgp.errors.queryResultErrorCode.noData,
   db_query_result_error: pgp.errors.QueryResultError,
   http_ok: 200,

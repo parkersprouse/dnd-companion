@@ -27,6 +27,6 @@ const sequelize = new Sequelize({
 });
 
 module.exports = {
-  db: db,
-  pgp: pgp
-}
+  db: sequelize,
+  Sequelize: Sequelize
+};
