@@ -3,14 +3,14 @@
 
 const router = require('express').Router();
 
-//const auth = require('./endpoints/auth');
+const auth = require('./endpoints/auth');
 //const misc = require('./endpoints/misc');
 //const recipes = require('./endpoints/recipes');
 //const users = require('./endpoints/users');
 
 // auth endpoints
-//router.post('/auth/login', auth.login);
-//router.post('/auth/register', auth.register);
+router.post('/auth/login', auth.login);
+router.post('/auth/register', auth.register);
 
 // misc endpoints
 //router.post('/misc/verifyauthtoken', misc.verifyAuthToken);
@@ -33,16 +33,17 @@ router.patch('/users/update', users.updateUser);
 router.patch('/users/updatepw', users.updateUserPassword);
 */
 
-const Users = require('./models/users');
-
-//require('./config/setupDB')();
-Users.findOne({ where: { username: {$iLike: 'psprouse'} } })
-  .then(user => {
-    console.log(user);
-  }).catch(error => {
-    console.log(error);
-  });
-// Users.create({ username: 'PSPROUSE', email: 'parker.sprouse2@gmail.com', pw_hash: 'asd' })
+//const Users = require('./models/users');
+//require('./config/setup')();
+// Users.findOne({ where: { username: {$iLike: 'psprawwouse'} } })
+//   .then(user => {
+//     console.log('user');
+//     console.log(!!user);
+//   }).catch(error => {
+//     console.log('err');
+//     console.log(error);
+//   });
+// Users.create({ username: 'psprouse', email: 'parker.sprouse2@gmail.com', pw_hash: '$2a$10$o.imI0sdb0ffv54x8R9cIuQAIIAv8QnAOcHFHHAsAXXkorP4syNvO' })
 //   .then(user => {
 //     console.log(user);
 //   })

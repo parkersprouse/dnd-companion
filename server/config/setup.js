@@ -1,3 +1,7 @@
+/*
+ * Running this function will drop and re-create all of the tables on the database.
+ */
+
 const Users = require('../models/users');
 
 function setup() {

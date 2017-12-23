@@ -3,12 +3,81 @@ const config = require('../config');
 const constants = require('../config/constants');
 const db = require('../config/db').db;
 const jwt = require('jsonwebtoken');
-const utils = require('../config/utils.js');
+const utils = require('../utils.js');
 const validator = require('validator');
+const Users = require('../models/users');
 
+function login(req, res, next) {
+  const username = req.body.username;
+  const password = req.body.password;
+  const usernameEmpty = validator.isEmpty(username);
+  const passwordEmpty = validator.isEmpty(password);
 
+  if (usernameEmpty || passwordEmpty) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: {
+          usernameState: !usernameEmpty,
+          passwordState: !passwordEmpty
+        },
+        message: 'Please make sure all required fields are filled out'
+      });
+  }
+  else {
+    Users.findOne({ where: { username: { $iLike: username } } })
+      .then((user) => {
+        if (!user) {
+          res.status(constants.http_unauthorized)
+            .json({
+              status: 'failure',
+              content: user,
+              message: 'Your username or password was incorrect'
+            });
+        }
+        else {
+          const data = user.dataValues;
+          const match = bcrypt.compareSync(password, data.pw_hash);
+          if (match) {
+            const payload = utils.generateJwtPayload(data);
+            const token = jwt.sign(payload, config.jwtSecret);
+            res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
+            res.status(constants.http_ok)
+              .json({
+                status: 'success',
+                content: token,
+                message: 'Successfully logged in'
+              });
+          } else {
+            res.status(constants.http_unauthorized)
+              .json({
+                status: 'failure',
+                content: data,
+                message: 'Your username or password was incorrect'
+              });
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        res.status(constants.http_server_error)
+          .json({
+            status: 'failure',
+            content: err,
+            message: 'There was an unknown problem when attempting to log you in'
+          });
+      });
+  }
+}
 
+function register(req, res, next) {
 
+}
+
+module.exports = {
+  login: login,
+  register: register
+}
 
 
 
