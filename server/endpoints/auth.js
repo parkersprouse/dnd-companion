@@ -27,10 +27,13 @@ function login(req, res, next) {
     Users.findOne({ where: { username: { $iLike: username } } })
       .then((user) => {
         if (!user) {
-          res.status(constants.http_unauthorized)
+          res.status(constants.http_bad_request)
             .json({
               status: 'failure',
-              content: user,
+              content: {
+                usernameState: false,
+                passwordState: false
+              },
               message: 'Your username or password was incorrect'
             });
         }
@@ -40,7 +43,6 @@ function login(req, res, next) {
           if (match) {
             const payload = utils.generateJwtPayload(data);
             const token = jwt.sign(payload, config.jwtSecret);
-            console.log(token)
             res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
             res.status(constants.http_ok)
               .json({
@@ -48,22 +50,28 @@ function login(req, res, next) {
                 content: token,
                 message: 'Successfully logged in'
               });
-          } else {
-            res.status(constants.http_unauthorized)
+          }
+          else {
+            res.status(constants.http_bad_request)
               .json({
                 status: 'failure',
-                content: data,
+                content: {
+                  usernameState: false,
+                  passwordState: false
+                },
                 message: 'Your username or password was incorrect'
               });
           }
         }
       })
       .catch((err) => {
-        console.log(err)
         res.status(constants.http_server_error)
           .json({
             status: 'failure',
-            content: err,
+            content: {
+              usernameState: false,
+              passwordState: false
+            },
             message: 'There was an unknown problem when attempting to log you in'
           });
       });
