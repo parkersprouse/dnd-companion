@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt-nodejs');
 const config = require('../config');
 const constants = require('../config/constants');
-const db = require('../config/db').db;
 const jwt = require('jsonwebtoken');
 const utils = require('../utils.js');
 const validator = require('validator');
@@ -41,6 +40,7 @@ function login(req, res, next) {
           if (match) {
             const payload = utils.generateJwtPayload(data);
             const token = jwt.sign(payload, config.jwtSecret);
+            console.log(token)
             res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
             res.status(constants.http_ok)
               .json({

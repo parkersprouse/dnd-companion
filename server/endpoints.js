@@ -4,7 +4,7 @@
 const router = require('express').Router();
 
 const auth = require('./endpoints/auth');
-//const misc = require('./endpoints/misc');
+const misc = require('./endpoints/misc');
 //const recipes = require('./endpoints/recipes');
 //const users = require('./endpoints/users');
 
@@ -13,7 +13,7 @@ router.post('/auth/login', auth.login);
 router.post('/auth/register', auth.register);
 
 // misc endpoints
-//router.post('/misc/verifyauthtoken', misc.verifyAuthToken);
+router.post('/misc/verifyauthtoken', misc.verifyAuthToken);
 
 /*
 // recipe endpoints
