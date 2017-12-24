@@ -69,7 +69,7 @@ export default class LoginForm extends Component {
     if (this.state.errorMsg) {
       return (
         <div className='pt-callout pt-intent-danger form-error-msg'>
-          <span className='pt-icon-issue'></span> { this.state.errorMsg }
+          <span className='pt-icon-error'></span> { this.state.errorMsg }
         </div>
       );
     }

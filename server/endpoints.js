@@ -33,24 +33,4 @@ router.patch('/users/update', users.updateUser);
 router.patch('/users/updatepw', users.updateUserPassword);
 */
 
-//const Users = require('./models/users');
-//require('./config/setup')();
-// Users.findOne({ where: { username: {$iLike: 'psprawwouse'} } })
-//   .then(user => {
-//     console.log('user');
-//     console.log(!!user);
-//   }).catch(error => {
-//     console.log('err');
-//     console.log(error);
-//   });
-// Users.create({ username: 'psprouse', email: 'parker.sprouse3@gmail.com', pw_hash: '$2a$10$o.imI0sdb0ffv54x8R9cIuQAIIAv8QnAOcHFHHAsAXXkorP4syNvO' })
-//   .then(user => {
-//     console.log('user')
-//     console.log(user);
-//   })
-//   .catch(error => {
-//     console.log('err')
-//     console.log(error.errors[0].path);
-//   });
-
 module.exports = router;

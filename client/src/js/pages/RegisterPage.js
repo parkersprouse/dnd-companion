@@ -13,7 +13,7 @@ export default class RegisterPage extends Component {
           <h1 className='page-title'>Register</h1>
           <RegisterForm />
           <div className='login-form-extra-links'>
-            <a href='/login'>Already have an account?</a>
+            <a href='/login'>Login</a>
           </div>
         </InnerContainer>
       </OuterContainer>

@@ -15,17 +15,17 @@ export default class RegisterForm extends Component {
 
     this.state = {
       errorMsg: null,
-      success: true,
+      success: false,
       isSubmitting: false,
       email: '',
       username: '',
       password: '',
-      passwordConfirm: '',
+      confirmPassword: '',
       name: '',
       emailStyle: 'pt-input',
       usernameStyle: 'pt-input',
       passwordStyle: 'pt-input',
-      passwordConfirmStyle: 'pt-input'
+      confirmPasswordStyle: 'pt-input'
     }
   }
 
@@ -79,12 +79,12 @@ export default class RegisterForm extends Component {
               </FormGroup>
               <FormGroup label={<FormLabel required>Confirm Password</FormLabel>} labelFor='confirm-password-input'>
                 <input id='confirm-password-input'
-                       name='passwordConfirm'
-                       className={this.state.passwordConfirmStyle}
+                       name='confirmPassword'
+                       className={this.state.confirmPasswordStyle}
                        style={{ width: '100%' }}
                        placeholder='Confirm Password'
                        type='password'
-                       value={this.state.passwordConfirm}
+                       value={this.state.confirmPassword}
                        onChange={this.handleInputChange} />
               </FormGroup>
               <div className='pt-form-group' style={{ marginBottom: '0' }}>
@@ -107,7 +107,7 @@ export default class RegisterForm extends Component {
     if (this.state.errorMsg) {
       return (
         <div className='pt-callout pt-intent-danger form-error-msg'>
-          <span className='pt-icon-issue'></span> { this.state.errorMsg }
+          <span className='pt-icon-error'></span> { this.state.errorMsg }
         </div>
       );
     }
@@ -119,8 +119,7 @@ export default class RegisterForm extends Component {
       return (
         <div className='pt-callout pt-intent-success form-success-msg'>
           <span className='pt-icon-tick-circle'></span>&nbsp;
-          Your account has been successfully registered.<br />
-          You may now <a href='/login'>login</a>.
+          Your account has been successfully registered. You may now <a href='/login'>login</a>.
         </div>
       );
     }
@@ -134,7 +133,7 @@ export default class RegisterForm extends Component {
       emailStyle: 'pt-input',
       usernameStyle: 'pt-input',
       passwordStyle: 'pt-input',
-      passwordConfirmStyle: 'pt-input'
+      confirmPasswordStyle: 'pt-input'
     })
   }
 
@@ -147,7 +146,7 @@ export default class RegisterForm extends Component {
       email: this.state.email,
       username: this.state.username,
       password: this.state.password,
-      confirmpassword: this.state.passwordConfirm,
+      confirmPassword: this.state.confirmPassword,
       name: this.state.name
     }, (success, response) => {
       if (success) {
@@ -164,7 +163,7 @@ export default class RegisterForm extends Component {
           emailStyle: data.content.emailState ? 'pt-input' : 'pt-input pt-intent-danger',
           usernameStyle: data.content.usernameState ? 'pt-input' : 'pt-input pt-intent-danger',
           passwordStyle: data.content.passwordState ? 'pt-input' : 'pt-input pt-intent-danger',
-          passwordConfirmStyle: data.content.confirmPasswordState ? 'pt-input' : 'pt-input pt-intent-danger'
+          confirmPasswordStyle: data.content.confirmPasswordState ? 'pt-input' : 'pt-input pt-intent-danger'
         });
       }
     });
