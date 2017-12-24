@@ -1,47 +1,44 @@
 const config = require('../config');
-const constants = require('../constants');
-const db = require('../db').db;
+const constants = require('../config/constants');
 const jwt = require('jsonwebtoken');
+const Users = require('../models/users');
 
+// private functions
+
+function failedToVerifyToken(res) {
+  res.status(constants.http_bad_request)
+    .json({
+      status: 'failure',
+      message: 'Failed to decode jwt'
+    });
+}
 
 // public functions
 
 function verifyAuthToken(req, res, next) {
   try {
     const decoded = jwt.verify(req.body.token, config.jwtSecret);
-
-    db.one('select * from users where lower(email) = lower($1)', decoded.email)
-      .then(function (data) {
-        if (decoded.hash === data.pw_hash) {
-          res.status(constants.http_ok)
-            .json({
-              status: 'success',
-              content: decoded,
-              message: 'Successfully decoded jwt'
-            });
-        }
+    Users.findOne({ where: { email: { $iLike: decoded.email } } })
+      .then((data) => {
+        if (!data) failedToVerifyToken(res);
         else {
-          res.status(constants.http_bad_request)
-            .json({
-              status: 'failure',
-              message: 'Failed to decode jwt'
-            });
+          if (decoded.hash === data.pw_hash) {
+            res.status(constants.http_ok)
+              .json({
+                status: 'success',
+                content: decoded,
+                message: 'Successfully decoded jwt'
+              });
+          }
+          else failedToVerifyToken(res);
         }
       })
-      .catch(function (err) {
-        res.status(constants.http_bad_request)
-          .json({
-            status: 'failure',
-            message: 'Failed to decode jwt'
-          });
+      .catch((err) => {
+        failedToVerifyToken(res);
       });
   }
   catch(err) {
-    res.status(constants.http_bad_request)
-      .json({
-        status: 'failure',
-        message: 'Failed to decode jwt'
-      });
+    failedToVerifyToken(res);
   }
 }
 

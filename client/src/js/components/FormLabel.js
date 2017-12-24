@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import OuterContainer from '../components/OuterContainer';
-import InnerContainer from '../components/InnerContainer';
-import Header from '../components/Header';
-import utils from '../lib/utils';
 
 export default class FormLabel extends Component {
   constructor(props) {

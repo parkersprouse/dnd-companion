@@ -1,72 +1,78 @@
-// eslint-disable-next-line
-'use strict';
-
 const bcrypt = require('bcrypt-nodejs');
 const config = require('../config');
-const constants = require('../constants');
-const db = require('../db').db;
+const constants = require('../config/constants');
 const jwt = require('jsonwebtoken');
 const utils = require('../utils.js');
 const validator = require('validator');
-
-
-// public functions
+const Users = require('../models/users');
 
 function login(req, res, next) {
   const username = req.body.username;
   const password = req.body.password;
+  const usernameEmpty = validator.isEmpty(username);
+  const passwordEmpty = validator.isEmpty(password);
 
-  if (validator.isEmpty(username) || validator.isEmpty(password)) {
+  if (usernameEmpty || passwordEmpty) {
     res.status(constants.http_bad_request)
       .json({
         status: 'failure',
         content: {
-          usernameState: validator.isEmpty(username) ? false : true,
-          passwordState: validator.isEmpty(password) ? false : true
+          usernameState: !usernameEmpty,
+          passwordState: !passwordEmpty
         },
         message: 'Please make sure all required fields are filled out'
       });
   }
   else {
-    db.one('select * from users where lower(username) = lower($1)', username)
-      .then(function(data) {
-        const match = bcrypt.compareSync(password, data.pw_hash);
-        if (match) {
-          const payload = utils.generateJwtPayload(data);
-          const token = jwt.sign(payload, config.jwtSecret);
-          res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
-          res.status(constants.http_ok)
-            .json({
-              status: 'success',
-              content: token,
-              message: 'Successfully logged in'
-            });
-        } else {
-          res.status(constants.http_unauthorized)
+    Users.findOne({ where: { username: { $iLike: username } } })
+      .then((data) => {
+        if (!data) {
+          res.status(constants.http_bad_request)
             .json({
               status: 'failure',
-              content: data,
-              message: 'Your username or password was incorrect'
-            });
-        }
-      })
-      .catch(function(err) {
-        if (err instanceof constants.db_query_result_error && err.code === constants.db_err_no_result) {
-          res.status(constants.http_unauthorized)
-            .json({
-              status: 'failure',
-              content: err,
+              content: {
+                usernameState: false,
+                passwordState: false
+              },
               message: 'Your username or password was incorrect'
             });
         }
         else {
-          res.status(constants.http_server_error)
-            .json({
-              status: 'failure',
-              content: err,
-              message: 'There was an unknown problem when attempting to log you in'
-            });
+          const match = bcrypt.compareSync(password, data.pw_hash);
+          if (match) {
+            const payload = utils.generateJwtPayload(data);
+            const token = jwt.sign(payload, config.jwtSecret);
+            res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
+            res.status(constants.http_ok)
+              .json({
+                status: 'success',
+                content: token,
+                message: 'Successfully logged in'
+              });
+          }
+          else {
+            res.status(constants.http_bad_request)
+              .json({
+                status: 'failure',
+                content: {
+                  usernameState: false,
+                  passwordState: false
+                },
+                message: 'Your username or password was incorrect'
+              });
+          }
         }
+      })
+      .catch((err) => {
+        res.status(constants.http_server_error)
+          .json({
+            status: 'failure',
+            content: {
+              usernameState: false,
+              passwordState: false
+            },
+            message: 'There was an unknown problem when attempting to log you in'
+          });
       });
   }
 }
@@ -75,18 +81,22 @@ function register(req, res, next) {
   const email = req.body.email;
   const username = req.body.username;
   const password = req.body.password;
-  const confirmpassword = req.body.confirmpassword;
+  const confirmPassword = req.body.confirmPassword;
   const name = req.body.name;
 
-  if (validator.isEmpty(email) || validator.isEmpty(username) || validator.isEmpty(password) || validator.isEmpty(confirmpassword)) {
+  const emailEmpty = validator.isEmpty(email);
+  const usernameEmpty = validator.isEmpty(username);
+  const passwordEmpty = validator.isEmpty(password);
+  const confirmPasswordEmpty = validator.isEmpty(confirmPassword);
+  if (emailEmpty || usernameEmpty || passwordEmpty || confirmPasswordEmpty) {
     res.status(constants.http_bad_request)
       .json({
         status: 'failure',
         content: {
-          emailState: validator.isEmpty(email) ? false : true,
-          usernameState: validator.isEmpty(username) ? false : true,
-          passwordState: validator.isEmpty(password) ? false : true,
-          confirmPasswordState: validator.isEmpty(confirmpassword) ? false : true
+          emailState: !emailEmpty,
+          usernameState: !usernameEmpty,
+          passwordState: !passwordEmpty,
+          confirmPasswordState: !confirmPasswordEmpty
         },
         message: 'Please make sure all required fields are filled out'
       });
@@ -117,7 +127,7 @@ function register(req, res, next) {
         message: 'Password should be at least 6 characters long'
       });
   }
-  else if (password !== confirmpassword) {
+  else if (password !== confirmPassword) {
     res.status(constants.http_bad_request)
       .json({
         status: 'failure',
@@ -133,18 +143,8 @@ function register(req, res, next) {
   else {
     const salt = bcrypt.genSaltSync();
     const pw_hash = bcrypt.hashSync(password, salt);
-    const data = {
-      email: email,
-      username: username,
-      pw_hash: pw_hash,
-      name: name
-    };
 
-    let query = 'insert into users ' +
-                '(email, username, pw_hash, name) ' +
-                'values(${email}, ${username}, ${pw_hash}, ${name}) ' +
-                'returning id';
-    db.one(query, data)
+    Users.create({ username: username, email: email, pw_hash: pw_hash, name: name })
       .then(function (data) {
         res.status(constants.http_ok)
           .json({
@@ -161,19 +161,16 @@ function register(req, res, next) {
         };
         let message = 'There was an unknown problem when creating your account';
 
-        if (err.code === constants.db_err_duplicate) {
-          if (err.constraint.indexOf('username') > -1) {
+        if (err.name === constants.db_err_duplicate) {
+          if (err.errors[0].path === 'username') {
             message = 'An account with that username already exists';
             content.usernameState = false;
           }
-          else if (err.constraint.indexOf('email') > -1) {
+          else if (err.errors[0].path === 'email') {
             message = 'An account with that e-mail address already exists';
             content.emailState = false;
           }
         }
-
-        console.log(message)
-
         res.status(constants.http_bad_request)
           .json({
             status: 'failure',
