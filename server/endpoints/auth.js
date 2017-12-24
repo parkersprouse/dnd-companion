@@ -25,8 +25,8 @@ function login(req, res, next) {
   }
   else {
     Users.findOne({ where: { username: { $iLike: username } } })
-      .then((user) => {
-        if (!user) {
+      .then((data) => {
+        if (!data) {
           res.status(constants.http_bad_request)
             .json({
               status: 'failure',
@@ -38,7 +38,6 @@ function login(req, res, next) {
             });
         }
         else {
-          const data = user.dataValues;
           const match = bcrypt.compareSync(password, data.pw_hash);
           if (match) {
             const payload = utils.generateJwtPayload(data);
@@ -79,7 +78,107 @@ function login(req, res, next) {
 }
 
 function register(req, res, next) {
+  const email = req.body.email;
+  const username = req.body.username;
+  const password = req.body.password;
+  const confirmpassword = req.body.confirmpassword;
+  const name = req.body.name;
 
+  const emailEmpty = validator.isEmpty(email);
+  const usernameEmpty = validator.isEmpty(username);
+  const passwordEmpty = validator.isEmpty(password);
+  const confirmpasswordEmpty = validator.isEmpty(confirmpassword);
+  if (emailEmpty || usernameEmpty || passwordEmpty || confirmpasswordEmpty) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: {
+          emailState: !emailEmpty,
+          usernameState: !usernameEmpty,
+          passwordState: !passwordEmpty,
+          confirmPasswordState: !confirmpasswordEmpty
+        },
+        message: 'Please make sure all required fields are filled out'
+      });
+  }
+  else if (!validator.isEmail(email)) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: {
+          emailState: false,
+          usernameState: true,
+          passwordState: true,
+          confirmPasswordState: true
+        },
+        message: 'Please make sure your email is valid'
+      });
+  }
+  else if (password.length < 6) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: {
+          emailState: true,
+          usernameState: true,
+          passwordState: false,
+          confirmPasswordState: true
+        },
+        message: 'Password should be at least 6 characters long'
+      });
+  }
+  else if (password !== confirmpassword) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: {
+          emailState: true,
+          usernameState: true,
+          passwordState: false,
+          confirmPasswordState: false
+        },
+        message: 'Your passwords did not match'
+      });
+  }
+  else {
+    const salt = bcrypt.genSaltSync();
+    const pw_hash = bcrypt.hashSync(password, salt);
+
+    Users.create({ username: username, email: email, pw_hash: pw_hash, name: name })
+      .then(function (data) {
+        res.status(constants.http_ok)
+          .json({
+            status: 'success',
+            message: 'Registration Successful'
+          });
+      })
+      .catch(function (err) {
+        const content = {
+          emailState: true,
+          usernameState: true,
+          passwordState: true,
+          confirmPasswordState: true
+        };
+        let message = 'There was an unknown problem when creating your account';
+
+        if (err.name === constants.db_err_duplicate) {
+          if (err.errors[0].path === 'username') {
+            message = 'An account with that username already exists';
+            content.usernameState = false;
+          }
+          else if (err.errors[0].path === 'email') {
+            message = 'An account with that e-mail address already exists';
+            content.emailState = false;
+          }
+        }
+        res.status(constants.http_bad_request)
+          .json({
+            status: 'failure',
+            content: content,
+            message: message
+          });
+      });
+  }
 }
 
 module.exports = {

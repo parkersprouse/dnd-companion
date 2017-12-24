@@ -18,14 +18,10 @@ function failedToVerifyToken(res) {
 function verifyAuthToken(req, res, next) {
   try {
     const decoded = jwt.verify(req.body.token, config.jwtSecret);
-
     Users.findOne({ where: { email: { $iLike: decoded.email } } })
-      .then((user) => {
-        if (!user) {
-          failedToVerifyToken(res);
-        }
+      .then((data) => {
+        if (!data) failedToVerifyToken(res);
         else {
-          const data = user.dataValues;
           if (decoded.hash === data.pw_hash) {
             res.status(constants.http_ok)
               .json({
@@ -34,9 +30,7 @@ function verifyAuthToken(req, res, next) {
                 message: 'Successfully decoded jwt'
               });
           }
-          else {
-            failedToVerifyToken(res);
-          }
+          else failedToVerifyToken(res);
         }
       })
       .catch((err) => {

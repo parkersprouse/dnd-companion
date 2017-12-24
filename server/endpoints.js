@@ -43,13 +43,14 @@ router.patch('/users/updatepw', users.updateUserPassword);
 //     console.log('err');
 //     console.log(error);
 //   });
-// Users.create({ username: 'psprouse', email: 'parker.sprouse2@gmail.com', pw_hash: '$2a$10$o.imI0sdb0ffv54x8R9cIuQAIIAv8QnAOcHFHHAsAXXkorP4syNvO' })
+// Users.create({ username: 'psprouse', email: 'parker.sprouse3@gmail.com', pw_hash: '$2a$10$o.imI0sdb0ffv54x8R9cIuQAIIAv8QnAOcHFHHAsAXXkorP4syNvO' })
 //   .then(user => {
+//     console.log('user')
 //     console.log(user);
 //   })
 //   .catch(error => {
 //     console.log('err')
-//     console.log(error);
+//     console.log(error.errors[0].path);
 //   });
 
 module.exports = router;

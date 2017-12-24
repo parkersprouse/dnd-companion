@@ -15,7 +15,7 @@ export default class RegisterForm extends Component {
 
     this.state = {
       errorMsg: null,
-      success: false,
+      success: true,
       isSubmitting: false,
       email: '',
       username: '',
@@ -118,6 +118,7 @@ export default class RegisterForm extends Component {
     if (this.state.success) {
       return (
         <div className='pt-callout pt-intent-success form-success-msg'>
+          <span className='pt-icon-tick-circle'></span>&nbsp;
           Your account has been successfully registered.<br />
           You may now <a href='/login'>login</a>.
         </div>
