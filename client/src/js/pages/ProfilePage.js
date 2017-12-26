@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, EditableText } from '@blueprintjs/core';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
@@ -8,16 +9,31 @@ export default class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      user: null,
+      username: null,
+      email: null,
+      name: null
     }
+
+    this.onInputChange = this.onInputChange.bind(this);
+    this.renderSubmitButton = this.renderSubmitButton.bind(this);
   }
 
   componentDidMount() {
     utils.getCurrentUserInfo((success, response) => {
       if (success) {
-        this.setState({ user: response });
+        this.setState({
+          user: response,
+          username: response.username,
+          email: response.email,
+          name: response.name
+        });
       }
     });
+  }
+
+  onInputChange(input, value) {
+    this.setState({ [input]: value });
   }
 
   render() {
@@ -26,11 +42,18 @@ export default class ProfilePage extends Component {
       <OuterContainer>
         <Header />
         <InnerContainer>
-          Username: { this.state.user.username }<br/>
-          E-mail: { this.state.user.email }<br/>
-          Name: { this.state.user.name }
+          Username: <EditableText value={this.state.username} onChange={(newVal) => this.onInputChange('username', newVal)} /><br />
+          E-mail: <EditableText value={this.state.email} onChange={(newVal) => this.onInputChange('email', newVal)} /><br />
+          Name: <EditableText value={this.state.name} onChange={(newVal) => this.onInputChange('name', newVal)} /><br /><br />
+          { this.renderSubmitButton() }
         </InnerContainer>
       </OuterContainer>
     );
+  }
+
+  renderSubmitButton() {
+    if (this.state.username !== this.state.user.username || this.state.email !== this.state.user.email || this.state.name !== this.state.user.name)
+      return <Button onClick={() => console.log('saved')}>Save Changes</Button>
+    return null;
   }
 }
