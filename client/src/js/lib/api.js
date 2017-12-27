@@ -7,7 +7,7 @@ function performGet(endpoint, callback) {
     callback(response.status === constants.http_ok, response.data);
   })
   .catch(function (error) {
-    callback(false, error.response);
+    callback(false, error.response.data);
   });
 }
 
@@ -17,7 +17,7 @@ function performPost(endpoint, data, callback) {
     callback(response.status === constants.http_ok, response.data);
   })
   .catch(function (error) {
-    callback(false, error.response);
+    callback(false, error.response.data);
   });
 }
 
@@ -28,7 +28,7 @@ function performDelete(endpoint, callback) {
              response.status === constants.http_no_content, response.data);
   })
   .catch(function (error) {
-    callback(false, error.response);
+    callback(false, error.response.data);
   });
 }
 
@@ -38,7 +38,7 @@ function performPut(endpoint, data, callback) {
     callback(response.status === constants.http_ok, response.data);
   })
   .catch(function (error) {
-    callback(false, error.response);
+    callback(false, error.response.data);
   });
 }
 
@@ -48,7 +48,7 @@ function performPatch(endpoint, data, callback) {
     callback(response.status === constants.http_ok, response.data);
   })
   .catch(function (error) {
-    callback(false, error.response);
+    callback(false, error.response.data);
   });
 }
 
@@ -62,12 +62,12 @@ module.exports = {
     performPost('/api/auth/login', data, callback);
   },
 
-  getUserByID: function(id, callback) {
-    performGet('/api/users/id/' + id, callback);
+  getUsers: function(callback) {
+    performGet('/api/users', callback);
   },
 
-  getUserByEmail: function(email, callback) {
-    performGet('/api/users/email/' + email, callback);
+  getUserBy: function(data, callback) {
+    performPost('/api/users', data, callback);
   },
 
   updateUser: function(data, callback) {

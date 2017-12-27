@@ -12,28 +12,70 @@ function getUserBy(req, res, next) {
   const value = attr === 'id' ? req.body[attr] : { $iLike: req.body[attr] };
   Users.findOne({ where: { [attr]: value } })
     .then((data) => {
-      console.log(data);
+      res.status(constants.http_ok)
+        .json({
+          status: 'success',
+          content: data.get({ plain: true }),
+          message: 'Got all users'
+        });
     })
     .catch((err) => {
-      console.log(err);
+      res.status(constants.http_bad_request)
+        .json({
+          status: 'failure',
+          content: err.message,
+          message: 'Failed to get all users'
+        });
     });
 }
 
 function getUsers(req, res, next) {
   Users.findAll()
     .then((data) => {
-      const arr = [];
-      data.forEach((usr) => arr.push(usr.get({plain: true})));
-      console.log(arr);
+      const users = [];
+      data.forEach((usr) => users.push(usr.get({ plain: true })));
+      res.status(constants.http_ok)
+        .json({
+          status: 'success',
+          content: users,
+          message: 'Got all users'
+        });
     })
     .catch((err) => {
-      console.log(err);
+      res.status(constants.http_bad_request)
+        .json({
+          status: 'failure',
+          content: err.message,
+          message: 'Failed to get all users'
+        });
+    });
+}
+
+function updateUser(req, res, next) {
+  // make sure to check validity of username and email first
+  Users.update(req.body, { where: { id: req.body.id }})
+    .then((data) => {
+      res.status(constants.http_ok)
+        .json({
+          status: 'success',
+          content: data,
+          message: 'Updated user'
+        });
+    })
+    .catch((err) => {
+      res.status(constants.http_bad_request)
+        .json({
+          status: 'failure',
+          content: err.message,
+          message: 'Failed to update user'
+        });
     });
 }
 
 module.exports = {
-  getUsers: getUsers,
-  getUserBy: getUserBy
+  getUsers,
+  getUserBy,
+  updateUser
 }
 
 
