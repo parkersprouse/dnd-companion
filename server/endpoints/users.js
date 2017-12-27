@@ -53,14 +53,38 @@ function getUsers(req, res, next) {
 
 function updateUser(req, res, next) {
   // make sure to check validity of username and email first
-  Users.update(req.body, { where: { id: req.body.id }})
+
+
+  // it's very possible that the update call will check for uniqueness, so this is likely unnecessary
+  Users.findOne({ where: { [Op.or]: [{ username: { $iLike: req.body.username } }, { email: { $iLike: req.body.email } }] } })
     .then((data) => {
-      res.status(constants.http_ok)
-        .json({
-          status: 'success',
-          content: data,
-          message: 'Updated user'
-        });
+      if (!data) {
+        Users.update(req.body, { where: { id: req.body.id }})
+          .then((data) => {
+            res.status(constants.http_ok)
+              .json({
+                status: 'success',
+                content: data,
+                message: 'Updated user'
+              });
+          })
+          .catch((err) => {
+            res.status(constants.http_bad_request)
+              .json({
+                status: 'failure',
+                content: err.message,
+                message: 'Failed to update user'
+              });
+          });
+      }
+      else {
+        res.status(constants.http_bad_request)
+          .json({
+            status: 'failure',
+            content: data,
+            message: 'Updated user'
+          });
+      }
     })
     .catch((err) => {
       res.status(constants.http_bad_request)
