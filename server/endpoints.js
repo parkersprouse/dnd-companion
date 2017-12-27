@@ -33,23 +33,10 @@ router.delete('/recipe/delete/:id', recipes.deleteRecipe);
 */
 
 // const mailer = require('./config/mailer');
-// mailer.transmissions.send({
-//   content: {
-//     from: 'parker@mail.parkersprouse.me',
-//     subject: 'SparkPost Hello World',
-//     html:'<html><body><p>Testing SparkPost - the world\'s most awesomest email service!</p></body></html>'
-//   },
-//   recipients: [
-//     { address: 'parker@parkersprouse.me' }
-//   ]
-// })
-// .then(data => {
-//   console.log('Woohoo! You just sent your first mailing!');
-//   console.log(data);
-// })
-// .catch(err => {
-//   console.log('Whoops! Something went wrong');
-//   console.log(err);
-// });
+// mailer({
+//   subject: "Hello",
+//   content: "How is this working?",
+//   addresses: ['parker@parkersprouse.me']
+// }, (success) => { console.log(success) });
 
 module.exports = router;
