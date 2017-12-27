@@ -53,7 +53,26 @@ export default class ProfilePage extends Component {
 
   renderSubmitButton() {
     if (this.state.username !== this.state.user.username || this.state.email !== this.state.user.email || this.state.name !== this.state.user.name)
-      return <Button onClick={() => console.log('saved')}>Save Changes</Button>
+      return <Button onClick={this.submit}>Save Changes</Button>
     return null;
+  }
+
+  submit() {
+    const axios = require('axios');
+    // axios.get('/api/users')
+    // .then(function (response) {
+    //   console.log(response)
+    // })
+    // .catch(function (error) {
+    //   console.log(error.response)
+    // });
+
+    axios.post('/api/users', { id: 1 })
+    .then(function (response) {
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error.response)
+    });
   }
 }

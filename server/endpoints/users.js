@@ -1,3 +1,45 @@
+const bcrypt = require('bcrypt-nodejs');
+const config = require('../config');
+const constants = require('../config/constants');
+const db = require('../config/db').db;
+const jwt = require('jsonwebtoken');
+const utils = require('../utils.js');
+const validator = require('validator');
+const Users = require('../models/users');
+
+function getUserBy(req, res, next) {
+  const attr = Object.keys(req.body)[0];
+  const value = attr === 'id' ? req.body[attr] : { $iLike: req.body[attr] };
+  Users.findOne({ where: { [attr]: value } })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function getUsers(req, res, next) {
+  Users.findAll()
+    .then((data) => {
+      const arr = [];
+      data.forEach((usr) => arr.push(usr.get({plain: true})));
+      console.log(arr);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+module.exports = {
+  getUsers: getUsers,
+  getUserBy: getUserBy
+}
+
+
+
+
+
 // // eslint-disable-next-line
 // 'use strict';
 //
