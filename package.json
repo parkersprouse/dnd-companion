@@ -23,6 +23,7 @@
     "pg-promise": "^7.3.2",
     "query-string": "^5.0.1",
     "sequelize": "^4.28.6",
+    "sparkpost": "^2.1.2",
     "universal-cookie": "^2.1.2",
     "validator": "^9.2.0"
   }

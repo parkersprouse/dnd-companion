@@ -156,14 +156,13 @@ export default class RegisterForm extends Component {
         });
       }
       else {
-        const data = response.data;
         this.setState({
-          errorMsg: data.message,
+          errorMsg: response.message,
           isSubmitting: false,
-          emailStyle: data.content.emailState ? 'pt-input' : 'pt-input pt-intent-danger',
-          usernameStyle: data.content.usernameState ? 'pt-input' : 'pt-input pt-intent-danger',
-          passwordStyle: data.content.passwordState ? 'pt-input' : 'pt-input pt-intent-danger',
-          confirmPasswordStyle: data.content.confirmPasswordState ? 'pt-input' : 'pt-input pt-intent-danger'
+          emailStyle: response.content.emailState ? 'pt-input' : 'pt-input pt-intent-danger',
+          usernameStyle: response.content.usernameState ? 'pt-input' : 'pt-input pt-intent-danger',
+          passwordStyle: response.content.passwordState ? 'pt-input' : 'pt-input pt-intent-danger',
+          confirmPasswordStyle: response.content.confirmPasswordState ? 'pt-input' : 'pt-input pt-intent-danger'
         });
       }
     });

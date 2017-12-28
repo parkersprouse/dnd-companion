@@ -1,3 +1,117 @@
+const bcrypt = require('bcrypt-nodejs');
+const config = require('../config');
+const constants = require('../config/constants');
+const db = require('../config/db').db;
+const jwt = require('jsonwebtoken');
+const utils = require('../utils.js');
+const validator = require('validator');
+const Users = require('../models/users');
+
+function getUserBy(req, res, next) {
+  const attr = Object.keys(req.body)[0];
+  const value = attr === 'id' ? req.body[attr] : { $iLike: req.body[attr] };
+  Users.findOne({ where: { [attr]: value } })
+    .then((data) => {
+      res.status(constants.http_ok)
+        .json({
+          status: 'success',
+          content: data.get({ plain: true }),
+          message: 'Got all users'
+        });
+    })
+    .catch((err) => {
+      res.status(constants.http_bad_request)
+        .json({
+          status: 'failure',
+          content: err.message,
+          message: 'Failed to get all users'
+        });
+    });
+}
+
+function getUsers(req, res, next) {
+  Users.findAll()
+    .then((data) => {
+      const users = [];
+      data.forEach((usr) => users.push(usr.get({ plain: true })));
+      res.status(constants.http_ok)
+        .json({
+          status: 'success',
+          content: users,
+          message: 'Got all users'
+        });
+    })
+    .catch((err) => {
+      res.status(constants.http_bad_request)
+        .json({
+          status: 'failure',
+          content: err.message,
+          message: 'Failed to get all users'
+        });
+    });
+}
+
+function updateUser(req, res, next) {
+  if (!validator.isEmail(req.body.email)) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: null,
+        message: 'Please make sure your email is valid'
+      });
+  }
+  else {
+    Users.update(req.body, { where: { id: req.body.id }})
+      .then((data) => {
+        if (!data[0]) {
+          res.status(constants.http_bad_request)
+            .json({
+              status: 'failure',
+              content: data[0],
+              message: 'No user updated, check provided ID'
+            });
+        }
+        else {
+          // UPDATE TOKEN
+          const payload = utils.generateJwtPayload(data);
+          const token = jwt.sign(payload, config.jwtSecret);
+          res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
+          res.status(constants.http_ok)
+            .json({
+              status: 'success',
+              content: data[0],
+              message: 'Updated user'
+            });
+        }
+      })
+      .catch((err) => {
+        let message = 'There was an unknown problem when updating your account';
+        if (err.name === constants.db_err_duplicate) {
+          if (err.errors[0].path === 'username')
+            message = 'That username is already in use';
+          else if (err.errors[0].path === 'email')
+            message = 'That e-mail address is already in use';
+        }
+        res.status(constants.http_bad_request)
+          .json({
+            status: 'failure',
+            content: err.message,
+            message: message
+          });
+      });
+  }
+}
+
+module.exports = {
+  getUsers,
+  getUserBy,
+  updateUser
+}
+
+
+
+
+
 // // eslint-disable-next-line
 // 'use strict';
 //

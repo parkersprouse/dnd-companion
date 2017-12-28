@@ -10,7 +10,8 @@ var config = {
     password: process.env.DND_DB_PASS,
     ssl: process.env.DND_DB_SSL
   },
-  jwtSecret: process.env.DND_JWT_SECRET
+  jwtSecret: process.env.DND_JWT_SECRET,
+  sparkpostKey: process.env.SPARKPOST_API_KEY
 }
 
 module.exports = config
