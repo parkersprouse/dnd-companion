@@ -4,6 +4,7 @@ import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
 import utils from '../lib/utils';
+import api from '../lib/api';
 
 export default class ProfilePage extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ export default class ProfilePage extends Component {
 
     this.onInputChange = this.onInputChange.bind(this);
     this.renderSubmitButton = this.renderSubmitButton.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +62,14 @@ export default class ProfilePage extends Component {
   }
 
   submit() {
-
+    api.updateUser({
+      id: this.state.user.id,
+      username: this.state.username,
+      email: this.state.email,
+      name: this.state.name
+    }, (success, response) => {
+      console.log(success);
+      console.log(response);
+    });
   }
 }

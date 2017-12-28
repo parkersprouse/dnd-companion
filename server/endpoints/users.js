@@ -52,48 +52,54 @@ function getUsers(req, res, next) {
 }
 
 function updateUser(req, res, next) {
-  // make sure to check validity of username and email first
-
-
-  // it's very possible that the update call will check for uniqueness, so this is likely unnecessary
-  Users.findOne({ where: { [Op.or]: [{ username: { $iLike: req.body.username } }, { email: { $iLike: req.body.email } }] } })
-    .then((data) => {
-      if (!data) {
-        Users.update(req.body, { where: { id: req.body.id }})
-          .then((data) => {
-            res.status(constants.http_ok)
-              .json({
-                status: 'success',
-                content: data,
-                message: 'Updated user'
-              });
-          })
-          .catch((err) => {
-            res.status(constants.http_bad_request)
-              .json({
-                status: 'failure',
-                content: err.message,
-                message: 'Failed to update user'
-              });
-          });
-      }
-      else {
+  if (!validator.isEmail(req.body.email)) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: null,
+        message: 'Please make sure your email is valid'
+      });
+  }
+  else {
+    Users.update(req.body, { where: { id: req.body.id }})
+      .then((data) => {
+        if (!data[0]) {
+          res.status(constants.http_bad_request)
+            .json({
+              status: 'failure',
+              content: data[0],
+              message: 'No user updated, check provided ID'
+            });
+        }
+        else {
+          // UPDATE TOKEN
+          const payload = utils.generateJwtPayload(data);
+          const token = jwt.sign(payload, config.jwtSecret);
+          res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
+          res.status(constants.http_ok)
+            .json({
+              status: 'success',
+              content: data[0],
+              message: 'Updated user'
+            });
+        }
+      })
+      .catch((err) => {
+        let message = 'There was an unknown problem when updating your account';
+        if (err.name === constants.db_err_duplicate) {
+          if (err.errors[0].path === 'username')
+            message = 'That username is already in use';
+          else if (err.errors[0].path === 'email')
+            message = 'That e-mail address is already in use';
+        }
         res.status(constants.http_bad_request)
           .json({
             status: 'failure',
-            content: data,
-            message: 'Updated user'
+            content: err.message,
+            message: message
           });
-      }
-    })
-    .catch((err) => {
-      res.status(constants.http_bad_request)
-        .json({
-          status: 'failure',
-          content: err.message,
-          message: 'Failed to update user'
-        });
-    });
+      });
+  }
 }
 
 module.exports = {

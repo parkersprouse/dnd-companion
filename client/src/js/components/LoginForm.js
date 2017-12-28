@@ -100,12 +100,11 @@ export default class LoginForm extends Component {
         window.location.href = destination;
       }
       else {
-        const data = response.data;
         this.setState({
-          errorMsg: data.message,
+          errorMsg: response.message,
           isSubmitting: false,
-          usernameStyle: data.content.usernameState ? 'pt-input' : 'pt-input pt-intent-danger',
-          passwordStyle: data.content.passwordState ? 'pt-input' : 'pt-input pt-intent-danger',
+          usernameStyle: response.content.usernameState ? 'pt-input' : 'pt-input pt-intent-danger',
+          passwordStyle: response.content.passwordState ? 'pt-input' : 'pt-input pt-intent-danger',
         });
       }
     });
