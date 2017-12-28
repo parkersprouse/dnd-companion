@@ -13,17 +13,22 @@ export default class ProfilePage extends Component {
       user: null,
       username: null,
       email: null,
-      name: null
+      name: null,
+      success: false,
+      errorMsg: null
     }
 
     this.onInputChange = this.onInputChange.bind(this);
     this.renderSubmitButton = this.renderSubmitButton.bind(this);
+    this.renderSuccess = this.renderSuccess.bind(this);
+    this.renderError = this.renderError.bind(this);
     this.submit = this.submit.bind(this);
   }
 
   componentDidMount() {
     utils.getCurrentUserInfo((success, response) => {
       if (success) {
+        console.log(response)
         this.setState({
           user: response,
           username: response.username,
@@ -44,6 +49,8 @@ export default class ProfilePage extends Component {
       <OuterContainer>
         <Header />
         <InnerContainer>
+          { this.renderError() }
+          { this.renderSuccess() }
           Username: <EditableText value={this.state.username} onChange={(newVal) => this.onInputChange('username', newVal)} /><br />
           E-mail: <EditableText value={this.state.email} onChange={(newVal) => this.onInputChange('email', newVal)} /><br />
           Name: <EditableText value={this.state.name} onChange={(newVal) => this.onInputChange('name', newVal)} /><br /><br />
@@ -61,15 +68,46 @@ export default class ProfilePage extends Component {
     return null;
   }
 
+  renderError() {
+    if (this.state.errorMsg) {
+      return (
+        <div className='pt-callout pt-intent-danger form-error-msg'>
+          <span className='pt-icon-error'></span> { this.state.errorMsg }
+        </div>
+      );
+    }
+    return null;
+  }
+
+  renderSuccess() {
+    if (this.state.success) {
+      return (
+        <div className='pt-callout pt-intent-success form-success-msg'>
+          <span className='pt-icon-tick-circle'></span>&nbsp;
+          Your account has been successfully updated
+        </div>
+      );
+    }
+    return null;
+  }
+
   submit() {
+    this.setState({ success: false, errorMsg: null });
     api.updateUser({
       id: this.state.user.id,
       username: this.state.username,
       email: this.state.email,
       name: this.state.name
     }, (success, response) => {
-      console.log(success);
-      console.log(response);
+      if (success)
+        this.setState({
+          success: true,
+          user: response.content,
+          username: response.content.username,
+          email: response.content.email,
+          name: response.content.name
+        })
+      else this.setState({ errorMsg: response.message })
     });
   }
 }

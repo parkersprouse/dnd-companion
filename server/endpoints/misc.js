@@ -13,16 +13,22 @@ function failedToVerifyToken(res) {
     });
 }
 
+function userIsCorrect(decoded, data) {
+  return (decoded.hash === data.pw_hash) &&
+         (decoded.email === data.email) &&
+         (decoded.username === data.username)
+}
+
 // public functions
 
 function verifyAuthToken(req, res, next) {
   try {
     const decoded = jwt.verify(req.body.token, config.jwtSecret);
-    Users.findOne({ where: { email: { $iLike: decoded.email } } })
+    Users.findOne({ where: { id: decoded.id } })
       .then((data) => {
         if (!data) failedToVerifyToken(res);
         else {
-          if (decoded.hash === data.pw_hash) {
+          if (userIsCorrect(decoded, data)) {
             res.status(constants.http_ok)
               .json({
                 status: 'success',

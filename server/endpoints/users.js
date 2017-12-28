@@ -61,7 +61,7 @@ function updateUser(req, res, next) {
       });
   }
   else {
-    Users.update(req.body, { where: { id: req.body.id }})
+    Users.update(req.body, { where: { id: req.body.id }, returning: true })
       .then((data) => {
         if (!data[0]) {
           res.status(constants.http_bad_request)
@@ -72,14 +72,17 @@ function updateUser(req, res, next) {
             });
         }
         else {
-          // UPDATE TOKEN
-          const payload = utils.generateJwtPayload(data);
+          // data[0] is the number of rows affected
+          // data[1] is the array containing the returned rows
+          // data[1][0] is the first user that was returned
+          // data[1][0].dataValues is the object containing the values of the returned row
+          const payload = utils.generateJwtPayload(data[1][0].dataValues);
           const token = jwt.sign(payload, config.jwtSecret);
           res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
           res.status(constants.http_ok)
             .json({
               status: 'success',
-              content: data[0],
+              content: data[1][0].dataValues,
               message: 'Updated user'
             });
         }
