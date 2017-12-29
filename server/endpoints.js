@@ -5,7 +5,7 @@ const router = require('express').Router();
 
 const auth = require('./endpoints/auth');
 const misc = require('./endpoints/misc');
-//const recipes = require('./endpoints/recipes');
+const recipes = require('./endpoints/characters');
 const users = require('./endpoints/users');
 
 // auth endpoints
@@ -22,7 +22,7 @@ router.patch('/users/update', users.updateUser);
 // router.patch('/users/updatepw', users.updateUserPassword);
 
 /*
-// recipe endpoints
+// characters endpoints
 router.get('/recipe/:id', recipes.getRecipe);
 router.get('/recipe/user/:id', recipes.getUserRecipes);
 router.get('/recipe/user/:id/:page/:amount', recipes.getPaginatedUserRecipes);
@@ -32,6 +32,7 @@ router.post('/recipe/search', recipes.searchRecipes);
 router.delete('/recipe/delete/:id', recipes.deleteRecipe);
 */
 
+//require('./config/setup')();
 // const mailer = require('./config/mailer');
 // mailer({
 //   subject: "Hello",
