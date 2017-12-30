@@ -17,8 +17,8 @@ const attributes = {
   weight:            { type: Sequelize.TEXT },
   background:        { type: Sequelize.TEXT, allowNull: false },
   class:             { type: Sequelize.INTEGER, allowNull: false }, // class ID
-  ability_scores:    { type: Sequelize.JSON, allowNull: false }, //
-  passive_wisdom:    { type: Sequelize.INTEGER },
+  ability_scores:    { type: Sequelize.JSON, allowNull: false }, // {"charisma": {level: 13, bonus: 1}}
+  passive_wisdom:    { type: Sequelize.INTEGER }, // passive perception
   proficiency_bonus: { type: Sequelize.INTEGER, allowNull: false },
   inspiration:       { type: Sequelize.INTEGER },
   armor_class:       { type: Sequelize.INTEGER, allowNull: false },

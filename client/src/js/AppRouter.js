@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/LoginPage';
 import Register from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
+import CreateCharacterPage from './pages/CreateCharacterPage';
 import NotFound from './pages/NotFound';
 import utils from './lib/utils';
 
@@ -47,6 +48,7 @@ export default class AppRouter extends Component {
         <OnlyPublicRoute exact path='/login' component={Login} />
         <OnlyPublicRoute exact path='/register' component={Register} />
         <PrivateRoute exact path='/profile' component={ProfilePage} />
+        <PrivateRoute exact path='/characters/new' component={CreateCharacterPage} />
         <Route exact path='/logout' render={() => { utils.logout(); return <Redirect to='/' /> }} />
         <Route path='*' component={NotFound} />
       </Switch>
