@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarGroup, AnchorButton, Popover, Menu, MenuItem, Position, PopoverInteractionKind, Button, Collapse } from '@blueprintjs/core';
+import { Container } from 'semantic-ui-react';
 import utils from '../lib/utils';
 
 export default class Header extends Component {
@@ -52,12 +53,12 @@ export default class Header extends Component {
     this.menu = (
       <div className='heading'>
         <Navbar>
-          <div className='container'>
+          <Container>
             <NavbarGroup>
               <AnchorButton href='/' className='pt-minimal' iconName='home'>Home</AnchorButton>
             </NavbarGroup>
             { rightSide }
-          </div>
+          </Container>
         </Navbar>
       </div>
     );

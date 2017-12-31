@@ -5,23 +5,23 @@
   margin-bottom: 4rem; }
 
 .page-title {
-  margin-bottom: 2rem; }
+  margin-bottom: 1rem; }
 
 .login-form-container {
   margin-left: auto;
   margin-right: auto; }
 
 .login-form-extra-links {
-  margin-top: 2rem;
+  margin-top: 1rem;
   text-align: center; }
 
 .form-error-msg {
   color: #AA0000;
-  margin-bottom: 2rem; }
+  margin-bottom: 1rem; }
 
 .form-success-msg {
   color: #00AA00;
-  margin-bottom: 2rem; }
+  margin-bottom: 1rem; }
 
 .required-label {
   color: #AA0000; }
