@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './js/AppRouter';
 import { unregister } from './js/registerServiceWorker';
 
-import './css/bootstrap.min.css';
+import './css/semantic.min.css';
 import '@blueprintjs/core/dist/blueprint.css';
 import './css/styles.css';
 
