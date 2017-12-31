@@ -52,7 +52,15 @@ function getUsers(req, res, next) {
 }
 
 function updateUser(req, res, next) {
-  if (!validator.isEmail(req.body.email)) {
+  if (!req.body.username) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: null,
+        message: 'Please make sure your username is filled out'
+      });
+  }
+  else if (!validator.isEmail(req.body.email)) {
     res.status(constants.http_bad_request)
       .json({
         status: 'failure',

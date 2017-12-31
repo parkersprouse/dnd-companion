@@ -51,8 +51,8 @@ export default class ProfilePage extends Component {
         <InnerContainer>
           { this.renderError() }
           { this.renderSuccess() }
-          Username: <EditableText value={this.state.username} onChange={(newVal) => this.onInputChange('username', newVal)} /><br />
-          E-mail: <EditableText value={this.state.email} onChange={(newVal) => this.onInputChange('email', newVal)} /><br />
+          Username: <EditableText value={this.state.username} onChange={(newVal) => this.onInputChange('username', newVal)} /><br /><br />
+          E-mail: <EditableText value={this.state.email} onChange={(newVal) => this.onInputChange('email', newVal)} /><br /><br />
           Name: <EditableText value={this.state.name} onChange={(newVal) => this.onInputChange('name', newVal)} /><br /><br />
           { this.renderSubmitButton() }
         </InnerContainer>
