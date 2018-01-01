@@ -1,3 +1,6 @@
+hr {
+  margin: 15px 0 20px 0; }
+
 .main-container {
   margin-top: 4rem; }
 
@@ -25,3 +28,6 @@
 
 .required-label {
   color: #AA0000; }
+
+.pt-form-group .pt-form-helper-text {
+  padding-left: 0.15rem; }

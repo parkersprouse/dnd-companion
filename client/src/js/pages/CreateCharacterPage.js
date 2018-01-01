@@ -10,7 +10,7 @@ export default class CreateCharacterPage extends Component {
       <OuterContainer>
         <Header />
         <InnerContainer>
-          <h1 className='page-title'>Create New Character</h1>
+          <h1 className='page-title'>Create Character</h1>
           <CreateCharacterForm />
         </InnerContainer>
       </OuterContainer>

@@ -6,66 +6,73 @@ export default class DetailsPanel extends Component {
     return (
       <Grid stackable centered>
         <Grid.Row>
-          <Grid.Column style={{ width: 'initial' }}>
+          <Grid.Column width={5} style={{ paddingRight: '0' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <label className='pt-label' for='class-input'>
-                Class
-              </label>
               <div className='pt-form-content'>
-                <input id='class-input' name='class' className='pt-input' style={{ width: '100%' }} placeholder='Class' type='text' onChange={this.props.update} />
+                <input name='class' className='pt-input pt-fill' type='text' onChange={this.props.update} />
+                <div className='pt-form-helper-text'>Class</div>
               </div>
             </div>
           </Grid.Column>
-          <Grid.Column style={{ width: 'initial' }}>
+          <Grid.Column width={5} style={{ paddingRight: '0' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <label className='pt-label' for='background-input'>
-                Background
-              </label>
               <div className='pt-form-content'>
-                <input id='background-input' name='background' className='pt-input' style={{ width: '100%' }} placeholder='Background' type='text' onChange={this.props.update} />
+                <input name='background' className='pt-input pt-fill' type='text' onChange={this.props.update} />
+                <div className='pt-form-helper-text'>Background</div>
               </div>
             </div>
           </Grid.Column>
-          <Grid.Column style={{ width: 'initial' }}>
+          <Grid.Column width={6}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <label className='pt-label' for='player-input'>
-                Player Name
-              </label>
               <div className='pt-form-content'>
-                <input id='player-input' name='player' className='pt-input' style={{ width: '100%' }} placeholder='Player Name' type='text' onChange={this.props.update} />
+                <input name='player' className='pt-input pt-fill' type='text' onChange={this.props.update} />
+                <div className='pt-form-helper-text'>Player Name</div>
               </div>
             </div>
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row>
-          <Grid.Column style={{ width: 'initial' }}>
+        <Grid.Row style={{ paddingTop: '0' }}>
+          <Grid.Column width={5} style={{ paddingRight: '0' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <label className='pt-label' for='race-input'>
-                Race
-              </label>
               <div className='pt-form-content'>
-                <input id='race-input' name='race' className='pt-input' style={{ width: '100%' }} placeholder='Race' type='text' onChange={this.props.update} />
+                <input name='race' className='pt-input pt-fill' type='text' onChange={this.props.update} />
+                <div className='pt-form-helper-text'>Race</div>
               </div>
             </div>
           </Grid.Column>
-          <Grid.Column style={{ width: 'initial' }}>
+          <Grid.Column width={5} style={{ paddingRight: '0' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <label className='pt-label' for='alignment-input'>
-                Alignment
-              </label>
               <div className='pt-form-content'>
-                <input id='alignment-input' name='alignment' className='pt-input' style={{ width: '100%' }} placeholder='Alignment' type='text' onChange={this.props.update} />
+                <div className='pt-select pt-fill'>
+                  <select name='alignment' onChange={this.props.update} defaultValue='0'>
+                    <option disabled value='0'>Choose Alignment</option>
+                    <option value='1'>Lawful Good</option>
+                    <option value='2'>Lawful Neutral</option>
+                    <option value='3'>Lawful Evil</option>
+                    <option value='4'>True Neutral</option>
+                    <option value='5'>Chaotic Good</option>
+                    <option value='6'>Chaotic Neutral</option>
+                    <option value='7'>Chaotic Evil</option>
+                  </select>
+                </div>
+                <div className='pt-form-helper-text'>Alignment</div>
               </div>
             </div>
           </Grid.Column>
-          <Grid.Column style={{ width: 'initial' }}>
+          <Grid.Column width={3} style={{ paddingRight: '0' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <label className='pt-label' for='exp-input'>
-                Exp. / Level
-              </label>
               <div className='pt-form-content'>
-                <input id='exp-input' name='exp' className='pt-input' style={{ width: '100%' }} placeholder='Exp. / Level' type='text' onChange={this.props.update} />
+                <input name='experience' className='pt-input pt-fill' type='text' onChange={this.props.update} />
+                <div className='pt-form-helper-text'>Experience</div>
+              </div>
+            </div>
+          </Grid.Column>
+          <Grid.Column width={3}>
+            <div className='pt-form-group' style={{ marginBottom: '0' }}>
+              <div className='pt-form-content'>
+                <input name='level' className='pt-input pt-fill' type='text' onChange={this.props.update} />
+                <div className='pt-form-helper-text'>Level</div>
               </div>
             </div>
           </Grid.Column>

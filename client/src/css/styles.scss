@@ -4,6 +4,10 @@ $small-margin: 1rem;
 $medium-margin: 2rem;
 $large-margin: 4rem;
 
+hr {
+  margin: 15px 0 20px 0;
+}
+
 .main-container {
   margin-top: $large-margin;
 }
@@ -38,4 +42,8 @@ $large-margin: 4rem;
 
 .required-label {
   color: $dark-red;
+}
+
+.pt-form-group .pt-form-helper-text {
+  padding-left: 0.15rem;
 }

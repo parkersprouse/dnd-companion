@@ -28,6 +28,7 @@ export default class CreateCharacterForm extends Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <Grid stackable centered>
 
