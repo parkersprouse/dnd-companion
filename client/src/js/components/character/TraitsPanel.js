@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export default class PersonalityPanel extends Component {
+export default class TraitsPanel extends Component {
   render() {
     return (
       <div>
-        Personality Panel
+        Traits Panel
       </div>
     );
   }

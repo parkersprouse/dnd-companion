@@ -1,6 +1,7 @@
 $dark-red: #AA0000;
 $dark-green: #00AA00;
 $small-margin: 1rem;
+$medium-margin: 2rem;
 $large-margin: 4rem;
 
 .main-container {
@@ -12,7 +13,7 @@ $large-margin: 4rem;
 }
 
 .page-title {
-  margin-bottom: $small-margin;
+  margin-bottom: $medium-margin;
 }
 
 .login-form-container {

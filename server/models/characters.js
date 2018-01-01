@@ -49,7 +49,7 @@ const attributes = {
   copper:            { type: Sequelize.INTEGER },
   proficiencies:     { type: Sequelize.ARRAY(Sequelize.INTEGER) }, // array of proficiency IDs
   spells:            { type: Sequelize.ARRAY(Sequelize.INTEGER) }, // array of spell IDs
-  spell_slots:       { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of spell slots -- [{level: 1, amount: 3, used: 2}]
+  spell_slots:       { type: Sequelize.JSON }, // {"1": {amount: 3, used: 2}}
   userid:            {
                        type: Sequelize.INTEGER, allowNull: false,
                        references: {
