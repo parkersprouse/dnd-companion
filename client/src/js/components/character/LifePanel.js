@@ -5,6 +5,7 @@ export default class LifePanel extends Component {
   render() {
     return (
       <Grid stackable centered>
+
         <Grid.Row>
           <Grid.Column width={8} style={{ paddingRight: '0' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
@@ -23,7 +24,8 @@ export default class LifePanel extends Component {
             </div>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
+
+        <Grid.Row style={{ paddingTop: '0' }}>
           <Grid.Column width={8} style={{ paddingRight: '0' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
@@ -41,6 +43,7 @@ export default class LifePanel extends Component {
             </div>
           </Grid.Column>
         </Grid.Row>
+        
       </Grid>
     );
   }

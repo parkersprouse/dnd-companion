@@ -28,57 +28,56 @@ export default class CreateCharacterForm extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <Grid stackable centered>
 
         <Grid.Row>
           <Grid.Column width={6}>
-            <Segment>
+            <div className='pt-card'>
               <NamePanel update={this.onInputChange} />
-            </Segment>
+            </div>
           </Grid.Column>
           <Grid.Column width={10}>
-            <Segment>
+            <div className='pt-card'>
               <DetailsPanel update={this.onInputChange} />
-            </Segment>
+            </div>
           </Grid.Column>
         </Grid.Row>
 
         <Grid.Row stretched>
           <Grid.Column width={6}>
-            <Segment>
+            <div className='pt-card'>
               <AbilityScoresPanel update={this.onInputChange} />
-            </Segment>
+            </div>
           </Grid.Column>
           <Grid.Column width={5}>
-            <Segment>
+            <div className='pt-card' style={{ marginBottom: '2rem' }}>
               <LifePanel update={this.onInputChange} />
-            </Segment>
-            <Segment>
+            </div>
+            <div className='pt-card'>
               <AttacksPanel update={this.onInputChange} />
-            </Segment>
+            </div>
           </Grid.Column>
           <Grid.Column width={5}>
-            <Segment>
+            <div className='pt-card' style={{ marginBottom: '2rem' }}>
               <PersonalityPanel update={this.onInputChange} />
-            </Segment>
-            <Segment>
+            </div>
+            <div className='pt-card'>
               <TraitsPanel update={this.onInputChange} />
-            </Segment>
+            </div>
           </Grid.Column>
         </Grid.Row>
 
         <Grid.Row>
           <Grid.Column width={6}>
-            <Segment>
+            <div className='pt-card'>
               <ProficienciesPanel update={this.onInputChange} />
-            </Segment>
+            </div>
           </Grid.Column>
           <Grid.Column width={10}>
-            <Segment>
+            <div className='pt-card'>
               <EquipmentPanel update={this.onInputChange} />
-            </Segment>
+            </div>
           </Grid.Column>
         </Grid.Row>
 
