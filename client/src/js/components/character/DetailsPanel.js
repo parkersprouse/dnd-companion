@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
+import axios from 'axios';
 
 export default class DetailsPanel extends Component {
+  componentWillMount() {
+    axios.get('http://www.dnd5eapi.co/api/races')
+    .then(function (response) {
+      console.log(response.data)
+    })
+    .catch(function (error) {});
+  }
+
   render() {
     return (
       <Grid stackable centered>
