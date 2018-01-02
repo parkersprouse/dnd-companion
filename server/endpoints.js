@@ -21,16 +21,31 @@ router.post('/users', users.getUserBy);
 router.patch('/users/update', users.updateUser);
 // router.patch('/users/updatepw', users.updateUserPassword);
 
-/*
-// characters endpoints
-router.get('/recipe/:id', recipes.getRecipe);
-router.get('/recipe/user/:id', recipes.getUserRecipes);
-router.get('/recipe/user/:id/:page/:amount', recipes.getPaginatedUserRecipes);
-router.post('/recipe/add', recipes.addRecipe);
-router.patch('/recipe/update', recipes.updateRecipe);
-router.post('/recipe/search', recipes.searchRecipes);
-router.delete('/recipe/delete/:id', recipes.deleteRecipe);
-*/
+// 5e database endpoints
+const ability_scores = require('./endpoints/db/ability-scores');
+router.get('/db/ability_scores', ability_scores.getAll);
+router.get('/db/ability_scores/:id', ability_scores.getSingle);
+
+const classes = require('./endpoints/db/classes');
+router.get('/db/classes', classes.getAll);
+router.get('/db/classes/:id', classes.getSingle);
+
+const conditions = require('./endpoints/db/conditions');
+router.get('/db/conditions', conditions.getAll);
+router.get('/db/conditions/:id', conditions.getSingle);
+
+const damage_types = require('./endpoints/db/damage_types');
+router.get('/db/damage_types', damage_types.getAll);
+router.get('/db/damage_types/:id', damage_types.getSingle);
+
+const equipment_categories = require('./endpoints/db/equipment_categories');
+router.get('/db/equipment_categories', equipment_categories.getAll);
+router.get('/db/equipment_categories/:id', equipment_categories.getSingle);
+
+const equipment = require('./endpoints/db/equipment');
+router.get('/db/equipment', equipment.getAll);
+router.get('/db/equipment/:id', equipment.getSingle);
+
 
 //require('./config/setup')();
 // const mailer = require('./config/mailer');
