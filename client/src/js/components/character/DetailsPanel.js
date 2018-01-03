@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export default class DetailsPanel extends Component {
   componentWillMount() {
-    axios.get('http://www.dnd5eapi.co/api/races')
+    axios.get('/api/db/races')
     .then(function (response) {
       console.log(response.data)
     })
