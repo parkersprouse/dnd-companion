@@ -13,7 +13,7 @@ function getSingle(req, res, next) {
   let selected = null;
 
   conditions.forEach(ele => {
-    if (ele.index == id || ele.name.toLowerCase() == id.toLowerCase()) selected = ele;
+    if (ele.index == id || ele.name.toLowerCase().replace(/ /g, '_') == id.toLowerCase()) selected = ele;
   });
 
   if (!!selected) {

@@ -1,10 +1,10 @@
 const constants = require('../../config/constants')
-const equipment = require('../../json/equipment.json');
+const levels = require('../../json/levels.json');
 
 function getAll(req, res, next) {
   res.status(constants.http_ok)
     .json({
-      content: equipment
+      content: levels
     });
 }
 
@@ -12,8 +12,8 @@ function getSingle(req, res, next) {
   const id = req.params.id;
   let selected = null;
 
-  equipment.forEach(ele => {
-    if (ele.index == id || ele.name.toLowerCase().replace(/ /g, '_') == id.toLowerCase()) selected = ele;
+  levels.forEach(ele => {
+    if (ele.index == id || ele.level == id) selected = ele;
   });
 
   if (!!selected) {
@@ -25,7 +25,7 @@ function getSingle(req, res, next) {
   else {
     res.status(constants.http_not_found)
       .json({
-        message: 'Equipment not found'
+        message: 'Level not found'
       });
   }
 }

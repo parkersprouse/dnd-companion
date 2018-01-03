@@ -1,10 +1,10 @@
 const constants = require('../../config/constants')
-const equipment = require('../../json/equipment.json');
+const starting_equipment = require('../../json/starting-equipment.json');
 
 function getAll(req, res, next) {
   res.status(constants.http_ok)
     .json({
-      content: equipment
+      content: starting_equipment
     });
 }
 
@@ -12,8 +12,8 @@ function getSingle(req, res, next) {
   const id = req.params.id;
   let selected = null;
 
-  equipment.forEach(ele => {
-    if (ele.index == id || ele.name.toLowerCase().replace(/ /g, '_') == id.toLowerCase()) selected = ele;
+  starting_equipment.forEach(ele => {
+    if (ele.index == id || ele.class.name.toLowerCase().replace(/ /g, '_') == id.toLowerCase()) selected = ele;
   });
 
   if (!!selected) {
@@ -25,7 +25,7 @@ function getSingle(req, res, next) {
   else {
     res.status(constants.http_not_found)
       .json({
-        message: 'Equipment not found'
+        message: 'Starting Equipment not found'
       });
   }
 }

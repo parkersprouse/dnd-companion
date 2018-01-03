@@ -13,7 +13,7 @@ function getSingle(req, res, next) {
   let selected = null;
 
   ability_scores.forEach(ele => {
-    if (ele.index == id || ele.full_name.toLowerCase() == id.toLowerCase()) selected = ele;
+    if (ele.index == id || ele.full_name.toLowerCase().replace(/ /g, '_') == id.toLowerCase()) selected = ele;
   });
 
   if (!!selected) {
