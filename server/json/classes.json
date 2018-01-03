@@ -60,15 +60,15 @@
 		"saving_throws": [
 			{
 				"name": "STR",
-				"url": "/api/db/ability-scores/1"
+				"url": "/api/db/ability_scores/1"
 			},
 			{
 				"name": "CON",
-				"url": "/api/db/ability-scores/3"
+				"url": "/api/db/ability_scores/3"
 			}
 		],
 		"starting_equipment": {
-			"url": "/api/db/startingequipment/1",
+			"url": "/api/db/starting_equipment/1",
 			"class": "Barbarian"
 		},
 		"class_levels": {
@@ -245,15 +245,15 @@
 		"saving_throws": [
 			{
 				"name": "DEX",
-				"url": "/api/db/ability-scores/2"
+				"url": "/api/db/ability_scores/2"
 			},
 			{
 				"name": "CHA",
-				"url": "/api/db/ability-scores/6"
+				"url": "/api/db/ability_scores/6"
 			}
 		],
 		"starting_equipment": {
-			"url": "/api/db/startingequipment/2",
+			"url": "/api/db/starting_equipment/2",
 			"class": "Bard"
 		},
 		"class_levels": {
@@ -325,15 +325,15 @@
 		"saving_throws": [
 			{
 				"name": "WIS",
-				"url": "/api/db/ability-scores/5"
+				"url": "/api/db/ability_scores/5"
 			},
 			{
 				"name": "CHA",
-				"url": "/api/db/ability-scores/6"
+				"url": "/api/db/ability_scores/6"
 			}
 		],
 		"starting_equipment": {
-			"url": "/api/db/startingequipment/3",
+			"url": "/api/db/starting_equipment/3",
 			"class": "Cleric"
 		},
 		"class_levels": {
@@ -457,15 +457,15 @@
 		"saving_throws": [
 			{
 				"name": "INT",
-				"url": "/api/db/ability-scores/4"
+				"url": "/api/db/ability_scores/4"
 			},
 			{
 				"name": "WIS",
-				"url": "/api/db/ability-scores/5"
+				"url": "/api/db/ability_scores/5"
 			}
 		],
 		"starting_equipment": {
-			"url": "/api/db/startingequipment/4",
+			"url": "/api/db/starting_equipment/4",
 			"class": "Druid"
 		},
 		"class_levels": {
@@ -549,15 +549,15 @@
 		"saving_throws": [
 			{
 				"name": "STR",
-				"url": "/api/db/ability-scores/1"
+				"url": "/api/db/ability_scores/1"
 			},
 			{
 				"name": "CON",
-				"url": "/api/db/ability-scores/3"
+				"url": "/api/db/ability_scores/3"
 			}
 		],
 		"starting_equipment": {
-			"url": "/api/db/startingequipment/5",
+			"url": "/api/db/starting_equipment/5",
 			"class": "Fighter"
 		},
 		"class_levels": {
@@ -752,15 +752,15 @@
 		"saving_throws": [
 			{
 				"name": "STR",
-				"url": "/api/db/ability-scores/1"
+				"url": "/api/db/ability_scores/1"
 			},
 			{
 				"name": "DEX",
-				"url": "/api/db/ability-scores/2"
+				"url": "/api/db/ability_scores/2"
 			}
 		],
 		"starting_equipment": {
-			"url": "/api/db/startingequipment/6",
+			"url": "/api/db/starting_equipment/6",
 			"class": "Monk"
 		},
 		"class_levels": {
@@ -835,15 +835,15 @@
 		"saving_throws": [
 			{
 				"name": "WIS",
-				"url": "/api/db/ability-scores/5"
+				"url": "/api/db/ability_scores/5"
 			},
 			{
 				"name": "CHA",
-				"url": "/api/db/ability-scores/6"
+				"url": "/api/db/ability_scores/6"
 			}
 		],
 		"starting_equipment": {
-			"url": "/api/db/startingequipment/7",
+			"url": "/api/db/starting_equipment/7",
 			"class": "Paladin"
 		},
 		"class_levels": {
@@ -931,15 +931,15 @@
 		"saving_throws": [
 			{
 				"name": "STR",
-				"url": "/api/db/ability-scores/1"
+				"url": "/api/db/ability_scores/1"
 			},
 			{
 				"name": "DEX",
-				"url": "/api/db/ability-scores/2"
+				"url": "/api/db/ability_scores/2"
 			}
 		],
 		"starting_equipment": {
-			"url": "/api/db/startingequipment/8",
+			"url": "/api/db/starting_equipment/8",
 			"class": "Ranger"
 		},
 		"class_levels": {
@@ -1047,15 +1047,15 @@
 		"saving_throws": [
 			{
 				"name": "DEX",
-				"url": "/api/db/ability-scores/2"
+				"url": "/api/db/ability_scores/2"
 			},
 			{
 				"name": "INT",
-				"url": "/api/db/ability-scores/4"
+				"url": "/api/db/ability_scores/4"
 			}
 		],
 		"starting_equipment": {
-			"url": "/api/db/startingequipment/9",
+			"url": "/api/db/starting_equipment/9",
 			"class": "Rogue"
 		},
 		"class_levels": {
@@ -1130,15 +1130,15 @@
 		"saving_throws": [
 			{
 				"name": "CON",
-				"url": "/api/db/ability-scores/3"
+				"url": "/api/db/ability_scores/3"
 			},
 			{
 				"name": "CHA",
-				"url": "/api/db/ability-scores/6"
+				"url": "/api/db/ability_scores/6"
 			}
 		],
 		"starting_equipment": {
-			"url": "/api/db/startingequipment/10",
+			"url": "/api/db/starting_equipment/10",
 			"class": "Sorcerer"
 		},
 		"class_levels": {
@@ -1210,15 +1210,15 @@
 		"saving_throws": [
 			{
 				"name": "WIS",
-				"url": "/api/db/ability-scores/5"
+				"url": "/api/db/ability_scores/5"
 			},
 			{
 				"name": "CHA",
-				"url": "/api/db/ability-scores/6"
+				"url": "/api/db/ability_scores/6"
 			}
 		],
 		"starting_equipment": {
-			"url": "/api/db/startingequipment/11",
+			"url": "/api/db/starting_equipment/11",
 			"class": "Warlock"
 		},
 		"class_levels": {
@@ -1294,15 +1294,15 @@
 		"saving_throws": [
 			{
 				"name": "INT",
-				"url": "/api/db/ability-scores/4"
+				"url": "/api/db/ability_scores/4"
 			},
 			{
 				"name": "WIS",
-				"url": "/api/db/ability-scores/5"
+				"url": "/api/db/ability_scores/5"
 			}
 		],
 		"starting_equipment": {
-			"url": "/api/db/startingequipment/12",
+			"url": "/api/db/starting_equipment/12",
 			"class": "Wizard"
 		},
 		"class_levels": {

@@ -22,7 +22,7 @@ router.patch('/users/update', users.updateUser);
 // router.patch('/users/updatepw', users.updateUserPassword);
 
 // 5e database endpoints
-const ability_scores = require('./endpoints/db/ability-scores');
+const ability_scores = require('./endpoints/db/ability_scores');
 router.get('/db/ability_scores', ability_scores.getAll);
 router.get('/db/ability_scores/:id', ability_scores.getSingle);
 
