@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Container } from 'semantic-ui-react';
 
 export default class InnerContainer extends Component {
   render() {
     return (
-      <div className='container'>
+      <Container>
         { this.props.children }
-      </div>
+      </Container>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Intent, FormGroup } from '@blueprintjs/core';
-import { Row, Col } from 'react-bootstrap';
+import { Grid } from 'semantic-ui-react';
 import api from '../lib/api';
 import FormLabel from './FormLabel';
 
@@ -31,75 +31,77 @@ export default class RegisterForm extends Component {
 
   render() {
     return (
-      <Row>
-        <Col xs={12} md={6} mdOffset={3}>
-          <div className='pt-card'>
-            { this.renderError() }
-            { this.renderSuccess() }
-            <form onSubmit={this.submit}>
-              <FormGroup label={<FormLabel required>E-mail</FormLabel>} labelFor='email-input'>
-                <input id='email-input'
-                       name='email'
-                       className={this.state.emailStyle}
-                       style={{ width: '100%' }}
-                       placeholder='E-mail'
-                       type='text'
-                       value={this.state.email}
-                       onChange={this.handleInputChange} />
-              </FormGroup>
-              <FormGroup label={<FormLabel required>Username</FormLabel>} labelFor='username-input'>
-                <input id='username-input'
-                       name='username'
-                       className={this.state.usernameStyle}
-                       style={{ width: '100%' }}
-                       placeholder='Username'
-                       type='text'
-                       value={this.state.username}
-                       onChange={this.handleInputChange} />
-              </FormGroup>
-              <FormGroup label={<FormLabel>Name</FormLabel>} labelFor='name-input'>
-                <input id='name-input'
-                       name='name'
-                       className='pt-input'
-                       style={{ width: '100%' }}
-                       placeholder='Name'
-                       type='text'
-                       value={this.state.name}
-                       onChange={this.handleInputChange} />
-              </FormGroup>
-              <FormGroup label={<FormLabel required>Password</FormLabel>} labelFor='password-input'>
-                <input id='password-input'
-                       name='password'
-                       className={this.state.passwordStyle}
-                       style={{ width: '100%' }}
-                       placeholder='Password'
-                       type='password'
-                       value={this.state.password}
-                       onChange={this.handleInputChange} />
-              </FormGroup>
-              <FormGroup label={<FormLabel required>Confirm Password</FormLabel>} labelFor='confirm-password-input'>
-                <input id='confirm-password-input'
-                       name='confirmPassword'
-                       className={this.state.confirmPasswordStyle}
-                       style={{ width: '100%' }}
-                       placeholder='Confirm Password'
-                       type='password'
-                       value={this.state.confirmPassword}
-                       onChange={this.handleInputChange} />
-              </FormGroup>
-              <div className='pt-form-group' style={{ marginBottom: '0' }}>
-                <div className='pt-form-content' style={{ textAlign: 'center' }}>
-                  <Button iconName='new-person'
-                          intent={Intent.PRIMARY}
-                          type='submit'
-                          loading={this.state.isSubmitting}>Register
-                  </Button>
+      <Grid stackable centered>
+        <Grid.Row stretched>
+          <Grid.Column width={6}>
+            <div className='pt-card'>
+              { this.renderError() }
+              { this.renderSuccess() }
+              <form onSubmit={this.submit}>
+                <FormGroup label={<FormLabel required>E-mail</FormLabel>} labelFor='email-input'>
+                  <input id='email-input'
+                         name='email'
+                         className={this.state.emailStyle}
+                         style={{ width: '100%' }}
+                         placeholder='E-mail'
+                         type='text'
+                         value={this.state.email}
+                         onChange={this.handleInputChange} />
+                </FormGroup>
+                <FormGroup label={<FormLabel required>Username</FormLabel>} labelFor='username-input'>
+                  <input id='username-input'
+                         name='username'
+                         className={this.state.usernameStyle}
+                         style={{ width: '100%' }}
+                         placeholder='Username'
+                         type='text'
+                         value={this.state.username}
+                         onChange={this.handleInputChange} />
+                </FormGroup>
+                <FormGroup label={<FormLabel>Name</FormLabel>} labelFor='name-input'>
+                  <input id='name-input'
+                         name='name'
+                         className='pt-input'
+                         style={{ width: '100%' }}
+                         placeholder='Name'
+                         type='text'
+                         value={this.state.name}
+                         onChange={this.handleInputChange} />
+                </FormGroup>
+                <FormGroup label={<FormLabel required>Password</FormLabel>} labelFor='password-input'>
+                  <input id='password-input'
+                         name='password'
+                         className={this.state.passwordStyle}
+                         style={{ width: '100%' }}
+                         placeholder='Password'
+                         type='password'
+                         value={this.state.password}
+                         onChange={this.handleInputChange} />
+                </FormGroup>
+                <FormGroup label={<FormLabel required>Confirm Password</FormLabel>} labelFor='confirm-password-input'>
+                  <input id='confirm-password-input'
+                         name='confirmPassword'
+                         className={this.state.confirmPasswordStyle}
+                         style={{ width: '100%' }}
+                         placeholder='Confirm Password'
+                         type='password'
+                         value={this.state.confirmPassword}
+                         onChange={this.handleInputChange} />
+                </FormGroup>
+                <div className='pt-form-group' style={{ marginBottom: '0' }}>
+                  <div className='pt-form-content' style={{ textAlign: 'center' }}>
+                    <Button iconName='new-person'
+                            intent={Intent.PRIMARY}
+                            type='submit'
+                            loading={this.state.isSubmitting}>Register
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </form>
-          </div>
-        </Col>
-      </Row>
+              </form>
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
   }
 
