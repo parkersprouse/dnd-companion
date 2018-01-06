@@ -47,3 +47,35 @@ hr {
 .pt-form-group .pt-form-helper-text {
   padding-left: 0.15rem;
 }
+
+.text-left {
+  text-align: left;
+}
+
+/* Searchable dropdown customs */
+.searcher > div > span > div {
+  width: 100%;
+}
+
+.dropdown-btn > .pt-icon-caret-down:before {
+  line-height: 1;
+  font-family: Icons16,sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  position: absolute;
+  top: 0;
+  right: 7px;
+  line-height: 30px;
+  color: #5c7080;
+  content: "\E6C6";
+  pointer-events: none;
+}
+
+.pt-popover-content > div > .pt-menu {
+  max-height: 305px;
+  overflow: auto;
+}
+/* --------------------------- */

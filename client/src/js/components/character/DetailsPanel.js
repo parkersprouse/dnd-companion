@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
-import axios from 'axios';
+import ClassSelector from './ClassSelector';
 
 export default class DetailsPanel extends Component {
-  componentWillMount() {
-    axios.get('/api/db/races')
-    .then(function (response) {
-      console.log(response.data)
-    })
-    .catch(function (error) {});
-  }
-
   render() {
     return (
       <Grid stackable centered>
         <Grid.Row>
           <Grid.Column width={5} style={{ paddingRight: '0' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <input name='class' className='pt-input pt-fill' type='text' onChange={this.props.update} />
-                <div className='pt-form-helper-text'>Class</div>
+              <div className='pt-form-content searcher'>
+                <ClassSelector update={this.props.update} dropdownUpdate={this.props.dropdownUpdate} parentState={this.props.parentState} />
               </div>
             </div>
           </Grid.Column>

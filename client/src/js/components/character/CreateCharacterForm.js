@@ -18,6 +18,7 @@ export default class CreateCharacterForm extends Component {
   constructor(props) {
     super(props);
     this.onInputChange = this.onInputChange.bind(this);
+    this.onDropdownSelect = this.onDropdownSelect.bind(this);
   }
 
   onInputChange(event) {
@@ -27,7 +28,12 @@ export default class CreateCharacterForm extends Component {
     this.setState({ [event.target.name]: value });
   }
 
+  onDropdownSelect(changes) {
+    this.setState(changes);
+  }
+
   render() {
+    console.log(this.state)
     return (
       <Grid stackable centered>
 
@@ -39,7 +45,7 @@ export default class CreateCharacterForm extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              <DetailsPanel update={this.onInputChange} />
+              <DetailsPanel update={this.onInputChange} dropdownUpdate={this.onDropdownSelect} parentState={this.state} />
             </div>
           </Grid.Column>
         </Grid.Row>
