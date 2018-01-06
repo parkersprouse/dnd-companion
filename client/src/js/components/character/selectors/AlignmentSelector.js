@@ -19,7 +19,6 @@ export default class AlignmentSelector extends Component {
     return (
       <div>
         <Select
-          filterable={false}
           items={this.options}
           itemRenderer={ ({ handleClick, isActive, item }) => {
             const style = isActive ? 'pt-active pt-intent-primary' : '';

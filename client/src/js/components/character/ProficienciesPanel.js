@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 export default class ProficienciesPanel extends Component {
+
+  addLanguage = (lang) => {
+
+  }
+
   render() {
     return (
       <div>
