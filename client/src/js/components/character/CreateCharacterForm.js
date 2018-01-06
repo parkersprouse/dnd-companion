@@ -17,18 +17,16 @@ import EquipmentPanel from './EquipmentPanel';
 export default class CreateCharacterForm extends Component {
   constructor(props) {
     super(props);
-    this.onInputChange = this.onInputChange.bind(this);
-    this.onDropdownSelect = this.onDropdownSelect.bind(this);
   }
 
-  onInputChange(event) {
+  onInputChange = (event) => {
     let value = event.target.value;
     if (event.target.type === 'checkbox')
       value = event.target.checked;
     this.setState({ [event.target.name]: value });
   }
 
-  onDropdownSelect(changes) {
+  setRootState = (changes) => {
     this.setState(changes);
   }
 
@@ -45,7 +43,7 @@ export default class CreateCharacterForm extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              <DetailsPanel update={this.onInputChange} setRootState={this.onDropdownSelect} rootState={this.state} />
+              <DetailsPanel update={this.onInputChange} setRootState={this.setRootState} rootState={this.state} />
             </div>
           </Grid.Column>
         </Grid.Row>

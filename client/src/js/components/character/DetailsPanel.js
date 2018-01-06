@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
-import ClassSelector from './ClassSelector';
+import ClassSelector from './selectors/ClassSelector';
+import RaceSelector from './selectors/RaceSelector';
 
 export default class DetailsPanel extends Component {
   render() {
@@ -35,9 +36,8 @@ export default class DetailsPanel extends Component {
         <Grid.Row style={{ paddingTop: '0' }}>
           <Grid.Column width={5} style={{ paddingRight: '0' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <input name='race' className='pt-input pt-fill' type='text' onChange={this.props.update} />
-                <div className='pt-form-helper-text'>Race</div>
+              <div className='pt-form-content searcher'>
+                <RaceSelector update={this.props.update} setRootState={this.props.setRootState} rootState={this.props.rootState} />
               </div>
             </div>
           </Grid.Column>
