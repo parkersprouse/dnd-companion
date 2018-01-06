@@ -21,7 +21,7 @@ export default class ClassSelector extends Component {
   }
 
   swap = () => {
-    this.props.dropdownUpdate({ class: null });
+    this.props.setRootState({ class: null });
     this.setState({ isCustom: !this.state.isCustom });
   }
 
@@ -45,10 +45,10 @@ export default class ClassSelector extends Component {
               return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
             } }
             noResults={<MenuItem disabled={true} text="No results" />}
-            onItemSelect={ (selected) => this.props.dropdownUpdate({ class: selected }) }
+            onItemSelect={ (selected) => this.props.setRootState({ class: selected }) }
             popoverProps={{ minimal: true }}
           >
-            <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={!!this.props.parentState && !!this.props.parentState.class ? this.props.parentState.class.name : "Choose Class"} />
+            <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={!!this.props.rootState && !!this.props.rootState.class ? this.props.rootState.class.name : "Choose Class"} />
           </Select>
           <div className='pt-form-helper-text'>Class (<a onClick={this.swap}>custom</a>)</div>
         </div>

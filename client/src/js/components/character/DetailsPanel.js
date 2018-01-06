@@ -10,7 +10,7 @@ export default class DetailsPanel extends Component {
           <Grid.Column width={5} style={{ paddingRight: '0' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content searcher'>
-                <ClassSelector update={this.props.update} dropdownUpdate={this.props.dropdownUpdate} parentState={this.props.parentState} />
+                <ClassSelector update={this.props.update} setRootState={this.props.setRootState} rootState={this.props.rootState} />
               </div>
             </div>
           </Grid.Column>

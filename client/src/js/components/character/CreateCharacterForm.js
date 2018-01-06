@@ -45,7 +45,7 @@ export default class CreateCharacterForm extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              <DetailsPanel update={this.onInputChange} dropdownUpdate={this.onDropdownSelect} parentState={this.state} />
+              <DetailsPanel update={this.onInputChange} setRootState={this.onDropdownSelect} rootState={this.state} />
             </div>
           </Grid.Column>
         </Grid.Row>
