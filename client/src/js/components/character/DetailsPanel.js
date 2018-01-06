@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import ClassSelector from './selectors/ClassSelector';
 import RaceSelector from './selectors/RaceSelector';
+import AlignmentSelector from './selectors/AlignmentSelector';
 
 export default class DetailsPanel extends Component {
   render() {
@@ -43,20 +44,8 @@ export default class DetailsPanel extends Component {
           </Grid.Column>
           <Grid.Column width={5} style={{ paddingRight: '0' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <div className='pt-select pt-fill'>
-                  <select name='alignment' onChange={this.props.update} defaultValue='0'>
-                    <option disabled value='0'>Choose Alignment</option>
-                    <option value='1'>Lawful Good</option>
-                    <option value='2'>Lawful Neutral</option>
-                    <option value='3'>Lawful Evil</option>
-                    <option value='4'>True Neutral</option>
-                    <option value='5'>Chaotic Good</option>
-                    <option value='6'>Chaotic Neutral</option>
-                    <option value='7'>Chaotic Evil</option>
-                  </select>
-                </div>
-                <div className='pt-form-helper-text'>Alignment</div>
+              <div className='pt-form-content searcher'>
+                <AlignmentSelector update={this.props.update} setRootState={this.props.setRootState} rootState={this.props.rootState} />
               </div>
             </div>
           </Grid.Column>
