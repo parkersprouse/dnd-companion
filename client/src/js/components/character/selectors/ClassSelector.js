@@ -47,6 +47,7 @@ export default class ClassSelector extends Component {
             noResults={<MenuItem disabled={true} text="No results" />}
             onItemSelect={ (selected) => this.props.setRootState({ class: selected }) }
             popoverProps={{ minimal: true }}
+            resetOnSelect={true}
           >
             <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={!!this.props.rootState && !!this.props.rootState.class ? this.props.rootState.class.name : "Choose Class"} />
           </Select>

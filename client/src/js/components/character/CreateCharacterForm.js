@@ -75,7 +75,7 @@ export default class CreateCharacterForm extends Component {
         <Grid.Row>
           <Grid.Column width={6}>
             <div className='pt-card'>
-              <ProficienciesPanel update={this.onInputChange} />
+              <ProficienciesPanel update={this.onInputChange} setRootState={this.setRootState} rootState={this.state} />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
