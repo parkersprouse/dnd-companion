@@ -32,31 +32,45 @@ export default class ProficienciesPanel extends Component {
   }
 
   render() {
-    let profRows = 1;
-    if (this.props.rootState && this.props.rootState.proficiencies)
-      profRows = this.props.rootState.proficiencies.split('\n').length;
-
-    let langRows = 1;
-    if (this.props.rootState && this.props.rootState.languages)
-      langRows = this.props.rootState.languages.split('\n').length;
-
     return (
       <div>
         <div className='pt-form-group' style={{ marginBottom: '0' }}>
           <div className='pt-form-content searcher'>
             <ProficiencySelector addProficiency={this.addProficiency} />
-            <textarea name='proficiencies' className='pt-input pt-fill'
-                      value={!!this.props.rootState ? this.props.rootState.proficiencies : ''}
-                      rows={profRows} onChange={this.props.update}></textarea>
+            <div className="pt-tree pt-elevation-0">
+              <ul className="pt-tree-node-list pt-tree-root">
+                <li className="pt-tree-node pt-tree-node-expanded">
+                  <div className="pt-tree-node-content">
+                    <span className="pt-tree-node-label" style={{ paddingLeft: '10px' }}>Proficiencies</span>
+                    <span className="pt-tree-node-secondary-label">
+                      <a onClick={null} style={{ color: 'red' }}>
+                        <span className="pt-icon-cross"></span>
+                      </a>
+                    </span>
+                  </div>
+                </li>
+              </ul>
+            </div>
             <div className='pt-form-helper-text'>Proficiencies</div>
           </div>
         </div>
-        <div className='pt-form-group' style={{ marginBottom: '0', marginTop: '1rem' }}>
+        <div className='pt-form-group' style={{ marginBottom: '0', marginTop: '2rem' }}>
           <div className='pt-form-content searcher'>
             <LanguageSelector addLanguage={this.addLanguage} />
-            <textarea name='languages' className='pt-input pt-fill'
-                      value={!!this.props.rootState ? this.props.rootState.languages : ''}
-                      rows={langRows} onChange={this.props.update}></textarea>
+              <div className="pt-tree pt-elevation-0">
+                <ul className="pt-tree-node-list pt-tree-root">
+                  <li className="pt-tree-node pt-tree-node-expanded">
+                    <div className="pt-tree-node-content">
+                      <span className="pt-tree-node-label" style={{ paddingLeft: '10px' }}>Languages</span>
+                      <span className="pt-tree-node-secondary-label">
+                        <a onClick={null} style={{ color: 'red' }}>
+                          <span className="pt-icon-cross"></span>
+                        </a>
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             <div className='pt-form-helper-text'>Languages</div>
           </div>
         </div>
