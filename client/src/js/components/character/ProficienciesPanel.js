@@ -5,50 +5,86 @@ import ProficiencySelector from './selectors/ProficiencySelector';
 export default class ProficienciesPanel extends Component {
   addProficiency = (prof) => {
     const rootState = this.props.rootState;
-
-    let newProf = '';
-    if (rootState && rootState.proficiencies)
-      if (rootState.proficiencies.endsWith('\n'))
-        newProf = rootState.proficiencies + prof.name + '\n';
-      else
-        newProf = rootState.proficiencies + '\n' + prof.name + '\n';
+    if (rootState && rootState.proficiencies) {
+      rootState.proficiencies.push(prof);
+      this.props.setRootState({ proficiencies: rootState.proficiencies });
+    }
     else
-      newProf = prof.name + '\n';
-    this.props.setRootState({ proficiencies: newProf });
+      this.props.setRootState({ proficiencies: [prof] });
   }
 
   addLanguage = (lang) => {
     const rootState = this.props.rootState;
-
-    let newLang = '';
-    if (rootState && rootState.languages)
-      if (rootState.languages.endsWith('\n'))
-        newLang = rootState.languages + lang.name + '\n';
-      else
-        newLang = rootState.languages + '\n' + lang.name + '\n';
+    if (rootState && rootState.languages) {
+      rootState.languages.push(lang);
+      this.props.setRootState({ languages: rootState.languages });
+    }
     else
-      newLang = lang.name + '\n';
-    this.props.setRootState({ languages: newLang });
+      this.props.setRootState({ languages: [lang] });
+  }
+
+  removeProficiency = (index) => {
+    this.props.rootState.proficiencies.splice(index, 1);
+    this.props.setRootState({ proficiencies: this.props.rootState.proficiencies });
+  }
+
+  removeLanguage = (index) => {
+    this.props.rootState.languages.splice(index, 1);
+    this.props.setRootState({ languages: this.props.rootState.languages });
   }
 
   render() {
+    const profList = [];
+    if (this.props.rootState && this.props.rootState.proficiencies) {
+      this.props.rootState.proficiencies.forEach((prof, index) => {
+        profList.push(
+          <li key={index} className='pt-tree-node'>
+            <div className='pt-tree-node-content'>
+              <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{prof}</span>
+              <span className='pt-tree-node-secondary-label'>
+                <a onClick={() => this.removeProficiency(index)} style={{ color: 'red' }}>
+                  <span className='pt-icon-cross'></span>
+                </a>
+              </span>
+            </div>
+          </li>
+        );
+      });
+    }
+
+    const langList = [];
+    if (this.props.rootState && this.props.rootState.languages) {
+      this.props.rootState.languages.forEach((lang, index) => {
+        langList.push(
+          <li key={index} className='pt-tree-node'>
+            <div className='pt-tree-node-content'>
+              <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{lang}</span>
+              <span className='pt-tree-node-secondary-label'>
+                <a onClick={() => this.removeLanguage(index)} style={{ color: 'red' }}>
+                  <span className='pt-icon-cross'></span>
+                </a>
+              </span>
+            </div>
+          </li>
+        );
+      });
+    }
+
     return (
       <div>
         <div className='pt-form-group' style={{ marginBottom: '0' }}>
           <div className='pt-form-content searcher'>
             <ProficiencySelector addProficiency={this.addProficiency} />
-            <div className="pt-tree pt-elevation-0">
-              <ul className="pt-tree-node-list pt-tree-root">
-                <li className="pt-tree-node pt-tree-node-expanded">
-                  <div className="pt-tree-node-content">
-                    <span className="pt-tree-node-label" style={{ paddingLeft: '10px' }}>Proficiencies</span>
-                    <span className="pt-tree-node-secondary-label">
-                      <a onClick={null} style={{ color: 'red' }}>
-                        <span className="pt-icon-cross"></span>
-                      </a>
-                    </span>
-                  </div>
-                </li>
+            <div className='pt-tree pt-elevation-0'>
+              <ul className='pt-tree-node-list pt-tree-root'>
+                {
+                  profList.length > 0 ? profList :
+                  <li className='pt-tree-node'>
+                    <div className='pt-tree-node-content'>
+                      <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}><i>None</i></span>
+                    </div>
+                  </li>
+                }
               </ul>
             </div>
             <div className='pt-form-helper-text'>Proficiencies</div>
@@ -57,20 +93,18 @@ export default class ProficienciesPanel extends Component {
         <div className='pt-form-group' style={{ marginBottom: '0', marginTop: '2rem' }}>
           <div className='pt-form-content searcher'>
             <LanguageSelector addLanguage={this.addLanguage} />
-              <div className="pt-tree pt-elevation-0">
-                <ul className="pt-tree-node-list pt-tree-root">
-                  <li className="pt-tree-node pt-tree-node-expanded">
-                    <div className="pt-tree-node-content">
-                      <span className="pt-tree-node-label" style={{ paddingLeft: '10px' }}>Languages</span>
-                      <span className="pt-tree-node-secondary-label">
-                        <a onClick={null} style={{ color: 'red' }}>
-                          <span className="pt-icon-cross"></span>
-                        </a>
-                      </span>
+            <div className='pt-tree pt-elevation-0'>
+              <ul className='pt-tree-node-list pt-tree-root'>
+                {
+                  langList.length > 0 ? langList :
+                  <li className='pt-tree-node'>
+                    <div className='pt-tree-node-content'>
+                      <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}><i>None</i></span>
                     </div>
                   </li>
-                </ul>
-              </div>
+                }
+              </ul>
+            </div>
             <div className='pt-form-helper-text'>Languages</div>
           </div>
         </div>

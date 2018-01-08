@@ -29,7 +29,7 @@ export default class LanguageSelector extends Component {
             const style = isActive ? 'pt-active pt-intent-primary' : '';
             return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
           } }
-          onItemSelect={ (selected) => this.props.addLanguage(selected) }
+          onItemSelect={ selected => this.props.addLanguage(selected.name) }
           popoverProps={{ minimal: true, placement: 'top' }}
           resetOnSelect={true}
         >
