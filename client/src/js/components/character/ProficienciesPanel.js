@@ -4,6 +4,7 @@ import ProficiencySelector from './selectors/ProficiencySelector';
 
 export default class ProficienciesPanel extends Component {
   addProficiency = (prof) => {
+    if (!prof) return;
     const rootState = this.props.rootState;
     if (rootState && rootState.proficiencies) {
       rootState.proficiencies.push(prof);
@@ -14,6 +15,7 @@ export default class ProficienciesPanel extends Component {
   }
 
   addLanguage = (lang) => {
+    if (!lang) return;
     const rootState = this.props.rootState;
     if (rootState && rootState.languages) {
       rootState.languages.push(lang);
@@ -74,7 +76,6 @@ export default class ProficienciesPanel extends Component {
       <div>
         <div className='pt-form-group' style={{ marginBottom: '0' }}>
           <div className='pt-form-content searcher'>
-            <ProficiencySelector addProficiency={this.addProficiency} />
             <div className='pt-tree pt-elevation-0'>
               <ul className='pt-tree-node-list pt-tree-root'>
                 {
@@ -87,12 +88,11 @@ export default class ProficienciesPanel extends Component {
                 }
               </ul>
             </div>
-            <div className='pt-form-helper-text'>Proficiencies</div>
+            <ProficiencySelector addProficiency={this.addProficiency} />
           </div>
         </div>
         <div className='pt-form-group' style={{ marginBottom: '0', marginTop: '2rem' }}>
           <div className='pt-form-content searcher'>
-            <LanguageSelector addLanguage={this.addLanguage} />
             <div className='pt-tree pt-elevation-0'>
               <ul className='pt-tree-node-list pt-tree-root'>
                 {
@@ -105,7 +105,7 @@ export default class ProficienciesPanel extends Component {
                 }
               </ul>
             </div>
-            <div className='pt-form-helper-text'>Languages</div>
+            <LanguageSelector addLanguage={this.addLanguage} />
           </div>
         </div>
       </div>

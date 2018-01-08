@@ -64,10 +64,10 @@ export default class CreateCharacterForm extends Component {
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <PersonalityPanel update={this.onInputChange} />
+              <PersonalityPanel update={this.onInputChange} rootState={this.state} />
             </div>
             <div className='pt-card'>
-              <TraitsPanel update={this.onInputChange} />
+              <TraitsPanel update={this.onInputChange} rootState={this.state} />
             </div>
           </Grid.Column>
         </Grid.Row>
