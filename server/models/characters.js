@@ -29,25 +29,22 @@ const attributes = {
   temp_hp:           { type: Sequelize.INTEGER },
   hit_dice:          { type: Sequelize.TEXT },
   death_saves:       { type: Sequelize.JSON }, // {success: 0, failed: 2}
-  equipment:         { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of equipment IDs and amounts -- [{"id": 123, "amount": 1}]
-  weapons:           { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of weapon IDs and amounts -- [{"id": 123, "amount": 1}]
-  armor:             { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of armor IDs and amounts -- [{"id": 123, "amount": 1}]
-  special_equipment: { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of special equipment -- [{"name": "my special thing", "amount": 1, "desc": "it does this" }]
-  special_weapons:   { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of special weapons -- [{"name": "my special thing", "amount": 1, "desc": "it does this" }]
-  special_armor:     { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of special armor -- [{"name": "my special thing", "amount": 1, "desc": "it does this" }]
+  equipment:         { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of equipment objects -- [{"id": 123, name: "Lantern", "amount": 1}]
+  weapons:           { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of weapon objects -- [{"id": 456, name: "Sword", "amount": 1}]
+  armor:             { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of armor objects -- [{"id": 789, name: "Breastplate", "amount": 1}]
   notes:             { type: Sequelize.TEXT }, // "Character Notes"
   features:          { type: Sequelize.TEXT }, // "Features & Traits"
   personality:       { type: Sequelize.TEXT }, // "Personality Traits"
   ideals:            { type: Sequelize.TEXT }, // "Ideals"
   bonds:             { type: Sequelize.TEXT }, // "Bonds"
   flaws:             { type: Sequelize.TEXT }, // "Flaws"
-  languages:         { type: Sequelize.ARRAY(Sequelize.INTEGER) }, // array of language IDs
+  languages:         { type: Sequelize.ARRAY(Sequelize.STRING) }, // array of language names -- allows for custom
   platinum:          { type: Sequelize.INTEGER },
   gold:              { type: Sequelize.INTEGER },
   electrum:          { type: Sequelize.INTEGER },
   silver:            { type: Sequelize.INTEGER },
   copper:            { type: Sequelize.INTEGER },
-  proficiencies:     { type: Sequelize.ARRAY(Sequelize.INTEGER) }, // array of proficiency IDs
+  proficiencies:     { type: Sequelize.ARRAY(Sequelize.STRING) }, // array of proficiency names -- allows for custom
   spells:            { type: Sequelize.ARRAY(Sequelize.INTEGER) }, // array of spell IDs
   spell_slots:       { type: Sequelize.JSON }, // {"1": {amount: 3, used: 2}}
   userid:            {

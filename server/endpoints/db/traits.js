@@ -8,7 +8,7 @@ function getAll(req, res, next) {
     });
 }
 
-function getSingle(req, res, next) {
+function getSpecific(req, res, next) {
   const id = req.params.id;
   let selected = null;
 
@@ -32,5 +32,5 @@ function getSingle(req, res, next) {
 
 module.exports = {
   getAll,
-  getSingle
+  getSpecific
 }

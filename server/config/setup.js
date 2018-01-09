@@ -17,11 +17,11 @@ function sleep(ms) {
 async function setup() {
   Characters.drop();
   await sleep(1000);
-  Users.drop();
-  await sleep(1000);
+  //Users.drop();
+  //await sleep(1000);
 
-  Users.sync();
-  await sleep(1000);
+  //Users.sync();
+  //await sleep(1000);
   Characters.sync();
 }
 
