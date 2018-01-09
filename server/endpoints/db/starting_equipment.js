@@ -1,5 +1,6 @@
 const constants = require('../../config/constants')
 const starting_equipment = require('../../json/starting-equipment.json');
+const _ = require('lodash');
 
 function getAll(req, res, next) {
   res.status(constants.http_ok)
@@ -9,14 +10,9 @@ function getAll(req, res, next) {
 }
 
 function getSpecific(req, res, next) {
-  const id = req.params.id;
-  let selected = null;
+  let selected = _.filter(starting_equipment, req.body);
 
-  starting_equipment.forEach(ele => {
-    if (ele.index == id || ele.class.name.toLowerCase().replace(/ /g, '_') == id.toLowerCase()) selected = ele;
-  });
-
-  if (!!selected) {
+  if (selected.length > 0) {
     res.status(constants.http_ok)
       .json({
         content: selected

@@ -1,5 +1,6 @@
 const constants = require('../../config/constants')
 const levels = require('../../json/levels.json');
+const _ = require('lodash');
 
 function getAll(req, res, next) {
   res.status(constants.http_ok)
@@ -9,14 +10,9 @@ function getAll(req, res, next) {
 }
 
 function getSpecific(req, res, next) {
-  const id = req.params.id;
-  let selected = null;
+  let selected = _.filter(levels, req.body);
 
-  levels.forEach(ele => {
-    if (ele.index == id || ele.level == id) selected = ele;
-  });
-
-  if (!!selected) {
+  if (selected.length > 0) {
     res.status(constants.http_ok)
       .json({
         content: selected
