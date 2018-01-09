@@ -10,6 +10,7 @@ hr {
 
 .main-container {
   margin-top: $large-margin;
+  margin-bottom: $large-margin;
 }
 
 .heading {
@@ -79,3 +80,8 @@ hr {
   overflow: auto;
 }
 /* --------------------------- */
+
+.pt-tree-node-list {
+  max-height: 300px;
+  overflow: auto;
+}

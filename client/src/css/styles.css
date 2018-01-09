@@ -2,7 +2,8 @@ hr {
   margin: 15px 0 20px 0; }
 
 .main-container {
-  margin-top: 4rem; }
+  margin-top: 4rem;
+  margin-bottom: 4rem; }
 
 .heading {
   margin-bottom: 4rem; }
@@ -60,3 +61,6 @@ hr {
   overflow: auto; }
 
 /* --------------------------- */
+.pt-tree-node-list {
+  max-height: 300px;
+  overflow: auto; }
