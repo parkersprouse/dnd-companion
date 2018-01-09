@@ -80,7 +80,7 @@ export default class CreateCharacterForm extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              <EquipmentPanel update={this.onInputChange} />
+              <EquipmentPanel update={this.onInputChange} setRootState={this.setRootState} rootState={this.state} />
             </div>
           </Grid.Column>
         </Grid.Row>
