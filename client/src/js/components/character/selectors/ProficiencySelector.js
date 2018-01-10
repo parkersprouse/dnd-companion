@@ -51,6 +51,7 @@ export default class ProficiencySelector extends Component {
             } }
             onItemSelect={ (selected) => this.props.addProficiency(selected.name) }
             popoverProps={{ minimal: true, placement: 'top' }}
+            noResults={<MenuItem disabled text="No results" />}
             resetOnSelect={true}
           >
             <Button className='pt-fill text-left dropdown-btn' rightIconName='caret-down' text={'Choose Proficiency'} />

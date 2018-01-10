@@ -27,6 +27,7 @@ export default class AlignmentSelector extends Component {
           } }
           onItemSelect={ (selected) => this.props.setRootState({ alignment: selected }) }
           popoverProps={{ minimal: true }}
+          noResults={<MenuItem disabled text="No results" />}
           resetOnSelect={true}
         >
           <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"

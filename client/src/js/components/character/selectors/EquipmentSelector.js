@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
 import axios from 'axios';
+import _ from 'lodash';
 
 export default class EquipmentSelector extends Component {
   constructor(props) {
@@ -14,7 +15,11 @@ export default class EquipmentSelector extends Component {
   componentWillMount() {
     axios.get('/api/db/equipment')
     .then((response) => {
-      this.setState({ equipment: response.data.content });
+      // remove weapons from equipment
+      let equipment = _.reject(response.data.content, { equipment_category: "Weapon" });
+      // remove armor from equipment
+      equipment = _.reject(equipment, { equipment_category: "Armor" });
+      this.setState({ equipment: equipment });
     })
     .catch((error) => {});
   }
@@ -30,7 +35,8 @@ export default class EquipmentSelector extends Component {
             return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
           } }
           onItemSelect={ (selected) => this.props.addEquipment(selected.name) }
-          popoverProps={{ minimal: true }}
+          popoverProps={{ minimal: true, placement: 'top' }}
+          noResults={<MenuItem disabled text="No results" />}
           resetOnSelect={true}
         >
           <Button className='pt-fill text-left dropdown-btn' rightIconName='caret-down' text={'Choose Equipment'} />

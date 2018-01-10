@@ -2,21 +2,24 @@ import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
 import axios from 'axios';
+import _ from 'lodash';
 
-export default class LanguageSelector extends Component {
+export default class EquipmentSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      languages: [],
-      isCustom: false,
-      tempLanguage: ''
+      armor: [],
+      tempArmor: '',
+      isCustom: false
     };
   }
 
   componentWillMount() {
-    axios.get('/api/db/languages')
+    axios.get('/api/db/equipment')
     .then((response) => {
-      this.setState({ languages: response.data.content });
+      // get armor from equipment
+      const armor = _.filter(response.data.content, { equipment_category: "Armor" });
+      this.setState({ armor: armor });
     })
     .catch((error) => {});
   }
@@ -30,12 +33,12 @@ export default class LanguageSelector extends Component {
       return (
         <div style={{ marginTop: '0.5rem' }}>
           <div className='pt-control-group pt-fill'>
-            <input name='tempLanguage' value={this.state.tempLanguage} className='pt-input pt-fill' type='text'
+            <input name='tempArmor' value={this.state.tempArmor} className='pt-input pt-fill' type='text'
                    onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
             <button className='pt-button pt-intent-primary pt-fixed'
-                    onClick={() => { this.setState({ tempLanguage: '' }); this.props.addLanguage(this.state.tempLanguage); }}>Add</button>
+                    onClick={() => { this.setState({ tempArmor: '' }); this.props.addArmor(this.state.tempArmor); }}>Add</button>
           </div>
-          <div className='pt-form-helper-text'>Languages (<a onClick={this.swap}>standard</a>)</div>
+          <div className='pt-form-helper-text'>Armor (<a onClick={this.swap}>standard</a>)</div>
         </div>
       );
     }
@@ -43,20 +46,20 @@ export default class LanguageSelector extends Component {
       return (
         <div style={{ marginTop: '0.5rem' }}>
           <Select
-            items={this.state.languages}
+            items={this.state.armor}
             itemPredicate={ (query, selected) => selected.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
             itemRenderer={ ({ handleClick, isActive, item }) => {
               const style = isActive ? 'pt-active pt-intent-primary' : '';
               return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
             } }
-            onItemSelect={ selected => this.props.addLanguage(selected.name) }
+            onItemSelect={ (selected) => this.props.addArmor(selected.name) }
             popoverProps={{ minimal: true, placement: 'top' }}
             noResults={<MenuItem disabled text="No results" />}
             resetOnSelect={true}
           >
-            <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={"Choose Language"} />
+            <Button className='pt-fill text-left dropdown-btn' rightIconName='caret-down' text={'Choose Armor'} />
           </Select>
-          <div className='pt-form-helper-text'>Languages (<a onClick={this.swap}>custom</a>)</div>
+          <div className='pt-form-helper-text'>Armor (<a onClick={this.swap}>custom</a>)</div>
         </div>
       );
     }

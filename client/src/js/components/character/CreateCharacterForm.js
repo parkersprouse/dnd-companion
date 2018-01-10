@@ -59,7 +59,7 @@ export default class CreateCharacterForm extends Component {
               <LifePanel update={this.onInputChange} />
             </div>
             <div className='pt-card'>
-              <AttacksPanel update={this.onInputChange} />
+              <AttacksPanel update={this.onInputChange} setRootState={this.setRootState} rootState={this.state} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>

@@ -74,7 +74,7 @@ export default class ProficienciesPanel extends Component {
 
     return (
       <div>
-        <div className='pt-form-group' style={{ marginBottom: '0' }}>
+        <div className='pt-form-group' style={{ marginBottom: '2rem' }}>
           <div className='pt-form-content searcher'>
             <div className='pt-tree pt-elevation-0'>
               <ul className='pt-tree-node-list pt-tree-root'>
@@ -91,7 +91,7 @@ export default class ProficienciesPanel extends Component {
             <ProficiencySelector addProficiency={this.addProficiency} />
           </div>
         </div>
-        <div className='pt-form-group' style={{ marginBottom: '0', marginTop: '2rem' }}>
+        <div className='pt-form-group' style={{ marginBottom: '0' }}>
           <div className='pt-form-content searcher'>
             <div className='pt-tree pt-elevation-0'>
               <ul className='pt-tree-node-list pt-tree-root'>

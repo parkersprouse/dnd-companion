@@ -7,7 +7,7 @@ const attributes = {
   level:             { type: Sequelize.INTEGER, allowNull: false, defaultValue: 1 },
   experience:        { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 },
   alignment:         { type: Sequelize.TEXT, allowNull: false },
-  race:              { type: Sequelize.INTEGER, allowNull: false }, // race ID
+  race:              { type: Sequelize.TEXT, allowNull: false }, // race name -- allows for custom
   backstory:         { type: Sequelize.TEXT },
   hair_color:        { type: Sequelize.TEXT },
   skin_color:        { type: Sequelize.TEXT },
@@ -16,7 +16,7 @@ const attributes = {
   age:               { type: Sequelize.TEXT },
   weight:            { type: Sequelize.TEXT },
   background:        { type: Sequelize.TEXT, allowNull: false },
-  class:             { type: Sequelize.INTEGER, allowNull: false }, // class ID
+  class:             { type: Sequelize.TEXT, allowNull: false }, // class name -- allows for custom
   ability_scores:    { type: Sequelize.JSON, allowNull: false }, // {"charisma": {level: 13, bonus: 1}}
   passive_wisdom:    { type: Sequelize.INTEGER }, // passive perception
   proficiency_bonus: { type: Sequelize.INTEGER, allowNull: false },
@@ -38,13 +38,13 @@ const attributes = {
   ideals:            { type: Sequelize.TEXT }, // "Ideals"
   bonds:             { type: Sequelize.TEXT }, // "Bonds"
   flaws:             { type: Sequelize.TEXT }, // "Flaws"
-  languages:         { type: Sequelize.ARRAY(Sequelize.STRING) }, // array of language names -- allows for custom
+  languages:         { type: Sequelize.ARRAY(Sequelize.TEXT) }, // array of language names -- allows for custom
   platinum:          { type: Sequelize.INTEGER },
   gold:              { type: Sequelize.INTEGER },
   electrum:          { type: Sequelize.INTEGER },
   silver:            { type: Sequelize.INTEGER },
   copper:            { type: Sequelize.INTEGER },
-  proficiencies:     { type: Sequelize.ARRAY(Sequelize.STRING) }, // array of proficiency names -- allows for custom
+  proficiencies:     { type: Sequelize.ARRAY(Sequelize.TEXT) }, // array of proficiency names -- allows for custom
   spells:            { type: Sequelize.ARRAY(Sequelize.INTEGER) }, // array of spell IDs
   spell_slots:       { type: Sequelize.JSON }, // {"1": {amount: 3, used: 2}}
   userid:            {

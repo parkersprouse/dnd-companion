@@ -1,104 +1,116 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
+import WeaponSelector from './selectors/WeaponSelector';
+import ArmorSelector from './selectors/ArmorSelector';
 
 export default class AttacksPanel extends Component {
+  addWeapon = (weapon) => {
+    if (!weapon) return;
+    const rootState = this.props.rootState;
+    if (rootState && rootState.weapons) {
+      rootState.weapons.push(weapon);
+      this.props.setRootState({ weapons: rootState.weapons });
+    }
+    else
+      this.props.setRootState({ weapons: [weapon] });
+  }
+
+  addArmor = (armor) => {
+    if (!armor) return;
+    const rootState = this.props.rootState;
+    if (rootState && rootState.armor) {
+      rootState.armor.push(armor);
+      this.props.setRootState({ armor: rootState.armor });
+    }
+    else
+      this.props.setRootState({ armor: [armor] });
+  }
+
+  removeWeapon = (index) => {
+    this.props.rootState.weapons.splice(index, 1);
+    this.props.setRootState({ weapons: this.props.rootState.weapons });
+  }
+
+  removeArmor = (index) => {
+    this.props.rootState.armor.splice(index, 1);
+    this.props.setRootState({ armor: this.props.rootState.armor });
+  }
+
   render() {
+    const weaponList = [];
+    const armorList = [];
+
+    if (this.props.rootState && this.props.rootState.weapons) {
+      this.props.rootState.weapons.forEach((weapon, index) => {
+        weaponList.push(
+          <li key={index} className='pt-tree-node'>
+            <div className='pt-tree-node-content'>
+              <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{weapon}</span>
+              <span className='pt-tree-node-secondary-label'>
+                <a onClick={() => this.removeWeapon(index)} style={{ color: 'red' }}>
+                  <span className='pt-icon-cross'></span>
+                </a>
+              </span>
+            </div>
+          </li>
+        );
+      });
+    }
+
+    if (this.props.rootState && this.props.rootState.armor) {
+      this.props.rootState.armor.forEach((armor, index) => {
+        armorList.push(
+          <li key={index} className='pt-tree-node'>
+            <div className='pt-tree-node-content'>
+              <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{armor}</span>
+              <span className='pt-tree-node-secondary-label'>
+                <a onClick={() => this.removeArmor(index)} style={{ color: 'red' }}>
+                  <span className='pt-icon-cross'></span>
+                </a>
+              </span>
+            </div>
+          </li>
+        );
+      });
+    }
+
     return (
-      <Grid stackable centered>
-
-        <Grid.Row>
-          <Grid.Column width={6} style={{ paddingRight: '0' }}>
-            <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <input name='weaponA' className='pt-input pt-fill' type='text' onChange={this.props.update} />
-                <div className='pt-form-helper-text'>Weapon Name</div>
-              </div>
+      <div>
+        <div className='pt-form-group' style={{ marginBottom: '2rem' }}>
+          <div className='pt-form-content searcher'>
+            <div className='pt-tree pt-elevation-0'>
+              <ul className='pt-tree-node-list pt-tree-root'>
+                {
+                  weaponList.length > 0 ? weaponList :
+                  <li className='pt-tree-node'>
+                    <div className='pt-tree-node-content'>
+                      <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}><i>None</i></span>
+                    </div>
+                  </li>
+                }
+              </ul>
             </div>
-          </Grid.Column>
-          <Grid.Column width={4} style={{ paddingRight: '0' }}>
-            <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <input name='atkbonusA' className='pt-input pt-fill' type='text' onChange={this.props.update} />
-                <div className='pt-form-helper-text'>Atk Bonus</div>
-              </div>
+            <WeaponSelector addWeapon={this.addWeapon} />
+          </div>
+        </div>
+        <div className='pt-form-group' style={{ marginBottom: '0' }}>
+          <div className='pt-form-content searcher'>
+            <div className='pt-tree pt-elevation-0'>
+              <ul className='pt-tree-node-list pt-tree-root'>
+                {
+                  armorList.length > 0 ? armorList :
+                  <li className='pt-tree-node'>
+                    <div className='pt-tree-node-content'>
+                      <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}><i>None</i></span>
+                    </div>
+                  </li>
+                }
+              </ul>
             </div>
-          </Grid.Column>
-          <Grid.Column width={6}>
-            <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <input name='damageA' className='pt-input pt-fill' type='text' onChange={this.props.update} />
-                <div className='pt-form-helper-text'>Damage</div>
-              </div>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-
-        <Grid.Row style={{ paddingTop: '0' }}>
-          <Grid.Column width={6} style={{ paddingRight: '0' }}>
-            <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <input name='weaponB' className='pt-input pt-fill' type='text' onChange={this.props.update} />
-                <div className='pt-form-helper-text'>Weapon Name</div>
-              </div>
-            </div>
-          </Grid.Column>
-          <Grid.Column width={4} style={{ paddingRight: '0' }}>
-            <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <input name='atkbonusB' className='pt-input pt-fill' type='text' onChange={this.props.update} />
-                <div className='pt-form-helper-text'>Atk Bonus</div>
-              </div>
-            </div>
-          </Grid.Column>
-          <Grid.Column width={6}>
-            <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <input name='damageB' className='pt-input pt-fill' type='text' onChange={this.props.update} />
-                <div className='pt-form-helper-text'>Damage</div>
-              </div>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-
-        <Grid.Row style={{ paddingTop: '0' }}>
-          <Grid.Column width={6} style={{ paddingRight: '0' }}>
-            <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <input name='weaponC' className='pt-input pt-fill' type='text' onChange={this.props.update} />
-                <div className='pt-form-helper-text'>Weapon Name</div>
-              </div>
-            </div>
-          </Grid.Column>
-          <Grid.Column width={4} style={{ paddingRight: '0' }}>
-            <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <input name='atkbonusC' className='pt-input pt-fill' type='text' onChange={this.props.update} />
-                <div className='pt-form-helper-text'>Atk Bonus</div>
-              </div>
-            </div>
-          </Grid.Column>
-          <Grid.Column width={6}>
-            <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <input name='damageC' className='pt-input pt-fill' type='text' onChange={this.props.update} />
-                <div className='pt-form-helper-text'>Damage</div>
-              </div>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-
-        <Grid.Row style={{ paddingTop: '0' }}>
-          <Grid.Column width={16}>
-            <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
-                <textarea name='extraweapons' className='pt-input pt-fill' rows='8' onChange={this.props.update}></textarea>
-                <div className='pt-form-helper-text'>Extra Weapons</div>
-              </div>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-
-      </Grid>
+            <ArmorSelector addArmor={this.addArmor} />
+          </div>
+        </div>
+      </div>
     );
   }
 }
