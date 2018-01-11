@@ -9,14 +9,14 @@ export default class DetailsPanel extends Component {
     return (
       <Grid stackable centered>
         <Grid.Row>
-          <Grid.Column width={5} style={{ paddingRight: '0' }}>
+          <Grid.Column width={5} style={{ paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content searcher'>
                 <ClassSelector update={this.props.update} setRootState={this.props.setRootState} rootState={this.props.rootState} />
               </div>
             </div>
           </Grid.Column>
-          <Grid.Column width={5} style={{ paddingRight: '0' }}>
+          <Grid.Column width={5} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
                 <input name='background' className='pt-input pt-fill' type='text' onChange={this.props.update} />
@@ -24,7 +24,7 @@ export default class DetailsPanel extends Component {
               </div>
             </div>
           </Grid.Column>
-          <Grid.Column width={6}>
+          <Grid.Column width={6} style={{ paddingLeft: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
                 <input name='player' className='pt-input pt-fill' type='text' onChange={this.props.update} />
@@ -34,22 +34,22 @@ export default class DetailsPanel extends Component {
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row style={{ paddingTop: '0' }}>
-          <Grid.Column width={5} style={{ paddingRight: '0' }}>
+        <Grid.Row>
+          <Grid.Column width={5} style={{ paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content searcher'>
                 <RaceSelector update={this.props.update} setRootState={this.props.setRootState} rootState={this.props.rootState} />
               </div>
             </div>
           </Grid.Column>
-          <Grid.Column width={5} style={{ paddingRight: '0' }}>
+          <Grid.Column width={5} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content searcher'>
                 <AlignmentSelector update={this.props.update} setRootState={this.props.setRootState} rootState={this.props.rootState} />
               </div>
             </div>
           </Grid.Column>
-          <Grid.Column width={3} style={{ paddingRight: '0' }}>
+          <Grid.Column width={3} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
                 <input name='experience' className='pt-input pt-fill' type='text' onChange={this.props.update} />
@@ -57,7 +57,7 @@ export default class DetailsPanel extends Component {
               </div>
             </div>
           </Grid.Column>
-          <Grid.Column width={3}>
+          <Grid.Column width={3} style={{ paddingLeft: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
                 <input name='level' className='pt-input pt-fill' type='text' onChange={this.props.update} />

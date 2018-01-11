@@ -5,7 +5,7 @@ const router = require('express').Router();
 
 const auth = require('./endpoints/auth');
 const misc = require('./endpoints/misc');
-const recipes = require('./endpoints/characters');
+const characters = require('./endpoints/characters');
 const users = require('./endpoints/users');
 
 // auth endpoints
@@ -20,6 +20,12 @@ router.get('/users', users.getUsers);
 router.post('/users', users.getUserBy);
 router.patch('/users/update', users.updateUser);
 // router.patch('/users/updatepw', users.updateUserPassword);
+
+// characters endpoints
+router.get('/characters', characters.getCharacters);
+router.post('/characters', characters.getCharacterBy);
+router.post('/characters/new', characters.createCharacter);
+router.patch('/characters/update', characters.updateCharacter);
 
 // 5e database endpoints
 const ability_scores = require('./endpoints/db/ability_scores');
