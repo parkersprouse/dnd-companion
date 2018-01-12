@@ -12,19 +12,26 @@ function getUserBy(req, res, next) {
   const value = attr === 'id' ? req.body[attr] : { $iLike: req.body[attr] };
   Users.findOne({ where: { [attr]: value } })
     .then((data) => {
-      res.status(constants.http_ok)
-        .json({
-          status: 'success',
-          content: data.get({ plain: true }),
-          message: 'Got all users'
-        });
+      if (!data)
+        res.status(constants.http_not_found)
+          .json({
+            status: 'failure',
+            message: 'User not found'
+          });
+      else
+        res.status(constants.http_ok)
+          .json({
+            status: 'success',
+            content: data.get({ plain: true }),
+            message: 'Got user'
+          });
     })
     .catch((err) => {
       res.status(constants.http_bad_request)
         .json({
           status: 'failure',
           content: err.message,
-          message: 'Failed to get all users'
+          message: 'Failed to get user'
         });
     });
 }

@@ -1,3 +1,97 @@
+const constants = require('../config/constants');
+const db = require('../config/db').db;
+const validator = require('validator');
+const _ = require('lodash');
+const Characters = require('../models/characters');
+
+function getCharacters(req, res, next) {
+  Characters.findAll()
+    .then((data) => {
+      const chars = [];
+      data.forEach((char) => chars.push(char.get({ plain: true })));
+      res.status(constants.http_ok)
+        .json({
+          status: 'success',
+          content: chars,
+          message: 'Got all characters'
+        });
+    })
+    .catch((err) => {
+      res.status(constants.http_bad_request)
+        .json({
+          status: 'failure',
+          content: err.message,
+          message: 'Failed to get all characters'
+        });
+    });
+}
+
+function getCharacterBy(req, res, next) {
+  const attr = Object.keys(req.body)[0];
+  const value = attr === 'id' ? req.body[attr] : { $iLike: req.body[attr] };
+  Characters.findOne({ where: { [attr]: value } })
+    .then((data) => {
+      if (!data)
+        res.status(constants.http_not_found)
+          .json({
+            status: 'failure',
+            message: 'Character not found'
+          });
+      else
+        res.status(constants.http_ok)
+          .json({
+            status: 'success',
+            content: data.get({ plain: true }),
+            message: 'Got character'
+          });
+    })
+    .catch((err) => {
+      res.status(constants.http_bad_request)
+        .json({
+          status: 'failure',
+          content: err.message,
+          message: 'Failed to get character'
+        });
+    });
+}
+
+function createCharacter(req, res, next) {
+  Characters.create(req.body)
+    .then((data) => {
+      res.status(constants.http_ok)
+        .json({
+          status: 'success',
+          content: data,
+          message: 'Character created'
+        });
+    })
+    .catch((err) => {
+      res.status(constants.http_bad_request)
+        .json({
+          status: 'failure',
+          content: err.message,
+          message: 'Failed to create character'
+        });
+    });
+}
+
+function updateCharacter(req, res, next) {
+
+}
+
+function deleteCharacter(req, res, next) {
+
+}
+
+module.exports = {
+  getCharacters,
+  getCharacterBy,
+  createCharacter,
+  updateCharacter,
+  deleteCharacter
+}
+
+
 // const constants = require('../constants');
 // const db = require('../db').db;
 // const validator = require('validator');

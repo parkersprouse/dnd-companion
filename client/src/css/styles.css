@@ -62,5 +62,5 @@ hr {
 
 /* --------------------------- */
 .pt-tree-node-list {
-  max-height: 300px;
+  max-height: 210;
   overflow: auto; }

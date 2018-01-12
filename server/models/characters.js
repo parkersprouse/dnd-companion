@@ -4,10 +4,11 @@ const Users = require('./Users');
 const attributes = {
   id:                { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, unique: true, primaryKey: true },
   name:              { type: Sequelize.TEXT, allowNull: false },
-  level:             { type: Sequelize.INTEGER, allowNull: false, defaultValue: 1 },
-  experience:        { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 },
-  alignment:         { type: Sequelize.TEXT, allowNull: false },
-  race:              { type: Sequelize.TEXT, allowNull: false }, // race name -- allows for custom
+  player_name:       { type: Sequelize.TEXT },
+  level:             { type: Sequelize.TEXT, defaultValue: 1 },
+  experience:        { type: Sequelize.TEXT, defaultValue: 0 },
+  alignment:         { type: Sequelize.TEXT },
+  race:              { type: Sequelize.TEXT }, // race name -- allows for custom
   backstory:         { type: Sequelize.TEXT },
   hair_color:        { type: Sequelize.TEXT },
   skin_color:        { type: Sequelize.TEXT },
@@ -15,23 +16,23 @@ const attributes = {
   height:            { type: Sequelize.TEXT },
   age:               { type: Sequelize.TEXT },
   weight:            { type: Sequelize.TEXT },
-  background:        { type: Sequelize.TEXT, allowNull: false },
-  class:             { type: Sequelize.TEXT, allowNull: false }, // class name -- allows for custom
-  ability_scores:    { type: Sequelize.JSON, allowNull: false }, // {"charisma": {level: 13, bonus: 1}}
+  background:        { type: Sequelize.TEXT },
+  class:             { type: Sequelize.TEXT }, // class name -- allows for custom
+  ability_scores:    { type: Sequelize.JSON }, // {"charisma": {level: 13, modifier: 1}}
   passive_wisdom:    { type: Sequelize.INTEGER }, // passive perception
-  proficiency_bonus: { type: Sequelize.INTEGER, allowNull: false },
+  proficiency_bonus: { type: Sequelize.INTEGER },
   inspiration:       { type: Sequelize.INTEGER },
-  armor_class:       { type: Sequelize.INTEGER, allowNull: false },
-  speed:             { type: Sequelize.INTEGER, allowNull: false },
+  armor_class:       { type: Sequelize.INTEGER },
+  speed:             { type: Sequelize.INTEGER },
   initiative:        { type: Sequelize.INTEGER },
-  max_hp:            { type: Sequelize.INTEGER, allowNull: false },
+  max_hp:            { type: Sequelize.INTEGER },
   current_hp:        { type: Sequelize.INTEGER },
   temp_hp:           { type: Sequelize.INTEGER },
   hit_dice:          { type: Sequelize.TEXT },
   death_saves:       { type: Sequelize.JSON }, // {success: 0, failed: 2}
-  equipment:         { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of equipment objects -- [{"id": 123, name: "Lantern", "amount": 1}]
-  weapons:           { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of weapon objects -- [{"id": 456, name: "Sword", "amount": 1}]
-  armor:             { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of armor objects -- [{"id": 789, name: "Breastplate", "amount": 1}]
+  equipment:         { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of equipment objects -- [{name: "Lantern", "amount": 1}]
+  weapons:           { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of weapon objects -- [{name: "Sword", "amount": 1}]
+  armor:             { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of armor objects -- [{name: "Breastplate", "amount": 1}]
   notes:             { type: Sequelize.TEXT }, // "Character Notes"
   features:          { type: Sequelize.TEXT }, // "Features & Traits"
   personality:       { type: Sequelize.TEXT }, // "Personality Traits"

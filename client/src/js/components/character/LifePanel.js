@@ -10,7 +10,7 @@ export default class LifePanel extends Component {
           <Grid.Column width={8} style={{ paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
-                <input name='ac' className='pt-input pt-fill' type='text' onChange={this.props.update} />
+                <input name='armor_class' className='pt-input pt-fill' type='text' onChange={this.props.update} />
                 <div className='pt-form-helper-text'>Armor Class</div>
               </div>
             </div>
