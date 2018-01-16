@@ -5,7 +5,7 @@ const router = require('express').Router();
 
 const auth = require('./endpoints/auth');
 const misc = require('./endpoints/misc');
-const recipes = require('./endpoints/characters');
+const characters = require('./endpoints/characters');
 const users = require('./endpoints/users');
 
 // auth endpoints
@@ -21,90 +21,97 @@ router.post('/users', users.getUserBy);
 router.patch('/users/update', users.updateUser);
 // router.patch('/users/updatepw', users.updateUserPassword);
 
+// characters endpoints
+router.get('/characters', characters.getCharacters);
+router.post('/characters', characters.getCharacterBy);
+router.post('/characters/new', characters.createCharacter);
+router.patch('/characters/update', characters.updateCharacter);
+router.delete('/characters/:id', characters.deleteCharacter);
+
 // 5e database endpoints
 const ability_scores = require('./endpoints/db/ability_scores');
 router.get('/db/ability_scores', ability_scores.getAll);
-router.get('/db/ability_scores/:id', ability_scores.getSingle);
+router.post('/db/ability_scores', ability_scores.getSpecific);
 
 const classes = require('./endpoints/db/classes');
 router.get('/db/classes', classes.getAll);
-router.get('/db/classes/:id', classes.getSingle);
+router.post('/db/classes', classes.getSpecific);
 
 const conditions = require('./endpoints/db/conditions');
 router.get('/db/conditions', conditions.getAll);
-router.get('/db/conditions/:id', conditions.getSingle);
+router.post('/db/conditions', conditions.getSpecific);
 
 const damage_types = require('./endpoints/db/damage_types');
 router.get('/db/damage_types', damage_types.getAll);
-router.get('/db/damage_types/:id', damage_types.getSingle);
+router.post('/db/damage_types', damage_types.getSpecific);
 
 const equipment_categories = require('./endpoints/db/equipment_categories');
 router.get('/db/equipment_categories', equipment_categories.getAll);
-router.get('/db/equipment_categories/:id', equipment_categories.getSingle);
+router.post('/db/equipment_categories', equipment_categories.getSpecific);
 
 const equipment = require('./endpoints/db/equipment');
 router.get('/db/equipment', equipment.getAll);
-router.get('/db/equipment/:id', equipment.getSingle);
+router.post('/db/equipment', equipment.getSpecific);
 
 const features = require('./endpoints/db/features');
 router.get('/db/features', features.getAll);
-router.get('/db/features/:id', features.getSingle);
+router.post('/db/features', features.getSpecific);
 
 const languages = require('./endpoints/db/languages');
 router.get('/db/languages', languages.getAll);
-router.get('/db/languages/:id', languages.getSingle);
+router.post('/db/languages', languages.getSpecific);
 
 const levels = require('./endpoints/db/levels');
 router.get('/db/levels', levels.getAll);
-router.get('/db/levels/:id', levels.getSingle);
+router.post('/db/levels', levels.getSpecific);
 
 const magic_schools = require('./endpoints/db/magic_schools');
 router.get('/db/magic_schools', magic_schools.getAll);
-router.get('/db/magic_schools/:id', magic_schools.getSingle);
+router.post('/db/magic_schools', magic_schools.getSpecific);
 
 const monsters = require('./endpoints/db/monsters');
 router.get('/db/monsters', monsters.getAll);
-router.get('/db/monsters/:id', monsters.getSingle);
+router.post('/db/monsters', monsters.getSpecific);
 
 const proficiencies = require('./endpoints/db/proficiencies');
 router.get('/db/proficiencies', proficiencies.getAll);
-router.get('/db/proficiencies/:id', proficiencies.getSingle);
+router.post('/db/proficiencies', proficiencies.getSpecific);
 
 const races = require('./endpoints/db/races');
 router.get('/db/races', races.getAll);
-router.get('/db/races/:id', races.getSingle);
+router.post('/db/races', races.getSpecific);
 
 const skills = require('./endpoints/db/skills');
 router.get('/db/skills', skills.getAll);
-router.get('/db/skills/:id', skills.getSingle);
+router.post('/db/skills', skills.getSpecific);
 
 const spellcasting = require('./endpoints/db/spellcasting');
 router.get('/db/spellcasting', spellcasting.getAll);
-router.get('/db/spellcasting/:id', spellcasting.getSingle);
+router.post('/db/spellcasting', spellcasting.getSpecific);
 
 const spells = require('./endpoints/db/spells');
 router.get('/db/spells', spells.getAll);
-router.get('/db/spells/:id', spells.getSingle);
+router.post('/db/spells', spells.getSpecific);
 
 const starting_equipment = require('./endpoints/db/starting_equipment');
 router.get('/db/starting_equipment', starting_equipment.getAll);
-router.get('/db/starting_equipment/:id', starting_equipment.getSingle);
+router.post('/db/starting_equipment', starting_equipment.getSpecific);
 
 const subclasses = require('./endpoints/db/subclasses');
 router.get('/db/subclasses', subclasses.getAll);
-router.get('/db/subclasses/:id', subclasses.getSingle);
+router.post('/db/subclasses', subclasses.getSpecific);
 
 const subraces = require('./endpoints/db/subraces');
 router.get('/db/subraces', subraces.getAll);
-router.get('/db/subraces/:id', subraces.getSingle);
+router.post('/db/subraces', subraces.getSpecific);
 
 const traits = require('./endpoints/db/traits');
 router.get('/db/traits', traits.getAll);
-router.get('/db/traits/:id', traits.getSingle);
+router.post('/db/traits', traits.getSpecific);
 
 const weapon_properties = require('./endpoints/db/weapon_properties');
 router.get('/db/weapon_properties', weapon_properties.getAll);
-router.get('/db/weapon_properties/:id', weapon_properties.getSingle);
+router.post('/db/weapon_properties', weapon_properties.getSpecific);
 
 
 //require('./config/setup')();

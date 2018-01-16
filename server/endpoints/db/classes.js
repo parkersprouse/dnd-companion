@@ -1,5 +1,6 @@
 const constants = require('../../config/constants')
 const classes = require('../../json/classes.json');
+const _ = require('lodash');
 
 function getAll(req, res, next) {
   res.status(constants.http_ok)
@@ -8,15 +9,10 @@ function getAll(req, res, next) {
     });
 }
 
-function getSingle(req, res, next) {
-  const id = req.params.id;
-  let selected = null;
+function getSpecific(req, res, next) {
+  let selected = _.filter(classes, req.body);
 
-  classes.forEach(ele => {
-    if (ele.index == id || ele.name.toLowerCase().replace(/ /g, '_') == id.toLowerCase()) selected = ele;
-  });
-
-  if (!!selected) {
+  if (selected.length > 0) {
     res.status(constants.http_ok)
       .json({
         content: selected
@@ -32,5 +28,5 @@ function getSingle(req, res, next) {
 
 module.exports = {
   getAll,
-  getSingle
+  getSpecific
 }

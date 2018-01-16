@@ -15,18 +15,6 @@ import EquipmentPanel from './EquipmentPanel';
     the character creation form.
 **/
 export default class CreateCharacterForm extends Component {
-  constructor(props) {
-    super(props);
-    this.onInputChange = this.onInputChange.bind(this);
-  }
-
-  onInputChange(event) {
-    let value = event.target.value;
-    if (event.target.type === 'checkbox')
-      value = event.target.checked;
-    this.setState({ [event.target.name]: value });
-  }
-
   render() {
     return (
       <Grid stackable centered>
@@ -34,12 +22,12 @@ export default class CreateCharacterForm extends Component {
         <Grid.Row>
           <Grid.Column width={6}>
             <div className='pt-card'>
-              <NamePanel update={this.onInputChange} />
+              <NamePanel update={this.props.onInputChange} />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              <DetailsPanel update={this.onInputChange} />
+              <DetailsPanel update={this.props.onInputChange} setRootState={this.props.setRootState} rootState={this.props.rootState} />
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -47,23 +35,23 @@ export default class CreateCharacterForm extends Component {
         <Grid.Row stretched>
           <Grid.Column width={6}>
             <div className='pt-card'>
-              <AbilityScoresPanel update={this.onInputChange} />
+              <AbilityScoresPanel update={this.props.onInputChange} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <LifePanel update={this.onInputChange} />
+              <LifePanel update={this.props.onInputChange} />
             </div>
             <div className='pt-card'>
-              <AttacksPanel update={this.onInputChange} />
+              <AttacksPanel update={this.props.onInputChange} setRootState={this.props.setRootState} rootState={this.props.rootState} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <PersonalityPanel update={this.onInputChange} />
+              <PersonalityPanel update={this.props.onInputChange} rootState={this.props.rootState} />
             </div>
             <div className='pt-card'>
-              <TraitsPanel update={this.onInputChange} />
+              <TraitsPanel update={this.props.onInputChange} rootState={this.props.rootState} />
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -71,12 +59,12 @@ export default class CreateCharacterForm extends Component {
         <Grid.Row>
           <Grid.Column width={6}>
             <div className='pt-card'>
-              <ProficienciesPanel update={this.onInputChange} />
+              <ProficienciesPanel update={this.props.onInputChange} setRootState={this.props.setRootState} rootState={this.props.rootState} />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              <EquipmentPanel update={this.onInputChange} />
+              <EquipmentPanel update={this.props.onInputChange} setRootState={this.props.setRootState} rootState={this.props.rootState} />
             </div>
           </Grid.Column>
         </Grid.Row>

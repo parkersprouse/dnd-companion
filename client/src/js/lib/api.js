@@ -80,6 +80,14 @@ module.exports = {
 
   verifyAuthToken: function(token, callback) {
     performPost('/api/misc/verifyauthtoken', { token: token }, callback);
+  },
+
+  getAllCharacters: function(callback) {
+    performGet('/api/characters', callback);
+  },
+
+  getUsersCharacters: function(userid, callback) {
+    performPost('/api/characters', { userid: userid }, callback);
   }
 
 }
