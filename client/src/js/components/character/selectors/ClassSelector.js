@@ -44,12 +44,12 @@ export default class ClassSelector extends Component {
               const style = isActive ? 'pt-active pt-intent-primary' : '';
               return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
             } }
-            onItemSelect={ (selected) => this.props.setRootState({ class: selected }) }
+            onItemSelect={ (selected) => this.props.setRootState({ class: selected.name }) }
             popoverProps={{ minimal: true }}
             noResults={<MenuItem disabled text="No results" />}
             resetOnSelect={true}
           >
-            <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={!!this.props.rootState && !!this.props.rootState.class ? this.props.rootState.class.name : "Choose Class"} />
+            <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={!!this.props.rootState && !!this.props.rootState.class ? this.props.rootState.class : "Choose Class"} />
           </Select>
           <div className='pt-form-helper-text'>Class (<a onClick={this.swap}>custom</a>)</div>
         </div>

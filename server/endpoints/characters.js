@@ -28,8 +28,8 @@ function getCharacters(req, res, next) {
 
 function getCharacterBy(req, res, next) {
   const attr = Object.keys(req.body)[0];
-  const value = attr === 'id' ? req.body[attr] : { $iLike: req.body[attr] };
-  Characters.findOne({ where: { [attr]: value } })
+  const value = typeof req.body[attr] === 'number' ? req.body[attr] : { $iLike: req.body[attr] };
+  Characters.findAll({ where: { [attr]: value } })
     .then((data) => {
       if (!data)
         res.status(constants.http_not_found)
@@ -37,13 +37,16 @@ function getCharacterBy(req, res, next) {
             status: 'failure',
             message: 'Character not found'
           });
-      else
+      else {
+        const chars = [];
+        data.forEach((char) => chars.push(char.get({ plain: true })));
         res.status(constants.http_ok)
           .json({
             status: 'success',
-            content: data.get({ plain: true }),
+            content: chars,
             message: 'Got character'
           });
+      }
     })
     .catch((err) => {
       res.status(constants.http_bad_request)

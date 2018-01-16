@@ -29,6 +29,12 @@ export default class Header extends Component {
         <MenuItem text='Logout' iconName='log-out' href='/logout' shouldDismissPopover={false} />
       </Menu>;
 
+    let charDropdown =
+      <Menu>
+        <MenuItem text='My Characters' iconName='properties' href='/characters' shouldDismissPopover={false} />
+        <MenuItem text='New Character' iconName='plus' href='/characters/new' shouldDismissPopover={false} />
+      </Menu>;
+
     let rightSide = null;
     if (this.state.isLoggedIn !== null) {
       if (this.state.isLoggedIn) {
@@ -56,6 +62,13 @@ export default class Header extends Component {
           <Container>
             <NavbarGroup>
               <AnchorButton href='/' className='pt-minimal' iconName='home'>Home</AnchorButton>
+              { this.state.isLoggedIn ?
+                <Popover content={charDropdown} position={Position.BOTTOM}
+                         interactionKind={PopoverInteractionKind.HOVER}
+                         hoverOpenDelay={0} hoverCloseDelay={150}>
+                  <AnchorButton className='pt-minimal' rightIconName='caret-down'>Characters</AnchorButton>
+                </Popover>
+              : null }
             </NavbarGroup>
             { rightSide }
           </Container>
