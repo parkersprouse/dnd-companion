@@ -1,5 +1,5 @@
 const { db, Sequelize } = require('../config/db');
-const Users = require('./Users');
+const Users = require('./users');
 
 const attributes = {
   id:                { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, unique: true, primaryKey: true },

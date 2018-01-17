@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server",
     "dev": "cd client && npm run build && cd .. && node server",
-    "heroku-postbuild": "npm install --only=dev && cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "axios": "^0.17.1",
