@@ -26,7 +26,7 @@ export default class CharacterListPage extends Component {
     console.log(this.state);
 
     const chars = this.state.characters.map((char) => {
-      return <div className="pt-card pt-elevation-0 pt-interactive"
+      return <div className='pt-card pt-elevation-0 pt-interactive character-card'
                   onClick={() => window.location.href = '/characters/' + char.id}>
               <Item.Group>
                 <Item>
@@ -48,7 +48,7 @@ export default class CharacterListPage extends Component {
       <OuterContainer>
         <Header />
         <InnerContainer>
-          <h3>Your characters:</h3>
+          <h3 className='page-title'>Your characters:</h3>
           {chars}
         </InnerContainer>
       </OuterContainer>
