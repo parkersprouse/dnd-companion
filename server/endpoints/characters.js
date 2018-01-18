@@ -31,7 +31,7 @@ function getCharacterBy(req, res, next) {
   const value = typeof req.body[attr] === 'number' ? req.body[attr] : { $iLike: req.body[attr] };
   Characters.findAll({ where: { [attr]: value } })
     .then((data) => {
-      if (!data)
+      if (!data || data.length === 0)
         res.status(constants.http_not_found)
           .json({
             status: 'failure',

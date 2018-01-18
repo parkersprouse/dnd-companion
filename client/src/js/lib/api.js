@@ -88,6 +88,10 @@ module.exports = {
 
   getUsersCharacters: function(userid, callback) {
     performPost('/api/characters', { userid: userid }, callback);
+  },
+
+  getCharacter: function(data, callback) {
+    performPost('/api/characters', data, callback);
   }
 
 }
