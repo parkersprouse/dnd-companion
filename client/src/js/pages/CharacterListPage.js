@@ -26,29 +26,33 @@ export default class CharacterListPage extends Component {
     console.log(this.state);
 
     const chars = this.state.characters.map((char) => {
-      return <div className='pt-card pt-elevation-0 pt-interactive character-card'
-                  onClick={() => window.location.href = '/characters/' + char.id}>
-              <Item.Group>
-                <Item>
-                  <Item.Content>
-                    <Item.Header as='a'>{char.name}, Level {char.level}</Item.Header>
-                    {/*<Item.Meta></Item.Meta>*/}
-                    <Item.Description>
-                      {char.race} {char.class}, {char.alignment}
-                    </Item.Description>
-                    {/*<Item.Extra>Additional Details</Item.Extra>
-                    */}
-                  </Item.Content>
-                </Item>
-              </Item.Group>
-            </div>
+      return (
+        <div className='pt-card pt-elevation-0 pt-interactive character-card'
+             onClick={() => window.location.href = '/characters/' + char.id}>
+          <Item.Group>
+            <Item>
+              <Item.Content>
+                <Item.Header as='h3'>{ char.name }</Item.Header>
+                {
+                  char.race || char.class ?
+                  <Item.Meta>{ (char.class + ' ' + char.race).trim() }</Item.Meta> : null
+                }
+                <Item.Meta>Level { char.level }</Item.Meta>
+                { char.alignment ? <Item.Meta>{ char.alignment }</Item.Meta> : null }
+                {/*<Item.Description>Desc</Item.Description>
+                <Item.Extra>Extra</Item.Extra>*/}
+              </Item.Content>
+            </Item>
+          </Item.Group>
+        </div>
+      );
     });
 
     return (
       <OuterContainer>
         <Header />
         <InnerContainer>
-          <h3 className='page-title'>Your characters:</h3>
+          <h2 className='page-title'>Your characters:</h2>
           {chars}
         </InnerContainer>
       </OuterContainer>
