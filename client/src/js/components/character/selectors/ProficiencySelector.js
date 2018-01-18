@@ -32,7 +32,7 @@ export default class ProficiencySelector extends Component {
           <div className='pt-control-group pt-fill'>
             <input name='tempProficiency' value={this.state.tempProficiency} className='pt-input pt-fill' type='text'
                    onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
-            <button className='pt-button pt-intent-primary pt-fixed'
+            <button className='pt-button pt-intent-primary pt-fixed' type='button'
                     onClick={() => { this.setState({ tempProficiency: '' }); this.props.addProficiency(this.state.tempProficiency); }}>Add</button>
           </div>
           <div className='pt-form-helper-text'>Proficiencies (<a onClick={this.swap}>standard</a>)</div>

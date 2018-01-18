@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Intent } from '@blueprintjs/core';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
@@ -10,9 +11,11 @@ import axios from 'axios';
 export default class CreateCharacterPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      error: null
+    };
   }
-  
+
   componentWillMount() {
     utils.getCurrentUserInfo((success, response) => {
       if (success)
@@ -21,17 +24,36 @@ export default class CreateCharacterPage extends Component {
   }
 
   render() {
+    console.log(this.state);
+
     return (
       <OuterContainer>
         <Header />
         <InnerContainer>
-          <button style={{ float: 'right' }} type='button' className='pt-button pt-large pt-intent-primary pt-icon-add' onClick={this.submit}>Create</button>
+          <Button intent={Intent.PRIMARY}
+                  iconName='add'
+                  type='submit'
+                  loading={this.state.isSubmitting}
+                  className='pt-large'
+                  style={{ float: 'right' }}
+                  onClick={this.submit}>Create
+          </Button>
           <h1 className='page-title'>Create Character</h1>
+          { this.renderErrors() }
           <form onSubmit={this.submit}>
             <CreateCharacterForm onInputChange={this.onInputChange} setRootState={this.setRootState} rootState={this.state} />
           </form>
         </InnerContainer>
       </OuterContainer>
+    );
+  }
+
+  renderErrors = () => {
+    if (!this.state.error) return null;
+    return (
+      <div className='pt-callout pt-intent-danger form-error-msg'>
+        <span className='pt-icon-error'></span> { this.state.error }
+      </div>
     );
   }
 
@@ -48,8 +70,12 @@ export default class CreateCharacterPage extends Component {
 
   submit = (event) => {
     event.preventDefault();
+    this.setState({ error: null, isSubmitting: true });
 
     const data = { ...this.state };
+
+    // Make sure empty strings don't make it through
+    data.name = !!data.name ? data.name : null;
 
     if (data.equipment && data.equipment.length > 0) {
       const newEquipment = [];
@@ -78,16 +104,30 @@ export default class CreateCharacterPage extends Component {
       data.armor = _.uniqBy(newArmor, 'name');
     }
 
+    data.ability_scores = this.formatAbilityScores(data);
+
     console.log(data);
 
     axios.post('/api/characters/new', data)
-    .then(function (response) {
-      console.log('success');
-      console.log(response.data);
+    .then((response) => {
+      window.location.href = '/characters/' + response.data.content.id;
     })
-    .catch(function (error) {
-      console.log('error');
-      console.log(error.response.data);
+    .catch((error) => {
+      this.setState({ error: error.response.data.message, isSubmitting: false });
     });
   }
+
+  formatAbilityScores = (data) => {
+    const ability_scores = {};
+
+    ability_scores.strength =     { level: data.strength,     modifier: data.strength_modifier }
+    ability_scores.dexterity =    { level: data.dexterity,    modifier: data.dexterity_modifier }
+    ability_scores.constitution = { level: data.constitution, modifier: data.constitution_modifier }
+    ability_scores.intelligence = { level: data.intelligence, modifier: data.intelligence_modifier }
+    ability_scores.wisdom =       { level: data.wisdom,       modifier: data.wisdom_modifier }
+    ability_scores.charisma =     { level: data.charisma,     modifier: data.charisma_modifier }
+
+    return ability_scores;
+  }
+
 }

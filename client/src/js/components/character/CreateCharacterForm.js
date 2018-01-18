@@ -35,7 +35,7 @@ export default class CreateCharacterForm extends Component {
         <Grid.Row stretched>
           <Grid.Column width={6}>
             <div className='pt-card'>
-              <AbilityScoresPanel update={this.props.onInputChange} />
+              <AbilityScoresPanel rootState={this.props.rootState} setRootState={this.props.setRootState} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>

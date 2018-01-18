@@ -59,23 +59,30 @@ function getCharacterBy(req, res, next) {
 }
 
 function createCharacter(req, res, next) {
-  Characters.create(req.body)
-    .then((data) => {
-      res.status(constants.http_ok)
-        .json({
-          status: 'success',
-          content: data,
-          message: 'Character created'
-        });
-    })
-    .catch((err) => {
-      res.status(constants.http_bad_request)
-        .json({
-          status: 'failure',
-          content: err.message,
-          message: 'Failed to create character'
-        });
-    });
+  if (!req.body.name)
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        message: 'Please make sure your character has a name'
+      });
+  else
+    Characters.create(req.body)
+      .then((data) => {
+        res.status(constants.http_ok)
+          .json({
+            status: 'success',
+            content: data,
+            message: 'Character created'
+          });
+      })
+      .catch((err) => {
+        res.status(constants.http_bad_request)
+          .json({
+            status: 'failure',
+            content: err.message,
+            message: 'There was an unknown problem when trying to create your character'
+          });
+      });
 }
 
 function updateCharacter(req, res, next) {

@@ -35,7 +35,7 @@ export default class EquipmentSelector extends Component {
           <div className='pt-control-group pt-fill'>
             <input name='tempArmor' value={this.state.tempArmor} className='pt-input pt-fill' type='text'
                    onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
-            <button className='pt-button pt-intent-primary pt-fixed'
+            <button className='pt-button pt-intent-primary pt-fixed' type='button'
                     onClick={() => { this.setState({ tempArmor: '' }); this.props.addArmor(this.state.tempArmor); }}>Add</button>
           </div>
           <div className='pt-form-helper-text'>Armor (<a onClick={this.swap}>standard</a>)</div>

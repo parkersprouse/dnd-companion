@@ -74,7 +74,7 @@ export default class EquipmentPanel extends Component {
                 <div className='pt-control-group pt-fill'>
                   <input name='tempEquipment' value={this.state.tempEquipment} className='pt-input pt-fill' type='text'
                          onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
-                  <button className='pt-button pt-intent-primary pt-fixed'
+                  <button className='pt-button pt-intent-primary pt-fixed' type='button'
                           onClick={() => { this.setState({ tempEquipment: '' }); this.addEquipment(this.state.tempEquipment); }}>Add</button>
                 </div>
                 <div className='pt-form-helper-text'>Custom Equipment</div>

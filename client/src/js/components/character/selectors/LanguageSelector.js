@@ -32,7 +32,7 @@ export default class LanguageSelector extends Component {
           <div className='pt-control-group pt-fill'>
             <input name='tempLanguage' value={this.state.tempLanguage} className='pt-input pt-fill' type='text'
                    onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
-            <button className='pt-button pt-intent-primary pt-fixed'
+            <button className='pt-button pt-intent-primary pt-fixed' type='button'
                     onClick={() => { this.setState({ tempLanguage: '' }); this.props.addLanguage(this.state.tempLanguage); }}>Add</button>
           </div>
           <div className='pt-form-helper-text'>Languages (<a onClick={this.swap}>standard</a>)</div>

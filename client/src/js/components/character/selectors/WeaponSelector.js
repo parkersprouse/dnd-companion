@@ -35,7 +35,7 @@ export default class WeaponSelector extends Component {
           <div className='pt-control-group pt-fill'>
             <input name='tempWeapon' value={this.state.tempWeapon} className='pt-input pt-fill' type='text'
                    onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
-            <button className='pt-button pt-intent-primary pt-fixed'
+            <button className='pt-button pt-intent-primary pt-fixed' type='button'
                     onClick={() => { this.setState({ tempWeapon: '' }); this.props.addWeapon(this.state.tempWeapon); }}>Add</button>
           </div>
           <div className='pt-form-helper-text'>Weapons (<a onClick={this.swap}>standard</a>)</div>
