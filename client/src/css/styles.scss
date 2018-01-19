@@ -4,12 +4,6 @@ $small-margin: 1rem;
 $medium-margin: 2rem;
 $large-margin: 4rem;
 
-@media screen and (max-device-width: 992px){
-  body{
-    -webkit-text-size-adjust: 100%;
-  }
-}
-
 hr {
   margin: 15px 0 20px 0;
 }
