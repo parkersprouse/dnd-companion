@@ -16,16 +16,13 @@ export default class SubraceSelector extends Component {
 
   componentDidMount() {
     axios.get('/api/db/subraces')
-    .then((response) => {
-      this.setState({ subraces: response.data.content, all_subraces: response.data.content });
-    })
-    .catch((error) => {});
+      .then((response) => {
+        this.setState({ subraces: response.data.content, all_subraces: response.data.content });
+      })
+      .catch((error) => {});
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log(this.props.rootState);
-    console.log(nextProps);
-
     this.loading = this.props.rootState.race === nextProps.rootState.race;
   }
 
@@ -34,16 +31,16 @@ export default class SubraceSelector extends Component {
     this.loading = true;
 
     axios.post('/api/db/subraces', { race: { name: this.props.rootState.race } })
-    .then((response) => {
-      this.setState({ subraces: response.data.content });
-      this.props.setRootState({ subrace: null });
-      this.loading = false;
-    })
-    .catch((error) => {
-      this.setState({ subraces: [] });
-      this.props.setRootState({ subrace: null });
-      this.loading = false;
-    });
+      .then((response) => {
+        this.setState({ subraces: response.data.content });
+        this.props.setRootState({ subrace: null });
+        this.loading = false;
+      })
+      .catch((error) => {
+        this.setState({ subraces: [] });
+        this.props.setRootState({ subrace: null });
+        this.loading = false;
+      });
   }
 
   swap = () => {

@@ -17,11 +17,11 @@
 		],
 		"starting_proficiencies:": [],
 		"starting_proficiency_options": {
-			
+
 		},
 		"languages": [],
 		"language_options": {
-			
+
 		},
 		"racial_traits": [
 			{
@@ -67,7 +67,7 @@
 			}
 		],
 		"starting_proficiency_options": {
-			
+
 		},
 		"languages": [],
 		"language_options": {
@@ -133,7 +133,7 @@
 			"type": "language"
 		},
 		"racial_traits": [],
-		"racial_trait_options": 
+		"racial_trait_options":
 			{
 				"choose": 1,
 				"from": [
@@ -209,11 +209,11 @@
 		],
 		"starting_proficiencies:": [],
 		"starting_proficiency_options": {
-			
+
 		},
 		"languages": [],
 		"language_options": {
-			
+
 		},
 		"racial_traits": [
 			{
@@ -253,7 +253,7 @@
 		"starting_proficiency_options": {},
 		"languages": [],
 		"language_options": {
-			
+
 		},
 		"racial_traits": [],
 		"racial_trait_options": {},
@@ -296,7 +296,7 @@
 		"starting_proficiency_options": {},
 		"languages": [],
 		"language_options": {
-			
+
 		},
 		"racial_traits": [
 			{
@@ -318,7 +318,7 @@
 			"url": "/api/db/races/2",
 			"name": "Elf"
 		},
-		"desc": "As a wood elf, you have keen senses and intuition, and your fleet feet carry you quickly through your native forrests.",
+		"desc": "As a wood elf, you have keen senses and intuition, and your fleet feet carry you quickly through your native forests.",
 		"ability_bonuses": [
 			0,
 			0,
@@ -344,7 +344,7 @@
 		"starting_proficiency_options": {},
 		"languages": [],
 		"language_options": {
-			
+
 		},
 		"racial_traits": [
 			{
@@ -362,5 +362,83 @@
 		],
 		"racial_trait_options": {},
 		"url": "/api/db/subraces/6"
+	},
+  {
+		"index": 7,
+		"name": "Forest Gnome",
+		"race": {
+			"url": "/api/db/races/6",
+			"name": "Gnome"
+		},
+		"desc": "As a forest gnome, you have a natural knack for illusion and inherent quickness and stealth.",
+		"ability_bonuses": [
+			0,
+			1,
+			0,
+			0,
+			0,
+			0
+		],
+		"starting_proficiencies:": [],
+		"starting_proficiency_options": {},
+		"languages": [],
+		"language_options": {
+
+		},
+		"racial_traits": [],
+		"racial_trait_options": {},
+		"url": "/api/db/subraces/7"
+	},
+  {
+		"index": 8,
+		"name": "Rock Gnome",
+		"race": {
+			"url": "/api/db/races/6",
+			"name": "Gnome"
+		},
+		"desc": "As a rock gnome, you have a natural inventiveness and hardiness beyond that of other gnomes.",
+		"ability_bonuses": [
+			0,
+			0,
+			1,
+			0,
+			0,
+			0
+		],
+		"starting_proficiencies:": [],
+		"starting_proficiency_options": {},
+		"languages": [],
+		"language_options": {
+
+		},
+		"racial_traits": [],
+		"racial_trait_options": {},
+		"url": "/api/db/subraces/8"
+	},
+  {
+		"index": 8,
+		"name": "Stout Halfling",
+		"race": {
+			"url": "/api/db/races/3",
+			"name": "Halfling"
+		},
+		"desc": "As a stout halfling. you're hardier than average and have some resistance to poison.",
+		"ability_bonuses": [
+			0,
+			0,
+			1,
+			0,
+			0,
+			0
+		],
+		"starting_proficiencies:": [],
+		"starting_proficiency_options": {},
+		"languages": [],
+		"language_options": {
+
+		},
+		"racial_traits": [],
+		"racial_trait_options": {},
+		"url": "/api/db/subraces/9"
 	}
 ]
