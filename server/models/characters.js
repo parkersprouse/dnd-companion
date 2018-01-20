@@ -4,7 +4,7 @@ const Users = require('./users');
 const attributes = {
   id:                { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, unique: true, primaryKey: true },
   name:              { type: Sequelize.TEXT, allowNull: false },
-  player_name:       { type: Sequelize.TEXT },
+  subrace:           { type: Sequelize.TEXT },
   level:             { type: Sequelize.TEXT, defaultValue: 1 },
   experience:        { type: Sequelize.TEXT, defaultValue: 0 },
   alignment:         { type: Sequelize.TEXT },

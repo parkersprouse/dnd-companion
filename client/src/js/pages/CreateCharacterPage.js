@@ -19,12 +19,12 @@ export default class CreateCharacterPage extends Component {
   componentWillMount() {
     utils.getCurrentUserInfo((success, response) => {
       if (success)
-        this.setState({ userid: response.id, player_name: response.name });
+        this.setState({ userid: response.id });
     });
   }
 
   render() {
-    console.log(this.state);
+    //console.log(this.state);
 
     return (
       <OuterContainer>
