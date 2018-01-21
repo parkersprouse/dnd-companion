@@ -1,29 +1,52 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
+import { EditableText, Popover, Position, NumericInput } from '@blueprintjs/core';
 import EquipmentSelector from './selectors/EquipmentSelector';
 
 export default class EquipmentPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tempEquipment: ''
+      temp_equipment: ''
     }
   }
 
   addEquipment = (equip) => {
     if (!equip) return;
+
     const rootState = this.props.rootState;
     if (rootState && rootState.equipment) {
       rootState.equipment.push(equip);
-      this.props.setRootState({ equipment: rootState.equipment });
+      this.props.setRootState({
+        equipment: rootState.equipment,
+        [this.amountLabel(equip)]: 1
+      });
     }
-    else
-      this.props.setRootState({ equipment: [equip] });
+    else {
+      this.props.setRootState({
+        equipment: [equip],
+        [this.amountLabel(equip)]: 1
+      });
+    }
   }
 
   removeEquipment = (index) => {
     this.props.rootState.equipment.splice(index, 1);
     this.props.setRootState({ equipment: this.props.rootState.equipment });
+  }
+
+  amountLabel = (equipment) => {
+    return equipment.toLowerCase().replace(/ /g, '_');
+  }
+
+  handleValueChange = (value, name) => {
+    if (!value)
+      this.props.setRootState({ [name]: '0' });
+    else
+      if (value[0] === '0' && value.length > 1)
+        this.props.setRootState({ [name]: value.slice(1) });
+      else
+        this.props.setRootState({ [name]: value });
   }
 
   render() {
@@ -35,6 +58,12 @@ export default class EquipmentPanel extends Component {
             <div className='pt-tree-node-content'>
               <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{equip}</span>
               <span className='pt-tree-node-secondary-label'>
+                <Popover position={Position.TOP}>
+                  <span style={{ marginRight: '1rem' }}>x{this.props.rootState[this.amountLabel(equip)]}</span>
+                  <div style={{ padding: '20px' }}>
+                    <NumericInput value={this.props.rootState[this.amountLabel(equip)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(equip))} min={1} className='pt-fill' />
+                  </div>
+                </Popover>
                 <a onClick={() => this.removeEquipment(index)} style={{ color: 'red' }}>
                   <span className='pt-icon-cross'></span>
                 </a>
@@ -72,10 +101,10 @@ export default class EquipmentPanel extends Component {
             <div className='pt-form-group' style={{ marginBottom: '1rem' }}>
               <div className='pt-form-content'>
                 <div className='pt-control-group pt-fill'>
-                  <input name='tempEquipment' value={this.state.tempEquipment} className='pt-input pt-fill' type='text'
+                  <input name='temp_equipment' value={this.state.temp_equipment} className='pt-input pt-fill' type='text'
                          onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
                   <button className='pt-button pt-intent-primary pt-fixed' type='button'
-                          onClick={() => { this.setState({ tempEquipment: '' }); this.addEquipment(this.state.tempEquipment); }}>Add</button>
+                          onClick={() => { this.setState({ temp_equipment: '' }); this.addEquipment(this.state.temp_equipment); }}>Add</button>
                 </div>
                 <div className='pt-form-helper-text'>Custom Equipment</div>
               </div>

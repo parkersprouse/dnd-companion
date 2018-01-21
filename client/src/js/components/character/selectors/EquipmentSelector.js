@@ -34,7 +34,7 @@ export default class EquipmentSelector extends Component {
             const style = isActive ? 'pt-active pt-intent-primary' : '';
             return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
           } }
-          onItemSelect={ (selected) => this.props.addEquipment(selected.name) }
+          onItemSelect={this.selectEquipment}
           popoverProps={{ minimal: true, placement: 'top' }}
           noResults={<MenuItem disabled text="No results" />}
           resetOnSelect={true}
@@ -43,5 +43,16 @@ export default class EquipmentSelector extends Component {
         </Select>
       </div>
     );
+  }
+
+  selectEquipment = (selected) => {
+    let index = null;
+    this.state.equipment.forEach((ele, i) => {
+      if (ele.name === selected.name) index = i;
+    });
+    this.props.addEquipment(selected.name);
+    if (index)
+      this.state.equipment.splice(index, 1);
+    this.forceUpdate();
   }
 }
