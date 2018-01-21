@@ -31,8 +31,12 @@ export default class EquipmentPanel extends Component {
   }
 
   removeEquipment = (index) => {
+    const equip = this.props.rootState.equipment[index];
     this.props.rootState.equipment.splice(index, 1);
-    this.props.setRootState({ equipment: this.props.rootState.equipment });
+    this.props.setRootState({
+      equipment: this.props.rootState.equipment,
+      [this.amountLabel(equip)]: null
+    });
   }
 
   amountLabel = (equipment) => {
@@ -111,7 +115,7 @@ export default class EquipmentPanel extends Component {
             </div>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content searcher'>
-                <EquipmentSelector addEquipment={this.addEquipment} />
+                <EquipmentSelector addEquipment={this.addEquipment} rootState={this.props.rootState} />
                 <div className='pt-form-helper-text'>Standard Equipment</div>
               </div>
             </div>
