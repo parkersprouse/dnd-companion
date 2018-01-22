@@ -85,8 +85,8 @@ export default class AttacksPanel extends Component {
               <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{weapon}</span>
               <span className='pt-tree-node-secondary-label'>
                 <Popover position={Position.TOP}>
-                  <span style={{ marginRight: '1rem' }}>x{this.props.rootState[this.amountLabel(weapon)]}</span>
-                  <div style={{ padding: '20px' }}>
+                  <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(weapon)]}</span>
+                  <div className='item-amount-popover'>
                     <NumericInput value={this.props.rootState[this.amountLabel(weapon)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(weapon))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
@@ -108,8 +108,8 @@ export default class AttacksPanel extends Component {
               <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{armor}</span>
               <span className='pt-tree-node-secondary-label'>
                 <Popover position={Position.TOP}>
-                  <span style={{ marginRight: '1rem' }}>x{this.props.rootState[this.amountLabel(armor)]}</span>
-                  <div style={{ padding: '20px' }}>
+                  <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(armor)]}</span>
+                  <div className='item-amount-popover'>
                     <NumericInput value={this.props.rootState[this.amountLabel(armor)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(armor))} min={1} className='pt-fill' />
                   </div>
                 </Popover>

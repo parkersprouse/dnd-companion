@@ -67,3 +67,10 @@ hr {
 
 .character-card {
   margin-top: 1.5rem; }
+
+.item-list-amount {
+  margin-right: 1rem;
+  cursor: pointer; }
+
+.item-amount-popover {
+  padding: 20px; }

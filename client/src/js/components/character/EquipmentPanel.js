@@ -63,8 +63,8 @@ export default class EquipmentPanel extends Component {
               <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{equip}</span>
               <span className='pt-tree-node-secondary-label'>
                 <Popover position={Position.TOP}>
-                  <span style={{ marginRight: '1rem' }}>x{this.props.rootState[this.amountLabel(equip)]}</span>
-                  <div style={{ padding: '20px' }}>
+                  <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(equip)]}</span>
+                  <div className='item-amount-popover'>
                     <NumericInput value={this.props.rootState[this.amountLabel(equip)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(equip))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
