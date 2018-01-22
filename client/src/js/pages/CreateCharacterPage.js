@@ -77,32 +77,9 @@ export default class CreateCharacterPage extends Component {
     // Make sure empty strings don't make it through
     data.name = !!data.name ? data.name : null;
 
-    if (data.equipment && data.equipment.length > 0) {
-      const newEquipment = [];
-      _.each(data.equipment, (equip) => {
-        const count = _.filter(data.equipment, (ele) => ele === equip).length;
-        newEquipment.push({ name: equip, amount: count });
-      });
-      data.equipment = _.uniqBy(newEquipment, 'name');
-    }
-
-    if (data.weapons && data.weapons.length > 0) {
-      const newWeapons = [];
-      _.each(data.weapons, (weapon) => {
-        const count = _.filter(data.weapons, (ele) => ele === weapon).length;
-        newWeapons.push({ name: weapon, amount: count });
-      });
-      data.weapons = _.uniqBy(newWeapons, 'name');
-    }
-
-    if (data.armor && data.armor.length > 0) {
-      const newArmor = [];
-      _.each(data.armor, (armor) => {
-        const count = _.filter(data.armor, (ele) => ele === armor).length;
-        newArmor.push({ name: armor, amount: count });
-      });
-      data.armor = _.uniqBy(newArmor, 'name');
-    }
+    data.equipment = this.formatItems(data, 'equipment');
+    data.weapons = this.formatItems(data, 'weapons');
+    data.armor = this.formatItems(data, 'armor');
 
     data.ability_scores = this.formatAbilityScores(data);
 
@@ -115,6 +92,21 @@ export default class CreateCharacterPage extends Component {
     .catch((error) => {
       this.setState({ error: error.response.data.message, isSubmitting: false });
     });
+  }
+
+  amountLabel = (item) => {
+    return item.toLowerCase().replace(/ /g, '_');
+  }
+
+  formatItems = (data, items) => {
+    if (data[items] && data[items].length > 0) {
+      const newItems = [];
+      _.each(data[items], (item) => {
+        newItems.push({ name: item, amount: this.state[this.amountLabel(item)] });
+      });
+      return newItems;
+    }
+    return null;
   }
 
   formatAbilityScores = (data) => {

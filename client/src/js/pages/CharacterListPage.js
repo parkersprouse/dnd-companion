@@ -35,7 +35,7 @@ export default class CharacterListPage extends Component {
                 <Item.Header as='h3'>{ char.name }</Item.Header>
                 {
                   char.race || char.class ?
-                  <Item.Meta>{ (char.class + ' ' + char.race).trim() }</Item.Meta> : null
+                  <Item.Meta>{ (char.race + ' ' + char.class).trim() }</Item.Meta> : null
                 }
                 { char.alignment ? <Item.Meta>{ char.alignment }</Item.Meta> : null }
                 <Item.Meta>Level { char.level }</Item.Meta>

@@ -28,6 +28,11 @@ export default class EquipmentSelector extends Component {
     this.setState({ isCustom: !this.state.isCustom });
   }
 
+  selectArmor = (selected) => {
+    if (this.props.rootState.armor && this.props.rootState.armor.indexOf(selected.name) > -1) return;
+    this.props.addArmor(selected.name);
+  }
+
   render() {
     if (this.state.isCustom) {
       return (
@@ -52,7 +57,7 @@ export default class EquipmentSelector extends Component {
               const style = isActive ? 'pt-active pt-intent-primary' : '';
               return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
             } }
-            onItemSelect={ (selected) => this.props.addArmor(selected.name) }
+            onItemSelect={this.selectArmor}
             popoverProps={{ minimal: true, placement: 'top' }}
             noResults={<MenuItem disabled text="No results" />}
             resetOnSelect={true}

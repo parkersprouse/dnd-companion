@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
-import { EditableText, Popover, Position, NumericInput } from '@blueprintjs/core';
+import { Popover, Position, NumericInput } from '@blueprintjs/core';
 import EquipmentSelector from './selectors/EquipmentSelector';
 
 export default class EquipmentPanel extends Component {
