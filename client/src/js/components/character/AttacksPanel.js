@@ -64,13 +64,7 @@ export default class AttacksPanel extends Component {
   }
 
   handleValueChange = (value, name) => {
-    if (!value)
-      this.props.setRootState({ [name]: '0' });
-    else
-      if (value[0] === '0' && value.length > 1)
-        this.props.setRootState({ [name]: value.slice(1) });
-      else
-        this.props.setRootState({ [name]: value });
+    this.props.setRootState({ [name]: value });
   }
 
   render() {

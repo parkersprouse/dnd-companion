@@ -7,6 +7,7 @@ import CreateCharacterForm from '../components/character/CreateCharacterForm';
 import utils from '../lib/utils';
 import _ from 'lodash';
 import axios from 'axios';
+import validator from 'validator';
 
 export default class CreateCharacterPage extends Component {
   constructor(props) {
@@ -102,7 +103,9 @@ export default class CreateCharacterPage extends Component {
     if (data[items] && data[items].length > 0) {
       const newItems = [];
       _.each(data[items], (item) => {
-        newItems.push({ name: item, amount: this.state[this.amountLabel(item)] });
+        const amount_value = this.state[this.amountLabel(item)];
+        const amount = validator.isNumeric(amount_value) && parseInt(amount_value) > 0 ? amount_value : 1;
+        newItems.push({ name: item, amount: amount });
       });
       return newItems;
     }
