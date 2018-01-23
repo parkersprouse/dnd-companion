@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import NamePanel from './NamePanel';
 import DetailsPanel from './DetailsPanel';
 import AbilityScoresPanel from './AbilityScoresPanel';
@@ -40,7 +40,7 @@ export default class CreateCharacterForm extends Component {
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <LifePanel update={this.props.onInputChange} />
+              <LifePanel update={this.props.onInputChange} rootState={this.props.rootState} setRootState={this.props.setRootState} />
             </div>
             <div className='pt-card'>
               <AttacksPanel update={this.props.onInputChange} setRootState={this.props.setRootState} rootState={this.props.rootState} />

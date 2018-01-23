@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
-import axios from 'axios';
 
 export default class AlignmentSelector extends Component {
 

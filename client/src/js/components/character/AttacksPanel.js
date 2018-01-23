@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
 import { Popover, Position, NumericInput } from '@blueprintjs/core';
 import WeaponSelector from './selectors/WeaponSelector';
 import ArmorSelector from './selectors/ArmorSelector';
@@ -81,10 +80,11 @@ export default class AttacksPanel extends Component {
                 <Popover position={Position.TOP}>
                   <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(weapon)]}</span>
                   <div className='item-amount-popover'>
+                    <span>Enter Amount:</span>
                     <NumericInput value={this.props.rootState[this.amountLabel(weapon)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(weapon))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
-                <a onClick={() => this.removeWeapon(index)} style={{ color: 'red' }}>
+                <a onClick={() => this.removeWeapon(index)} className='remove-item-btn'>
                   <span className='pt-icon-cross'></span>
                 </a>
               </span>
@@ -104,10 +104,11 @@ export default class AttacksPanel extends Component {
                 <Popover position={Position.TOP}>
                   <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(armor)]}</span>
                   <div className='item-amount-popover'>
+                    <span>Enter Amount:</span>
                     <NumericInput value={this.props.rootState[this.amountLabel(armor)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(armor))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
-                <a onClick={() => this.removeArmor(index)} style={{ color: 'red' }}>
+                <a onClick={() => this.removeArmor(index)} className='remove-item-btn'>
                   <span className='pt-icon-cross'></span>
                 </a>
               </span>

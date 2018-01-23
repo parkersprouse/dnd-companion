@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { FormGroup } from '@blueprintjs/core';
 
 export default class NamePanel extends Component {
   render() {

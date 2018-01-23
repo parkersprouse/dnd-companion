@@ -59,10 +59,11 @@ export default class EquipmentPanel extends Component {
                 <Popover position={Position.TOP}>
                   <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(equip)]}</span>
                   <div className='item-amount-popover'>
+                    <span>Enter Amount:</span>
                     <NumericInput value={this.props.rootState[this.amountLabel(equip)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(equip))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
-                <a onClick={() => this.removeEquipment(index)} style={{ color: 'red' }}>
+                <a onClick={() => this.removeEquipment(index)} className='remove-item-btn'>
                   <span className='pt-icon-cross'></span>
                 </a>
               </span>

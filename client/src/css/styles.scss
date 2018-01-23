@@ -98,3 +98,19 @@ hr {
 .item-amount-popover {
   padding: 20px;
 }
+
+.item-amount-popover > div {
+  margin-top: 0.25rem;
+}
+
+.remove-item-btn {
+  color: $dark-red;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.remove-item-btn:hover {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}

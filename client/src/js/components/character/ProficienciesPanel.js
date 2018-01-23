@@ -44,7 +44,7 @@ export default class ProficienciesPanel extends Component {
             <div className='pt-tree-node-content'>
               <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{prof}</span>
               <span className='pt-tree-node-secondary-label'>
-                <a onClick={() => this.removeProficiency(index)} style={{ color: 'red' }}>
+                <a onClick={() => this.removeProficiency(index)} className='remove-item-btn'>
                   <span className='pt-icon-cross'></span>
                 </a>
               </span>
@@ -62,7 +62,7 @@ export default class ProficienciesPanel extends Component {
             <div className='pt-tree-node-content'>
               <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{lang}</span>
               <span className='pt-tree-node-secondary-label'>
-                <a onClick={() => this.removeLanguage(index)} style={{ color: 'red' }}>
+                <a onClick={() => this.removeLanguage(index)} className='remove-item-btn'>
                   <span className='pt-icon-cross'></span>
                 </a>
               </span>

@@ -19,7 +19,7 @@ export default class CharacterShowPage extends Component {
     if (!validator.isInt(id))
       this.setState({ character: -1 });
     else
-      api.getCharacter({ id: parseInt(id) }, (success, response) => {
+      api.getCharacter({ id: parseInt(id, 10) }, (success, response) => {
         if (success)
           this.setState({ character: response.content });
         else

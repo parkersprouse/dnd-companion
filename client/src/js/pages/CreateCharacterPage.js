@@ -104,7 +104,7 @@ export default class CreateCharacterPage extends Component {
       const newItems = [];
       _.each(data[items], (item) => {
         const amount_value = this.state[this.amountLabel(item)];
-        const amount = validator.isNumeric(amount_value) && parseInt(amount_value) > 0 ? amount_value : 1;
+        const amount = validator.isNumeric(amount_value + '') && parseInt(amount_value, 10) > 0 ? amount_value : 1;
         newItems.push({ name: item, amount: amount });
       });
       return newItems;
