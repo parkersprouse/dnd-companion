@@ -3,7 +3,7 @@ import { Button, Intent } from '@blueprintjs/core';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
-import CreateCharacterForm from '../components/character/CreateCharacterForm';
+import CreateCharacterForm from '../components/character_creation/CreateCharacterForm';
 import utils from '../lib/utils';
 import _ from 'lodash';
 import axios from 'axios';
@@ -25,7 +25,7 @@ export default class CreateCharacterPage extends Component {
   }
 
   render() {
-    console.log(this.state);
+    //console.log(this.state);
 
     return (
       <OuterContainer>
@@ -84,15 +84,13 @@ export default class CreateCharacterPage extends Component {
 
     data.ability_scores = this.formatAbilityScores(data);
 
-    console.log(data);
-
     axios.post('/api/characters/new', data)
-    .then((response) => {
-      window.location.href = '/characters/' + response.data.content.id;
-    })
-    .catch((error) => {
-      this.setState({ error: error.response.data.message, isSubmitting: false });
-    });
+      .then((response) => {
+        window.location.href = '/characters/' + response.data.content.id;
+      })
+      .catch((error) => {
+        this.setState({ error: error.response.data.message, isSubmitting: false });
+      });
   }
 
   amountLabel = (item) => {

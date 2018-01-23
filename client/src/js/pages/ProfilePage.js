@@ -28,7 +28,6 @@ export default class ProfilePage extends Component {
   componentDidMount() {
     utils.getCurrentUserInfo((success, response) => {
       if (success) {
-        console.log(response)
         this.setState({
           user: response,
           username: response.username,

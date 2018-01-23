@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Tab2, Tabs2 } from '@blueprintjs/core';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
@@ -44,7 +45,12 @@ export default class CharacterShowPage extends Component {
       <OuterContainer>
         <Header />
         <InnerContainer>
-          { JSON.stringify(this.state.character) }
+          <Tabs2 id='CharacterTabs'>
+            <Tab2 id='details' title='Details' panel={<div>Details</div>} />
+            <Tab2 id='spells' title='Spells' panel={<div>Spells</div>} />
+            <Tab2 id='additional' title='Additional' panel={<div>Additional</div>} />
+          </Tabs2>
+          { /*JSON.stringify(this.state.character)*/ }
         </InnerContainer>
       </OuterContainer>
     );
