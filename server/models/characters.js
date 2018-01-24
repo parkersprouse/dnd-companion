@@ -46,8 +46,12 @@ const attributes = {
   silver:            { type: Sequelize.INTEGER },
   copper:            { type: Sequelize.INTEGER },
   proficiencies:     { type: Sequelize.ARRAY(Sequelize.TEXT) }, // array of proficiency names -- allows for custom
-  spells:            { type: Sequelize.ARRAY(Sequelize.INTEGER) }, // array of spell IDs
+  spells:            { type: Sequelize.ARRAY(Sequelize.JSON) }, // [{ id: "1", prepared: true }]
   spell_slots:       { type: Sequelize.JSON }, // {"1": {amount: 3, used: 2}}
+  spell_class:       { type: Sequelize.TEXT }, // "Spellcasting Class"
+  spell_ability:     { type: Sequelize.INTEGER }, // "Spellcasting Ability"
+  spell_save_dc:     { type: Sequelize.INTEGER },
+  spell_atk_bonus:   { type: Sequelize.INTEGER },
   userid:            {
                        type: Sequelize.INTEGER, allowNull: false,
                        references: {

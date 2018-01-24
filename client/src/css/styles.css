@@ -36,6 +36,9 @@ hr {
 .text-left {
   text-align: left; }
 
+.text-center {
+  text-align: center !important; }
+
 /* Searchable dropdown customs */
 .searcher > div > span > div {
   width: 100%; }
@@ -87,3 +90,6 @@ hr {
   color: red;
   text-decoration: none;
   cursor: pointer; }
+
+.spellsheet-form-group {
+  margin: 0 !important; }

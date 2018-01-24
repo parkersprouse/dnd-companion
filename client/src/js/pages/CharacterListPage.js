@@ -25,28 +25,32 @@ export default class CharacterListPage extends Component {
   render() {
     console.log(this.state);
 
-    const chars = this.state.characters.map((char) => {
-      return (
-        <div className='pt-card pt-elevation-0 pt-interactive character-card'
-             onClick={() => window.location.href = '/characters/' + char.id}>
-          <Item.Group>
-            <Item>
-              <Item.Content>
-                <Item.Header as='h3'>{ char.name }</Item.Header>
-                {
-                  char.race || char.class ?
-                  <Item.Meta>{ (char.race + ' ' + char.class).trim() }</Item.Meta> : null
-                }
-                { char.alignment ? <Item.Meta>{ char.alignment }</Item.Meta> : null }
-                <Item.Meta>Level { char.level }</Item.Meta>
-                {/*<Item.Description>Desc</Item.Description>
-                <Item.Extra>Extra</Item.Extra>*/}
-              </Item.Content>
-            </Item>
-          </Item.Group>
-        </div>
-      );
-    });
+    let chars = null;
+
+    if (!!this.state.characters) {
+      chars = this.state.characters.map((char) => {
+        return (
+          <div className='pt-card pt-elevation-0 pt-interactive character-card'
+               onClick={() => window.location.href = '/characters/' + char.id}>
+            <Item.Group>
+              <Item>
+                <Item.Content>
+                  <Item.Header as='h3'>{ char.name }</Item.Header>
+                  {
+                    char.race || char.class ?
+                    <Item.Meta>{ (char.race + ' ' + char.class).trim() }</Item.Meta> : null
+                  }
+                  { char.alignment ? <Item.Meta>{ char.alignment }</Item.Meta> : null }
+                  <Item.Meta>Level { char.level }</Item.Meta>
+                  {/*<Item.Description>Desc</Item.Description>
+                  <Item.Extra>Extra</Item.Extra>*/}
+                </Item.Content>
+              </Item>
+            </Item.Group>
+          </div>
+        );
+      });
+    }
 
     return (
       <OuterContainer>
