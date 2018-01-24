@@ -86,7 +86,37 @@ function createCharacter(req, res, next) {
 }
 
 function updateCharacter(req, res, next) {
-
+  Characters.update(req.body, { where: { id: req.body.id }, returning: true })
+    .then((data) => {
+      if (!data[0]) {
+        res.status(constants.http_bad_request)
+          .json({
+            status: 'failure',
+            content: data[0],
+            message: 'No character updated, check provided ID'
+          });
+      }
+      else {
+        // data[0] is the number of rows affected
+        // data[1] is the array containing the returned rows
+        // data[1][0] is the first character that was returned
+        // data[1][0].dataValues is the object containing the values of the returned row
+        res.status(constants.http_ok)
+          .json({
+            status: 'success',
+            content: data[1][0].dataValues,
+            message: 'Updated character'
+          });
+      }
+    })
+    .catch((err) => {
+      res.status(constants.http_bad_request)
+        .json({
+          status: 'failure',
+          content: err.message,
+          message: 'There was a problem when updating your character'
+        });
+    });
 }
 
 function deleteCharacter(req, res, next) {

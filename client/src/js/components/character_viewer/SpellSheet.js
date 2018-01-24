@@ -4,15 +4,14 @@ import { Grid } from 'semantic-ui-react';
 import constants from '../../lib/constants';
 import axios from 'axios';
 import _ from 'lodash';
+import SpellcastingClassEditor from './spell_sheet/SpellcastingClassEditor';
 
 export default class SpellSheet extends Component {
   constructor(props) {
     super(props);
     this.state = {
       all_spells: [],
-      char_spells: [],
-      editing_class: false,
-      spell_class: props.character.spell_class || ''
+      char_spells: []
     }
   }
 
@@ -51,31 +50,8 @@ export default class SpellSheet extends Component {
         <Grid.Row centered>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              <div className='pt-form-group spellsheet-form-group'>
-                <div className='pt-form-content'>
-                  <div className='pt-input-group'>
-                    {
-                      this.state.editing_class ?
-                      <div className='pt-input-group'>
-                        <Tooltip content='Cancel' position={Position.TOP}>
-                          <button className='pt-button pt-minimal pt-intent-danger pt-icon-cross' onClick={() => this.setState({ editing_class: false })}></button>
-                        </Tooltip>
-                        <input type='text' className='pt-input' value={this.state.spell_class} name='spell_class' onChange={(event) => this.setState({ [event.target.name]: event.target.value })}/>
-                        <Tooltip content='Save' position={Position.TOP}>
-                          <button className='pt-button pt-minimal pt-intent-success pt-icon-lock' onClick={() => this.setState({ editing_class: false })}></button>
-                        </Tooltip>
-                      </div> :
-                      <Tooltip content='Click to edit' position={Position.TOP}>
-                        <span style={{ fontWeight: 'bold' }} onClick={() => this.setState({ editing_class: true })}>
-                          { this.state.spell_class || 'None' }
-                        </span>
-                      </Tooltip>
-                    }
-
-                  </div>
-                  <div className='pt-form-helper-text'>Spellcasting Class</div>
-                </div>
-              </div>
+              <SpellcastingClassEditor id={this.props.character.id}
+                                       spell_class={this.props.character.spell_class} />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>

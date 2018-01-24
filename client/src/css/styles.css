@@ -93,3 +93,9 @@ hr {
 
 .spellsheet-form-group {
   margin: 0 !important; }
+
+.text-success {
+  color: #00AA00; }
+
+.text-error {
+  color: #AA0000; }
