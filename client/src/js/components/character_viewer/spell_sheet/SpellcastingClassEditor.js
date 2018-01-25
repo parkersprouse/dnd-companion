@@ -44,7 +44,7 @@ export default class SpellSheet extends Component {
 
     return (
       <Tooltip content='Click to edit' position={Position.TOP}>
-        <span style={{ fontWeight: 'bold' }} onClick={() => this.setEditing(true)}>
+        <span className='char-sheet-editable-text' onClick={() => this.setEditing(true)}>
           { this.state.spell_class || 'None' }
         </span>
       </Tooltip>

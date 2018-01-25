@@ -92,10 +92,15 @@ hr {
   cursor: pointer; }
 
 .spellsheet-form-group {
-  margin: 0 !important; }
+  margin: 0 !important;
+  text-align: center; }
 
 .text-success {
   color: #00AA00; }
 
 .text-error {
   color: #AA0000; }
+
+.char-sheet-editable-text {
+  font-weight: bold;
+  cursor: pointer; }

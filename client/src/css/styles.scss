@@ -121,6 +121,7 @@ hr {
 
 .spellsheet-form-group {
   margin: 0 !important;
+  text-align: center;
 }
 
 .text-success {
@@ -129,4 +130,9 @@ hr {
 
 .text-error {
   color: $dark-red;
+}
+
+.char-sheet-editable-text {
+  font-weight: bold;
+  cursor: pointer;
 }

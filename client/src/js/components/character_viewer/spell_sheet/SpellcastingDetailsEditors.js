@@ -32,12 +32,11 @@ export default class SpellcastingDetailsEditors extends Component {
               <div className='pt-form-content'>
                 <div className='pt-input-group'>
                   {
-                    this.renderDisplay({
-                      editing_spell_ability: this.state.editing_spell_ability,
-                      spell_ability: this.state.spell_ability,
-                      new_spell_ability: this.state.new_spell_ability,
-                      placeholder: 'Enter Spellcasting Ability'
-                    })
+                    this.renderDisplay(
+                      'editing_spell_ability',
+                      'new_spell_ability',
+                      'spell_ability'
+                    )
                   }
                 </div>
                 <div className='pt-form-helper-text'>
@@ -51,12 +50,11 @@ export default class SpellcastingDetailsEditors extends Component {
               <div className='pt-form-content'>
                 <div className='pt-input-group'>
                   {
-                    this.renderDisplay({
-                      editing_spell_save_dc: this.state.editing_spell_save_dc,
-                      spell_save_dc: this.state.spell_save_dc,
-                      new_spell_save_dc: this.state.new_spell_save_dc,
-                      placeholder: 'Enter Spell Save DC'
-                    })
+                    this.renderDisplay(
+                      'editing_spell_save_dc',
+                      'new_spell_save_dc',
+                      'spell_save_dc'
+                    )
                   }
                 </div>
                 <div className='pt-form-helper-text'>
@@ -65,17 +63,16 @@ export default class SpellcastingDetailsEditors extends Component {
               </div>
             </div>
           </Grid.Column>
-          <Grid.Column width={6} style={{ paddingLeft: '0.5rem' }}>
+          <Grid.Column width={5} style={{ paddingLeft: '0.5rem' }}>
             <div className='pt-form-group spellsheet-form-group'>
               <div className='pt-form-content'>
                 <div className='pt-input-group'>
                   {
-                    this.renderDisplay({
-                      editing_spell_atk_bonus: this.state.editing_spell_atk_bonus,
-                      spell_atk_bonus: this.state.spell_atk_bonus,
-                      new_spell_atk_bonus: this.state.new_spell_atk_bonus,
-                      placeholder: 'Enter Spell Attack Bonus'
-                    })
+                    this.renderDisplay(
+                      'editing_spell_atk_bonus',
+                      'new_spell_atk_bonus',
+                      'spell_atk_bonus'
+                    )
                   }
                 </div>
                 <div className='pt-form-helper-text'>
@@ -108,7 +105,7 @@ export default class SpellcastingDetailsEditors extends Component {
   }
 
 
-  renderDisplay = ({ editing, current, initial, placeholder }) => {
+  renderDisplay = (editing, current, initial, placeholder) => {
     if (this.state[editing])
       return (
         <InputGroup
@@ -117,21 +114,24 @@ export default class SpellcastingDetailsEditors extends Component {
           type='text'
           onChange={(event) => this.setState({ [current]: event.target.value }) }
           rightElement={<Tooltip content='Save' position={Position.TOP}>
-                          <button className='pt-button pt-minimal pt-intent-success pt-icon-tick' onClick={() => this.save({ editing, current, initial })}></button>
+                          <button className='pt-button pt-minimal pt-intent-success pt-icon-tick' onClick={() => this.save(editing, current, initial)}></button>
                         </Tooltip>}
         />
       );
 
     return (
       <Tooltip content='Click to edit' position={Position.TOP}>
-        <span style={{ fontWeight: 'bold' }} onClick={() => this.setEditing({ [editing]: true })}>
+        <span className='char-sheet-editable-text' onClick={() => this.setEditing({ [editing]: true })}>
           { this.state[initial] || 'None' }
         </span>
       </Tooltip>
     );
   }
 
-  save = ({ editing, current, initial }) => {
+  save = (editing, current, initial) => {
+    console.log(initial)
+    console.log(current)
+    console.log(this.state[current])
     axios.patch('/api/characters/update', { id: this.props.character.id, [initial]: this.state[current] })
       .then((response) => {
         if (response.status === constants.http_ok) {
