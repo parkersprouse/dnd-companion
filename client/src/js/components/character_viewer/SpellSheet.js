@@ -5,6 +5,7 @@ import constants from '../../lib/constants';
 import axios from 'axios';
 import _ from 'lodash';
 import SpellcastingClassEditor from './spell_sheet/SpellcastingClassEditor';
+import SpellcastingDetailsEditors from './spell_sheet/SpellcastingDetailsEditors';
 
 export default class SpellSheet extends Component {
   constructor(props) {
@@ -56,7 +57,7 @@ export default class SpellSheet extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              Other stuff
+              <SpellcastingDetailsEditors character={this.props.character} />
             </div>
           </Grid.Column>
         </Grid.Row>

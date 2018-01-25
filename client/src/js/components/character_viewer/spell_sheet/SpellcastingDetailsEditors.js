@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Tooltip, Position, InputGroup, Toaster, Intent } from '@blueprintjs/core';
+import { Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import constants from '../../../lib/constants';
 
@@ -8,75 +9,84 @@ export default class SpellcastingDetailsEditors extends Component {
     super(props);
     this.state = {
       editing_spell_ability: false,
-      spell_ability: props.spell_ability || '',
-      new_spell_ability: props.spell_ability || '',
+      spell_ability: props.character.spell_ability || '',
+      new_spell_ability: props.character.spell_ability || '',
 
       editing_spell_save_dc: false,
-      spell_save_dc: props.spell_save_dc || '',
-      new_spell_save_dc: props.spell_save_dc || '',
+      spell_save_dc: props.character.spell_save_dc || '',
+      new_spell_save_dc: props.character.spell_save_dc || '',
 
       editing_spell_atk_bonus: false,
-      spell_atk_bonus: props.spell_atk_bonus || '',
-      new_spell_atk_bonus: props.spell_atk_bonus || ''
+      spell_atk_bonus: props.character.spell_atk_bonus || '',
+      new_spell_atk_bonus: props.character.spell_atk_bonus || ''
     }
   }
 
   render() {
+    console.log(this.state)
     return (
-      <div className='pt-form-group spellsheet-form-group'>
-        <div className='pt-form-content'>
-          <div className='pt-input-group'>
-            { this.renderClassDisplay() }
-          </div>
-          <div className='pt-form-helper-text'>
-            Spellcasting Class
-          </div>
-        </div>
-      </div>
+      <Grid stackable centered>
+        <Grid.Row>
+          <Grid.Column width={5} style={{ paddingRight: '0.5rem' }}>
+            <div className='pt-form-group spellsheet-form-group'>
+              <div className='pt-form-content'>
+                <div className='pt-input-group'>
+                  {
+                    this.renderDisplay({
+                      editing_spell_ability: this.state.editing_spell_ability,
+                      spell_ability: this.state.spell_ability,
+                      new_spell_ability: this.state.new_spell_ability,
+                      placeholder: 'Enter Spellcasting Ability'
+                    })
+                  }
+                </div>
+                <div className='pt-form-helper-text'>
+                  Spellcasting Ability
+                </div>
+              </div>
+            </div>
+          </Grid.Column>
+          <Grid.Column width={5} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
+            <div className='pt-form-group spellsheet-form-group'>
+              <div className='pt-form-content'>
+                <div className='pt-input-group'>
+                  {
+                    this.renderDisplay({
+                      editing_spell_save_dc: this.state.editing_spell_save_dc,
+                      spell_save_dc: this.state.spell_save_dc,
+                      new_spell_save_dc: this.state.new_spell_save_dc,
+                      placeholder: 'Enter Spell Save DC'
+                    })
+                  }
+                </div>
+                <div className='pt-form-helper-text'>
+                  Spell Save DC
+                </div>
+              </div>
+            </div>
+          </Grid.Column>
+          <Grid.Column width={6} style={{ paddingLeft: '0.5rem' }}>
+            <div className='pt-form-group spellsheet-form-group'>
+              <div className='pt-form-content'>
+                <div className='pt-input-group'>
+                  {
+                    this.renderDisplay({
+                      editing_spell_atk_bonus: this.state.editing_spell_atk_bonus,
+                      spell_atk_bonus: this.state.spell_atk_bonus,
+                      new_spell_atk_bonus: this.state.new_spell_atk_bonus,
+                      placeholder: 'Enter Spell Attack Bonus'
+                    })
+                  }
+                </div>
+                <div className='pt-form-helper-text'>
+                  Spell Attack Bonus
+                </div>
+              </div>
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
-  }
-
-  renderClassDisplay = () => {
-    if (this.state.editing)
-      return (
-        <InputGroup
-          value={this.state.new_spell_class}
-          placeholder='Enter Spellcasting Class'
-          type='text'
-          onChange={(event) => this.setState({ new_spell_class: event.target.value }) }
-          rightElement={<Tooltip content='Save' position={Position.TOP}>
-                          <button className='pt-button pt-minimal pt-intent-success pt-icon-tick' onClick={this.save}></button>
-                        </Tooltip>}
-        />
-      );
-
-    return (
-      <Tooltip content='Click to edit' position={Position.TOP}>
-        <span style={{ fontWeight: 'bold' }} onClick={() => this.setEditing(true)}>
-          { this.state.spell_class || 'None' }
-        </span>
-      </Tooltip>
-    );
-  }
-
-  save = () => {
-    axios.patch('/api/characters/update', { id: this.props.id, spell_class: this.state.new_spell_class })
-      .then((response) => {
-        if (response.status === constants.http_ok) {
-          this.setState({ editing: false, spell_class: this.state.new_spell_class });
-          this.showSuccessToast();
-        }
-        else {
-          this.showErrorToast();
-        }
-      })
-      .catch((error) => {
-        this.showErrorToast();
-      });
-  }
-
-  setEditing = (editing) => {
-    this.setState({ editing });
   }
 
   showErrorToast = () => {
@@ -95,6 +105,50 @@ export default class SpellcastingDetailsEditors extends Component {
         intent: Intent.SUCCESS,
         timeout: 2000
     });
+  }
+
+
+  renderDisplay = ({ editing, current, initial, placeholder }) => {
+    if (this.state[editing])
+      return (
+        <InputGroup
+          value={this.state[current]}
+          placeholder={placeholder}
+          type='text'
+          onChange={(event) => this.setState({ [current]: event.target.value }) }
+          rightElement={<Tooltip content='Save' position={Position.TOP}>
+                          <button className='pt-button pt-minimal pt-intent-success pt-icon-tick' onClick={() => this.save({ editing, current, initial })}></button>
+                        </Tooltip>}
+        />
+      );
+
+    return (
+      <Tooltip content='Click to edit' position={Position.TOP}>
+        <span style={{ fontWeight: 'bold' }} onClick={() => this.setEditing({ [editing]: true })}>
+          { this.state[initial] || 'None' }
+        </span>
+      </Tooltip>
+    );
+  }
+
+  save = ({ editing, current, initial }) => {
+    axios.patch('/api/characters/update', { id: this.props.character.id, [initial]: this.state[current] })
+      .then((response) => {
+        if (response.status === constants.http_ok) {
+          this.setState({ [editing]: false, [initial]: this.state[current] });
+          this.showSuccessToast();
+        }
+        else {
+          this.showErrorToast();
+        }
+      })
+      .catch((error) => {
+        this.showErrorToast();
+      });
+  }
+
+  setEditing = (editing) => {
+    this.setState(editing);
   }
 
 }
