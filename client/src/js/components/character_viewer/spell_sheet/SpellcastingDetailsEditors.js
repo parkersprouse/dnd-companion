@@ -23,7 +23,6 @@ export default class SpellcastingDetailsEditors extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <Grid stackable centered>
         <Grid.Row>
@@ -32,11 +31,11 @@ export default class SpellcastingDetailsEditors extends Component {
               <div className='pt-form-content'>
                 <div className='pt-input-group'>
                   {
-                    this.renderDisplay(
-                      'editing_spell_ability',
-                      'new_spell_ability',
-                      'spell_ability'
-                    )
+                    this.renderDisplay({
+                      editing: 'editing_spell_ability',
+                      current: 'new_spell_ability',
+                      initial: 'spell_ability'
+                    })
                   }
                 </div>
                 <div className='pt-form-helper-text'>
@@ -50,11 +49,11 @@ export default class SpellcastingDetailsEditors extends Component {
               <div className='pt-form-content'>
                 <div className='pt-input-group'>
                   {
-                    this.renderDisplay(
-                      'editing_spell_save_dc',
-                      'new_spell_save_dc',
-                      'spell_save_dc'
-                    )
+                    this.renderDisplay({
+                      editing: 'editing_spell_save_dc',
+                      current: 'new_spell_save_dc',
+                      initial: 'spell_save_dc'
+                    })
                   }
                 </div>
                 <div className='pt-form-helper-text'>
@@ -68,11 +67,11 @@ export default class SpellcastingDetailsEditors extends Component {
               <div className='pt-form-content'>
                 <div className='pt-input-group'>
                   {
-                    this.renderDisplay(
-                      'editing_spell_atk_bonus',
-                      'new_spell_atk_bonus',
-                      'spell_atk_bonus'
-                    )
+                    this.renderDisplay({
+                      editing: 'editing_spell_atk_bonus',
+                      current: 'new_spell_atk_bonus',
+                      initial: 'spell_atk_bonus'
+                    })
                   }
                 </div>
                 <div className='pt-form-helper-text'>
@@ -105,16 +104,15 @@ export default class SpellcastingDetailsEditors extends Component {
   }
 
 
-  renderDisplay = (editing, current, initial, placeholder) => {
+  renderDisplay = ({ editing, current, initial }) => {
     if (this.state[editing])
       return (
         <InputGroup
-          value={this.state[current]}
-          placeholder={placeholder}
-          type='text'
+          value={this.state[current]} type='text'
           onChange={(event) => this.setState({ [current]: event.target.value }) }
           rightElement={<Tooltip content='Save' position={Position.TOP}>
-                          <button className='pt-button pt-minimal pt-intent-success pt-icon-tick' onClick={() => this.save(editing, current, initial)}></button>
+                          <button className='pt-button pt-minimal pt-intent-success pt-icon-tick'
+                                  onClick={() => this.save({ editing, current, initial })}></button>
                         </Tooltip>}
         />
       );
@@ -128,10 +126,7 @@ export default class SpellcastingDetailsEditors extends Component {
     );
   }
 
-  save = (editing, current, initial) => {
-    console.log(initial)
-    console.log(current)
-    console.log(this.state[current])
+  save = ({ editing, current, initial }) => {
     axios.patch('/api/characters/update', { id: this.props.character.id, [initial]: this.state[current] })
       .then((response) => {
         if (response.status === constants.http_ok) {

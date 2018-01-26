@@ -33,7 +33,7 @@ export default class SpellSheet extends Component {
       return (
         <InputGroup
           value={this.state.new_spell_class}
-          placeholder='Enter Spellcasting Class'
+          placeholder=''
           type='text'
           onChange={(event) => this.setState({ new_spell_class: event.target.value }) }
           rightElement={<Tooltip content='Save' position={Position.TOP}>

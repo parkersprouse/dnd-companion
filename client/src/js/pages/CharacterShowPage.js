@@ -53,7 +53,6 @@ export default class CharacterShowPage extends Component {
             <Tab2 id='spells' title='Spells' panel={<SpellSheet character={this.state.character} />} />
             <Tab2 id='additional' title='Additional' panel={<div>Additional</div>} />
           </Tabs2>
-          { /*JSON.stringify(this.state.character)*/ }
         </InnerContainer>
       </OuterContainer>
     );

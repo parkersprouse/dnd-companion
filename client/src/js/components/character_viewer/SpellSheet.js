@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Tooltip, Position, Text } from '@blueprintjs/core';
+import { Tooltip, Position, Text, Checkbox } from '@blueprintjs/core';
 import { Grid } from 'semantic-ui-react';
 import constants from '../../lib/constants';
 import axios from 'axios';
 import _ from 'lodash';
 import SpellcastingClassEditor from './spell_sheet/SpellcastingClassEditor';
 import SpellcastingDetailsEditors from './spell_sheet/SpellcastingDetailsEditors';
+import SpellcastingSpellList from './spell_sheet/SpellcastingSpellList';
 
 export default class SpellSheet extends Component {
   constructor(props) {
@@ -30,15 +31,11 @@ export default class SpellSheet extends Component {
           this.setState({ all_spells: response.data.content, char_spells });
         }
       })
-      .catch((error) => {});
-  }
-
-  renderSpellList = (slot) => {
-    return slot + '';
+      .catch((error) => { console.log(error.response.data) });
   }
 
   render() {
-    console.log(this.state)
+    //console.log(this.state)
     return (
       <Grid stackable stretched>
 
@@ -65,35 +62,23 @@ export default class SpellSheet extends Component {
         <Grid.Row centered>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              Level 0
+              <SpellcastingSpellList level={0}
+                                     char_spells={this.state.char_spells}
+                                     all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              { this.renderSpellList(3) }
+              <SpellcastingSpellList level={3}
+                                     char_spells={this.state.char_spells}
+                                     all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              { this.renderSpellList(6) }
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-
-        <Grid.Row centered>
-          <Grid.Column width={5}>
-            <div className='pt-card'>
-              { this.renderSpellList(1) }
-            </div>
-          </Grid.Column>
-          <Grid.Column width={5}>
-            <div className='pt-card'>
-              { this.renderSpellList(4) }
-            </div>
-          </Grid.Column>
-          <Grid.Column width={5}>
-            <div className='pt-card'>
-              { this.renderSpellList(7) }
+              <SpellcastingSpellList level={6}
+                                     char_spells={this.state.char_spells}
+                                     all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -101,20 +86,52 @@ export default class SpellSheet extends Component {
         <Grid.Row centered>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              { this.renderSpellList(2) }
+              <SpellcastingSpellList level={1}
+                                     char_spells={this.state.char_spells}
+                                     all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              { this.renderSpellList(5) }
+              <SpellcastingSpellList level={4}
+                                     char_spells={this.state.char_spells}
+                                     all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              { this.renderSpellList(8) }
+              <SpellcastingSpellList level={7}
+                                     char_spells={this.state.char_spells}
+                                     all_spells={this.state.all_spells} />
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row centered>
+          <Grid.Column width={5}>
+            <div className='pt-card'>
+              <SpellcastingSpellList level={2}
+                                     char_spells={this.state.char_spells}
+                                     all_spells={this.state.all_spells} />
+            </div>
+          </Grid.Column>
+          <Grid.Column width={5}>
+            <div className='pt-card'>
+              <SpellcastingSpellList level={5}
+                                     char_spells={this.state.char_spells}
+                                     all_spells={this.state.all_spells} />
+            </div>
+          </Grid.Column>
+          <Grid.Column width={5}>
+            <div className='pt-card'>
+              <SpellcastingSpellList level={8}
+                                     char_spells={this.state.char_spells}
+                                     all_spells={this.state.all_spells} />
             </div>
             <div className='pt-card' style={{ marginTop: '2rem' }}>
-              { this.renderSpellList(9) }
+              <SpellcastingSpellList level={9}
+                                     char_spells={this.state.char_spells}
+                                     all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
         </Grid.Row>
