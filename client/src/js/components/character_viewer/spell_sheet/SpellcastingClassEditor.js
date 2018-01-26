@@ -8,8 +8,8 @@ export default class SpellSheet extends Component {
     super(props);
     this.state = {
       editing: false,
-      spell_class: props.spell_class || '',
-      new_spell_class: props.spell_class || ''
+      spell_class: props.spell_class,
+      new_spell_class: props.spell_class
     }
   }
 
@@ -45,7 +45,7 @@ export default class SpellSheet extends Component {
     return (
       <Tooltip content='Click to edit' position={Position.TOP}>
         <span className='char-sheet-editable-text' onClick={() => this.setEditing(true)}>
-          { this.state.spell_class || 'None' }
+          { this.state.spell_class !== null && this.state.spell_class !== '' ? this.state.spell_class : 'None' }
         </span>
       </Tooltip>
     );

@@ -42,8 +42,6 @@ export default class CharacterShowPage extends Component {
         </OuterContainer>
       );
 
-    console.log(this.state.character)
-
     return (
       <OuterContainer>
         <Header />

@@ -11,7 +11,7 @@
 }, {
 	"index": 3,
 	"name": "Heavy",
-	"desc": ["Small creatures have disadvantage on attack rolls with heavy weapons. A heavy weaponâ€™s size and bulk make it too large for a Small creature to use effectively."],
+	"desc": ["Small creatures have disadvantage on attack rolls with heavy weapons. A heavy weapon's size and bulk make it too large for a Small creature to use effectively."],
 	"url": "/api/db/weapon_properties/3"
 }, {
 	"index": 4,
@@ -31,7 +31,7 @@
 }, {
 	"index": 7,
 	"name": "Special",
-	"desc": ["A weapon with the special property has unusual rules governing its use, explained in the weaponâ€™s description (see â€œSpecial Weaponsâ€� later in this section)."],
+	"desc": ["A weapon with the special property has unusual rules governing its use, explained in the weapon's description (see â€œSpecial Weaponsâ€� later in this section)."],
 	"url": "/api/db/weapon_properties/7"
 }, {
 	"index": 8,

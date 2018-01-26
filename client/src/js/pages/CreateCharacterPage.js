@@ -83,6 +83,7 @@ export default class CreateCharacterPage extends Component {
     data.armor = this.formatItems(data, 'armor');
 
     data.ability_scores = this.formatAbilityScores(data);
+    data.spells = this.formatSpells();
 
     axios.post('/api/characters/new', data)
       .then((response) => {
@@ -112,15 +113,20 @@ export default class CreateCharacterPage extends Component {
 
   formatAbilityScores = (data) => {
     const ability_scores = {};
-
     ability_scores.strength =     { level: data.strength,     modifier: data.strength_modifier }
     ability_scores.dexterity =    { level: data.dexterity,    modifier: data.dexterity_modifier }
     ability_scores.constitution = { level: data.constitution, modifier: data.constitution_modifier }
     ability_scores.intelligence = { level: data.intelligence, modifier: data.intelligence_modifier }
     ability_scores.wisdom =       { level: data.wisdom,       modifier: data.wisdom_modifier }
     ability_scores.charisma =     { level: data.charisma,     modifier: data.charisma_modifier }
-
     return ability_scores;
+  }
+
+  formatSpells = () => {
+    const spells = [];
+    for (let i = 0; i < 10; i++)
+      spells.push({ id: i, spells: [], slots: 0, slots_used: 0 });
+    return spells;
   }
 
 }

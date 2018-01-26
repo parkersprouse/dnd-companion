@@ -9,16 +9,16 @@ export default class SpellcastingDetailsEditors extends Component {
     super(props);
     this.state = {
       editing_spell_ability: false,
-      spell_ability: props.character.spell_ability || '',
-      new_spell_ability: props.character.spell_ability || '',
+      spell_ability: props.character.spell_ability,
+      new_spell_ability: props.character.spell_ability,
 
       editing_spell_save_dc: false,
-      spell_save_dc: props.character.spell_save_dc || '',
-      new_spell_save_dc: props.character.spell_save_dc || '',
+      spell_save_dc: props.character.spell_save_dc,
+      new_spell_save_dc: props.character.spell_save_dc,
 
       editing_spell_atk_bonus: false,
-      spell_atk_bonus: props.character.spell_atk_bonus || '',
-      new_spell_atk_bonus: props.character.spell_atk_bonus || ''
+      spell_atk_bonus: props.character.spell_atk_bonus,
+      new_spell_atk_bonus: props.character.spell_atk_bonus
     }
   }
 
@@ -120,7 +120,7 @@ export default class SpellcastingDetailsEditors extends Component {
     return (
       <Tooltip content='Click to edit' position={Position.TOP}>
         <span className='char-sheet-editable-text' onClick={() => this.setEditing({ [editing]: true })}>
-          { this.state[initial] || 'None' }
+          { this.state[initial] !== null && this.state[initial] !== '' ? this.state[initial] : 'None' }
         </span>
       </Tooltip>
     );
