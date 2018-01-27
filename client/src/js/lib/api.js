@@ -92,6 +92,35 @@ module.exports = {
 
   getCharacter: function(data, callback) {
     performPost('/api/characters', data, callback);
+  },
+
+  // DnD Data
+  getAbilityScores: function(callback) {
+    performGet('/api/db/ability_scores', callback);
+  },
+
+  getClasses: function(callback) {
+    performGet('', callback);
+  },
+
+  getEquipment: function(callback) {
+    performGet('', callback);
+  },
+
+  getLanguages: function(callback) {
+    performGet('', callback);
+  },
+
+  getProficiencies: function(callback) {
+    performGet('', callback);
+  },
+
+  getRaces: function(callback) {
+    performGet('', callback);
+  },
+
+  getSubraces: function(callback) {
+    performGet('', callback);
   }
 
 }
