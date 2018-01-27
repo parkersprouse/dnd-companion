@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Tooltip, Position, InputGroup, Toaster, Intent } from '@blueprintjs/core';
+import { Tooltip, Position, InputGroup, Toaster, Intent, Button, Dialog, MenuItem } from '@blueprintjs/core';
+import { Select } from "@blueprintjs/labs";
 import { Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import _ from 'lodash';
@@ -17,7 +18,10 @@ class SpellcastingSpellList extends Component {
       new_total_slots: null,
       new_used_slots: null,
       editing_total_slots: false,
-      editing_used_slots: false
+      editing_used_slots: false,
+
+      cantrips_open: false,
+      spellsOpen: false
     };
   }
 
@@ -70,7 +74,7 @@ class SpellcastingSpellList extends Component {
     console.log(spell_list)
     return (
       <Grid>
-        <Grid.Row centered textAlign='center'>
+        <Grid.Row centered textAlign='center' className='spell-list-header-row'>
           <Grid.Column width={2} verticalAlign='middle'>
             <span className='char-sheet-spell-header'>
               { this.props.level }
@@ -90,14 +94,48 @@ class SpellcastingSpellList extends Component {
             </div>
           </Grid.Column>
         </Grid.Row>
-       </Grid>
+
+        <Grid.Row textAlign='right'>
+          <Grid.Column width={16} verticalAlign='middle'>
+            <Button iconName='plus' intent={Intent.PRIMARY} type='button'
+                    className='pt-small pt-minimal' onClick={() => this.toggleDialog('cantrips')} />
+          </Grid.Column>
+        </Grid.Row>
+
+        <Dialog isOpen={this.state.cantrips_open} onClose={() => this.toggleDialog('cantrips')} title='Find Cantrip'>
+          <div className='pt-dialog-body'>
+
+            <Select
+              items={this.state.available_spells}
+              itemPredicate={ (query, selected) => selected.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
+              itemRenderer={ ({ handleClick, isActive, item }) => {
+                const style = isActive ? 'pt-active pt-intent-primary' : '';
+                return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
+              } }
+              onItemSelect={ (selected) => null }
+              popoverProps={{ minimal: true, placement: 'bottom' }}
+              noResults={<MenuItem disabled text="No results" />}
+              resetOnSelect={true}
+            >
+              <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
+                      text={"Choose Cantrip"} />
+            </Select>
+
+          </div>
+          <div className='pt-dialog-footer'>
+            <div className='pt-dialog-footer-actions'>
+              <Button text='Close' onClick={() => this.toggleDialog('cantrips')} />
+            </div>
+          </div>
+        </Dialog>
+      </Grid>
     );
   }
 
   renderNormalSpells = (spell_list) => {
     return (
       <Grid>
-        <Grid.Row centered textAlign='center'>
+        <Grid.Row centered textAlign='center' className='spell-list-header-row'>
           <Grid.Column width={2} verticalAlign='middle'>
             <span className='char-sheet-spell-header'>
               { this.props.level }
@@ -175,7 +213,7 @@ class SpellcastingSpellList extends Component {
   }
 
   save = ({ editing, current, initial }) => {
-    // When speaking of "spells" in this capacity, it's referring to the
+    // When speaking of 'spells' in this capacity, it's referring to the
     // collections of spells at a certain level, not an individual spell.
 
     const new_spells = _.reject(this.props.character.spells, { id: this.props.level });
@@ -223,6 +261,13 @@ class SpellcastingSpellList extends Component {
         intent: Intent.SUCCESS,
         timeout: 2000
     });
+  }
+
+  toggleDialog = (dialog) => {
+    if (dialog === 'cantrips')
+      this.setState({ cantrips_open: !this.state.cantrips_open });
+    else
+      this.setState({ spells_open: !this.state.spells_open });
   }
 
 }

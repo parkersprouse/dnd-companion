@@ -113,3 +113,9 @@ hr {
 
 .char-sheet-spell-header-editable {
   cursor: pointer; }
+
+.spell-list-header-row {
+  border-bottom: 1px solid rgba(16, 22, 26, 0.25); }
+
+.pt-dialog-body > span > div {
+  width: 100%; }
