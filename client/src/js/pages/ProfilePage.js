@@ -5,6 +5,9 @@ import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
 import utils from '../lib/utils';
 import api from '../lib/api';
+import Cookie from 'universal-cookie';
+
+const cookie = new Cookie();
 
 export default class ProfilePage extends Component {
   constructor(props) {
@@ -98,14 +101,17 @@ export default class ProfilePage extends Component {
       email: this.state.email,
       name: this.state.name
     }, (success, response) => {
-      if (success)
+      if (success) {
+        cookie.remove('token');
+        cookie.set('token', response.content.token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false, secure: false });
         this.setState({
           success: true,
-          user: response.content,
-          username: response.content.username,
-          email: response.content.email,
-          name: response.content.name
-        })
+          user: response.content.data,
+          username: response.content.data.username,
+          email: response.content.data.email,
+          name: response.content.data.name
+        });
+      }
       else this.setState({ errorMsg: response.message })
     });
   }

@@ -42,7 +42,6 @@ function login(req, res, next) {
           if (match) {
             const payload = utils.generateJwtPayload(data);
             const token = jwt.sign(payload, config.jwtSecret);
-            res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false, secure: false });
             res.status(constants.http_ok)
               .json({
                 status: 'success',
