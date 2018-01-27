@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
 import axios from 'axios';
+import constants from '../../../lib/constants';
 
 export default class ClassSelector extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ export default class ClassSelector extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/db/classes')
+    axios.get(constants.server + '/api/db/classes')
     .then((response) => {
       this.setState({ classes: response.data.content });
     })

@@ -226,7 +226,7 @@ class SpellcastingSpellList extends Component {
 
     new_spells.push(edited_spell);
 
-    axios.patch('/api/characters/update', { id: this.props.character.id, spells: new_spells })
+    axios.patch(constants.server + '/api/characters/update', { id: this.props.character.id, spells: new_spells })
       .then((response) => {
         if (response.status === constants.http_ok) {
           this.setState({ [editing]: false, [initial]: this.state[current] });

@@ -52,7 +52,7 @@ export default class SpellSheet extends Component {
   }
 
   save = () => {
-    axios.patch('/api/characters/update', { id: this.props.id, spell_class: this.state.new_spell_class })
+    axios.patch(constants.server + '/api/characters/update', { id: this.props.id, spell_class: this.state.new_spell_class })
       .then((response) => {
         if (response.status === constants.http_ok) {
           this.setState({ editing: false, spell_class: this.state.new_spell_class });

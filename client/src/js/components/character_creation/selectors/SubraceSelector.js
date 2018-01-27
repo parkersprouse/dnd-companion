@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
 import axios from 'axios';
+import constants from '../../../lib/constants';
 
 export default class SubraceSelector extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export default class SubraceSelector extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/db/subraces')
+    axios.get(constants.server + '/api/db/subraces')
       .then((response) => {
         this.setState({ subraces: response.data.content, all_subraces: response.data.content });
       })
@@ -30,7 +31,7 @@ export default class SubraceSelector extends Component {
     if (!this.props.rootState.race || this.loading) return;
     this.loading = true;
 
-    axios.post('/api/db/subraces', { race: { name: this.props.rootState.race } })
+    axios.post(constants.server + '/api/db/subraces', { race: { name: this.props.rootState.race } })
       .then((response) => {
         this.setState({ subraces: response.data.content });
         this.props.setRootState({ subrace: null });

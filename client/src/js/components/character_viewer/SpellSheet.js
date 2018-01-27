@@ -17,7 +17,7 @@ export default class SpellSheet extends Component {
   }
 
   componentWillMount() {
-    axios.get('/api/db/spells')
+    axios.get(constants.server + '/api/db/spells')
       .then((response) => {
         if (response.status === constants.http_ok)
           this.setState({ all_spells: response.data.content });

@@ -3,6 +3,7 @@ import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
 import axios from 'axios';
 import _ from 'lodash';
+import constants from '../../../lib/constants';
 
 export default class EquipmentSelector extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ export default class EquipmentSelector extends Component {
   }
 
   componentWillMount() {
-    axios.get('/api/db/equipment')
+    axios.get(constants.server + '/api/db/equipment')
     .then((response) => {
       // remove weapons from equipment
       let equipment = _.reject(response.data.content, { equipment_category: "Weapon" });

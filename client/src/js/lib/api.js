@@ -2,7 +2,7 @@ const axios = require('axios');
 const constants = require('./constants');
 
 function performGet(endpoint, callback) {
-  axios.get(endpoint)
+  axios.get(constants.server + endpoint)
   .then(function (response) {
     callback(response.status === constants.http_ok, response.data);
   })
@@ -12,7 +12,7 @@ function performGet(endpoint, callback) {
 }
 
 function performPost(endpoint, data, callback) {
-  axios.post(endpoint, data)
+  axios.post(constants.server + endpoint, data)
   .then(function (response) {
     callback(response.status === constants.http_ok, response.data);
   })
@@ -22,7 +22,7 @@ function performPost(endpoint, data, callback) {
 }
 
 function performDelete(endpoint, callback) {
-  axios.delete(endpoint)
+  axios.delete(constants.server + endpoint)
   .then(function (response) {
     callback(response.status === constants.http_ok ||
              response.status === constants.http_no_content, response.data);
@@ -33,7 +33,7 @@ function performDelete(endpoint, callback) {
 }
 
 function performPut(endpoint, data, callback) {
-  axios.put(endpoint, data)
+  axios.put(constants.server + endpoint, data)
   .then(function (response) {
     callback(response.status === constants.http_ok, response.data);
   })
@@ -43,7 +43,7 @@ function performPut(endpoint, data, callback) {
 }
 
 function performPatch(endpoint, data, callback) {
-  axios.patch(endpoint, data)
+  axios.patch(constants.server + endpoint, data)
   .then(function (response) {
     callback(response.status === constants.http_ok, response.data);
   })

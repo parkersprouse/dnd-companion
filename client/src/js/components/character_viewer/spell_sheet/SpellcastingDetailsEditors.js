@@ -127,7 +127,7 @@ export default class SpellcastingDetailsEditors extends Component {
   }
 
   save = ({ editing, current, initial }) => {
-    axios.patch('/api/characters/update', { id: this.props.character.id, [initial]: this.state[current] })
+    axios.patch(constants.server + '/api/characters/update', { id: this.props.character.id, [initial]: this.state[current] })
       .then((response) => {
         if (response.status === constants.http_ok) {
           this.setState({ [editing]: false, [initial]: this.state[current] });

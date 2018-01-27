@@ -8,6 +8,7 @@ import utils from '../lib/utils';
 import _ from 'lodash';
 import axios from 'axios';
 import validator from 'validator';
+import constants from '../lib/constants';
 
 export default class CreateCharacterPage extends Component {
   constructor(props) {
@@ -85,7 +86,7 @@ export default class CreateCharacterPage extends Component {
     data.ability_scores = this.formatAbilityScores(data);
     data.spells = this.formatSpells();
 
-    axios.post('/api/characters/new', data)
+    axios.post(constants.server + '/api/characters/new', data)
       .then((response) => {
         window.location.href = '/characters/' + response.data.content.id;
       })

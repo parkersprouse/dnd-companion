@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, MenuItem } from '@blueprintjs/core';
 import { Select } from '@blueprintjs/labs';
 import axios from 'axios';
+import constants from '../../../lib/constants';
 
 export default class ProficiencySelector extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ export default class ProficiencySelector extends Component {
   }
 
   componentWillMount() {
-    axios.get('/api/db/proficiencies')
+    axios.get(constants.server + '/api/db/proficiencies')
     .then((response) => {
       this.setState({ proficiencies: response.data.content });
     })
