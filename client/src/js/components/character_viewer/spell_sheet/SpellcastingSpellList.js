@@ -4,12 +4,14 @@ import { Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import _ from 'lodash';
 import constants from '../../../lib/constants';
+import PropTypes from 'prop-types';
 
-export default class CharacterShowPage extends Component {
+class SpellcastingSpellList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       available_spells: null,
+      char_spells: null,
       total_slots: null,
       used_slots: null,
       new_total_slots: null,
@@ -22,36 +24,77 @@ export default class CharacterShowPage extends Component {
   componentWillReceiveProps(next_props) {
     if (!this.state.available_spells) {
       const available_spells = _.filter(next_props.all_spells, { level: next_props.level });
-      const char_spells_of_level = _.filter(next_props.character.spells, { id: next_props.level })[0];
-      const total_slots = char_spells_of_level.slots;
-      const used_slots = char_spells_of_level.slots_used;
-      const new_total_slots = char_spells_of_level.slots;
-      const new_used_slots = char_spells_of_level.slots_used;
-      this.setState({ available_spells, total_slots, used_slots, new_total_slots, new_used_slots });
+      const char_spells = _.find(next_props.character.spells, { id: next_props.level });
+
+      // console.log(available_spells)
+      // console.log(char_spells)
+
+      const total_slots = char_spells.slots;
+      const used_slots = char_spells.slots_used;
+      const new_total_slots = char_spells.slots;
+      const new_used_slots = char_spells.slots_used;
+
+      this.setState({ available_spells, char_spells, total_slots, used_slots, new_total_slots, new_used_slots });
     }
   }
 
   render() {
-    console.log(this.state)
-    if (this.props.level === 0) {
-      return (
-        <Grid>
-          <Grid.Row centered textAlign='center'>
-            <Grid.Column width={2} verticalAlign='middle'>
-              <span className='char-sheet-spell-header'>
-                { this.props.level }
-              </span>
-            </Grid.Column>
-            <Grid.Column width={14} verticalAlign='middle'>
-              <span className='char-sheet-spell-header'>
-                Cantrips
-              </span>
-            </Grid.Column>
-          </Grid.Row>
-         </Grid>
-      );
-    }
+    const spell_list = this.createSpellList();
 
+    if (this.props.level === 0)
+      return this.renderCantrips(spell_list);
+    return this.renderNormalSpells(spell_list);
+  }
+
+  createSpellList = () => {
+    const detailed_spells = [];
+    _.each(this.state.available_spells, (a_spell) => {
+      _.each(this.state.char_spells.spells, (b_spell) => {
+        if (a_spell.index == b_spell.id) detailed_spells.push(a_spell);
+      });
+    });
+
+    const rendered_spells = [];
+    _.each(detailed_spells, (spell) => {
+      rendered_spells.push(
+        <div style={{ marginBottom: '2rem', borderBottom: '1px solid black' }}>
+          { spell.name }
+        </div>
+      );
+    });
+
+    return rendered_spells;
+  }
+
+  renderCantrips = (spell_list) => {
+    console.log(spell_list)
+    return (
+      <Grid>
+        <Grid.Row centered textAlign='center'>
+          <Grid.Column width={2} verticalAlign='middle'>
+            <span className='char-sheet-spell-header'>
+              { this.props.level }
+            </span>
+          </Grid.Column>
+          <Grid.Column width={14} verticalAlign='middle'>
+            <span className='char-sheet-spell-header'>
+              Cantrips
+            </span>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row centered>
+          <Grid.Column width={16} verticalAlign='middle'>
+            <div>
+              { spell_list.length < 1 ? 'No Cantrips' : spell_list }
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+       </Grid>
+    );
+  }
+
+  renderNormalSpells = (spell_list) => {
     return (
       <Grid>
         <Grid.Row centered textAlign='center'>
@@ -97,6 +140,14 @@ export default class CharacterShowPage extends Component {
             </div>
           </Grid.Column>
         </Grid.Row>
+
+        <Grid.Row centered>
+          <Grid.Column width={16} verticalAlign='middle'>
+            <div>
+              { spell_list.length < 1 ? 'No Spells' : spell_list }
+            </div>
+          </Grid.Column>
+        </Grid.Row>
        </Grid>
     );
   }
@@ -116,7 +167,7 @@ export default class CharacterShowPage extends Component {
 
     return (
       <Tooltip content='Click to edit' position={Position.TOP}>
-        <span className='char-sheet-spell-header' onClick={() => this.setEditing({ [editing]: true })}>
+        <span className='char-sheet-spell-header-editable' onClick={() => this.setEditing({ [editing]: true })}>
           { this.state[initial] !== null && this.state[initial] !== '' ? this.state[initial] : 'None' }
         </span>
       </Tooltip>
@@ -174,5 +225,13 @@ export default class CharacterShowPage extends Component {
     });
   }
 
-
 }
+
+SpellcastingSpellList.propTypes = {
+  all_spells: PropTypes.array.isRequired, // All of the spells available in the SRD
+  //char_spells: PropTypes.array.isRequired, // All of the spells that the character knows, no categorization
+  character: PropTypes.object.isRequired, // All of the data contained in the character object
+  level: PropTypes.number.isRequired // The spell level that this list consists of
+};
+
+export default SpellcastingSpellList;

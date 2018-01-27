@@ -12,24 +12,15 @@ export default class SpellSheet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      all_spells: [],
-      char_spells: []
+      all_spells: []
     }
   }
 
   componentWillMount() {
     axios.get('/api/db/spells')
       .then((response) => {
-        if (response.status === constants.http_ok) {
-          const char_spells = [];
-          _.forEach(response.data.content, (elem) => {
-            _.forEach(this.props.character.spells, (spell) => {
-              if (elem.id == spell.id) char_spells.push(elem);
-            });
-          });
-
-          this.setState({ all_spells: response.data.content, char_spells });
-        }
+        if (response.status === constants.http_ok)
+          this.setState({ all_spells: response.data.content });
       })
       .catch((error) => { console.log(error.response.data) });
   }
@@ -63,7 +54,6 @@ export default class SpellSheet extends Component {
             <div className='pt-card'>
               <SpellcastingSpellList level={0}
                                      character={this.props.character}
-                                     char_spells={this.state.char_spells}
                                      all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
@@ -71,7 +61,6 @@ export default class SpellSheet extends Component {
             <div className='pt-card'>
               <SpellcastingSpellList level={3}
                                      character={this.props.character}
-                                     char_spells={this.state.char_spells}
                                      all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
@@ -79,7 +68,6 @@ export default class SpellSheet extends Component {
             <div className='pt-card'>
               <SpellcastingSpellList level={6}
                                      character={this.props.character}
-                                     char_spells={this.state.char_spells}
                                      all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
@@ -90,7 +78,6 @@ export default class SpellSheet extends Component {
             <div className='pt-card'>
               <SpellcastingSpellList level={1}
                                      character={this.props.character}
-                                     char_spells={this.state.char_spells}
                                      all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
@@ -98,7 +85,6 @@ export default class SpellSheet extends Component {
             <div className='pt-card'>
               <SpellcastingSpellList level={4}
                                      character={this.props.character}
-                                     char_spells={this.state.char_spells}
                                      all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
@@ -106,7 +92,6 @@ export default class SpellSheet extends Component {
             <div className='pt-card'>
               <SpellcastingSpellList level={7}
                                      character={this.props.character}
-                                     char_spells={this.state.char_spells}
                                      all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
@@ -117,7 +102,6 @@ export default class SpellSheet extends Component {
             <div className='pt-card'>
               <SpellcastingSpellList level={2}
                                      character={this.props.character}
-                                     char_spells={this.state.char_spells}
                                      all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
@@ -125,7 +109,6 @@ export default class SpellSheet extends Component {
             <div className='pt-card'>
               <SpellcastingSpellList level={5}
                                      character={this.props.character}
-                                     char_spells={this.state.char_spells}
                                      all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
@@ -133,13 +116,11 @@ export default class SpellSheet extends Component {
             <div className='pt-card'>
               <SpellcastingSpellList level={8}
                                      character={this.props.character}
-                                     char_spells={this.state.char_spells}
                                      all_spells={this.state.all_spells} />
             </div>
             <div className='pt-card' style={{ marginTop: '2rem' }}>
               <SpellcastingSpellList level={9}
                                      character={this.props.character}
-                                     char_spells={this.state.char_spells}
                                      all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>

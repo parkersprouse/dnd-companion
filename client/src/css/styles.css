@@ -106,6 +106,10 @@ hr {
   cursor: pointer;
   font-size: 18px; }
 
-.char-sheet-spell-header {
+.char-sheet-spell-header,
+.char-sheet-spell-header-editable {
   font-weight: bold;
   font-size: 15px; }
+
+.char-sheet-spell-header-editable {
+  cursor: pointer; }
