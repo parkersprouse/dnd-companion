@@ -31,7 +31,8 @@ export default class CharacterListPage extends Component {
       chars = this.state.characters.map((char) => {
         return (
           <div className='pt-card pt-elevation-0 pt-interactive character-card'
-               onClick={() => window.location.href = '/characters/' + char.id}>
+               onClick={() => window.location.href = '/characters/' + char.id}
+               key={char.id}>
             <Item.Group>
               <Item>
                 <Item.Content>

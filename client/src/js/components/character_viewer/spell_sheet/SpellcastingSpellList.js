@@ -113,7 +113,7 @@ class SpellcastingSpellList extends Component {
                 return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
               } }
               onItemSelect={ (selected) => null }
-              popoverProps={{ minimal: true, placement: 'bottom' }}
+              popoverProps={{ minimal: true, placement: 'top' }}
               noResults={<MenuItem disabled text="No results" />}
               resetOnSelect={true}
             >

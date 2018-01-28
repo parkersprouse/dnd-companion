@@ -4,5 +4,5 @@ module.exports = {
   http_bad_request: 400,
   http_unauthorized: 401,
   http_server_error: 500,
-  server: ''
+  server: 'https://dnd-companion-app.herokuapp.com'
 }
