@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Button, MenuItem } from '@blueprintjs/core';
 import { Select } from '@blueprintjs/labs';
-import axios from 'axios';
-import constants from '../../../lib/constants';
+import api from '../../../lib/api';
 
 export default class ProficiencySelector extends Component {
   constructor(props) {
@@ -15,11 +14,10 @@ export default class ProficiencySelector extends Component {
   }
 
   componentWillMount() {
-    axios.get(constants.server + '/api/db/proficiencies')
-    .then((response) => {
-      this.setState({ proficiencies: response.data.content });
-    })
-    .catch((error) => {});
+    api.getProficiencies((success, response) => {
+      if (success)
+        this.setState({ proficiencies: response.content });
+    });
   }
 
   swap = () => {

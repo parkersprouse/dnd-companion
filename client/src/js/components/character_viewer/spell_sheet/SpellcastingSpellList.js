@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Tooltip, Position, InputGroup, Toaster, Intent, Button, Dialog, MenuItem } from '@blueprintjs/core';
 import { Select } from "@blueprintjs/labs";
 import { Grid } from 'semantic-ui-react';
-import axios from 'axios';
 import _ from 'lodash';
-import constants from '../../../lib/constants';
+import api from '../../../lib/api';
 import PropTypes from 'prop-types';
 
 class SpellcastingSpellList extends Component {
@@ -226,19 +225,14 @@ class SpellcastingSpellList extends Component {
 
     new_spells.push(edited_spell);
 
-    axios.patch(constants.server + '/api/characters/update', { id: this.props.character.id, spells: new_spells })
-      .then((response) => {
-        if (response.status === constants.http_ok) {
-          this.setState({ [editing]: false, [initial]: this.state[current] });
-          this.showSuccessToast();
-        }
-        else {
-          this.showErrorToast();
-        }
-      })
-      .catch((error) => {
+    api.updateCharacter({ id: this.props.character.id, spells: new_spells }, (success, response) => {
+      if (success) {
+        this.setState({ [editing]: false, [initial]: this.state[current] });
+        this.showSuccessToast();
+      }
+      else
         this.showErrorToast();
-      });
+    });
   }
 
   setEditing = (editing) => {

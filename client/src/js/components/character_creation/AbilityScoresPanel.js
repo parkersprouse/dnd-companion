@@ -21,7 +21,7 @@ export default class AbilityScoresPanel extends Component {
 
     const ability_scores = this.state.scores.map((score, index) => {
       return (
-        <Grid.Row>
+        <Grid.Row key={index}>
           <Grid.Column width={8} style={{ paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>

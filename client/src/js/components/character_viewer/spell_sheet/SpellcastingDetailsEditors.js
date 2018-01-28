@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Tooltip, Position, InputGroup, Toaster, Intent } from '@blueprintjs/core';
 import { Grid } from 'semantic-ui-react';
-import axios from 'axios';
-import constants from '../../../lib/constants';
+import api from '../../../lib/api';
 
 export default class SpellcastingDetailsEditors extends Component {
   constructor(props) {
@@ -127,19 +126,14 @@ export default class SpellcastingDetailsEditors extends Component {
   }
 
   save = ({ editing, current, initial }) => {
-    axios.patch(constants.server + '/api/characters/update', { id: this.props.character.id, [initial]: this.state[current] })
-      .then((response) => {
-        if (response.status === constants.http_ok) {
-          this.setState({ [editing]: false, [initial]: this.state[current] });
-          this.showSuccessToast();
-        }
-        else {
-          this.showErrorToast();
-        }
-      })
-      .catch((error) => {
+    api.updateCharacter({ id: this.props.character.id, [initial]: this.state[current] }, (success, response) => {
+      if (success) {
+        this.setState({ [editing]: false, [initial]: this.state[current] });
+        this.showSuccessToast();
+      }
+      else
         this.showErrorToast();
-      });
+    });
   }
 
   setEditing = (editing) => {

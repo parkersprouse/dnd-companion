@@ -94,33 +94,49 @@ module.exports = {
     performPost('/api/characters', data, callback);
   },
 
+  createCharacter: function(data, callback) {
+    performPost('/api/characters/new', data, callback);
+  },
+
+  updateCharacter: function(data, callback) {
+    performPatch('/api/characters/update', data, callback);
+  },
+
   // DnD Data
   getAbilityScores: function(callback) {
     performGet('/api/db/ability_scores', callback);
   },
 
   getClasses: function(callback) {
-    performGet('', callback);
+    performGet('/api/db/classes', callback);
   },
 
   getEquipment: function(callback) {
-    performGet('', callback);
+    performGet('/api/db/equipment', callback);
   },
 
   getLanguages: function(callback) {
-    performGet('', callback);
+    performGet('/api/db/languages', callback);
   },
 
   getProficiencies: function(callback) {
-    performGet('', callback);
+    performGet('/api/db/proficiencies', callback);
   },
 
   getRaces: function(callback) {
-    performGet('', callback);
+    performGet('/api/db/races', callback);
   },
 
   getSubraces: function(callback) {
-    performGet('', callback);
+    performGet('/api/db/subraces', callback);
+  },
+
+  filterSubraces: function(data, callback) {
+    performPost('/api/db/subraces', data, callback);
+  },
+
+  getSpells: function(callback) {
+    performGet('/api/db/spells', callback);
   }
 
 }

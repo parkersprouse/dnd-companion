@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
-import axios from 'axios';
-import constants from '../../../lib/constants';
+import api from '../../../lib/api';
 
 export default class SubraceSelector extends Component {
   constructor(props) {
@@ -16,14 +15,15 @@ export default class SubraceSelector extends Component {
   }
 
   componentDidMount() {
-    axios.get(constants.server + '/api/db/subraces')
-      .then((response) => {
-        this.setState({ subraces: response.data.content, all_subraces: response.data.content });
-      })
-      .catch((error) => {});
+    api.getSubraces((success, response) => {
+      if (success)
+        this.setState({ subraces: response.content, all_subraces: response.content });
+    });
   }
 
   componentWillUpdate(nextProps, nextState) {
+    // this doesn't actually mean anything is loading, just that the dropdown
+    // shouldn't make a new request because the race hasn't changed
     this.loading = this.props.rootState.race === nextProps.rootState.race;
   }
 
@@ -31,17 +31,18 @@ export default class SubraceSelector extends Component {
     if (!this.props.rootState.race || this.loading) return;
     this.loading = true;
 
-    axios.post(constants.server + '/api/db/subraces', { race: { name: this.props.rootState.race } })
-      .then((response) => {
-        this.setState({ subraces: response.data.content });
+    api.filterSubraces({ race: { name: this.props.rootState.race } }, (success, response) => {
+      if (success) {
+        this.setState({ subraces: response.content });
         this.props.setRootState({ subrace: null });
         this.loading = false;
-      })
-      .catch((error) => {
+      }
+      else {
         this.setState({ subraces: [] });
         this.props.setRootState({ subrace: null });
         this.loading = false;
-      });
+      }
+    });
   }
 
   swap = () => {

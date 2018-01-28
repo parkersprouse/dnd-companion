@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Tooltip, Position, InputGroup, Toaster, Intent } from '@blueprintjs/core';
-import axios from 'axios';
-import constants from '../../../lib/constants';
+import api from '../../../lib/api';
 
 export default class SpellSheet extends Component {
   constructor(props) {
@@ -52,19 +51,14 @@ export default class SpellSheet extends Component {
   }
 
   save = () => {
-    axios.patch(constants.server + '/api/characters/update', { id: this.props.id, spell_class: this.state.new_spell_class })
-      .then((response) => {
-        if (response.status === constants.http_ok) {
-          this.setState({ editing: false, spell_class: this.state.new_spell_class });
-          this.showSuccessToast();
-        }
-        else {
-          this.showErrorToast();
-        }
-      })
-      .catch((error) => {
+    api.updateCharacter({ id: this.props.id, spell_class: this.state.new_spell_class }, (success, response) => {
+      if (success) {
+        this.setState({ editing: false, spell_class: this.state.new_spell_class });
+        this.showSuccessToast();
+      }
+      else
         this.showErrorToast();
-      });
+    });
   }
 
   setEditing = (editing) => {

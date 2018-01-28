@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Tooltip, Position, Text, Checkbox } from '@blueprintjs/core';
 import { Grid } from 'semantic-ui-react';
-import constants from '../../lib/constants';
-import axios from 'axios';
+import api from '../../lib/api';
 import _ from 'lodash';
 import SpellcastingClassEditor from './spell_sheet/SpellcastingClassEditor';
 import SpellcastingDetailsEditors from './spell_sheet/SpellcastingDetailsEditors';
@@ -17,12 +16,12 @@ export default class SpellSheet extends Component {
   }
 
   componentWillMount() {
-    axios.get(constants.server + '/api/db/spells')
-      .then((response) => {
-        if (response.status === constants.http_ok)
-          this.setState({ all_spells: response.data.content });
-      })
-      .catch((error) => { console.log(error.response.data) });
+    api.getSpells((success, response) => {
+      if (success)
+        this.setState({ all_spells: response.content });
+      else
+        console.log(response)
+    });
   }
 
   render() {

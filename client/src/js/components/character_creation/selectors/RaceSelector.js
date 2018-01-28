@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
-import axios from 'axios';
-import constants from '../../../lib/constants';
+import api from '../../../lib/api';
 
 export default class RaceSelector extends Component {
   constructor(props) {
@@ -14,11 +13,10 @@ export default class RaceSelector extends Component {
   }
 
   componentDidMount() {
-    axios.get(constants.server + '/api/db/races')
-    .then((response) => {
-      this.setState({ races: response.data.content });
-    })
-    .catch((error) => {});
+    api.getRaces((success, response) => {
+      if (success)
+        this.setState({ races: response.content });
+    });
   }
 
   swap = () => {
