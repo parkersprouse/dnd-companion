@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { NumericInput } from "@blueprintjs/core";
-import axios from 'axios';
 import api from '../../lib/api';
 
 export default class AbilityScoresPanel extends Component {

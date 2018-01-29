@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Tooltip, Position, Text, Checkbox } from '@blueprintjs/core';
 import { Grid } from 'semantic-ui-react';
 import api from '../../lib/api';
-import _ from 'lodash';
 import SpellcastingClassEditor from './spell_sheet/SpellcastingClassEditor';
 import SpellcastingDetailsEditors from './spell_sheet/SpellcastingDetailsEditors';
 import SpellcastingSpellList from './spell_sheet/SpellcastingSpellList';

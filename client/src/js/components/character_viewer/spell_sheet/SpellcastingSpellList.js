@@ -29,9 +29,6 @@ class SpellcastingSpellList extends Component {
       const available_spells = _.filter(next_props.all_spells, { level: next_props.level });
       const char_spells = _.find(next_props.character.spells, { id: next_props.level });
 
-      // console.log(available_spells)
-      // console.log(char_spells)
-
       const total_slots = char_spells.slots;
       const used_slots = char_spells.slots_used;
       const new_total_slots = char_spells.slots;
@@ -53,7 +50,7 @@ class SpellcastingSpellList extends Component {
     const detailed_spells = [];
     _.each(this.state.available_spells, (a_spell) => {
       _.each(this.state.char_spells.spells, (b_spell) => {
-        if (a_spell.index == b_spell.id) detailed_spells.push(a_spell);
+        if (a_spell.index + '' === b_spell.id + '') detailed_spells.push(a_spell);
       });
     });
 
