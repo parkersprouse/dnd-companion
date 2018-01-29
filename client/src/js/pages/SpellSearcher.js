@@ -146,6 +146,28 @@ export default class SpellSearcher extends Component {
 
     const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
 
+    let spell_desc = null;
+    if (spell.desc) {
+      spell_desc = _.map(spell.desc, (desc, index) => {
+        return <List.Item key={index}>
+                <List.Content>
+                  <List.Description>{ desc }</List.Description>
+                </List.Content>
+              </List.Item>;
+      });
+    }
+
+    let spell_hl = null;
+    if (spell.higher_level) {
+      spell_hl = _.map(spell.higher_level, (hl, index) => {
+        return <List.Item key={index}>
+                <List.Content>
+                  <List.Description>{ hl }</List.Description>
+                </List.Content>
+              </List.Item>;
+      });
+    }
+
     return (
       <Dialog isOpen={!!spell} title={spell.name}
               onClose={() => this.setState({ selected_spell: null })}>
@@ -153,14 +175,14 @@ export default class SpellSearcher extends Component {
           <List>
 
             {
-              spell.level ?
+              spell.level || spell.level === 0 ?
               <List.Item>
                 <List.Content>
                   <List.Header>Level</List.Header>
                   <List.List>
                     <List.Item>
                       <List.Content>
-                        <List.Description>{ spell.level }</List.Description>
+                        <List.Description>{ spell.level === 0 ? 'Cantrip' : spell.level }</List.Description>
                       </List.Content>
                     </List.Item>
                   </List.List>
@@ -174,11 +196,7 @@ export default class SpellSearcher extends Component {
                 <List.Content>
                   <List.Header>Description</List.Header>
                   <List.List>
-                    <List.Item>
-                      <List.Content>
-                        <List.Description>{ spell.desc[0] }</List.Description>
-                      </List.Content>
-                    </List.Item>
+                    { spell_desc }
                   </List.List>
                 </List.Content>
               </List.Item> : null
@@ -190,11 +208,7 @@ export default class SpellSearcher extends Component {
                 <List.Content>
                   <List.Header>Higher Level</List.Header>
                   <List.List>
-                    <List.Item>
-                      <List.Content>
-                        <List.Description>{ spell.higher_level[0] }</List.Description>
-                      </List.Content>
-                    </List.Item>
+                    { spell_hl }
                   </List.List>
                 </List.Content>
               </List.Item> : null
@@ -241,6 +255,38 @@ export default class SpellSearcher extends Component {
                     <List.Item>
                       <List.Content>
                         <List.Description>{ spell.casting_time }</List.Description>
+                      </List.Content>
+                    </List.Item>
+                  </List.List>
+                </List.Content>
+              </List.Item> : null
+            }
+
+            {
+              spell.concentration ?
+              <List.Item>
+                <List.Content>
+                  <List.Header>Requires Concentration?</List.Header>
+                  <List.List>
+                    <List.Item>
+                      <List.Content>
+                        <List.Description>{ spell.concentration }</List.Description>
+                      </List.Content>
+                    </List.Item>
+                  </List.List>
+                </List.Content>
+              </List.Item> : null
+            }
+
+            {
+              spell.ritual ?
+              <List.Item>
+                <List.Content>
+                  <List.Header>Requires Ritual?</List.Header>
+                  <List.List>
+                    <List.Item>
+                      <List.Content>
+                        <List.Description>{ spell.ritual }</List.Description>
                       </List.Content>
                     </List.Item>
                   </List.List>
