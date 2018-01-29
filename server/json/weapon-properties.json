@@ -46,7 +46,7 @@
 }, {
 	"index": 10,
 	"name": "Versatile",
-	"desc": ["This weapon can be used with one or two hands. A damage value in parentheses appears with the propertyâ€”the damage when the weapon is used with two hands to make a melee attack."],
+	"desc": ["This weapon can be used with one or two hands. A damage value in parentheses appears with the property - the damage when the weapon is used with two hands to make a melee attack."],
 	"url": "/api/db/weapon_properties/10"
 }, {
 	"index": 11,
