@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Grid, List } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { Dialog, Button } from '@blueprintjs/core';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
+import SpellSearcherSpellDetails from '../components/spell_searcher/SpellSearcherSpellDetails';
 import api from '../lib/api';
 import _ from 'lodash';
 
@@ -22,6 +23,7 @@ export default class SpellSearcher extends Component {
 
   componentWillMount() {
     api.getSpells((success, response) => {
+      console.log(response)
       if (success)
         this.setState({ spells: _.sortBy(response.content, ['name']) });
     });
@@ -143,206 +145,11 @@ export default class SpellSearcher extends Component {
   renderSpellModal = () => {
     const spell = this.state.selected_spell;
     if (!spell) return null;
-
-    const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
-
-    let spell_desc = null;
-    if (spell.desc) {
-      spell_desc = _.map(spell.desc, (desc, index) => {
-        return <List.Item key={index}>
-                <List.Content>
-                  <List.Description>{ desc }</List.Description>
-                </List.Content>
-              </List.Item>;
-      });
-    }
-
-    let spell_hl = null;
-    if (spell.higher_level) {
-      spell_hl = _.map(spell.higher_level, (hl, index) => {
-        return <List.Item key={index}>
-                <List.Content>
-                  <List.Description>{ hl }</List.Description>
-                </List.Content>
-              </List.Item>;
-      });
-    }
-
     return (
       <Dialog isOpen={!!spell} title={spell.name}
               onClose={() => this.setState({ selected_spell: null })}>
         <div className='pt-dialog-body'>
-          <List>
-
-            {
-              spell.level || spell.level === 0 ?
-              <List.Item>
-                <List.Content>
-                  <List.Header>Level</List.Header>
-                  <List.List>
-                    <List.Item>
-                      <List.Content>
-                        <List.Description>{ spell.level === 0 ? 'Cantrip' : spell.level }</List.Description>
-                      </List.Content>
-                    </List.Item>
-                  </List.List>
-                </List.Content>
-              </List.Item> : null
-            }
-
-            {
-              spell.desc ?
-              <List.Item>
-                <List.Content>
-                  <List.Header>Description</List.Header>
-                  <List.List>
-                    { spell_desc }
-                  </List.List>
-                </List.Content>
-              </List.Item> : null
-            }
-
-            {
-              spell.higher_level ?
-              <List.Item>
-                <List.Content>
-                  <List.Header>Higher Level</List.Header>
-                  <List.List>
-                    { spell_hl }
-                  </List.List>
-                </List.Content>
-              </List.Item> : null
-            }
-
-            {
-              spell.range ?
-              <List.Item>
-                <List.Content>
-                  <List.Header>Range</List.Header>
-                  <List.List>
-                    <List.Item>
-                      <List.Content>
-                        <List.Description>{ spell.range }</List.Description>
-                      </List.Content>
-                    </List.Item>
-                  </List.List>
-                </List.Content>
-              </List.Item> : null
-            }
-
-            {
-              spell.duration ?
-              <List.Item>
-                <List.Content>
-                  <List.Header>Duration</List.Header>
-                  <List.List>
-                    <List.Item>
-                      <List.Content>
-                        <List.Description>{ spell.duration }</List.Description>
-                      </List.Content>
-                    </List.Item>
-                  </List.List>
-                </List.Content>
-              </List.Item> : null
-            }
-
-            {
-              spell.casting_time ?
-              <List.Item>
-                <List.Content>
-                  <List.Header>Casting Time</List.Header>
-                  <List.List>
-                    <List.Item>
-                      <List.Content>
-                        <List.Description>{ spell.casting_time }</List.Description>
-                      </List.Content>
-                    </List.Item>
-                  </List.List>
-                </List.Content>
-              </List.Item> : null
-            }
-
-            {
-              spell.concentration ?
-              <List.Item>
-                <List.Content>
-                  <List.Header>Requires Concentration?</List.Header>
-                  <List.List>
-                    <List.Item>
-                      <List.Content>
-                        <List.Description>{ spell.concentration }</List.Description>
-                      </List.Content>
-                    </List.Item>
-                  </List.List>
-                </List.Content>
-              </List.Item> : null
-            }
-
-            {
-              spell.ritual ?
-              <List.Item>
-                <List.Content>
-                  <List.Header>Requires Ritual?</List.Header>
-                  <List.List>
-                    <List.Item>
-                      <List.Content>
-                        <List.Description>{ spell.ritual }</List.Description>
-                      </List.Content>
-                    </List.Item>
-                  </List.List>
-                </List.Content>
-              </List.Item> : null
-            }
-
-            {
-              spell.components ?
-              <List.Item>
-                <List.Content>
-                  <List.Header>Components</List.Header>
-                  <List.List>
-                    <List.Item>
-                      <List.Content>
-                        <List.Description>{ _.join(spell.components, ', ') } { spell.components.indexOf('M') > -1 ? <span>({spell.material})</span> : null}</List.Description>
-                      </List.Content>
-                    </List.Item>
-                  </List.List>
-                </List.Content>
-              </List.Item> : null
-            }
-
-            {
-              spell.school && spell.school.name ?
-              <List.Item>
-                <List.Content>
-                  <List.Header>School</List.Header>
-                  <List.List>
-                    <List.Item>
-                      <List.Content>
-                        <List.Description>{ spell.school.name }</List.Description>
-                      </List.Content>
-                    </List.Item>
-                  </List.List>
-                </List.Content>
-              </List.Item> : null
-            }
-
-            {
-              spell.classes ?
-              <List.Item>
-                <List.Content>
-                  <List.Header>Classes</List.Header>
-                  <List.List>
-                    <List.Item>
-                      <List.Content>
-                        <List.Description>{ _.join(spell_classes, ', ') }</List.Description>
-                      </List.Content>
-                    </List.Item>
-                  </List.List>
-                </List.Content>
-              </List.Item> : null
-            }
-
-          </List>
+          <SpellSearcherSpellDetails spell={spell} />
         </div>
         <div className='pt-dialog-footer'>
           <div className='pt-dialog-footer-actions'>
@@ -355,15 +162,14 @@ export default class SpellSearcher extends Component {
 
   renderAllSpells = () => {
     const all_spells = [];
-    _.each(this.state.spells, (spell) => {
-      const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
+    _.each(this.state.spells, (spell, index) => {
       all_spells.push(
-        <tr key={spell.index} onClick={() => { this.setState({ selected_spell: spell }) }}>
-          <td>{ spell.level === 0 ? 'Cantrip' : spell.level }</td>
+        <tr key={index} onClick={() => { this.setState({ selected_spell: spell }) }}>
+          <td>{ spell.level }</td>
           <td>{ spell.name }</td>
           <td>{ spell.range }</td>
-          <td>{ _.join(spell_classes, ', ') }</td>
-          <td>{ spell.school.name }</td>
+          <td>{ _.join(spell.classes, ', ') }</td>
+          <td>{ spell.school }</td>
           <td>{ spell.casting_time }</td>
           <td>{ spell.duration }</td>
         </tr>
@@ -373,41 +179,42 @@ export default class SpellSearcher extends Component {
   }
 
   renderFilteredSpells = () => {
-    let filtered_spells = this.state.spells;
-
-    if (this.state.name_filter)
-      filtered_spells = _.filter(filtered_spells, (spell) => {
-        return spell.name.toLowerCase().indexOf(this.state.name_filter.toLowerCase()) > -1;
-      });
-
-    if (this.state.level_filter)
-      filtered_spells = _.filter(filtered_spells, { level: parseInt(this.state.level_filter, 10) });
-
-    if (this.state.school_filter)
-      filtered_spells = _.filter(filtered_spells, { school: { name: this.state.school_filter } });
-
-    if (this.state.class_filter)
-      filtered_spells = _.filter(filtered_spells, (spell) => {
-        const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
-        return spell_classes.indexOf(this.state.class_filter) > -1;
-      });
-
-    const all_spells = [];
-    _.each(filtered_spells, (spell) => {
-      const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
-      all_spells.push(
-        <tr key={spell.index} onClick={() => { this.setState({ selected_spell: spell }) }}>
-          <td>{ spell.level === 0 ? 'Cantrip' : spell.level }</td>
-          <td>{ spell.name }</td>
-          <td>{ spell.range }</td>
-          <td>{ _.join(spell_classes, ', ') }</td>
-          <td>{ spell.school.name }</td>
-          <td>{ spell.casting_time }</td>
-          <td>{ spell.duration }</td>
-        </tr>
-      );
-    });
-    return all_spells;
+    // let filtered_spells = this.state.spells;
+    //
+    // if (this.state.name_filter)
+    //   filtered_spells = _.filter(filtered_spells, (spell) => {
+    //     return spell.name.toLowerCase().indexOf(this.state.name_filter.toLowerCase()) > -1;
+    //   });
+    //
+    // if (this.state.level_filter)
+    //   filtered_spells = _.filter(filtered_spells, { level: parseInt(this.state.level_filter, 10) });
+    //
+    // if (this.state.school_filter)
+    //   filtered_spells = _.filter(filtered_spells, { school: { name: this.state.school_filter } });
+    //
+    // if (this.state.class_filter)
+    //   filtered_spells = _.filter(filtered_spells, (spell) => {
+    //     const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
+    //     return spell_classes.indexOf(this.state.class_filter) > -1;
+    //   });
+    //
+    // const all_spells = [];
+    // _.each(filtered_spells, (spell) => {
+    //   const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
+    //   all_spells.push(
+    //     <tr key={spell.index} onClick={() => { this.setState({ selected_spell: spell }) }}>
+    //       <td>{ spell.level === 0 ? 'Cantrip' : spell.level }</td>
+    //       <td>{ spell.name }</td>
+    //       <td>{ spell.range }</td>
+    //       <td>{ _.join(spell_classes, ', ') }</td>
+    //       <td>{ spell.school.name }</td>
+    //       <td>{ spell.casting_time }</td>
+    //       <td>{ spell.duration }</td>
+    //     </tr>
+    //   );
+    // });
+    // return all_spells;
+    return null;
   }
 
 }
