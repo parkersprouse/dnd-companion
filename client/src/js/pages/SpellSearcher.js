@@ -23,7 +23,6 @@ export default class SpellSearcher extends Component {
 
   componentWillMount() {
     api.getSpells((success, response) => {
-      console.log(response)
       if (success)
         this.setState({ spells: _.sortBy(response.content, ['name']) });
     });
@@ -162,14 +161,15 @@ export default class SpellSearcher extends Component {
 
   renderAllSpells = () => {
     const all_spells = [];
-    _.each(this.state.spells, (spell, index) => {
+    _.each(this.state.spells, (spell) => {
+      const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
       all_spells.push(
-        <tr key={index} onClick={() => { this.setState({ selected_spell: spell }) }}>
-          <td>{ spell.level }</td>
+        <tr key={spell.index} onClick={() => { this.setState({ selected_spell: spell }) }}>
+          <td>{ spell.level === 0 ? 'Cantrip' : spell.level }</td>
           <td>{ spell.name }</td>
           <td>{ spell.range }</td>
-          <td>{ _.join(spell.classes, ', ') }</td>
-          <td>{ spell.school }</td>
+          <td>{ _.join(spell_classes, ', ') }</td>
+          <td>{ spell.school.name }</td>
           <td>{ spell.casting_time }</td>
           <td>{ spell.duration }</td>
         </tr>
@@ -179,42 +179,41 @@ export default class SpellSearcher extends Component {
   }
 
   renderFilteredSpells = () => {
-    // let filtered_spells = this.state.spells;
-    //
-    // if (this.state.name_filter)
-    //   filtered_spells = _.filter(filtered_spells, (spell) => {
-    //     return spell.name.toLowerCase().indexOf(this.state.name_filter.toLowerCase()) > -1;
-    //   });
-    //
-    // if (this.state.level_filter)
-    //   filtered_spells = _.filter(filtered_spells, { level: parseInt(this.state.level_filter, 10) });
-    //
-    // if (this.state.school_filter)
-    //   filtered_spells = _.filter(filtered_spells, { school: { name: this.state.school_filter } });
-    //
-    // if (this.state.class_filter)
-    //   filtered_spells = _.filter(filtered_spells, (spell) => {
-    //     const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
-    //     return spell_classes.indexOf(this.state.class_filter) > -1;
-    //   });
-    //
-    // const all_spells = [];
-    // _.each(filtered_spells, (spell) => {
-    //   const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
-    //   all_spells.push(
-    //     <tr key={spell.index} onClick={() => { this.setState({ selected_spell: spell }) }}>
-    //       <td>{ spell.level === 0 ? 'Cantrip' : spell.level }</td>
-    //       <td>{ spell.name }</td>
-    //       <td>{ spell.range }</td>
-    //       <td>{ _.join(spell_classes, ', ') }</td>
-    //       <td>{ spell.school.name }</td>
-    //       <td>{ spell.casting_time }</td>
-    //       <td>{ spell.duration }</td>
-    //     </tr>
-    //   );
-    // });
-    // return all_spells;
-    return null;
+    let filtered_spells = this.state.spells;
+
+    if (this.state.name_filter)
+      filtered_spells = _.filter(filtered_spells, (spell) => {
+        return spell.name.toLowerCase().indexOf(this.state.name_filter.toLowerCase()) > -1;
+      });
+
+    if (this.state.level_filter)
+      filtered_spells = _.filter(filtered_spells, { level: parseInt(this.state.level_filter, 10) });
+
+    if (this.state.school_filter)
+      filtered_spells = _.filter(filtered_spells, { school: { name: this.state.school_filter } });
+
+    if (this.state.class_filter)
+      filtered_spells = _.filter(filtered_spells, (spell) => {
+        const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
+        return spell_classes.indexOf(this.state.class_filter) > -1;
+      });
+
+    const all_spells = [];
+    _.each(filtered_spells, (spell) => {
+      const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
+      all_spells.push(
+        <tr key={spell.index} onClick={() => { this.setState({ selected_spell: spell }) }}>
+          <td>{ spell.level === 0 ? 'Cantrip' : spell.level }</td>
+          <td>{ spell.name }</td>
+          <td>{ spell.range }</td>
+          <td>{ _.join(spell_classes, ', ') }</td>
+          <td>{ spell.school.name }</td>
+          <td>{ spell.casting_time }</td>
+          <td>{ spell.duration }</td>
+        </tr>
+      );
+    });
+    return all_spells;
   }
 
 }
