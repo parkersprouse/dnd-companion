@@ -13325,5 +13325,574 @@
 			}
 		],
 		"url": "http://dnd5eapi.co/api/spells/305"
-	}
+	},
+
+  {
+    "index": 306,
+		"name": "Animal Friendship",
+		"desc": [
+			"This spell lets you convince a beast that you mean it no harm. Choose a beast that you can see within range. It must see and hear you. If the beast's Intelligence is 4 or higher, the spell fails. Otherwise, the beast must succeed on a Wisdom saving throw or be charmed by you for the spell's duration. If you or one of your companions harms the target, the spell ends."
+		],
+    "higher_level": [
+			"When you cast this spell using a spell slot of 2nd level or higher, you can affect one additional beast for each slot level above 1st."
+		],
+		"page": "phb 212",
+		"range": "30 feet",
+		"components": [
+			"V",
+			"S",
+			"M"
+		],
+		"material": "A morsel of food.",
+		"ritual": "no",
+		"duration": "24 hours",
+		"concentration": "no",
+		"casting_time": "1 action",
+		"level": 1,
+		"school": {
+			"name": "Enchantment"
+		},
+		"classes": [
+      {
+				"name": "Bard"
+			},
+			{
+				"name": "Druid"
+			},
+			{
+				"name": "Ranger"
+			}
+		]
+  },
+  {
+    "index": 307,
+		"name": "Arcane Gate",
+		"desc": [
+			"You create linked teleportation portals that remain open for the duration. Choose two points on the ground that you can see, one point within 10 feet of you and one point within 500 feet of you. A circular portal, 10 feet in diameter, opens over each point. If the portal would open in the space occupied by a creature, the spell fails, and the casting is lost.",
+      "The portals are two-dimensional glowing rings filled with mist, hovering inches from the ground and perpendicular to it at the points you choose. A ring is visible only from one side (your choice), which is the side that functions as a portal.",
+      "Any creature or object entering the portal exits from the other portal as if the two were adjacent to each other; passing through a portal from the nonportal side has no effect. The mist that fills each portal is opaque and blocks vision through it. On your turn, you can rotate the rings as a bonus action so that the active side faces in a different direction."
+		],
+		"page": "phb 214",
+		"range": "500 feet",
+		"components": [
+			"V",
+			"S"
+		],
+		"ritual": "no",
+		"duration": "Up to 10 minutes",
+		"concentration": "yes",
+		"casting_time": "1 action",
+		"level": 6,
+		"school": {
+			"name": "Conjuration"
+		},
+		"classes": [
+			{
+				"name": "Sorcerer"
+			},
+			{
+				"name": "Warlock"
+			},
+      {
+				"name": "Wizard"
+			}
+		]
+  },
+  {
+    "index": 308,
+		"name": "Armor of Agathys",
+		"desc": [
+			"A protective magical force surrounds you, manifesting as a spectral frost that covers you and your gear. You gain 5 temporary hit points for the duration. If a creature hits you with a melee attack while you have these hit points, the creature takes 5 cold damage."
+		],
+    "higher_level": [
+			"When you cast this spell using a spell slot of 2nd level or higher, both the temporary hit points and the cold damage increase by 5 for each slot."
+		],
+		"page": "phb 215",
+		"range": "Self",
+		"components": [
+			"V",
+			"S",
+			"M"
+		],
+		"material": "A cup of water.",
+		"ritual": "no",
+		"duration": "1 hour",
+		"concentration": "no",
+		"casting_time": "1 action",
+		"level": 1,
+		"school": {
+			"name": "Abjuration"
+		},
+		"classes": [
+      {
+				"name": "Warlock"
+			}
+		]
+  },
+  {
+    "index": 309,
+		"name": "Arms of Hadar",
+		"desc": [
+			"You invoke the power of Hadar, the Dark Hunger. Tendrils of dark energy erupt from you and batter all creatures within 10 feet of you. Each creature in that area must make a Strength saving throw. On a failed save, a target takes 2d6 necrotic damage and can't take reactions until its next turn. On a successful save, the creature takes half damage, but suffers no other effect."
+		],
+    "higher_level": [
+			"When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st."
+		],
+		"page": "phb 215",
+		"range": "Self (10-foot radius)",
+		"components": [
+			"V",
+			"S"
+		],
+		"ritual": "no",
+		"duration": "Instantaneous",
+		"concentration": "no",
+		"casting_time": "1 action",
+		"level": 1,
+		"school": {
+			"name": "Conjuration"
+		},
+		"classes": [
+      {
+				"name": "Warlock"
+			}
+		]
+  },
+  {
+    "index": 310,
+		"name": "Aura of Life",
+		"desc": [
+			"Life-preserving energy radiates from you in an aura with a 30-foot radius. Until the spell ends, the aura moves with you, centered on you. Each non-hostile creature in the aura (including you) has resistance to necrotic damage, and its hit point maximum can't be reduced. In addition, a non-hostile, living creature regains 1 hit point when it starts its turn in the arua with 0 hit points."
+		],
+		"page": "phb 216",
+		"range": "Self (30-foot radius)",
+		"components": [
+			"V"
+		],
+		"ritual": "no",
+		"duration": "Up to 10 minutes",
+		"concentration": "yes",
+		"casting_time": "1 action",
+		"level": 4,
+		"school": {
+			"name": "Abjuration"
+		},
+		"classes": [
+      {
+				"name": "Paladin"
+			}
+		]
+  },
+  {
+    "index": 311,
+		"name": "Aura of Purity",
+		"desc": [
+			"Purifying energy radiates from you in an aura with a 30-foot radius. Until the spell ends, the aura moves with you, centered on you. Each non-hostile creature in the aura (including you) can't become diseased, has resistance to poison damage, and has advantage on saving throws against effects that cause any of the following conditions: blinded, charmed, deafended, frightened, paralyzed, poisoned, and stunned."
+		],
+		"page": "phb 216",
+		"range": "Self (30-foot radius)",
+		"components": [
+			"V"
+		],
+		"ritual": "no",
+		"duration": "Up to 10 minutes",
+		"concentration": "yes",
+		"casting_time": "1 action",
+		"level": 4,
+		"school": {
+			"name": "Abjuration"
+		},
+		"classes": [
+      {
+				"name": "Paladin"
+			}
+		]
+  },
+  {
+    "index": 312,
+		"name": "Aura of Vitality",
+		"desc": [
+			"Healing energy radiates from you in an aura with a 30-foot radius. Until the spell ends, the aura moves with you, centered on you. You can use a bonus action to cause one creature in the aura (including you) to regain 2d6 hit points."
+		],
+		"page": "phb 216",
+		"range": "Self (30-foot radius)",
+		"components": [
+			"V"
+		],
+		"ritual": "no",
+		"duration": "Up to 1 minute",
+		"concentration": "yes",
+		"casting_time": "1 action",
+		"level": 3,
+		"school": {
+			"name": "Evocation"
+		},
+		"classes": [
+      {
+				"name": "Paladin"
+			}
+		]
+  },
+  {
+    "index": 313,
+		"name": "Banishing Smite",
+		"desc": [
+			"The next time you hit a creature with a weapon attack before this spell ends, your weapon crackles with force, and the attack deals an extra 5d10 force damage to the target. Additionally, if this attack reduces the target to 50 hit points or fewer, you banish it. If the target is native to a different plane of existence than the on you're on, the target disappears, returning to its home plane. If the target is native to the plane you're on, the creature vanishes into a harmless demiplane. While there, the target is incapacitated. It remains there until the spell ends, at which point the target reappears in the space it left or in the nearest unoccupied space if that space is occupied."
+		],
+		"page": "phb 216",
+		"range": "Self",
+		"components": [
+			"V"
+		],
+		"ritual": "no",
+		"duration": "Up to 1 minute",
+		"concentration": "yes",
+		"casting_time": "1 bonus action",
+		"level": 5,
+		"school": {
+			"name": "Abjuration"
+		},
+		"classes": [
+      {
+				"name": "Paladin"
+			}
+		]
+  },
+  {
+    "index": 314,
+		"name": "Beast Sense",
+		"desc": [
+			"You touch a willing beast. For the duration of the spell, you can use your action to see through the beast's eyes and hear what it hears, and continue to do so until you use your action to return to your normal senses."
+		],
+		"page": "phb 217",
+		"range": "Touch",
+		"components": [
+			"S"
+		],
+		"ritual": "yes",
+		"duration": "Up to 1 hour",
+		"concentration": "yes",
+		"casting_time": "1 action",
+		"level": 2,
+		"school": {
+			"name": "Divination"
+		},
+		"classes": [
+			{
+				"name": "Druid"
+			},
+			{
+				"name": "Ranger"
+			}
+		]
+  },
+  {
+    "index": 315,
+		"name": "Bigby's Hand",
+		"desc": [
+			"You create a Large hand of shimmering, translucent force in an unoccupied space that you can see within range. The hand lasts for the spell's duration, and it moves at your command, mimicking the movements of your own hand. The hand is an object that has AC 20 and hit points equal to your hit point maximum. If it drops to 0 hit points, the spell ends. It has a Strength of 26 (+8) and a Dexterity of 10 (+0). The hand doesn't fill its space. When you cast the spell and as a bonus action on your subsequent turns, you can move the hand up to 60 feet and then cause one of the following effects with it.",
+      "Clenched Fist",
+      "The hand strikes one creature or object within 5 feet of it. Make a melee spell attack for the hand using your game statistics. On a hit, the target takes 4d8 force damage.",
+      "Forceful Hand",
+      "The hand attempts to push a creature within 5 feet of it in a direction you choose. Make a check with the hand's Strength contested by the Strength (Athletics) check of the target. If the target is Medium or smaller, you have advantage on the check. If you succeed, the hand pushes the target up to 5 feet plus a number of feet equal to five times your spellcasting ability modifier. The hand moves with the target to remain within 5 feet of it.",
+      "Grasping Hand",
+      "The hand attempts to grapple a Huge or smaller creature within 5 feet of it. You use the hand's Strength score to resolve the grapple. If the target is Medium or smaller, you have advantage on the check. While the hand is grappling the target, you can use a bonus action to have the hand crush it. When you do so, the target takes bludgeoning damage equal to 2d6 + your spellcasting ability modifier.",
+      "Interposing Hand",
+      "The hand interposes itself between you and a creature you choose until you give the hand a different command. The hand moves to stay between you and the target, providing you with half cover against the target. The target can't move through the hand's space if its Strength score is less than or equal to the hand's Strength score. If its Strength score is higher than the hand's Strength score, the target can move toward you through the hand's space, but that space is difficult terrain for the target."
+		],
+    "higher_level": [
+			"When you cast this spell using a spell slot of 6th level or higher, the damage from the clenched fist option increases by 2d8 and the damage from the grasping hand option increases by 2d6 for each slot level above 5th."
+		],
+		"page": "phb 218",
+		"range": "120 feet",
+		"components": [
+			"V",
+			"S",
+			"M"
+		],
+		"material": "An eggshell and a snakeskin glove.",
+		"ritual": "no",
+		"duration": "Up to 1 minute",
+		"concentration": "yes",
+		"casting_time": "1 action",
+		"level": 5,
+		"school": {
+			"name": "Evocation"
+		},
+		"classes": [
+      {
+				"name": "Wizard"
+			}
+		]
+  },
+  {
+    "index": 316,
+		"name": "Blade Ward",
+		"desc": [
+			"You extend your hand and trace a sigil of warding in the air. Until the end of your next turn, you have resistance against bludgeoning, piercing, and slashing damage dealt by weapon attacks."
+		],
+		"page": "phb 218",
+		"range": "Self",
+		"components": [
+			"V",
+			"S"
+		],
+		"ritual": "no",
+		"duration": "1 round",
+		"concentration": "no",
+		"casting_time": "1 action",
+		"level": 0,
+		"school": {
+			"name": "Abjuration"
+		},
+		"classes": [
+      {
+				"name": "Bard"
+			},
+      {
+				"name": "Sorcerer"
+			},
+      {
+				"name": "Warlock"
+			},
+      {
+				"name": "Wizard"
+			}
+		]
+  },
+  {
+    "index": 317,
+		"name": "Blinding Smite",
+		"desc": [
+			"The next time you hit a creature with a melee weapon attack during this spell's duration, your weapon flares with a bright light, and the attack deals an extra 3d8 radiant damage to the target. Additionally, the target must succeed on a Constitution saving throw or be blinded until the spell ends.",
+      "A creature blinded by this spell makes another Constitution saving throw at the end of each of its turns. On a successful save, it is no longer blinded."
+		],
+		"page": "phb 219",
+		"range": "Self",
+		"components": [
+			"V"
+		],
+		"ritual": "no",
+		"duration": "Up to 1 minute",
+		"concentration": "yes",
+		"casting_time": "1 bonus action",
+		"level": 3,
+		"school": {
+			"name": "Evocation"
+		},
+		"classes": [
+      {
+				"name": "Paladin"
+			}
+		]
+  },
+  {
+    "index": 318,
+		"name": "Branding Smite",
+		"desc": [
+			"The next time you hit a creature with a weapon attack before this spell ends, the weapon gleams with astral radiance as you strike. The attack deals an extra 2d6 radiant damage to the target, which becomes visible if it is invisible, and the target sheds dim light in a 5-foot radius and can't become invisible until the spell ends."
+		],
+    "higher_level": [
+			"When you cast this spell using a spell slot of 3rd level or higher, the extra damage increases by 1d6 for each slot level above 2nd."
+		],
+		"page": "phb 219",
+		"range": "Self",
+		"components": [
+			"V"
+		],
+		"ritual": "no",
+		"duration": "Up to 1 minute",
+		"concentration": "yes",
+		"casting_time": "1 bonus action",
+		"level": 2,
+		"school": {
+			"name": "Evocation"
+		},
+		"classes": [
+      {
+				"name": "Paladin"
+			}
+		]
+  },
+  {
+    "index": 319,
+		"name": "Chromatic Orb",
+		"desc": [
+			"You hurl a 4-inch-diameter sphere of energy at a creature that you can see within range. You choose acid, cold, fire, lightning, poison, or thunder for the type of orb you create, and then make a ranged spell attack against the target. If the attack hits, the creature takes 3d8 damage of the type you chose."
+		],
+    "higher_level": [
+			"When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d8 for each slot level above 1st."
+		],
+		"page": "phb 221",
+		"range": "90 feet",
+		"components": [
+			"V",
+			"S",
+			"M"
+		],
+		"material": "A diamond worth at least 50 gp.",
+		"ritual": "no",
+		"duration": "Instantaneous",
+		"concentration": "no",
+		"casting_time": "1 action",
+		"level": 1,
+		"school": {
+			"name": "Evocation"
+		},
+		"classes": [
+      {
+				"name": "Sorcerer"
+			},
+      {
+				"name": "Wizard"
+			}
+		]
+  },
+  {
+    "index": 320,
+		"name": "Circle of Power",
+		"desc": [
+			"Divine energy radiates from you, distorting and diffusing magical energy within 30 feet of you. Until the spell ends, the sphere moves with you, centered on you. For the duration, each friendly creature in the area (including you) has advantage on saving throws against spells and other magical effects.",
+      "Additionally, when an affected creature succeeds on a saving throw made against a spell or magical effect that allows it to make a saving throw to take only half damage, it instead takes no damage if it succeeds on the saving throws."
+		],
+		"page": "phb 221",
+		"range": "Self (30-foot radius)",
+		"components": [
+			"V"
+		],
+		"ritual": "no",
+		"duration": "Up to 10 minutes",
+		"concentration": "yes",
+		"casting_time": "1 action",
+		"level": 5,
+		"school": {
+			"name": "Abjuration"
+		},
+		"classes": [
+      {
+				"name": "Paladin"
+			}
+		]
+  },
+  {
+    "index": 321,
+		"name": "Cloud of Daggers",
+		"desc": [
+			"You fill the air with spinning daggers in a cube 5 feet on each side, centered on a point you choose within range. A creature takes 4d4 slashing damage when it enters the spell's area for the first time on a turn or starts its turn there."
+		],
+    "higher_level": [
+			"When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 2d4 for each slot level above 2nd."
+		],
+		"page": "phb 222",
+		"range": "60 feet",
+		"components": [
+			"V",
+			"S",
+			"M"
+		],
+		"material": "A sliver of glass.",
+		"ritual": "no",
+		"duration": "Up to 1 minute",
+		"concentration": "yes",
+		"casting_time": "1 action",
+		"level": 2,
+		"school": {
+			"name": "Conjuration"
+		},
+		"classes": [
+      {
+				"name": "Bard"
+			},
+      {
+				"name": "Sorcerer"
+			},
+      {
+				"name": "Warlock"
+			},
+      {
+				"name": "Wizard"
+			}
+		]
+  },
+  {
+    "index": 322,
+		"name": "Compelled Duel",
+		"desc": [
+			"You attempt to compel a creature into a duel. One creature that you can see within range must make a Wisdom saving throw. On a failed save, the creature is drawn to you, compelled by your divine demand. For the duration, it has disadvantage on attack rolls against creatures other than you, and must make a Wisdom saving throw each time it attempts to move to a space that is more than 30 feet away from you. If it succeeds on this saving throw, this spell doesn't restrict the target's movement for that turn.",
+      "The spell ends if you attack any other creature, if you cast a spell that targets a hostile creature other than the target, if a creature friendly to you damages the target or casts a harmful spell on it, or if you end your turn more than 30 feet away from the target."
+		],
+		"page": "phb 224",
+		"range": "30 feet",
+		"components": [
+			"V"
+		],
+		"ritual": "no",
+		"duration": "Up to 1 minute",
+		"concentration": "yes",
+		"casting_time": "1 bonus action",
+		"level": 1,
+		"school": {
+			"name": "Enchantment"
+		},
+		"classes": [
+      {
+				"name": "Paladin"
+			}
+		]
+  },
+  {
+    "index": 323,
+		"name": "Compulsion",
+		"desc": [
+			"Creatures of your choice that you can see within range and that can hear you must make a Wisdom saving throw. A target automatically succeeds on this saving throw if it can't be charmed. On a failed save, a target is affected by this spell. Until the spell ends, you can use a bonus action on each of your turns to designate a direction that is horizontal to you. Each affected target must use as much of its movement as possible to move in that direction on its next turn. It can take its action before it moves. After moving in this way, it can make another Wisdom saving throw to try to end the effect.",
+      "A target isn't compelled to move into an obviously deadly hazard, such as a fire pit, but it will provoke opportunity attacks to move in the designated direction."
+		],
+		"page": "phb 224",
+		"range": "30 feet",
+		"components": [
+			"V",
+			"S"
+		],
+		"ritual": "no",
+		"duration": "Up to 1 minute",
+		"concentration": "yes",
+		"casting_time": "1 action",
+		"level": 4,
+		"school": {
+			"name": "Enchantment"
+		},
+		"classes": [
+      {
+				"name": "Bard"
+			}
+		]
+  },
+  {
+    "index": 324,
+		"name": "Conjure Barrage",
+		"desc": [
+			"You throw a non-magical weapon or fire a piece of non-magical ammunition into the air to create a cone of identical weapons that shoot forward and then disappear. Each creature in a 60-foot cone must succeed on a Dexterity saving throw. A creature takes 3d8 damage on a failed save, or half as much damage on a successful one. The damage type is the same as that of the weapon or ammunition used as a component."
+		],
+		"page": "phb 225",
+		"range": "Self (60-foot cone)",
+		"components": [
+			"V",
+			"S",
+			"M"
+		],
+		"material": "One piece of ammunition or a thrown weapon.",
+		"ritual": "no",
+		"duration": "Instantaneous",
+		"concentration": "no",
+		"casting_time": "1 action",
+		"level": 3,
+		"school": {
+			"name": "Conjuration"
+		},
+		"classes": [
+      {
+				"name": "Ranger"
+			}
+		]
+  },
 ]
