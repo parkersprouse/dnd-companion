@@ -2,7 +2,7 @@ const axios = require('axios');
 const constants = require('./constants');
 
 function performGet(endpoint, callback) {
-  axios.get(endpoint)
+  axios.get(constants.server + endpoint)
   .then(function (response) {
     callback(response.status === constants.http_ok, response.data);
   })
@@ -12,7 +12,7 @@ function performGet(endpoint, callback) {
 }
 
 function performPost(endpoint, data, callback) {
-  axios.post(endpoint, data)
+  axios.post(constants.server + endpoint, data)
   .then(function (response) {
     callback(response.status === constants.http_ok, response.data);
   })
@@ -22,7 +22,7 @@ function performPost(endpoint, data, callback) {
 }
 
 function performDelete(endpoint, callback) {
-  axios.delete(endpoint)
+  axios.delete(constants.server + endpoint)
   .then(function (response) {
     callback(response.status === constants.http_ok ||
              response.status === constants.http_no_content, response.data);
@@ -33,7 +33,7 @@ function performDelete(endpoint, callback) {
 }
 
 function performPut(endpoint, data, callback) {
-  axios.put(endpoint, data)
+  axios.put(constants.server + endpoint, data)
   .then(function (response) {
     callback(response.status === constants.http_ok, response.data);
   })
@@ -43,7 +43,7 @@ function performPut(endpoint, data, callback) {
 }
 
 function performPatch(endpoint, data, callback) {
-  axios.patch(endpoint, data)
+  axios.patch(constants.server + endpoint, data)
   .then(function (response) {
     callback(response.status === constants.http_ok, response.data);
   })
@@ -92,6 +92,51 @@ module.exports = {
 
   getCharacter: function(data, callback) {
     performPost('/api/characters', data, callback);
+  },
+
+  createCharacter: function(data, callback) {
+    performPost('/api/characters/new', data, callback);
+  },
+
+  updateCharacter: function(data, callback) {
+    performPatch('/api/characters/update', data, callback);
+  },
+
+  // DnD Data
+  getAbilityScores: function(callback) {
+    performGet('/api/db/ability_scores', callback);
+  },
+
+  getClasses: function(callback) {
+    performGet('/api/db/classes', callback);
+  },
+
+  getEquipment: function(callback) {
+    performGet('/api/db/equipment', callback);
+  },
+
+  getLanguages: function(callback) {
+    performGet('/api/db/languages', callback);
+  },
+
+  getProficiencies: function(callback) {
+    performGet('/api/db/proficiencies', callback);
+  },
+
+  getRaces: function(callback) {
+    performGet('/api/db/races', callback);
+  },
+
+  getSubraces: function(callback) {
+    performGet('/api/db/subraces', callback);
+  },
+
+  filterSubraces: function(data, callback) {
+    performPost('/api/db/subraces', data, callback);
+  },
+
+  getSpells: function(callback) {
+    performGet('/api/db/spells', callback);
   }
 
 }

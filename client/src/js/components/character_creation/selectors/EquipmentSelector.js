@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
-import axios from 'axios';
+import api from '../../../lib/api';
 import _ from 'lodash';
 
 export default class EquipmentSelector extends Component {
@@ -13,15 +13,15 @@ export default class EquipmentSelector extends Component {
   }
 
   componentWillMount() {
-    axios.get('/api/db/equipment')
-    .then((response) => {
-      // remove weapons from equipment
-      let equipment = _.reject(response.data.content, { equipment_category: "Weapon" });
-      // remove armor from equipment
-      equipment = _.reject(equipment, { equipment_category: "Armor" });
-      this.setState({ equipment: equipment });
-    })
-    .catch((error) => {});
+    api.getEquipment((success, response) => {
+      if (success) {
+        // remove weapons from equipment
+        let equipment = _.reject(response.content, { equipment_category: "Weapon" });
+        // remove armor from equipment
+        equipment = _.reject(equipment, { equipment_category: "Armor" });
+        this.setState({ equipment: equipment });
+      }
+    });
   }
 
   selectEquipment = (selected) => {

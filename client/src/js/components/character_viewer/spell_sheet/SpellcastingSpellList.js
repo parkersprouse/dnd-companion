@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Tooltip, Position, InputGroup, Toaster, Intent, Button, Dialog, MenuItem } from '@blueprintjs/core';
 import { Select } from "@blueprintjs/labs";
 import { Grid } from 'semantic-ui-react';
-import axios from 'axios';
 import _ from 'lodash';
-import constants from '../../../lib/constants';
+import api from '../../../lib/api';
 import PropTypes from 'prop-types';
 
 class SpellcastingSpellList extends Component {
@@ -30,9 +29,6 @@ class SpellcastingSpellList extends Component {
       const available_spells = _.filter(next_props.all_spells, { level: next_props.level });
       const char_spells = _.find(next_props.character.spells, { id: next_props.level });
 
-      // console.log(available_spells)
-      // console.log(char_spells)
-
       const total_slots = char_spells.slots;
       const used_slots = char_spells.slots_used;
       const new_total_slots = char_spells.slots;
@@ -54,7 +50,7 @@ class SpellcastingSpellList extends Component {
     const detailed_spells = [];
     _.each(this.state.available_spells, (a_spell) => {
       _.each(this.state.char_spells.spells, (b_spell) => {
-        if (a_spell.index == b_spell.id) detailed_spells.push(a_spell);
+        if (a_spell.index + '' === b_spell.id + '') detailed_spells.push(a_spell);
       });
     });
 
@@ -113,7 +109,7 @@ class SpellcastingSpellList extends Component {
                 return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
               } }
               onItemSelect={ (selected) => null }
-              popoverProps={{ minimal: true, placement: 'bottom' }}
+              popoverProps={{ minimal: true, placement: 'top' }}
               noResults={<MenuItem disabled text="No results" />}
               resetOnSelect={true}
             >
@@ -226,19 +222,14 @@ class SpellcastingSpellList extends Component {
 
     new_spells.push(edited_spell);
 
-    axios.patch('/api/characters/update', { id: this.props.character.id, spells: new_spells })
-      .then((response) => {
-        if (response.status === constants.http_ok) {
-          this.setState({ [editing]: false, [initial]: this.state[current] });
-          this.showSuccessToast();
-        }
-        else {
-          this.showErrorToast();
-        }
-      })
-      .catch((error) => {
+    api.updateCharacter({ id: this.props.character.id, spells: new_spells }, (success, response) => {
+      if (success) {
+        this.setState({ [editing]: false, [initial]: this.state[current] });
+        this.showSuccessToast();
+      }
+      else
         this.showErrorToast();
-      });
+    });
   }
 
   setEditing = (editing) => {

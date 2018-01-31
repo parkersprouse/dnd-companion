@@ -93,11 +93,13 @@ function updateUser(req, res, next) {
           // data[1][0].dataValues is the object containing the values of the returned row
           const payload = utils.generateJwtPayload(data[1][0].dataValues);
           const token = jwt.sign(payload, config.jwtSecret);
-          res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
           res.status(constants.http_ok)
             .json({
               status: 'success',
-              content: data[1][0].dataValues,
+              content: {
+                data: data[1][0].dataValues,
+                token: token
+              },
               message: 'Updated user'
             });
         }

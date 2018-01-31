@@ -416,7 +416,7 @@
 		"url": "/api/db/subraces/8"
 	},
   {
-		"index": 8,
+		"index": 9,
 		"name": "Stout Halfling",
 		"race": {
 			"url": "/api/db/races/3",

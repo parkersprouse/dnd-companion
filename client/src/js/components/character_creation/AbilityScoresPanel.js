@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { NumericInput } from "@blueprintjs/core";
-import axios from 'axios';
+import api from '../../lib/api';
 
 export default class AbilityScoresPanel extends Component {
   componentWillMount() {
-    axios.get('/api/db/ability_scores')
-    .then((response) => {
-      this.setState({ scores: response.data.content });
-    })
-    .catch((error) => {});
+    api.getAbilityScores((success, response) => {
+      if (success)
+        this.setState({ scores: response.content });
+    });
   }
 
   handleValueChange = (value, name) => {
@@ -21,7 +20,7 @@ export default class AbilityScoresPanel extends Component {
 
     const ability_scores = this.state.scores.map((score, index) => {
       return (
-        <Grid.Row>
+        <Grid.Row key={index}>
           <Grid.Column width={8} style={{ paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>

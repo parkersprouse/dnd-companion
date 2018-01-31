@@ -11,6 +11,8 @@ import './css/styles.css';
 import { FocusStyleManager } from '@blueprintjs/core';
 FocusStyleManager.onlyShowFocusOnTabs();
 
+require('dotenv').config();
+
 ReactDOM.render((
   <BrowserRouter>
     <AppRouter />

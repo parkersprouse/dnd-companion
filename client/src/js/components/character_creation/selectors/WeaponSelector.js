@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
-import axios from 'axios';
+import api from '../../../lib/api';
 import _ from 'lodash';
 
 export default class WeaponSelector extends Component {
@@ -15,13 +15,12 @@ export default class WeaponSelector extends Component {
   }
 
   componentWillMount() {
-    axios.get('/api/db/equipment')
-    .then((response) => {
-      // get only weapons from equipment
-      const weapons = _.filter(response.data.content, { equipment_category: "Weapon" });
-      this.setState({ weapons: weapons });
-    })
-    .catch((error) => {});
+    api.getEquipment((success, response) => {
+      if (success) {
+        const weapons = _.filter(response.content, { equipment_category: "Weapon" });
+        this.setState({ weapons: weapons });
+      }
+    });
   }
 
   swap = () => {

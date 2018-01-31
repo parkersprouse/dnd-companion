@@ -3,6 +3,9 @@ import { Button, Intent, FormGroup } from '@blueprintjs/core';
 import { Grid } from 'semantic-ui-react';
 import api from '../lib/api';
 import FormLabel from './FormLabel';
+import Cookie from 'universal-cookie';
+
+const cookie = new Cookie();
 
 export default class LoginForm extends Component {
   constructor(props) {
@@ -96,6 +99,7 @@ export default class LoginForm extends Component {
       password: this.state.password,
     }, (success, response) => {
       if (success) {
+        cookie.set('token', response.content, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false, secure: false });
         let destination = '/';
         if (!!this.props.location.state && !!this.props.location.state.next)
           destination = this.props.location.state.next;

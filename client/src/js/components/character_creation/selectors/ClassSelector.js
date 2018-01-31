@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
-import axios from 'axios';
+import api from '../../../lib/api';
 
 export default class ClassSelector extends Component {
   constructor(props) {
@@ -13,11 +13,10 @@ export default class ClassSelector extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/db/classes')
-    .then((response) => {
-      this.setState({ classes: response.data.content });
-    })
-    .catch((error) => {});
+    api.getClasses((success, response) => {
+      if (success)
+        this.setState({ classes: response.content });
+    });
   }
 
   swap = () => {

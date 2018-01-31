@@ -6,8 +6,8 @@ import Header from '../components/Header';
 import CreateCharacterForm from '../components/character_creation/CreateCharacterForm';
 import utils from '../lib/utils';
 import _ from 'lodash';
-import axios from 'axios';
 import validator from 'validator';
+import api from '../lib/api';
 
 export default class CreateCharacterPage extends Component {
   constructor(props) {
@@ -85,13 +85,12 @@ export default class CreateCharacterPage extends Component {
     data.ability_scores = this.formatAbilityScores(data);
     data.spells = this.formatSpells();
 
-    axios.post('/api/characters/new', data)
-      .then((response) => {
-        window.location.href = '/characters/' + response.data.content.id;
-      })
-      .catch((error) => {
-        this.setState({ error: error.response.data.message, isSubmitting: false });
-      });
+    api.createCharacter(data, (success, response) => {
+      if (success)
+        window.location.href = '/characters/' + response.content.id;
+      else
+        this.setState({ error: response.message, isSubmitting: false });
+    });
   }
 
   amountLabel = (item) => {
