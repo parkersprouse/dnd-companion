@@ -7,8 +7,8 @@ export default class SpellSheet extends Component {
     super(props);
     this.state = {
       editing: false,
-      spell_class: props.spell_class,
-      new_spell_class: props.spell_class
+      spell_class: props.character.spell_class,
+      new_spell_class: props.character.spell_class
     }
   }
 
@@ -51,7 +51,7 @@ export default class SpellSheet extends Component {
   }
 
   save = () => {
-    api.updateCharacter({ id: this.props.id, spell_class: this.state.new_spell_class }, (success, response) => {
+    api.updateCharacter({ id: this.props.character.id, spell_class: this.state.new_spell_class }, (success, response) => {
       if (success) {
         this.setState({ editing: false, spell_class: this.state.new_spell_class });
         this.showSuccessToast();

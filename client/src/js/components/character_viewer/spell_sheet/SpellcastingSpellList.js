@@ -4,9 +4,8 @@ import { Select } from "@blueprintjs/labs";
 import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import api from '../../../lib/api';
-import PropTypes from 'prop-types';
 
-class SpellcastingSpellList extends Component {
+export default class SpellcastingSpellList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,9 +17,7 @@ class SpellcastingSpellList extends Component {
       new_used_slots: null,
       editing_total_slots: false,
       editing_used_slots: false,
-
-      cantrips_open: false,
-      spellsOpen: false
+      spells_open: false
     };
   }
 
@@ -40,95 +37,6 @@ class SpellcastingSpellList extends Component {
 
   render() {
     const spell_list = this.createSpellList();
-
-    if (this.props.level === 0)
-      return this.renderCantrips(spell_list);
-    return this.renderNormalSpells(spell_list);
-  }
-
-  createSpellList = () => {
-    const detailed_spells = [];
-    _.each(this.state.available_spells, (a_spell) => {
-      _.each(this.state.char_spells.spells, (b_spell) => {
-        if (a_spell.index + '' === b_spell.id + '') detailed_spells.push(a_spell);
-      });
-    });
-
-    const rendered_spells = [];
-    _.each(detailed_spells, (spell) => {
-      rendered_spells.push(
-        <div style={{ marginBottom: '2rem', borderBottom: '1px solid black' }}>
-          { spell.name }
-        </div>
-      );
-    });
-
-    return rendered_spells;
-  }
-
-  renderCantrips = (spell_list) => {
-    console.log(spell_list)
-    return (
-      <Grid>
-        <Grid.Row centered textAlign='center' className='spell-list-header-row'>
-          <Grid.Column width={2} verticalAlign='middle'>
-            <span className='char-sheet-spell-header'>
-              { this.props.level }
-            </span>
-          </Grid.Column>
-          <Grid.Column width={14} verticalAlign='middle'>
-            <span className='char-sheet-spell-header'>
-              Cantrips
-            </span>
-          </Grid.Column>
-        </Grid.Row>
-
-        <Grid.Row centered>
-          <Grid.Column width={16} verticalAlign='middle'>
-            <div>
-              { spell_list.length < 1 ? 'No Cantrips' : spell_list }
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-
-        <Grid.Row textAlign='right'>
-          <Grid.Column width={16} verticalAlign='middle'>
-            <Button iconName='plus' intent={Intent.PRIMARY} type='button'
-                    className='pt-small pt-minimal' onClick={() => this.toggleDialog('cantrips')} />
-          </Grid.Column>
-        </Grid.Row>
-
-        <Dialog isOpen={this.state.cantrips_open} onClose={() => this.toggleDialog('cantrips')} title='Find Cantrip'>
-          <div className='pt-dialog-body'>
-
-            <Select
-              items={this.state.available_spells}
-              itemPredicate={ (query, selected) => selected.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
-              itemRenderer={ ({ handleClick, isActive, item }) => {
-                const style = isActive ? 'pt-active pt-intent-primary' : '';
-                return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
-              } }
-              onItemSelect={ (selected) => null }
-              popoverProps={{ minimal: true, placement: 'top' }}
-              noResults={<MenuItem disabled text="No results" />}
-              resetOnSelect={true}
-            >
-              <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
-                      text={"Choose Cantrip"} />
-            </Select>
-
-          </div>
-          <div className='pt-dialog-footer'>
-            <div className='pt-dialog-footer-actions'>
-              <Button text='Close' onClick={() => this.toggleDialog('cantrips')} />
-            </div>
-          </div>
-        </Dialog>
-      </Grid>
-    );
-  }
-
-  renderNormalSpells = (spell_list) => {
     return (
       <Grid>
         <Grid.Row centered textAlign='center' className='spell-list-header-row'>
@@ -182,8 +90,63 @@ class SpellcastingSpellList extends Component {
             </div>
           </Grid.Column>
         </Grid.Row>
-       </Grid>
+
+        <Grid.Row textAlign='right'>
+          <Grid.Column width={16} verticalAlign='middle'>
+            <Button iconName='plus' intent={Intent.PRIMARY} type='button'
+                    className='pt-small pt-minimal' onClick={() => this.toggleDialog()} />
+          </Grid.Column>
+        </Grid.Row>
+
+        <Dialog isOpen={this.state.spells_open} onClose={() => this.toggleDialog()} title={'Find Level ' + this.props.level + ' Spell'}>
+          <div className='pt-dialog-body'>
+
+            <Select
+              items={this.state.available_spells}
+              itemPredicate={ (query, selected) => selected.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
+              itemRenderer={ ({ handleClick, isActive, item }) => {
+                const style = isActive ? 'pt-active pt-intent-primary' : '';
+                return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
+              } }
+              onItemSelect={ (selected) => null }
+              popoverProps={{ minimal: true, placement: 'top' }}
+              noResults={<MenuItem disabled text="No results" />}
+              resetOnSelect={true}
+            >
+              <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
+                      text={"Choose Spell"} />
+            </Select>
+
+          </div>
+          <div className='pt-dialog-footer'>
+            <div className='pt-dialog-footer-actions'>
+              <Button text='Close' onClick={() => this.toggleDialog()} />
+              <Button text='Add Spell' intent={Intent.PRIMARY} onClick={() => this.toggleDialog()} />
+            </div>
+          </div>
+        </Dialog>
+      </Grid>
     );
+  }
+
+  createSpellList = () => {
+    const detailed_spells = [];
+    _.each(this.state.available_spells, (a_spell) => {
+      _.each(this.state.char_spells.spells, (b_spell) => {
+        if (a_spell.index + '' === b_spell.id + '') detailed_spells.push(a_spell);
+      });
+    });
+
+    const rendered_spells = [];
+    _.each(detailed_spells, (spell) => {
+      rendered_spells.push(
+        <div style={{ marginBottom: '2rem', borderBottom: '1px solid black' }}>
+          { spell.name }
+        </div>
+      );
+    });
+
+    return rendered_spells;
   }
 
   renderDetails = ({ editing, current, initial }) => {
@@ -254,20 +217,8 @@ class SpellcastingSpellList extends Component {
     });
   }
 
-  toggleDialog = (dialog) => {
-    if (dialog === 'cantrips')
-      this.setState({ cantrips_open: !this.state.cantrips_open });
-    else
-      this.setState({ spells_open: !this.state.spells_open });
+  toggleDialog = () => {
+    this.setState({ spells_open: !this.state.spells_open });
   }
 
 }
-
-SpellcastingSpellList.propTypes = {
-  all_spells: PropTypes.array.isRequired, // All of the spells available in the SRD
-  //char_spells: PropTypes.array.isRequired, // All of the spells that the character knows, no categorization
-  character: PropTypes.object.isRequired, // All of the data contained in the character object
-  level: PropTypes.number.isRequired // The spell level that this list consists of
-};
-
-export default SpellcastingSpellList;

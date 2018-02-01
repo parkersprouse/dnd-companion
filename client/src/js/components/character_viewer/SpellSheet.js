@@ -4,6 +4,8 @@ import api from '../../lib/api';
 import SpellcastingClassEditor from './spell_sheet/SpellcastingClassEditor';
 import SpellcastingDetailsEditors from './spell_sheet/SpellcastingDetailsEditors';
 import SpellcastingSpellList from './spell_sheet/SpellcastingSpellList';
+import SpellcastingCantripList from './spell_sheet/SpellcastingCantripList';
+import _ from 'lodash';
 
 export default class SpellSheet extends Component {
   constructor(props) {
@@ -16,9 +18,9 @@ export default class SpellSheet extends Component {
   componentWillMount() {
     api.getSpells((success, response) => {
       if (success)
-        this.setState({ all_spells: response.content });
+        this.setState({ all_spells: _.sortBy(response.content, ['name']) });
       else
-        console.log(response)
+        console.log(response);
     });
   }
 
@@ -35,8 +37,7 @@ export default class SpellSheet extends Component {
         <Grid.Row centered>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              <SpellcastingClassEditor id={this.props.character.id}
-                                       spell_class={this.props.character.spell_class} />
+              <SpellcastingClassEditor character={this.props.character} />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
@@ -49,9 +50,8 @@ export default class SpellSheet extends Component {
         <Grid.Row centered>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              <SpellcastingSpellList level={0}
-                                     character={this.props.character}
-                                     all_spells={this.state.all_spells} />
+              <SpellcastingCantripList character={this.props.character}
+                                       all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
