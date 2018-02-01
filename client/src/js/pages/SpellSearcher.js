@@ -44,71 +44,15 @@ export default class SpellSearcher extends Component {
           <Grid centered stackable>
 
             <Grid.Row verticalAlign='middle'>
-              <Grid.Column>
-                <div className='pt-control-group'>
-                  <div className='pt-input-group pt-fill'>
-                    <span className='pt-icon pt-icon-search'></span>
-                    <input type='text' className='pt-input' placeholder='Filter Spells'
-                           onChange={(event) => this.setState({ name_filter: event.target.value })} />
-                  </div>
-                  <div className='pt-form-group'>
-                    <div className='pt-form-content'>
-                      <div className='pt-select'>
-                        <select onChange={(event) => this.setState({ level_filter: event.target.value })}>
-                          <option value=''>All</option>
-                          <option value='0'>Cantrips</option>
-                          <option value='1'>Level 1</option>
-                          <option value='2'>Level 2</option>
-                          <option value='3'>Level 3</option>
-                          <option value='4'>Level 4</option>
-                          <option value='5'>Level 5</option>
-                          <option value='6'>Level 6</option>
-                          <option value='7'>Level 7</option>
-                          <option value='8'>Level 8</option>
-                          <option value='9'>Level 9</option>
-                        </select>
-                      </div>
-                      <div className='pt-form-helper-text'>Spell Level</div>
-                    </div>
-                  </div>
-                  <div className='pt-form-group'>
-                    <div className='pt-form-content'>
-                      <div className='pt-select'>
-                        <select onChange={(event) => this.setState({ class_filter: event.target.value })}>
-                          <option value=''>All</option>
-                          <option>Bard</option>
-                          <option>Cleric</option>
-                          <option>Druid</option>
-                          <option>Paladin</option>
-                          <option>Ranger</option>
-                          <option>Sorcerer</option>
-                          <option>Warlock</option>
-                          <option>Wizard</option>
-                        </select>
-                      </div>
-                      <div className='pt-form-helper-text'>Spell Class</div>
-                    </div>
-                  </div>
-                  <div className='pt-form-group'>
-                    <div className='pt-form-content'>
-                      <div className='pt-select'>
-                        <select onChange={(event) => this.setState({ school_filter: event.target.value })}>
-                          <option value=''>All</option>
-                          <option>Abjuration</option>
-                          <option>Conjuration</option>
-                          <option>Divination</option>
-                          <option>Enchantment</option>
-                          <option>Evocation</option>
-                          <option>Illusion</option>
-                          <option>Necromancy</option>
-                          <option>Transmutation</option>
-                        </select>
-                      </div>
-                      <div className='pt-form-helper-text'>Spell School</div>
-                    </div>
-                  </div>
-
+              <Grid.Column width={8} style={{ paddingRight: '0.5rem' }}>
+                <div className='pt-input-group pt-fill'>
+                  <span className='pt-icon pt-icon-search'></span>
+                  <input type='text' className='pt-input' placeholder='Filter Spells'
+                         onChange={(event) => this.setState({ name_filter: event.target.value })} />
                 </div>
+              </Grid.Column>
+              <Grid.Column width={8} style={{ paddingLeft: '0.5rem' }}>
+                { this.renderFilterDropdowns() }
               </Grid.Column>
             </Grid.Row>
 
@@ -215,6 +159,77 @@ export default class SpellSearcher extends Component {
       );
     });
     return all_spells;
+  }
+
+  renderFilterDropdowns = () => {
+    return (
+      <Grid centered>
+        <Grid.Row verticalAlign='middle'>
+          <Grid.Column width={5} style={{ paddingRight: '0.5rem', paddingLeft: '0.5rem' }}>
+            <div className='pt-form-group' style={{ marginBottom: '0' }}>
+              <div className='pt-form-content'>
+                <div className='pt-select pt-fill'>
+                  <select onChange={(event) => this.setState({ level_filter: event.target.value })}>
+                    <option value=''>All</option>
+                    <option value='0'>Cantrips</option>
+                    <option value='1'>Level 1</option>
+                    <option value='2'>Level 2</option>
+                    <option value='3'>Level 3</option>
+                    <option value='4'>Level 4</option>
+                    <option value='5'>Level 5</option>
+                    <option value='6'>Level 6</option>
+                    <option value='7'>Level 7</option>
+                    <option value='8'>Level 8</option>
+                    <option value='9'>Level 9</option>
+                  </select>
+                </div>
+                <div className='pt-form-helper-text'>Spell Level</div>
+              </div>
+            </div>
+          </Grid.Column>
+          <Grid.Column width={5} style={{ paddingRight: '0.5rem', paddingLeft: '0.5rem' }}>
+            <div className='pt-form-group' style={{ marginBottom: '0' }}>
+              <div className='pt-form-content'>
+                <div className='pt-select pt-fill'>
+                  <select onChange={(event) => this.setState({ class_filter: event.target.value })}>
+                    <option value=''>All</option>
+                    <option>Bard</option>
+                    <option>Cleric</option>
+                    <option>Druid</option>
+                    <option>Paladin</option>
+                    <option>Ranger</option>
+                    <option>Sorcerer</option>
+                    <option>Warlock</option>
+                    <option>Wizard</option>
+                  </select>
+                </div>
+                <div className='pt-form-helper-text'>Spell Class</div>
+              </div>
+            </div>
+          </Grid.Column>
+          <Grid.Column width={5} style={{ paddingRight: '0.5rem', paddingLeft: '0.5rem' }}>
+            <div className='pt-form-group' style={{ marginBottom: '0' }}>
+              <div className='pt-form-content'>
+                <div className='pt-select pt-fill'>
+                  <select onChange={(event) => this.setState({ school_filter: event.target.value })}>
+                    <option value=''>All</option>
+                    <option>Abjuration</option>
+                    <option>Conjuration</option>
+                    <option>Divination</option>
+                    <option>Enchantment</option>
+                    <option>Evocation</option>
+                    <option>Illusion</option>
+                    <option>Necromancy</option>
+                    <option>Transmutation</option>
+                  </select>
+                </div>
+                <div className='pt-form-helper-text'>Spell School</div>
+              </div>
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    );
   }
 
 }
