@@ -6,6 +6,7 @@ import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
 import SpellSearcherSpellDetails from '../components/spell_searcher/SpellSearcherSpellDetails';
 import api from '../lib/api';
+import utils from '../lib/utils';
 import _ from 'lodash';
 
 export default class SpellSearcher extends Component {
@@ -118,11 +119,11 @@ export default class SpellSearcher extends Component {
                     <tr>
                       <th>Level</th>
                       <th>Name</th>
-                      <th>Range</th>
-                      <th>Classes</th>
-                      <th>School</th>
-                      <th>Casting Time</th>
-                      <th>Duration</th>
+                      { !utils.isMobile() ? <th>Range</th> : null }
+                      { !utils.isMobile() ? <th>Classes</th> : null }
+                      { !utils.isMobile() ? <th>School</th> : null }
+                      { !utils.isMobile() ? <th>Casting Time</th> : null }
+                      { !utils.isMobile() ? <th>Duration</th> : null }
                     </tr>
                   </thead>
                   <tbody>
@@ -167,11 +168,11 @@ export default class SpellSearcher extends Component {
         <tr key={spell.index} onClick={() => { this.setState({ selected_spell: spell }) }}>
           <td>{ spell.level === 0 ? 'Cantrip' : spell.level }</td>
           <td>{ spell.name }</td>
-          <td>{ spell.range }</td>
-          <td>{ _.join(spell_classes, ', ') }</td>
-          <td>{ spell.school.name }</td>
-          <td>{ spell.casting_time }</td>
-          <td>{ spell.duration }</td>
+          { !utils.isMobile() ? <td>{ spell.range }</td> : null }
+          { !utils.isMobile() ? <td>{ _.join(spell_classes, ', ') }</td> : null }
+          { !utils.isMobile() ? <td>{ spell.school.name }</td> : null }
+          { !utils.isMobile() ? <td>{ spell.casting_time }</td> : null }
+          { !utils.isMobile() ? <td>{ spell.duration }</td> : null }
         </tr>
       );
     });
@@ -205,11 +206,11 @@ export default class SpellSearcher extends Component {
         <tr key={spell.index} onClick={() => { this.setState({ selected_spell: spell }) }}>
           <td>{ spell.level === 0 ? 'Cantrip' : spell.level }</td>
           <td>{ spell.name }</td>
-          <td>{ spell.range }</td>
-          <td>{ _.join(spell_classes, ', ') }</td>
-          <td>{ spell.school.name }</td>
-          <td>{ spell.casting_time }</td>
-          <td>{ spell.duration }</td>
+          { !utils.isMobile() ? <td>{ spell.range }</td> : null }
+          { !utils.isMobile() ? <td>{ _.join(spell_classes, ', ') }</td> : null }
+          { !utils.isMobile() ? <td>{ spell.school.name }</td> : null }
+          { !utils.isMobile() ? <td>{ spell.casting_time }</td> : null }
+          { !utils.isMobile() ? <td>{ spell.duration }</td> : null }
         </tr>
       );
     });
