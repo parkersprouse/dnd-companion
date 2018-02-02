@@ -4,6 +4,7 @@ import { Select } from "@blueprintjs/labs";
 import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import api from '../../../lib/api';
+import SpellDetails from '../../SpellDetails';
 
 export default class SpellcastingSpellList extends Component {
   constructor(props) {
@@ -108,14 +109,18 @@ export default class SpellcastingSpellList extends Component {
                 const style = isActive ? 'pt-active pt-intent-primary' : '';
                 return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
               } }
-              onItemSelect={ (selected) => null }
+              onItemSelect={ (selected) => this.setState({ selected_spell: selected }) }
               popoverProps={{ minimal: true, placement: 'top' }}
               noResults={<MenuItem disabled text="No results" />}
               resetOnSelect={true}
             >
               <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
-                      text={"Choose Spell"} />
+                      text={this.state.selected_spell ? this.state.selected_spell.name : "Choose Spell"} />
             </Select>
+            <hr />
+            <div>
+              <SpellDetails spell={this.state.selected_spell} />
+            </div>
 
           </div>
           <div className='pt-dialog-footer'>

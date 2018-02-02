@@ -4,7 +4,7 @@ import { Dialog, Button } from '@blueprintjs/core';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
-import SpellSearcherSpellDetails from '../components/spell_searcher/SpellSearcherSpellDetails';
+import SpellDetails from '../components/SpellDetails';
 import api from '../lib/api';
 import utils from '../lib/utils';
 import _ from 'lodash';
@@ -93,7 +93,7 @@ export default class SpellSearcher extends Component {
       <Dialog isOpen={!!spell} title={spell.name}
               onClose={() => this.setState({ selected_spell: null })}>
         <div className='pt-dialog-body'>
-          <SpellSearcherSpellDetails spell={spell} />
+          <SpellDetails spell={spell} />
         </div>
         <div className='pt-dialog-footer'>
           <div className='pt-dialog-footer-actions'>

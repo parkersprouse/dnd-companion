@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 const api = require('./api');
 const Cookies = require('universal-cookie');
 const constants = require('./constants');

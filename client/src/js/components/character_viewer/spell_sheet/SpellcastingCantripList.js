@@ -4,6 +4,7 @@ import { Select } from "@blueprintjs/labs";
 import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import api from '../../../lib/api';
+import SpellDetails from '../../SpellDetails';
 
 export default class SpellcastingCantripList extends Component {
   constructor(props) {
@@ -65,14 +66,18 @@ export default class SpellcastingCantripList extends Component {
                 const style = isActive ? 'pt-active pt-intent-primary' : '';
                 return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
               } }
-              onItemSelect={ (selected) => null }
+              onItemSelect={ (selected) => this.setState({ selected_cantrip: selected }) }
               popoverProps={{ minimal: true, placement: 'top' }}
               noResults={<MenuItem disabled text="No results" />}
               resetOnSelect={true}
             >
               <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
-                      text={"Choose Cantrip"} />
+                      text={this.state.selected_cantrip ? this.state.selected_cantrip.name : "Choose Cantrip"} />
             </Select>
+            <hr />
+            <div>
+              <SpellDetails spell={this.state.selected_cantrip} />
+            </div>
 
           </div>
           <div className='pt-dialog-footer'>
