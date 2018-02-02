@@ -33,12 +33,12 @@ export default class SpellDetails extends Component {
             <div className='spell-detail-value'>{ spell.level === 0 ? 'Cantrip' : spell.level }</div>
           </Grid.Column>
           <Grid.Column width={5}>
-            <div className='spell-detail-label'>Concentration</div>
-            <div className='spell-detail-value'>{ spell.concentration }</div>
+            <div className='spell-detail-label'>School</div>
+            <div className='spell-detail-value'>{ spell.school.name }</div>
           </Grid.Column>
           <Grid.Column width={5}>
-            <div className='spell-detail-label'>Ritual</div>
-            <div className='spell-detail-value'>{ spell.ritual }</div>
+            <div className='spell-detail-label'>Classes</div>
+            <div className='spell-detail-value'>{ _.join(spell_classes, ', ') }</div>
           </Grid.Column>
         </Grid.Row>
 
@@ -66,12 +66,12 @@ export default class SpellDetails extends Component {
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
-            <div className='spell-detail-label'>School</div>
-            <div className='spell-detail-value'>{ spell.school.name }</div>
+            <div className='spell-detail-label'>Concentration</div>
+            <div className='spell-detail-value'>{ spell.concentration }</div>
           </Grid.Column>
           <Grid.Column width={5}>
-            <div className='spell-detail-label'>Classes</div>
-            <div className='spell-detail-value'>{ _.join(spell_classes, ', ') }</div>
+            <div className='spell-detail-label'>Ritual</div>
+            <div className='spell-detail-value'>{ spell.ritual }</div>
           </Grid.Column>
         </Grid.Row>
 
