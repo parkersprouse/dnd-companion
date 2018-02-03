@@ -14,8 +14,6 @@ export default class SpellcastingCantripList extends Component {
       char_spells: null,
       select_dialog_open: false
     };
-
-    this.char_spell_collection = _.cloneDeep(this.props.character.spells);
   }
 
   componentWillReceiveProps(next_props) {
@@ -65,8 +63,8 @@ export default class SpellcastingCantripList extends Component {
   }
 
   addCantrip = () => {
-    _.filter(this.char_spell_collection, { id: 0 })[0].spells.push({ id: this.state.selected_cantrip.index });
-    api.updateCharacter({ id: this.props.character.id, spells: this.char_spell_collection }, (success, response) => {
+    _.filter(this.props.character.spells, { id: 0 })[0].spells.push({ id: this.state.selected_cantrip.index });
+    api.updateCharacter({ id: this.props.character.id, spells: this.props.character.spells }, (success, response) => {
       if (success) {
         this.toggleSelectDialog();
         this.showSuccessToast();

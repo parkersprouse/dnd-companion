@@ -177,20 +177,14 @@ export default class SpellcastingSpellList extends Component {
   }
 
   save = ({ editing, current, initial }) => {
-    // When speaking of 'spells' in this capacity, it's referring to the
-    // collections of spells at a certain level, not an individual spell.
-
-    const new_spells = _.reject(this.props.character.spells, { id: this.props.level });
-    const edited_spell = _.filter(this.props.character.spells, { id: this.props.level })[0];
+    const edited_spell_slot = _.find(this.props.character.spells, { id: this.props.level });
 
     if (current === 'new_total_slots')
-      edited_spell.slots = this.state.new_total_slots;
+      edited_spell_slot.slots = this.state.new_total_slots;
     else
-      edited_spell.slots_used = this.state.new_used_slots;
+      edited_spell_slot.slots_used = this.state.new_used_slots;
 
-    new_spells.push(edited_spell);
-
-    api.updateCharacter({ id: this.props.character.id, spells: new_spells }, (success, response) => {
+    api.updateCharacter({ id: this.props.character.id, spells: this.props.character.spells }, (success, response) => {
       if (success) {
         this.setState({ [editing]: false, [initial]: this.state[current] });
         this.showSuccessToast();
