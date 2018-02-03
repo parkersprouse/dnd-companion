@@ -12,7 +12,7 @@ export default class SpellcastingCantripList extends Component {
     this.state = {
       available_spells: null,
       char_spells: null,
-      dialog_open: false
+      select_dialog_open: false
     };
 
     this.char_spell_collection = _.cloneDeep(this.props.character.spells);
@@ -54,41 +54,12 @@ export default class SpellcastingCantripList extends Component {
         <Grid.Row textAlign='right' style={{ paddingBottom: '0' }}>
           <Grid.Column width={16} verticalAlign='middle'>
             <Button iconName='plus' intent={Intent.PRIMARY} type='button'
-                    className='pt-small pt-minimal' onClick={() => this.toggleDialog()} />
+                    className='pt-small pt-minimal' onClick={() => this.toggleSelectDialog()} />
           </Grid.Column>
         </Grid.Row>
 
-        <Dialog isOpen={this.state.dialog_open} onClose={() => this.toggleDialog()} title='Find Cantrip'>
-          <div className='pt-dialog-body'>
-
-            <Select
-              items={this.state.available_spells}
-              itemPredicate={ (query, selected) => selected.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
-              itemRenderer={ ({ handleClick, isActive, item }) => {
-                const style = isActive ? 'pt-active pt-intent-primary' : '';
-                return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
-              } }
-              onItemSelect={ (selected) => this.setState({ selected_cantrip: selected }) }
-              popoverProps={{ minimal: true, placement: 'top' }}
-              noResults={<MenuItem disabled text="No results" />}
-              resetOnSelect={true}
-            >
-              <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
-                      text={this.state.selected_cantrip ? this.state.selected_cantrip.name : "Choose Cantrip"} />
-            </Select>
-            { this.state.selected_cantrip ? <hr /> : null }
-            <div>
-              <SpellDetails spell={this.state.selected_cantrip} />
-            </div>
-            { this.state.selected_cantrip ? <hr style={{ marginBottom: '0' }} /> : null }
-          </div>
-          <div className='pt-dialog-footer'>
-            <div className='pt-dialog-footer-actions'>
-              <Button text='Close' onClick={() => this.toggleDialog()} />
-              <Button text='Add Cantrip' disabled={!this.state.selected_cantrip} intent={Intent.PRIMARY} onClick={() => this.addCantrip()} />
-            </div>
-          </div>
-        </Dialog>
+        { this.renderSelectCantripModal() }
+        { this.renderShowCantripModal() }
       </Grid>
     );
   }
@@ -97,8 +68,9 @@ export default class SpellcastingCantripList extends Component {
     _.filter(this.char_spell_collection, { id: 0 })[0].spells.push({ id: this.state.selected_cantrip.index });
     api.updateCharacter({ id: this.props.character.id, spells: this.char_spell_collection }, (success, response) => {
       if (success) {
-        this.toggleDialog();
+        this.toggleSelectDialog();
         this.showSuccessToast();
+        this.setState({ char_spells: _.find(response.content.spells, { id: 0 }) });
       }
       else
         this.showErrorToast();
@@ -116,13 +88,64 @@ export default class SpellcastingCantripList extends Component {
     const rendered_spells = [];
     _.each(detailed_spells, (spell) => {
       rendered_spells.push(
-        <div key={spell.index} style={{ marginBottom: '2rem', borderBottom: '1px solid black' }}>
+        <div key={spell.index} onClick={() => this.setState({ shown_cantrip: spell })}>
           { spell.name }
         </div>
       );
     });
 
     return rendered_spells;
+  }
+
+  renderSelectCantripModal = () => {
+    return (
+      <Dialog isOpen={this.state.select_dialog_open} onClose={() => this.toggleSelectDialog()} title='Find Cantrip'>
+        <div className='pt-dialog-body'>
+
+          <Select
+            items={this.state.available_spells}
+            itemPredicate={ (query, selected) => selected.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
+            itemRenderer={ ({ handleClick, isActive, item }) => {
+              const style = isActive ? 'pt-active pt-intent-primary' : '';
+              return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
+            } }
+            onItemSelect={ (selected) => this.setState({ selected_cantrip: selected }) }
+            popoverProps={{ minimal: true, placement: 'top' }}
+            noResults={<MenuItem disabled text="No results" />}
+            resetOnSelect={true}
+          >
+            <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
+                    text={this.state.selected_cantrip ? this.state.selected_cantrip.name : "Choose Cantrip"} />
+          </Select>
+          { this.state.selected_cantrip ? <hr /> : null }
+          <div>
+            <SpellDetails spell={this.state.selected_cantrip} />
+          </div>
+          { this.state.selected_cantrip ? <hr style={{ marginBottom: '0' }} /> : null }
+        </div>
+        <div className='pt-dialog-footer'>
+          <div className='pt-dialog-footer-actions'>
+            <Button text='Close' onClick={() => this.toggleSelectDialog()} />
+            <Button text='Add Cantrip' disabled={!this.state.selected_cantrip} intent={Intent.PRIMARY} onClick={() => this.addCantrip()} />
+          </div>
+        </div>
+      </Dialog>
+    );
+  }
+
+  renderShowCantripModal = () => {
+    return (
+      <Dialog isOpen={!!this.state.shown_cantrip} onClose={() => this.toggleShowDialog()} title={this.state.shown_cantrip ? this.state.shown_cantrip.name : ''}>
+        <div className='pt-dialog-body'>
+          <SpellDetails spell={this.state.shown_cantrip} />
+        </div>
+        <div className='pt-dialog-footer'>
+          <div className='pt-dialog-footer-actions'>
+            <Button text='Close' onClick={() => this.toggleShowDialog()} />
+          </div>
+        </div>
+      </Dialog>
+    );
   }
 
   showErrorToast = () => {
@@ -143,8 +166,12 @@ export default class SpellcastingCantripList extends Component {
     });
   }
 
-  toggleDialog = () => {
-    this.setState({ dialog_open: !this.state.dialog_open, selected_cantrip: null });
+  toggleSelectDialog = () => {
+    this.setState({ select_dialog_open: !this.state.select_dialog_open, selected_cantrip: null });
+  }
+
+  toggleShowDialog = () => {
+    this.setState({ shown_cantrip: null });
   }
 
 }
