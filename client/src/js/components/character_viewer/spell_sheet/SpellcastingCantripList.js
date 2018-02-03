@@ -14,6 +14,8 @@ export default class SpellcastingCantripList extends Component {
       char_spells: null,
       dialog_open: false
     };
+
+    this.char_spell_collection = _.cloneDeep(this.props.character.spells);
   }
 
   componentWillReceiveProps(next_props) {
@@ -49,7 +51,7 @@ export default class SpellcastingCantripList extends Component {
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row textAlign='right'>
+        <Grid.Row textAlign='right' style={{ paddingBottom: '0' }}>
           <Grid.Column width={16} verticalAlign='middle'>
             <Button iconName='plus' intent={Intent.PRIMARY} type='button'
                     className='pt-small pt-minimal' onClick={() => this.toggleDialog()} />
@@ -74,21 +76,33 @@ export default class SpellcastingCantripList extends Component {
               <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
                       text={this.state.selected_cantrip ? this.state.selected_cantrip.name : "Choose Cantrip"} />
             </Select>
-            <hr />
+            { this.state.selected_cantrip ? <hr /> : null }
             <div>
               <SpellDetails spell={this.state.selected_cantrip} />
             </div>
-
+            { this.state.selected_cantrip ? <hr style={{ marginBottom: '0' }} /> : null }
           </div>
           <div className='pt-dialog-footer'>
             <div className='pt-dialog-footer-actions'>
               <Button text='Close' onClick={() => this.toggleDialog()} />
-              <Button text='Add Cantrip' intent={Intent.PRIMARY} onClick={() => this.toggleDialog()} />
+              <Button text='Add Cantrip' disabled={!this.state.selected_cantrip} intent={Intent.PRIMARY} onClick={() => this.addCantrip()} />
             </div>
           </div>
         </Dialog>
       </Grid>
     );
+  }
+
+  addCantrip = () => {
+    _.filter(this.char_spell_collection, { id: 0 })[0].spells.push({ id: this.state.selected_cantrip.index });
+    api.updateCharacter({ id: this.props.character.id, spells: this.char_spell_collection }, (success, response) => {
+      if (success) {
+        this.toggleDialog();
+        this.showSuccessToast();
+      }
+      else
+        this.showErrorToast();
+    });
   }
 
   createSpellList = () => {
@@ -102,7 +116,7 @@ export default class SpellcastingCantripList extends Component {
     const rendered_spells = [];
     _.each(detailed_spells, (spell) => {
       rendered_spells.push(
-        <div style={{ marginBottom: '2rem', borderBottom: '1px solid black' }}>
+        <div key={spell.index} style={{ marginBottom: '2rem', borderBottom: '1px solid black' }}>
           { spell.name }
         </div>
       );
@@ -113,24 +127,24 @@ export default class SpellcastingCantripList extends Component {
 
   showErrorToast = () => {
     Toaster.create().show({
-        message: 'Failed to update',
-        position: Position.TOP_CENTER,
-        intent: Intent.DANGER,
-        timeout: 2000
+      message: 'Failed to update',
+      position: Position.TOP_CENTER,
+      intent: Intent.DANGER,
+      timeout: 2000
     });
   }
 
   showSuccessToast = () => {
     Toaster.create().show({
-        message: 'Successfully Updated',
-        position: Position.TOP_CENTER,
-        intent: Intent.SUCCESS,
-        timeout: 2000
+      message: 'Successfully Updated',
+      position: Position.TOP_CENTER,
+      intent: Intent.SUCCESS,
+      timeout: 2000
     });
   }
 
   toggleDialog = () => {
-    this.setState({ dialog_open: !this.state.dialog_open });
+    this.setState({ dialog_open: !this.state.dialog_open, selected_cantrip: null });
   }
 
 }

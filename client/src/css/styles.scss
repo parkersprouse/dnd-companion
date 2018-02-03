@@ -4,9 +4,10 @@ $small-margin: 1rem;
 $medium-margin: 2rem;
 $large-margin: 4rem;
 
-hr {
-  margin: 15px 0 20px 0;
-}
+// I don't know why I did this, so I'm killing it for now
+// hr {
+//   margin: 15px 0 20px 0;
+// }
 
 .main-container {
   margin-top: $large-margin;

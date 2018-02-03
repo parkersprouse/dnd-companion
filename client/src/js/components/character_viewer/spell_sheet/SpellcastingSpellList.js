@@ -92,7 +92,7 @@ export default class SpellcastingSpellList extends Component {
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row textAlign='right'>
+        <Grid.Row textAlign='right' style={{ paddingBottom: '0' }}>
           <Grid.Column width={16} verticalAlign='middle'>
             <Button iconName='plus' intent={Intent.PRIMARY} type='button'
                     className='pt-small pt-minimal' onClick={() => this.toggleDialog()} />
@@ -117,11 +117,11 @@ export default class SpellcastingSpellList extends Component {
               <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
                       text={this.state.selected_spell ? this.state.selected_spell.name : "Choose Spell"} />
             </Select>
-            <hr />
+            { this.state.selected_spell ? <hr /> : null }
             <div>
               <SpellDetails spell={this.state.selected_spell} />
             </div>
-
+            { this.state.selected_spell ? <hr /> : null }
           </div>
           <div className='pt-dialog-footer'>
             <div className='pt-dialog-footer-actions'>
@@ -206,24 +206,24 @@ export default class SpellcastingSpellList extends Component {
 
   showErrorToast = () => {
     Toaster.create().show({
-        message: 'Failed to update',
-        position: Position.TOP_CENTER,
-        intent: Intent.DANGER,
-        timeout: 2000
+      message: 'Failed to update',
+      position: Position.TOP_CENTER,
+      intent: Intent.DANGER,
+      timeout: 2000
     });
   }
 
   showSuccessToast = () => {
     Toaster.create().show({
-        message: 'Successfully Updated',
-        position: Position.TOP_CENTER,
-        intent: Intent.SUCCESS,
-        timeout: 2000
+      message: 'Successfully Updated',
+      position: Position.TOP_CENTER,
+      intent: Intent.SUCCESS,
+      timeout: 2000
     });
   }
 
   toggleDialog = () => {
-    this.setState({ spells_open: !this.state.spells_open });
+    this.setState({ spells_open: !this.state.spells_open, selected_spell: null });
   }
 
 }

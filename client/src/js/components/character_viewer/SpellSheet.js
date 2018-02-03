@@ -26,7 +26,7 @@ export default class SpellSheet extends Component {
 
   render() {
     return (
-      <Grid stackable stretched>
+      <Grid stackable>
 
         <Grid.Row centered>
           <Grid.Column width={16}>
