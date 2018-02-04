@@ -72,7 +72,13 @@ export default class SpellcastingCantripList extends Component {
   }
 
   addCantrip = () => {
-    _.filter(this.props.character.spells, { id: 0 })[0].spells.push({ id: this.state.selected_cantrip.index });
+    const cantrips = _.find(this.props.character.spells, { id: 0 });
+
+    if (_.find(cantrips.spells, { id: this.state.selected_cantrip.index }) !== undefined)
+      return null;
+
+    this.setState({ loading: true });
+    cantrips.spells.push({ id: this.state.selected_cantrip.index });
     api.updateCharacter({ id: this.props.character.id, spells: this.props.character.spells }, (success, response) => {
       if (success) {
         this.toggleSelectDialog();
@@ -81,6 +87,7 @@ export default class SpellcastingCantripList extends Component {
       }
       else
         this.showErrorToast();
+      this.setState({ loading: false });
     });
   }
 
@@ -162,7 +169,7 @@ export default class SpellcastingCantripList extends Component {
         <div className='pt-dialog-footer'>
           <div className='pt-dialog-footer-actions'>
             <Button text='Close' onClick={() => this.toggleSelectDialog()} />
-            <Button text='Add Cantrip' disabled={!this.state.selected_cantrip} intent={Intent.PRIMARY} onClick={() => this.addCantrip()} />
+            <Button text='Add Cantrip' disabled={!this.state.selected_cantrip || this.state.loading} intent={Intent.PRIMARY} onClick={() => this.addCantrip()} />
           </div>
         </div>
       </Dialog>
