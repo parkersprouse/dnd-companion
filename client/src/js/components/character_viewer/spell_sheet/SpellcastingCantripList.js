@@ -99,7 +99,7 @@ export default class SpellcastingCantripList extends Component {
           <div className='pt-tree-node-content'>
             <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }} onClick={() => this.setState({ shown_cantrip: spell })}>{ spell.name }</span>
             <span className='pt-tree-node-secondary-label'>
-              <a onClick={() => null} className='remove-item-btn'>
+              <a onClick={() => this.deleteCantrip(spell.index)} className='remove-item-btn'>
                 <span className='pt-icon-cross'></span>
               </a>
             </span>
@@ -109,6 +109,28 @@ export default class SpellcastingCantripList extends Component {
     });
 
     return rendered_spells;
+  }
+
+  deleteCantrip = (cantrip_id) => {
+    const cantrips = _.find(this.props.character.spells, { id: 0 });
+
+    let index_to_remove = null;
+    _.each(cantrips.spells, (cantrip, i) => {
+      if (cantrip_id === cantrip.id) index_to_remove = i;
+    });
+
+    if (index_to_remove !== null) {
+      cantrips.spells.splice(index_to_remove, 1);
+
+      api.updateCharacter({ id: this.props.character.id, spells: this.props.character.spells }, (success, response) => {
+        if (success) {
+          this.showSuccessToast();
+          this.setState({ char_spells: _.find(response.content.spells, { id: 0 }) });
+        }
+        else
+          this.showErrorToast();
+      });
+    }
   }
 
   renderSelectCantripModal = () => {
