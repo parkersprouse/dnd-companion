@@ -86,6 +86,10 @@ $large-margin: 4rem;
 }
 /* --------------------------- */
 
+.pt-tree-node:not(:last-child) {
+  border-bottom: 1px solid rgba(16, 22, 26, 0.15);
+}
+
 .pt-tree-node-list {
   max-height: 210;
   overflow: auto;

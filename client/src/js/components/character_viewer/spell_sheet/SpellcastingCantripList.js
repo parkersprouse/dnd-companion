@@ -43,8 +43,17 @@ export default class SpellcastingCantripList extends Component {
 
         <Grid.Row centered>
           <Grid.Column width={16} verticalAlign='middle'>
-            <div>
-              { spell_list.length < 1 ? 'No Cantrips' : spell_list }
+            <div className='pt-tree pt-elevation-0'>
+              <ul className='pt-tree-node-list pt-tree-root'>
+                {
+                  spell_list.length > 0 ? spell_list :
+                  <li className='pt-tree-node'>
+                    <div className='pt-tree-node-content'>
+                      <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}><i>No Cantrips</i></span>
+                    </div>
+                  </li>
+                }
+              </ul>
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -86,9 +95,16 @@ export default class SpellcastingCantripList extends Component {
     const rendered_spells = [];
     _.each(detailed_spells, (spell) => {
       rendered_spells.push(
-        <div key={spell.index} onClick={() => this.setState({ shown_cantrip: spell })}>
-          { spell.name }
-        </div>
+        <li key={ spell.index } className='pt-tree-node' style={{ textAlign: 'left' }}>
+          <div className='pt-tree-node-content'>
+            <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }} onClick={() => this.setState({ shown_cantrip: spell })}>{ spell.name }</span>
+            <span className='pt-tree-node-secondary-label'>
+              <a onClick={() => null} className='remove-item-btn'>
+                <span className='pt-icon-cross'></span>
+              </a>
+            </span>
+          </div>
+        </li>
       );
     });
 
