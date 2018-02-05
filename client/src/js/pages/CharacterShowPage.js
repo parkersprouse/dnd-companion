@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tab2, Tabs2, Button, Intent, Toaster, Alert, Position } from '@blueprintjs/core';
+import { Tab2, Tabs2, Button, Intent, Toaster, Alert, Position, NonIdealState } from '@blueprintjs/core';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
@@ -38,7 +38,8 @@ export default class CharacterShowPage extends Component {
         <OuterContainer>
           <Header />
           <InnerContainer>
-            <div>Character not found</div>
+            <NonIdealState visual='disable' title='Character Not Found'
+              description={<span>The character you're looking for doesn't exist.</span>} />
           </InnerContainer>
         </OuterContainer>
       );
@@ -47,7 +48,7 @@ export default class CharacterShowPage extends Component {
       <OuterContainer>
         <Header />
         <InnerContainer>
-          <Tabs2 id='CharacterTabs' large={true}>
+          <Tabs2 id='CharacterTabs'>
             <Tab2 id='details' title='Details' panel={<div>Details</div>} />
             <Tab2 id='spells' title='Spells' panel={<SpellSheet character={this.state.character} />} />
             <Tab2 id='additional' title='Additional' panel={<div>Additional</div>} />
@@ -71,7 +72,8 @@ export default class CharacterShowPage extends Component {
           onConfirm={this.handleDelete}
           onCancel={this.handleClose}
       >
-        <p>Are you sure you want to delete this character? This cannot be undone.</p>
+        <p>Are you sure you want to delete this character?</p>
+        <p>This cannot be undone.</p>
       </Alert>
     );
   }
@@ -82,7 +84,6 @@ export default class CharacterShowPage extends Component {
         window.location.href = '/characters';
       }
       else {
-        console.log(response)
         Toaster.create().show({
           message: 'Failed to delete',
           position: Position.TOP_CENTER,
