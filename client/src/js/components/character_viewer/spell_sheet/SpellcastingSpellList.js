@@ -165,10 +165,12 @@ export default class SpellcastingSpellList extends Component {
         <li key={ spell.index } className='pt-tree-node text-left'>
           <div className='pt-tree-node-content'>
             <span className='pt-tree-node-icon pt-icon-standard' style={{ marginRight: '0', marginLeft: '10px' }}>
-              <label className='pt-control pt-checkbox' style={{ marginBottom: '0' }}>
-                <input type='checkbox' defaultChecked={ char_spell.prepared } onChange={(event) => this.checkPreparedBox(event, spell)} />
-                <span className='pt-control-indicator'></span>
-              </label>
+              <Tooltip content={ char_spell.prepared ? 'Prepared' : 'Not Prepared' } position={Position.TOP}>
+                <label className='pt-control pt-switch' style={{ marginBottom: '0' }}>
+                  <input type='checkbox' defaultChecked={ char_spell.prepared } onChange={(event) => this.checkPreparedBox(event, spell)} />
+                  <span className='pt-control-indicator'></span>
+                </label>
+              </Tooltip>
             </span>
             <span className='pt-tree-node-label' onClick={() => this.setState({ shown_spell: spell })}>{ spell.name }</span>
             <span className='pt-tree-node-secondary-label'>

@@ -46,7 +46,7 @@ export default class CharacterShowPage extends Component {
       <OuterContainer>
         <Header />
         <InnerContainer>
-          <Tabs2 id='CharacterTabs'>
+          <Tabs2 id='CharacterTabs' large={true}>
             <Tab2 id='details' title='Details' panel={<div>Details</div>} />
             <Tab2 id='spells' title='Spells' panel={<SpellSheet character={this.state.character} />} />
             <Tab2 id='additional' title='Additional' panel={<div>Additional</div>} />

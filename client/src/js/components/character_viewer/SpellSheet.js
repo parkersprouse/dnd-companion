@@ -29,12 +29,6 @@ export default class SpellSheet extends Component {
       <Grid stackable>
 
         <Grid.Row centered>
-          <Grid.Column width={16}>
-            <hr />
-          </Grid.Column>
-        </Grid.Row>
-
-        <Grid.Row centered>
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingClassEditor character={this.props.character} />
