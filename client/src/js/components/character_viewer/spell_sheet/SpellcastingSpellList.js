@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Tooltip, Position, InputGroup, Toaster, Intent, Button, Dialog, MenuItem } from '@blueprintjs/core';
-import { Select } from "@blueprintjs/labs";
+import { Select } from '@blueprintjs/labs';
 import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import api from '../../../lib/api';
@@ -18,7 +18,7 @@ export default class SpellcastingSpellList extends Component {
       new_used_slots: null,
       editing_total_slots: false,
       editing_used_slots: false,
-      spells_open: false
+      select_dialog_open: false
     };
   }
 
@@ -86,8 +86,17 @@ export default class SpellcastingSpellList extends Component {
 
         <Grid.Row centered>
           <Grid.Column width={16} verticalAlign='middle'>
-            <div>
-              { spell_list.length < 1 ? 'No Spells' : spell_list }
+            <div className='pt-tree pt-elevation-0'>
+              <ul className='pt-tree-node-list pt-tree-root'>
+                {
+                  spell_list.length > 0 ? spell_list :
+                  <li className='pt-tree-node'>
+                    <div className='pt-tree-node-content'>
+                      <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}><i>No Spells</i></span>
+                    </div>
+                  </li>
+                }
+              </ul>
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -95,43 +104,50 @@ export default class SpellcastingSpellList extends Component {
         <Grid.Row textAlign='right' style={{ paddingBottom: '0' }}>
           <Grid.Column width={16} verticalAlign='middle'>
             <Button iconName='plus' intent={Intent.PRIMARY} type='button'
-                    className='pt-small pt-minimal' onClick={() => this.toggleDialog()} />
+                    className='pt-small pt-minimal' onClick={this.toggleSelectDialog} />
           </Grid.Column>
         </Grid.Row>
 
-        <Dialog isOpen={this.state.spells_open} onClose={() => this.toggleDialog()} title={'Find Level ' + this.props.level + ' Spell'}>
-          <div className='pt-dialog-body'>
-
-            <Select
-              items={this.state.available_spells}
-              itemPredicate={ (query, selected) => selected.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
-              itemRenderer={ ({ handleClick, isActive, item }) => {
-                const style = isActive ? 'pt-active pt-intent-primary' : '';
-                return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
-              } }
-              onItemSelect={ (selected) => this.setState({ selected_spell: selected }) }
-              popoverProps={{ minimal: true, placement: 'top' }}
-              noResults={<MenuItem disabled text="No results" />}
-              resetOnSelect={true}
-            >
-              <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
-                      text={this.state.selected_spell ? this.state.selected_spell.name : "Choose Spell"} />
-            </Select>
-            { this.state.selected_spell ? <hr /> : null }
-            <div>
-              <SpellDetails spell={this.state.selected_spell} />
-            </div>
-            { this.state.selected_spell ? <hr /> : null }
-          </div>
-          <div className='pt-dialog-footer'>
-            <div className='pt-dialog-footer-actions'>
-              <Button text='Close' onClick={() => this.toggleDialog()} />
-              <Button text='Add Spell' intent={Intent.PRIMARY} onClick={() => this.toggleDialog()} />
-            </div>
-          </div>
-        </Dialog>
+        { this.renderSelectSpellModal() }
+        { this.renderShowSpellModal() }
       </Grid>
     );
+  }
+
+  addSpell = () => {
+    const spells = _.find(this.props.character.spells, { id: this.props.level });
+
+    if (_.find(spells.spells, { id: this.state.selected_spell.index }) !== undefined)
+      return null;
+
+    this.setState({ loading: true });
+    spells.spells.push({ id: this.state.selected_spell.index, prepared: false });
+    api.updateCharacter({ id: this.props.character.id, spells: this.props.character.spells }, (success, response) => {
+      if (success) {
+        this.toggleSelectDialog();
+        this.showSuccessToast();
+        this.setState({ char_spells: _.find(response.content.spells, { id: this.props.level}) });
+      }
+      else
+        this.showErrorToast();
+      this.setState({ loading: false });
+    });
+  }
+
+  checkPreparedBox = (event, spell) => {
+    const spells = _.find(this.props.character.spells, { id: this.props.level });
+    const char_spell = _.find(spells.spells, { id: spell.index });
+    char_spell.prepared = event.target.checked;
+
+    api.updateCharacter({ id: this.props.character.id, spells: this.props.character.spells }, (success, response) => {
+      if (success) {
+        this.showSuccessToast();
+        this.setState({ char_spells: _.find(response.content.spells, { id: this.props.level}) });
+      }
+      else
+        this.showErrorToast();
+      this.setState({ loading: false });
+    });
   }
 
   createSpellList = () => {
@@ -144,14 +160,50 @@ export default class SpellcastingSpellList extends Component {
 
     const rendered_spells = [];
     _.each(detailed_spells, (spell) => {
+      const char_spell = _.find(this.state.char_spells.spells, { id: spell.index });
       rendered_spells.push(
-        <div style={{ marginBottom: '2rem', borderBottom: '1px solid black' }}>
-          { spell.name }
-        </div>
+        <li key={ spell.index } className='pt-tree-node text-left'>
+          <div className='pt-tree-node-content'>
+            <span className='pt-tree-node-icon pt-icon-standard' style={{ marginRight: '0', marginLeft: '10px' }}>
+              <label className='pt-control pt-checkbox' style={{ marginBottom: '0' }}>
+                <input type='checkbox' defaultChecked={ char_spell.prepared } onChange={(event) => this.checkPreparedBox(event, spell)} />
+                <span className='pt-control-indicator'></span>
+              </label>
+            </span>
+            <span className='pt-tree-node-label' onClick={() => this.setState({ shown_spell: spell })}>{ spell.name }</span>
+            <span className='pt-tree-node-secondary-label'>
+              <a onClick={() => this.deleteSpell(spell.index)} className='remove-item-btn'>
+                <span className='pt-icon-cross'></span>
+              </a>
+            </span>
+          </div>
+        </li>
       );
     });
 
     return rendered_spells;
+  }
+
+  deleteSpell = (spell_id) => {
+    const spells = _.find(this.props.character.spells, { id: this.props.level });
+
+    let index_to_remove = null;
+    _.each(spells.spells, (spell, i) => {
+      if (spell_id === spell.id) index_to_remove = i;
+    });
+
+    if (index_to_remove !== null) {
+      spells.spells.splice(index_to_remove, 1);
+
+      api.updateCharacter({ id: this.props.character.id, spells: this.props.character.spells }, (success, response) => {
+        if (success) {
+          this.showSuccessToast();
+          this.setState({ char_spells: _.find(response.content.spells, { id: this.props.level }) });
+        }
+        else
+          this.showErrorToast();
+      });
+    }
   }
 
   renderDetails = ({ editing, current, initial }) => {
@@ -162,7 +214,7 @@ export default class SpellcastingSpellList extends Component {
           onChange={(event) => this.setState({ [current]: event.target.value }) }
           rightElement={<Tooltip content='Save' position={Position.TOP}>
                           <button className='pt-button pt-minimal pt-intent-success pt-icon-tick'
-                                  onClick={() => this.save({ editing, current, initial })}></button>
+                                  onClick={() => this.saveSlots({ editing, current, initial })}></button>
                         </Tooltip>}
         />
       );
@@ -176,7 +228,58 @@ export default class SpellcastingSpellList extends Component {
     );
   }
 
-  save = ({ editing, current, initial }) => {
+  renderSelectSpellModal = () => {
+    return (
+      <Dialog isOpen={this.state.select_dialog_open} onClose={this.toggleSelectDialog} title={'Find Level ' + this.props.level + ' Spell'}>
+        <div className='pt-dialog-body'>
+
+          <Select
+            items={this.state.available_spells}
+            itemPredicate={ (query, selected) => selected.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
+            itemRenderer={ ({ handleClick, isActive, item }) => {
+              const style = isActive ? 'pt-active pt-intent-primary' : '';
+              return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
+            } }
+            onItemSelect={ (selected) => this.setState({ selected_spell: selected }) }
+            popoverProps={{ minimal: true, placement: 'top' }}
+            noResults={<MenuItem disabled text='No results' />}
+            resetOnSelect={true}
+          >
+            <Button className='pt-fill text-left dropdown-btn' rightIconName='caret-down'
+                    text={this.state.selected_spell ? this.state.selected_spell.name : 'Choose Spell'} />
+          </Select>
+          { this.state.selected_spell ? <hr /> : null }
+          <div>
+            <SpellDetails spell={this.state.selected_spell} />
+          </div>
+          { this.state.selected_spell ? <hr /> : null }
+        </div>
+        <div className='pt-dialog-footer'>
+          <div className='pt-dialog-footer-actions'>
+            <Button text='Close' onClick={this.toggleSelectDialog} />
+            <Button text='Add Spell' disabled={!this.state.selected_spell || this.state.loading} intent={Intent.PRIMARY} onClick={this.addSpell} />
+          </div>
+        </div>
+      </Dialog>
+    );
+  }
+
+  renderShowSpellModal = () => {
+    return (
+      <Dialog isOpen={!!this.state.shown_spell} onClose={() => this.toggleShowDialog()} title={this.state.shown_spell ? this.state.shown_spell.name : ''}>
+        <div className='pt-dialog-body'>
+          <SpellDetails spell={this.state.shown_spell} />
+        </div>
+        <div className='pt-dialog-footer'>
+          <div className='pt-dialog-footer-actions'>
+            <Button text='Close' onClick={this.toggleShowDialog} />
+          </div>
+        </div>
+      </Dialog>
+    );
+  }
+
+  saveSlots = ({ editing, current, initial }) => {
     const edited_spell_slot = _.find(this.props.character.spells, { id: this.props.level });
 
     if (current === 'new_total_slots')
@@ -216,8 +319,12 @@ export default class SpellcastingSpellList extends Component {
     });
   }
 
-  toggleDialog = () => {
-    this.setState({ spells_open: !this.state.spells_open, selected_spell: null });
+  toggleSelectDialog = () => {
+    this.setState({ select_dialog_open: !this.state.select_dialog_open, selected_spell: null });
+  }
+
+  toggleShowDialog = () => {
+    this.setState({ shown_spell: null });
   }
 
 }

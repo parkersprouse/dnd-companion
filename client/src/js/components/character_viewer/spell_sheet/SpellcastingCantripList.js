@@ -61,7 +61,7 @@ export default class SpellcastingCantripList extends Component {
         <Grid.Row textAlign='right' style={{ paddingBottom: '0' }}>
           <Grid.Column width={16} verticalAlign='middle'>
             <Button iconName='plus' intent={Intent.PRIMARY} type='button'
-                    className='pt-small pt-minimal' onClick={() => this.toggleSelectDialog()} />
+                    className='pt-small pt-minimal' onClick={this.toggleSelectDialog} />
           </Grid.Column>
         </Grid.Row>
 
@@ -102,7 +102,7 @@ export default class SpellcastingCantripList extends Component {
     const rendered_spells = [];
     _.each(detailed_spells, (spell) => {
       rendered_spells.push(
-        <li key={ spell.index } className='pt-tree-node' style={{ textAlign: 'left' }}>
+        <li key={ spell.index } className='pt-tree-node text-left'>
           <div className='pt-tree-node-content'>
             <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }} onClick={() => this.setState({ shown_cantrip: spell })}>{ spell.name }</span>
             <span className='pt-tree-node-secondary-label'>
@@ -142,7 +142,7 @@ export default class SpellcastingCantripList extends Component {
 
   renderSelectCantripModal = () => {
     return (
-      <Dialog isOpen={this.state.select_dialog_open} onClose={() => this.toggleSelectDialog()} title='Find Cantrip'>
+      <Dialog isOpen={this.state.select_dialog_open} onClose={this.toggleSelectDialog} title='Find Cantrip'>
         <div className='pt-dialog-body'>
 
           <Select
@@ -168,8 +168,8 @@ export default class SpellcastingCantripList extends Component {
         </div>
         <div className='pt-dialog-footer'>
           <div className='pt-dialog-footer-actions'>
-            <Button text='Close' onClick={() => this.toggleSelectDialog()} />
-            <Button text='Add Cantrip' disabled={!this.state.selected_cantrip || this.state.loading} intent={Intent.PRIMARY} onClick={() => this.addCantrip()} />
+            <Button text='Close' onClick={this.toggleSelectDialog} />
+            <Button text='Add Cantrip' disabled={!this.state.selected_cantrip || this.state.loading} intent={Intent.PRIMARY} onClick={this.addCantrip} />
           </div>
         </div>
       </Dialog>
@@ -184,7 +184,7 @@ export default class SpellcastingCantripList extends Component {
         </div>
         <div className='pt-dialog-footer'>
           <div className='pt-dialog-footer-actions'>
-            <Button text='Close' onClick={() => this.toggleShowDialog()} />
+            <Button text='Close' onClick={this.toggleShowDialog} />
           </div>
         </div>
       </Dialog>
