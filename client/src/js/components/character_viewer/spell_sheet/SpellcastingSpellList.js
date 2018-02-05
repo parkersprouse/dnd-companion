@@ -166,13 +166,13 @@ export default class SpellcastingSpellList extends Component {
           <div className='pt-tree-node-content'>
             <span className='pt-tree-node-icon pt-icon-standard' style={{ marginRight: '0', marginLeft: '10px' }}>
               <Tooltip content={ char_spell.prepared ? 'Prepared' : 'Not Prepared' } position={Position.TOP}>
-                <label className='pt-control pt-switch' style={{ marginBottom: '0' }}>
+                <label className='pt-control pt-switch' style={{ marginBottom: '0', paddingLeft: '26px' }}>
                   <input type='checkbox' defaultChecked={ char_spell.prepared } onChange={(event) => this.checkPreparedBox(event, spell)} />
                   <span className='pt-control-indicator'></span>
                 </label>
               </Tooltip>
             </span>
-            <span className='pt-tree-node-label' onClick={() => this.setState({ shown_spell: spell })}>{ spell.name }</span>
+            <span className='pt-tree-node-label' style={{ marginLeft: '0.75rem' }} onClick={() => this.setState({ shown_spell: spell })}>{ spell.name }</span>
             <span className='pt-tree-node-secondary-label'>
               <a onClick={() => this.deleteSpell(spell.index)} className='remove-item-btn'>
                 <span className='pt-icon-cross'></span>
@@ -212,7 +212,7 @@ export default class SpellcastingSpellList extends Component {
     if (this.state[editing])
       return (
         <InputGroup
-          value={this.state[current]} type='text'
+          value={this.state[current]} type='number'
           onChange={(event) => this.setState({ [current]: event.target.value }) }
           rightElement={<Tooltip content='Save' position={Position.TOP}>
                           <button className='pt-button pt-minimal pt-intent-success pt-icon-tick'
@@ -224,7 +224,7 @@ export default class SpellcastingSpellList extends Component {
     return (
       <Tooltip content='Click to edit' position={Position.TOP}>
         <span className='char-sheet-spell-header-editable' onClick={() => this.setEditing({ [editing]: true })}>
-          { this.state[initial] !== null && this.state[initial] !== '' ? this.state[initial] : 'None' }
+          { this.state[initial] !== null && this.state[initial] !== '' ? this.state[initial] : '0' }
         </span>
       </Tooltip>
     );
@@ -268,7 +268,7 @@ export default class SpellcastingSpellList extends Component {
 
   renderShowSpellModal = () => {
     return (
-      <Dialog isOpen={!!this.state.shown_spell} onClose={() => this.toggleShowDialog()} title={this.state.shown_spell ? this.state.shown_spell.name : ''}>
+      <Dialog isOpen={!!this.state.shown_spell} onClose={this.toggleShowDialog} title={this.state.shown_spell ? this.state.shown_spell.name : ''}>
         <div className='pt-dialog-body'>
           <SpellDetails spell={this.state.shown_spell} />
         </div>
@@ -285,9 +285,9 @@ export default class SpellcastingSpellList extends Component {
     const edited_spell_slot = _.find(this.props.character.spells, { id: this.props.level });
 
     if (current === 'new_total_slots')
-      edited_spell_slot.slots = this.state.new_total_slots;
+      edited_spell_slot.slots = this.state.new_total_slots || 0;
     else
-      edited_spell_slot.slots_used = this.state.new_used_slots;
+      edited_spell_slot.slots_used = this.state.new_used_slots || 0;
 
     api.updateCharacter({ id: this.props.character.id, spells: this.props.character.spells }, (success, response) => {
       if (success) {

@@ -85,6 +85,10 @@ export default class CreateCharacterPage extends Component {
     data.ability_scores = this.formatAbilityScores(data);
     data.spells = this.formatSpells();
 
+    data.spell_ability = 0;
+    data.spell_save_dc = 0;
+    data.spell_atk_bonus = 0;
+
     api.createCharacter(data, (success, response) => {
       if (success)
         window.location.href = '/characters/' + response.content.id;

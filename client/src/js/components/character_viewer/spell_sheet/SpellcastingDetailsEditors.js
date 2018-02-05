@@ -107,7 +107,7 @@ export default class SpellcastingDetailsEditors extends Component {
     if (this.state[editing])
       return (
         <InputGroup
-          value={this.state[current]} type='text'
+          value={this.state[current]} type='number'
           onChange={(event) => this.setState({ [current]: event.target.value }) }
           rightElement={<Tooltip content='Save' position={Position.TOP}>
                           <button className='pt-button pt-minimal pt-intent-success pt-icon-tick'
