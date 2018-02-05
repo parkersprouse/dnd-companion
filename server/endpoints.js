@@ -26,7 +26,7 @@ router.get('/characters', characters.getCharacters);
 router.post('/characters', characters.getCharacterBy);
 router.post('/characters/new', characters.createCharacter);
 router.patch('/characters/update', characters.updateCharacter);
-router.delete('/characters/delete', characters.deleteCharacter);
+router.delete('/characters/delete/:id', characters.deleteCharacter);
 
 // 5e database endpoints
 const ability_scores = require('./endpoints/db/ability_scores');

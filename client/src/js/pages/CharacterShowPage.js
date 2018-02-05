@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tab2, Tabs2 } from '@blueprintjs/core';
+import { Tab2, Tabs2, Button, Intent, Toaster, Alert, Position } from '@blueprintjs/core';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
@@ -11,7 +11,8 @@ export default class CharacterShowPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      character: null
+      character: null,
+      show_delete_alert: false
     };
   }
 
@@ -50,9 +51,49 @@ export default class CharacterShowPage extends Component {
             <Tab2 id='details' title='Details' panel={<div>Details</div>} />
             <Tab2 id='spells' title='Spells' panel={<SpellSheet character={this.state.character} />} />
             <Tab2 id='additional' title='Additional' panel={<div>Additional</div>} />
+            <Tabs2.Expander />
+            <Button iconName='cross' intent={Intent.DANGER}
+                    onClick={() => this.setState({ show_delete_alert: true })}>Delete</Button>
           </Tabs2>
+          { this.renderConfirmDeleteAlert() }
         </InnerContainer>
       </OuterContainer>
     );
+  }
+
+  renderConfirmDeleteAlert = () => {
+    return (
+      <Alert
+          intent={Intent.DANGER}
+          isOpen={this.state.show_delete_alert}
+          confirmButtonText='Delete'
+          cancelButtonText='Cancel'
+          onConfirm={this.handleDelete}
+          onCancel={this.handleClose}
+      >
+        <p>Are you sure you want to delete this character? This cannot be undone.</p>
+      </Alert>
+    );
+  }
+
+  handleDelete = () => {
+    api.deleteCharacter(this.state.character.id, (success, response) => {
+      if (success) {
+        window.location.href = '/characters';
+      }
+      else {
+        console.log(response)
+        Toaster.create().show({
+          message: 'Failed to delete',
+          position: Position.TOP_CENTER,
+          intent: Intent.DANGER,
+          timeout: 2000
+        });
+      }
+    });
+  }
+
+  handleClose = () => {
+    this.setState({ show_delete_alert: !this.state.show_delete_alert })
   }
 }

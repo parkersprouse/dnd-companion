@@ -105,7 +105,7 @@ module.exports = {
   },
 
   deleteCharacter: function(id, callback) {
-    performDelete('/api/characters/delete', { id: id }, callback);
+    performDelete('/api/characters/delete/' + id, callback);
   },
 
   // DnD Data

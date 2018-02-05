@@ -120,7 +120,7 @@ function updateCharacter(req, res, next) {
 }
 
 function deleteCharacter(req, res, next) {
-  Characters.destroy({ where: { id: req.body.id } })
+  Characters.destroy({ where: { id: req.params.id } })
     .then((data) => {
       if (data < 1) {
         res.status(constants.http_bad_request)
