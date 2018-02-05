@@ -104,6 +104,10 @@ module.exports = {
     performPatch('/api/characters/update', data, callback);
   },
 
+  deleteCharacter: function(id, callback) {
+    performDelete('/api/characters/delete', { id: id }, callback);
+  },
+
   // DnD Data
   getAbilityScores: function(callback) {
     performGet('/api/db/ability_scores', callback);

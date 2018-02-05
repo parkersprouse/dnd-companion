@@ -120,7 +120,31 @@ function updateCharacter(req, res, next) {
 }
 
 function deleteCharacter(req, res, next) {
-
+  Characters.destroy({ where: { id: req.body.id } })
+    .then((data) => {
+      if (data < 1) {
+        res.status(constants.http_bad_request)
+          .json({
+            status: 'failure',
+            message: 'No character deleted, check provided ID'
+          });
+      }
+      else {
+        res.status(constants.http_ok)
+          .json({
+            status: 'success',
+            message: 'Deleted character'
+          });
+      }
+    })
+    .catch((err) => {
+      res.status(constants.http_bad_request)
+        .json({
+          status: 'failure',
+          content: err.message,
+          message: 'There was a problem when deleting your character'
+        });
+    });
 }
 
 module.exports = {
