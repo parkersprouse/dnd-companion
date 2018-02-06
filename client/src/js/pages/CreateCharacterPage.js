@@ -25,8 +25,6 @@ export default class CreateCharacterPage extends Component {
   }
 
   render() {
-    //console.log(this.state);
-
     return (
       <OuterContainer>
         <Header />
@@ -116,12 +114,12 @@ export default class CreateCharacterPage extends Component {
 
   formatAbilityScores = (data) => {
     const ability_scores = {};
-    ability_scores.strength =     { level: data.strength,     modifier: data.strength_modifier }
-    ability_scores.dexterity =    { level: data.dexterity,    modifier: data.dexterity_modifier }
-    ability_scores.constitution = { level: data.constitution, modifier: data.constitution_modifier }
-    ability_scores.intelligence = { level: data.intelligence, modifier: data.intelligence_modifier }
-    ability_scores.wisdom =       { level: data.wisdom,       modifier: data.wisdom_modifier }
-    ability_scores.charisma =     { level: data.charisma,     modifier: data.charisma_modifier }
+    ability_scores.strength =     { level: data.strength || '0',     modifier: data.strength_modifier || '0' }
+    ability_scores.dexterity =    { level: data.dexterity || '0',    modifier: data.dexterity_modifier || '0' }
+    ability_scores.constitution = { level: data.constitution || '0', modifier: data.constitution_modifier || '0' }
+    ability_scores.intelligence = { level: data.intelligence || '0', modifier: data.intelligence_modifier || '0' }
+    ability_scores.wisdom =       { level: data.wisdom || '0',       modifier: data.wisdom_modifier || '0' }
+    ability_scores.charisma =     { level: data.charisma || '0',     modifier: data.charisma_modifier || '0' }
     return ability_scores;
   }
 

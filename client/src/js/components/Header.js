@@ -23,19 +23,19 @@ export default class Header extends Component {
   }
 
   configureDesktopMenu() {
-    let userDropdown =
+    const userDropdown =
       <Menu>
         <MenuItem text='Settings' iconName='cog' href='/profile' shouldDismissPopover={false} />
         <MenuItem text='Logout' iconName='log-out' href='/logout' shouldDismissPopover={false} />
       </Menu>;
 
-    let charDropdown =
+    const charDropdown =
       <Menu>
         <MenuItem text='My Characters' iconName='properties' href='/characters' shouldDismissPopover={false} />
         <MenuItem text='New Character' iconName='plus' href='/characters/new' shouldDismissPopover={false} />
       </Menu>;
 
-    let infoDropdown =
+    const infoDropdown =
       <Menu>
         <MenuItem text='Spell List' iconName='th' href='/spells' shouldDismissPopover={false} />
       </Menu>;
@@ -112,6 +112,9 @@ export default class Header extends Component {
           <MenuItem text='Home' href='/' />
           <MenuItem text='Login' href='/login' />
           <MenuItem text='Register' href='/register' />
+          <MenuItem text='Info'>
+            <MenuItem text='Spell List' href='/spells' />
+          </MenuItem>
         </Menu>;
     }
 
