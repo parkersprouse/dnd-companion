@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarGroup, AnchorButton, Popover, Menu, MenuItem, Position, PopoverInteractionKind, Button, Collapse } from '@blueprintjs/core';
+import { Navbar, NavbarGroup, AnchorButton, Popover, Menu, MenuItem, MenuDivider, Position, PopoverInteractionKind, Button } from '@blueprintjs/core';
 import { Container } from 'semantic-ui-react';
 import utils from '../lib/utils';
 
@@ -33,6 +33,11 @@ export default class Header extends Component {
       <Menu>
         <MenuItem text='My Characters' iconName='properties' href='/characters' shouldDismissPopover={false} />
         <MenuItem text='New Character' iconName='plus' href='/characters/new' shouldDismissPopover={false} />
+      </Menu>;
+
+    let infoDropdown =
+      <Menu>
+        <MenuItem text='Spell List' iconName='th' href='/spells' shouldDismissPopover={false} />
       </Menu>;
 
     let rightSide = null;
@@ -69,6 +74,11 @@ export default class Header extends Component {
                   <AnchorButton className='pt-minimal' rightIconName='caret-down'>Characters</AnchorButton>
                 </Popover>
               : null }
+              <Popover content={infoDropdown} position={Position.BOTTOM}
+                       interactionKind={PopoverInteractionKind.HOVER}
+                       hoverOpenDelay={0} hoverCloseDelay={150}>
+                <AnchorButton className='pt-minimal' rightIconName='caret-down'>Info</AnchorButton>
+              </Popover>
             </NavbarGroup>
             { rightSide }
           </Container>
@@ -79,21 +89,30 @@ export default class Header extends Component {
 
   configureMobileMenu() {
     let items = null;
+
     if (this.state.isLoggedIn) {
       items =
-        <Collapse isOpen={this.state.isOpen}>
-          <AnchorButton href='/' className='pt-minimal'>Home</AnchorButton>
-          <AnchorButton href='/profile' className='pt-minimal'>Profile</AnchorButton>
-          <AnchorButton href='/logout' className='pt-minimal'>Logout</AnchorButton>
-        </Collapse>;
+        <Menu>
+          <MenuItem text='Home' href='/' />
+          <MenuItem text='Characters'>
+            <MenuItem text='My Characters' href='/characters' />
+            <MenuItem text='Create Characters' href='/characters/new' />
+          </MenuItem>
+          <MenuItem text='Info'>
+            <MenuItem text='Spell List' href='/spells' />
+          </MenuItem>
+          <MenuItem text='Profile' href='/profile' />
+          <MenuDivider />
+          <MenuItem text='Logout' href='/logout' />
+        </Menu>;
     }
     else {
       items =
-        <Collapse isOpen={this.state.isOpen}>
-          <AnchorButton href='/' className='pt-minimal'>Home</AnchorButton>
-          <AnchorButton href='/login' className='pt-minimal'>Login</AnchorButton>
-          <AnchorButton href='/register' className='pt-minimal'>Register</AnchorButton>
-        </Collapse>;
+        <Menu>
+          <MenuItem text='Home' href='/' />
+          <MenuItem text='Login' href='/login' />
+          <MenuItem text='Register' href='/register' />
+        </Menu>;
     }
 
     this.menu = (
@@ -101,13 +120,13 @@ export default class Header extends Component {
         <Navbar>
           <div className='container'>
             <NavbarGroup align='right'>
-              <Button onClick={() => this.setState({ isOpen: !this.state.isOpen })} className='pt-minimal' iconName='menu'></Button>
+              <Popover content={items} position={Position.BOTTOM_RIGHT}
+                       interactionKind={PopoverInteractionKind.CLICK}>
+                <Button className='pt-minimal' iconName='menu'></Button>
+              </Popover>
             </NavbarGroup>
           </div>
         </Navbar>
-        <div className='container'>
-          { items }
-        </div>
       </div>
     );
   }
