@@ -12,7 +12,7 @@ export default class FormLabel extends Component {
     if (this.state.required) {
       return (
         <span>
-          { this.props.children } <span className='required-label'>*</span>
+          { this.props.children } <span className='required-label no-icon'>*</span>
         </span>
       );
     }

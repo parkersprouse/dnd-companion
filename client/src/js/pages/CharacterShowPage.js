@@ -6,6 +6,8 @@ import Header from '../components/Header';
 import api from '../lib/api';
 import validator from 'validator';
 import SpellSheet from '../components/character_viewer/SpellSheet';
+import DetailsSheet from '../components/character_viewer/DetailsSheet';
+import AdditionalInfoSheet from '../components/character_viewer/AdditionalInfoSheet';
 
 export default class CharacterShowPage extends Component {
   constructor(props) {
@@ -39,7 +41,7 @@ export default class CharacterShowPage extends Component {
           <Header />
           <InnerContainer>
             <NonIdealState visual='disable' title='Character Not Found'
-              description={<span>The character you're looking for doesn't exist.</span>} />
+                           description={<span>The character you're looking for doesn't exist.</span>} />
           </InnerContainer>
         </OuterContainer>
       );
@@ -49,9 +51,9 @@ export default class CharacterShowPage extends Component {
         <Header />
         <InnerContainer>
           <Tabs2 id='CharacterTabs'>
-            <Tab2 id='details' title='Details' panel={<div>Details</div>} />
+            <Tab2 id='details' title='Details' panel={<DetailsSheet character={this.state.character} />} />
             <Tab2 id='spells' title='Spells' panel={<SpellSheet character={this.state.character} />} />
-            <Tab2 id='additional' title='Additional' panel={<div>Additional</div>} />
+            <Tab2 id='additional' title='Additional Info' panel={<AdditionalInfoSheet character={this.state.character} />} />
             <Tabs2.Expander />
             <Button iconName='cross' intent={Intent.DANGER}
                     onClick={() => this.setState({ show_delete_alert: true })}>Delete</Button>
@@ -72,7 +74,7 @@ export default class CharacterShowPage extends Component {
           onConfirm={this.handleDelete}
           onCancel={this.handleClose}
       >
-        <p>Are you sure you want to delete this character?</p>
+        <p className='no-icon'>Are you sure you want to delete this character?</p>
         <p>This cannot be undone.</p>
       </Alert>
     );
