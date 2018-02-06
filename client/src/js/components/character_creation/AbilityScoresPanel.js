@@ -29,7 +29,7 @@ export default class AbilityScoresPanel extends Component {
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
                 {/*<NumericInput value={this.props.rootState[score.full_name.toLowerCase() + '_modifier']} onValueChange={(num, str) => this.handleValueChange(str, score.full_name.toLowerCase() + '_modifier')} className='pt-fill' />*/}
-                { this.props.rootState[score.full_name.toLowerCase() + '_modifier'] || '0' }
+                <span className='no-icon'>{ this.props.rootState[score.full_name.toLowerCase() + '_modifier'] || '0' }</span>
                 <div className='pt-form-helper-text'>Modifier</div>
               </div>
             </div>
