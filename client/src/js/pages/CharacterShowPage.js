@@ -55,7 +55,7 @@ export default class CharacterShowPage extends Component {
             <Tab2 id='spells' title='Spells' panel={<SpellSheet character={this.state.character} />} />
             <Tab2 id='additional' title='Additional Info' panel={<AdditionalInfoSheet character={this.state.character} />} />
             <Tabs2.Expander />
-            <Button iconName='cross' intent={Intent.DANGER}
+            <Button intent={Intent.DANGER} className='pt-minimal'
                     onClick={() => this.setState({ show_delete_alert: true })}>Delete</Button>
           </Tabs2>
           { this.renderConfirmDeleteAlert() }

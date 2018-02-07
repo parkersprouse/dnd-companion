@@ -40,6 +40,10 @@ const attributes = {
   bonds:             { type: Sequelize.TEXT }, // 'Bonds'
   flaws:             { type: Sequelize.TEXT }, // 'Flaws'
   languages:         { type: Sequelize.ARRAY(Sequelize.TEXT) }, // array of language names -- allows for custom
+  allies:            { type: Sequelize.TEXT }, // Allies & Organizations
+  treasure:          { type: Sequelize.TEXT }, // Treasure
+  backstory:         { type: Sequelize.TEXT }, // Character Backstory
+  more_features:     { type: Sequelize.TEXT }, // Additional Features & Traits
   platinum:          { type: Sequelize.INTEGER },
   gold:              { type: Sequelize.INTEGER },
   electrum:          { type: Sequelize.INTEGER },
