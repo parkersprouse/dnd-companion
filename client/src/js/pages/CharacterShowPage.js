@@ -8,6 +8,7 @@ import validator from 'validator';
 import SpellSheet from '../components/character_viewer/SpellSheet';
 import DetailsSheet from '../components/character_viewer/DetailsSheet';
 import AdditionalInfoSheet from '../components/character_viewer/AdditionalInfoSheet';
+import NotesSheet from '../components/character_viewer/NotesSheet';
 
 export default class CharacterShowPage extends Component {
   constructor(props) {
@@ -54,6 +55,7 @@ export default class CharacterShowPage extends Component {
             <Tab2 id='details' title='Details' panel={<DetailsSheet character={this.state.character} />} />
             <Tab2 id='spells' title='Spells' panel={<SpellSheet character={this.state.character} />} />
             <Tab2 id='additional' title='Additional Info' panel={<AdditionalInfoSheet character={this.state.character} />} />
+            <Tab2 id='notes' title='Notes' panel={<NotesSheet character={this.state.character} />} />
             <Tabs2.Expander />
           </Tabs2>
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
