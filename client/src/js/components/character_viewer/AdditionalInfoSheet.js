@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Position, Toaster, Intent, Button } from '@blueprintjs/core';
 import { Grid } from 'semantic-ui-react';
-import { valueify } from '../../lib/utils';
-import api from '../../lib/api';
 import AppearancePanel from './additional_info/AppearancePanel';
 import AdditionalInfoToggler from './additional_info/AdditionalInfoToggler';
 
@@ -19,7 +16,7 @@ export default class AdditionalInfoSheet extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              {/* <AppearancePanel update={this.onInputChange} root_state={this.state} /> */}
+              <AppearancePanel character={this.props.character} />
             </div>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
               <AdditionalInfoToggler character={this.props.character} name='allies' label='Allies & Organizations' />

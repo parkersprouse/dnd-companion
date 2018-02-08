@@ -36,7 +36,7 @@ export default class AdditionalInfoToggler extends Component {
             <div className='pt-input-group' style={{ whiteSpace: 'pre-wrap', cursor: 'pointer' }} onClick={() => this.setEditing(true)}>
               { this.state[this.props.name] !== null && this.state[this.props.name] !== '' ? this.state[this.props.name] : 'None. Click to edit.' }
             </div>
-            <div className='pt-form-helper-text' style={{ marginTop: '1rem' }}>{this.props.label}</div>
+            <div className='pt-form-helper-text' style={{ marginTop: '1.5rem' }}>{this.props.label}</div>
           </div>
         </div>
       </Tooltip>

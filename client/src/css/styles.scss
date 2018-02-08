@@ -152,13 +152,13 @@ $large-margin: 4rem;
 .char-sheet-editable-text {
   font-weight: bold;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .char-sheet-spell-header,
 .char-sheet-spell-header-editable {
   font-weight: bold;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .char-sheet-spell-header-editable {
@@ -177,6 +177,6 @@ $large-margin: 4rem;
   font-weight: bold;
 }
 
-.spell-detail-value {
-
+.spellsheet-form-group .pt-form-helper-text {
+  padding-left: 0;
 }
