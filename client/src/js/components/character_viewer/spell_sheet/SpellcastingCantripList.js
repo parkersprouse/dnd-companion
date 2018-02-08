@@ -160,11 +160,9 @@ export default class SpellcastingCantripList extends Component {
             <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
                     text={this.state.selected_cantrip ? this.state.selected_cantrip.name : "Choose Cantrip"} />
           </Select>
-          { this.state.selected_cantrip ? <hr /> : null }
-          <div>
+          <div style={{ marginTop: '1.5rem' }}>
             <SpellDetails spell={this.state.selected_cantrip} />
           </div>
-          { this.state.selected_cantrip ? <hr style={{ marginBottom: '0' }} /> : null }
         </div>
         <div className='pt-dialog-footer'>
           <div className='pt-dialog-footer-actions'>
