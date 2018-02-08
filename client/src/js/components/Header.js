@@ -96,7 +96,7 @@ export default class Header extends Component {
           <MenuItem text='Home' href='/' />
           <MenuItem text='Characters'>
             <MenuItem text='My Characters' href='/characters' />
-            <MenuItem text='Create Characters' href='/characters/new' />
+            <MenuItem text='New Character' href='/characters/new' />
           </MenuItem>
           <MenuItem text='Info'>
             <MenuItem text='Spell List' href='/spells' />

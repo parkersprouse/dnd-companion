@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { valueify } from '../../../lib/utils';
-import api from '../../../lib/api';
 import { Position, Toaster, Intent, Button, Tooltip } from '@blueprintjs/core';
+import { valueify } from '../lib/utils';
+import api from '../lib/api';
 
-export default class AdditionalInfoToggler extends Component {
+export default class TextareaToggler extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,8 +19,12 @@ export default class AdditionalInfoToggler extends Component {
         <div>
           <div className='pt-form-group' style={{ marginBottom: '0' }}>
             <div className='pt-form-content'>
-              <textarea name={this.props.name} className='pt-input pt-fill' rows={4} onChange={this.onInputChange} value={this.state[this.props.name]}></textarea>
-              <div className='pt-form-helper-text'>{this.props.label}</div>
+              <textarea name={this.props.name} className='pt-input pt-fill' rows={valueify(this.props.rows, 4)} onChange={this.onInputChange} value={this.state[this.props.name]}></textarea>
+              {
+                this.props.label ?
+                <div className='pt-form-helper-text' style={{ marginTop: '1rem', textAlign: 'center', width: '100%' }}>{this.props.label}</div>
+                : null
+              }
             </div>
           </div>
           <div style={{ marginTop: '1rem', textAlign: 'center' }}>
@@ -30,16 +34,20 @@ export default class AdditionalInfoToggler extends Component {
       );
 
     return (
-      <Tooltip content='Click to edit' position={Position.TOP}>
-        <div className='pt-form-group' style={{ marginBottom: '0' }}>
-          <div className='pt-form-content'>
-            <div className='pt-input-group' style={{ whiteSpace: 'pre-wrap', cursor: 'pointer' }} onClick={() => this.setEditing(true)}>
+      <div className='pt-form-group' style={{ marginBottom: '0' }}>
+        <div className='pt-form-content'>
+          <div className='pt-input-group' style={{ whiteSpace: 'pre-wrap', cursor: 'pointer' }} onClick={() => this.setEditing(true)}>
+            <Tooltip content='Click to edit' position={Position.TOP}>
               { this.state[this.props.name] !== null && this.state[this.props.name] !== '' ? this.state[this.props.name] : 'None. Click to edit.' }
-            </div>
-            <div className='pt-form-helper-text' style={{ marginTop: '1.5rem' }}>{this.props.label}</div>
+            </Tooltip>
           </div>
+          {
+            this.props.label ?
+            <div className='pt-form-helper-text' style={{ marginTop: '1.5rem', textAlign: 'center', width: '100%' }}>{this.props.label}</div>
+            : null
+          }
         </div>
-      </Tooltip>
+      </div>
     );
   }
 

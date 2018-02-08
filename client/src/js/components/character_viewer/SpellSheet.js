@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import api from '../../lib/api';
 import utils from '../../lib/utils';
-import SpellcastingClassEditor from './spell_sheet/SpellcastingClassEditor';
+import InputToggler from '../InputToggler';
 import SpellcastingDetailsEditors from './spell_sheet/SpellcastingDetailsEditors';
 import SpellcastingSpellList from './spell_sheet/SpellcastingSpellList';
 import SpellcastingCantripList from './spell_sheet/SpellcastingCantripList';
@@ -38,7 +38,7 @@ export default class SpellSheet extends Component {
         <Grid.Row centered>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              <SpellcastingClassEditor character={this.props.character} />
+              <InputToggler character={this.props.character} name='spell_class' label='Spellcasting Class' />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
@@ -130,7 +130,7 @@ export default class SpellSheet extends Component {
 
   /*
    * We need to reorder the columns for viewing on mobile so that the
-   * spell lists are all in numerical order. 
+   * spell lists are all in numerical order.
    */
   renderMobile() {
     return (
@@ -139,7 +139,7 @@ export default class SpellSheet extends Component {
         <Grid.Row centered>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              <SpellcastingClassEditor character={this.props.character} />
+              <InputToggler character={this.props.character} name='spell_class' label='Spellcasting Class' />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>

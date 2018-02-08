@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { valueify } from '../../../lib/utils';
-import api from '../../../lib/api';
 import { Position, Toaster, Intent, Tooltip, InputGroup } from '@blueprintjs/core';
+import { valueify } from '../lib/utils';
+import api from '../lib/api';
 
-export default class AppearancePanelToggler extends Component {
+export default class InputToggler extends Component {
   constructor(props) {
     super(props);
     this.state = {

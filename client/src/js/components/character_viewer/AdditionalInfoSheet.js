@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import AppearancePanel from './additional_info/AppearancePanel';
-import AdditionalInfoToggler from './additional_info/AdditionalInfoToggler';
+import TextareaToggler from '../TextareaToggler';
 
 export default class AdditionalInfoSheet extends Component {
   render() {
@@ -9,9 +9,9 @@ export default class AdditionalInfoSheet extends Component {
       <Grid stackable centered>
 
         <Grid.Row stretched>
-          <Grid.Column width={6}>
+          <Grid.Column width={5}>
             <div className='pt-card'>
-              <AdditionalInfoToggler character={this.props.character} name='backstory' label='Character Backstory' />
+              <TextareaToggler character={this.props.character} name='backstory' label='Character Backstory' />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
@@ -19,13 +19,13 @@ export default class AdditionalInfoSheet extends Component {
               <AppearancePanel character={this.props.character} />
             </div>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <AdditionalInfoToggler character={this.props.character} name='allies' label='Allies & Organizations' />
+              <TextareaToggler character={this.props.character} name='allies' label='Allies & Organizations' />
             </div>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <AdditionalInfoToggler character={this.props.character} name='more_features' label='Additional Features & Traits' />
+              <TextareaToggler character={this.props.character} name='more_features' label='Additional Features & Traits' />
             </div>
             <div className='pt-card'>
-              <AdditionalInfoToggler character={this.props.character} name='treasure' label='Treasure' />
+              <TextareaToggler character={this.props.character} name='treasure' label='Treasure' />
             </div>
           </Grid.Column>
         </Grid.Row>
