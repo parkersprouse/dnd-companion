@@ -274,7 +274,7 @@ export default class SpellcastingSpellList extends Component {
             <div className='pt-form-group'>
               <div className='pt-form-content'>
                 <div className='pt-select pt-fill'>
-                  <select onChange={(event) => this.setState({ class_filter: event.target.value })}>
+                  <select onChange={(event) => this.setState({ class_filter: event.target.value, selected_spell: null })}>
                     <option value=''>All</option>
                     <option>Bard</option>
                     <option>Cleric</option>
@@ -292,7 +292,7 @@ export default class SpellcastingSpellList extends Component {
             <div className='pt-form-group'>
               <div className='pt-form-content'>
                 <div className='pt-select pt-fill'>
-                  <select onChange={(event) => this.setState({ school_filter: event.target.value })}>
+                  <select onChange={(event) => this.setState({ school_filter: event.target.value, selected_spell: null })}>
                     <option value=''>All</option>
                     <option>Abjuration</option>
                     <option>Conjuration</option>

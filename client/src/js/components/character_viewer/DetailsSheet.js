@@ -24,15 +24,15 @@ export default class DetailsSheet extends Component {
         <Grid.Row stretched>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              no
+              ability scores
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              no1
+              health and ac
             </div>
             <div className='pt-card'>
-              no2
+              weapons / armor
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
@@ -40,7 +40,20 @@ export default class DetailsSheet extends Component {
               <PersonalityPanel character={this.props.character} />
             </div>
             <div className='pt-card'>
-              no4
+              features & traits
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row stretched>
+          <Grid.Column width={5}>
+            <div className='pt-card'>
+              proficiencies and languages
+            </div>
+          </Grid.Column>
+          <Grid.Column width={10}>
+            <div className='pt-card'>
+              equipment
             </div>
           </Grid.Column>
         </Grid.Row>
