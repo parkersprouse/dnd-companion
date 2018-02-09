@@ -36,6 +36,10 @@ export default class SpellcastingSpellList extends Component {
     }
   }
 
+  // As much as I want to use the InputToggler component for these inputs,
+  // I can't in its current implementation because the name of the attribute
+  // it's updating is part of the 'spells' attribute instead of being their
+  // own attributes.
   render() {
     const spell_list = this.createSpellList();
     return (

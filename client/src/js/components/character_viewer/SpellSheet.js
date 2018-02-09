@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import api from '../../lib/api';
 import utils from '../../lib/utils';
 import InputToggler from '../InputToggler';
-import SpellcastingDetailsEditors from './spell_sheet/SpellcastingDetailsEditors';
+import SpellcastingDetailsPanel from './spell_sheet/SpellcastingDetailsPanel';
 import SpellcastingSpellList from './spell_sheet/SpellcastingSpellList';
 import SpellcastingCantripList from './spell_sheet/SpellcastingCantripList';
 import _ from 'lodash';
@@ -43,7 +43,7 @@ export default class SpellSheet extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              <SpellcastingDetailsEditors character={this.props.character} />
+              <SpellcastingDetailsPanel character={this.props.character} />
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -144,7 +144,7 @@ export default class SpellSheet extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              <SpellcastingDetailsEditors character={this.props.character} />
+              <SpellcastingDetailsPanel character={this.props.character} />
             </div>
           </Grid.Column>
         </Grid.Row>

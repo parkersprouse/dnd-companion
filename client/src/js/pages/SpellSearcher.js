@@ -18,14 +18,16 @@ export default class SpellSearcher extends Component {
       level_filter: '',
       class_filter: '',
       school_filter: '',
-      selected_spell: null
+      selected_spell: null,
+      dialog_open: false,
+      loading: true
     };
   }
 
   componentWillMount() {
     api.getSpells((success, response) => {
       if (success)
-        this.setState({ spells: _.sortBy(response.content, ['name']) });
+        this.setState({ spells: _.sortBy(response.content, ['name']), loading: false });
     });
   }
 
@@ -43,37 +45,44 @@ export default class SpellSearcher extends Component {
 
           <Grid centered stackable>
 
-            <Grid.Row verticalAlign='middle'>
-              <Grid.Column width={8} style={{ paddingRight: '0.5rem' }}>
+            <Grid.Row verticalAlign='top'>
+              <Grid.Column width={8} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
                 <div className='pt-input-group pt-fill'>
                   <span className='pt-icon pt-icon-search'></span>
                   <input type='text' className='pt-input' placeholder='Filter Spells'
                          onChange={(event) => this.setState({ name_filter: event.target.value })} />
                 </div>
               </Grid.Column>
-              <Grid.Column width={8} style={{ paddingLeft: '0.5rem' }}>
+              <Grid.Column width={8} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
                 { this.renderFilterDropdowns() }
               </Grid.Column>
             </Grid.Row>
 
             <Grid.Row>
-              <Grid.Column>
-                <table className='pt-table pt-bordered pt-striped pt-interactive' style={{ width: '100%' }}>
-                  <thead>
-                    <tr>
-                      <th>Level</th>
-                      <th>Name</th>
-                      { !utils.isMobile() ? <th>Range</th> : null }
-                      { !utils.isMobile() ? <th>Classes</th> : null }
-                      { !utils.isMobile() ? <th>School</th> : null }
-                      { !utils.isMobile() ? <th>Casting Time</th> : null }
-                      { !utils.isMobile() ? <th>Duration</th> : null }
-                    </tr>
-                  </thead>
-                  <tbody>
-                    { rendered_spells }
-                  </tbody>
-                </table>
+              <Grid.Column width={16} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
+                {
+                  this.state.loading ?
+                    <div className='text-center'>
+                      Loading...
+                    </div>
+                  :
+                  <table className='pt-table pt-bordered pt-striped pt-interactive' style={{ width: '100%' }}>
+                    <thead>
+                      <tr>
+                        <th className='text-center'>Level</th>
+                        <th className='text-center'>Name</th>
+                        { !utils.isMobile() ? <th className='text-center'>Range</th> : null }
+                        { !utils.isMobile() ? <th className='text-center'>Classes</th> : null }
+                        { !utils.isMobile() ? <th className='text-center'>School</th> : null }
+                        { !utils.isMobile() ? <th className='text-center'>Casting Time</th> : null }
+                        { !utils.isMobile() ? <th className='text-center'>Duration</th> : null }
+                      </tr>
+                    </thead>
+                    <tbody>
+                      { rendered_spells }
+                    </tbody>
+                  </table>
+                }
               </Grid.Column>
             </Grid.Row>
 
@@ -86,30 +95,11 @@ export default class SpellSearcher extends Component {
     );
   }
 
-  renderSpellModal = () => {
-    const spell = this.state.selected_spell;
-    if (!spell) return null;
-    return (
-      <Dialog isOpen={!!spell} title={spell.name}
-              onClose={() => this.setState({ selected_spell: null })}>
-        <div className='pt-dialog-body'>
-          <SpellDetails spell={spell} />
-        </div>
-        <div className='pt-dialog-footer'>
-          <div className='pt-dialog-footer-actions'>
-            <Button onClick={() => this.setState({ selected_spell: null })} text='Close' />
-          </div>
-        </div>
-      </Dialog>
-    );
-  }
-
-  renderAllSpells = () => {
-    const all_spells = [];
-    _.each(this.state.spells, (spell) => {
+  createSpellList = (spells) => {
+    return _.map(spells, (spell) => {
       const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
-      all_spells.push(
-        <tr key={spell.index} onClick={() => { this.setState({ selected_spell: spell }) }}>
+      return (
+        <tr key={spell.index} onClick={() => { this.setState({ selected_spell: spell, dialog_open: true }) }}>
           <td>{ spell.level === 0 ? 'Cantrip' : spell.level }</td>
           <td>{ spell.name }</td>
           { !utils.isMobile() ? <td>{ spell.range }</td> : null }
@@ -120,7 +110,27 @@ export default class SpellSearcher extends Component {
         </tr>
       );
     });
-    return all_spells;
+  }
+
+  renderSpellModal = () => {
+    const spell = this.state.selected_spell;
+    return (
+      <Dialog isOpen={this.state.dialog_open} title={spell ? spell.name : null}
+              onClose={() => this.setState({ selected_spell: null, dialog_open: false })}>
+        <div className='pt-dialog-body'>
+          <SpellDetails spell={spell} />
+        </div>
+        <div className='pt-dialog-footer'>
+          <div className='pt-dialog-footer-actions'>
+            <Button onClick={() => this.setState({ selected_spell: null, dialog_open: false })} text='Close' />
+          </div>
+        </div>
+      </Dialog>
+    );
+  }
+
+  renderAllSpells = () => {
+    return this.createSpellList(this.state.spells);
   }
 
   renderFilteredSpells = () => {
@@ -143,28 +153,13 @@ export default class SpellSearcher extends Component {
         return spell_classes.indexOf(this.state.class_filter) > -1;
       });
 
-    const all_spells = [];
-    _.each(filtered_spells, (spell) => {
-      const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
-      all_spells.push(
-        <tr key={spell.index} onClick={() => { this.setState({ selected_spell: spell }) }}>
-          <td>{ spell.level === 0 ? 'Cantrip' : spell.level }</td>
-          <td>{ spell.name }</td>
-          { !utils.isMobile() ? <td>{ spell.range }</td> : null }
-          { !utils.isMobile() ? <td>{ _.join(spell_classes, ', ') }</td> : null }
-          { !utils.isMobile() ? <td>{ spell.school.name }</td> : null }
-          { !utils.isMobile() ? <td>{ spell.casting_time }</td> : null }
-          { !utils.isMobile() ? <td>{ spell.duration }</td> : null }
-        </tr>
-      );
-    });
-    return all_spells;
+    return this.createSpellList(filtered_spells);
   }
 
   renderFilterDropdowns = () => {
     return (
       <Grid centered>
-        <Grid.Row verticalAlign='middle'>
+        <Grid.Row verticalAlign='top'>
           <Grid.Column width={5} style={{ paddingRight: '0.5rem', paddingLeft: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>

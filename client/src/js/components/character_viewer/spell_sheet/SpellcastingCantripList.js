@@ -144,7 +144,6 @@ export default class SpellcastingCantripList extends Component {
     return (
       <Dialog isOpen={this.state.select_dialog_open} onClose={this.toggleSelectDialog} title='Find Cantrip'>
         <div className='pt-dialog-body'>
-
           <Select
             items={this.state.available_spells}
             itemPredicate={ (query, selected) => selected.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
@@ -175,10 +174,11 @@ export default class SpellcastingCantripList extends Component {
   }
 
   renderShowCantripModal = () => {
+    const cantrip = this.state.shown_cantrip;
     return (
-      <Dialog isOpen={!!this.state.shown_cantrip} onClose={() => this.toggleShowDialog()} title={this.state.shown_cantrip ? this.state.shown_cantrip.name : ''}>
+      <Dialog isOpen={!!cantrip} onClose={() => this.toggleShowDialog()} title={cantrip ? cantrip.name : ''}>
         <div className='pt-dialog-body'>
-          <SpellDetails spell={this.state.shown_cantrip} />
+          <SpellDetails spell={cantrip} />
         </div>
         <div className='pt-dialog-footer'>
           <div className='pt-dialog-footer-actions'>
