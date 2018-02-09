@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Dimmer, Loader } from 'semantic-ui-react';
 import { Dialog, Button } from '@blueprintjs/core';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
@@ -62,26 +62,26 @@ export default class SpellSearcher extends Component {
               <Grid.Column width={16} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
                 {
                   this.state.loading ?
-                    <div className='text-center'>
-                      Loading...
-                    </div>
+                    <Dimmer active inverted>
+                      <Loader inverted content='Loading...' style={{ marginTop: '5rem' }} />
+                    </Dimmer>
                   :
-                  <table className='pt-table pt-bordered pt-striped pt-interactive' style={{ width: '100%' }}>
-                    <thead>
-                      <tr>
-                        <th className='text-center'>Level</th>
-                        <th className='text-center'>Name</th>
-                        { !utils.isMobile() ? <th className='text-center'>Range</th> : null }
-                        { !utils.isMobile() ? <th className='text-center'>Classes</th> : null }
-                        { !utils.isMobile() ? <th className='text-center'>School</th> : null }
-                        { !utils.isMobile() ? <th className='text-center'>Casting Time</th> : null }
-                        { !utils.isMobile() ? <th className='text-center'>Duration</th> : null }
-                      </tr>
-                    </thead>
-                    <tbody>
-                      { rendered_spells }
-                    </tbody>
-                  </table>
+                    <table className='pt-table pt-bordered pt-striped pt-interactive' style={{ width: '100%' }}>
+                      <thead>
+                        <tr>
+                          <th className='text-center'>Level</th>
+                          <th className='text-center'>Name</th>
+                          { !utils.isMobile() ? <th className='text-center'>Range</th> : null }
+                          { !utils.isMobile() ? <th className='text-center'>Classes</th> : null }
+                          { !utils.isMobile() ? <th className='text-center'>School</th> : null }
+                          { !utils.isMobile() ? <th className='text-center'>Casting Time</th> : null }
+                          { !utils.isMobile() ? <th className='text-center'>Duration</th> : null }
+                        </tr>
+                      </thead>
+                      <tbody>
+                        { rendered_spells }
+                      </tbody>
+                    </table>
                 }
               </Grid.Column>
             </Grid.Row>

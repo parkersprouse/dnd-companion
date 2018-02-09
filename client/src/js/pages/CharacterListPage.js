@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { Item } from 'semantic-ui-react';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
-import { Item } from 'semantic-ui-react'
 import api from '../lib/api';
 import utils from '../lib/utils';
 
@@ -10,23 +10,39 @@ export default class CharacterListPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      characters: []
+      characters: null
     };
   }
 
   componentWillMount() {
     utils.getCurrentUserInfo((success, response) => {
       api.getUsersCharacters(response.id, (success, response) => {
-        this.setState({ characters: response.content });
+        if (success)
+          this.setState({ characters: response.content });
+        else
+          this.setState({ characters: [] });
       });
     });
   }
 
   render() {
-    console.log(this.state);
+    if (!this.state.characters)
+      return null;
+
+    if (this.state.characters.length === 0)
+      return (
+        <OuterContainer>
+          <Header />
+          <InnerContainer>
+            <h2 className='page-title'>Your characters:</h2>
+            <div className='text-center' style={{ marginTop: '3rem' }}>
+              <h5>You don't have any characters yet. <a href='/characters/new'>Go add one!</a></h5>
+            </div>
+          </InnerContainer>
+        </OuterContainer>
+      );
 
     let chars = null;
-
     if (!!this.state.characters) {
       chars = this.state.characters.map((char) => {
         return (
@@ -58,7 +74,7 @@ export default class CharacterListPage extends Component {
         <Header />
         <InnerContainer>
           <h2 className='page-title'>Your characters:</h2>
-          {chars}
+          { chars }
         </InnerContainer>
       </OuterContainer>
     );

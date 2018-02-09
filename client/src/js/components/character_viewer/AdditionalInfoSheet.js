@@ -11,7 +11,7 @@ export default class AdditionalInfoSheet extends Component {
         <Grid.Row stretched>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              <TextareaToggler character={this.props.character} name='backstory' label='Character Backstory' />
+              <TextareaToggler character={this.props.character} name='backstory' label='Character Backstory' rows={15} />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
