@@ -180,3 +180,23 @@ $large-margin: 4rem;
 .spellsheet-form-group .pt-form-helper-text {
   padding-left: 0;
 }
+
+.spell-modal-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.spell-modal-filters > div {
+  flex-basis: 50%;
+}
+
+.spell-modal-filters > div:first-child {
+  padding-right: 0.5rem;
+}
+
+.spell-modal-filters > div:last-child {
+  padding-left: 0.5rem;
+}

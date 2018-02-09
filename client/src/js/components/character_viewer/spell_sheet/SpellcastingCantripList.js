@@ -140,12 +140,27 @@ export default class SpellcastingCantripList extends Component {
     }
   }
 
+  determineShownSpells = () => {
+    let shown_spells = this.state.available_spells;
+
+    if (this.state.school_filter)
+      shown_spells = _.filter(shown_spells, { school: { name: this.state.school_filter } });
+
+    if (this.state.class_filter)
+      shown_spells = _.filter(shown_spells, (spell) => {
+        const spell_classes = _.map(spell.classes, (sc) => { return sc.name });
+        return spell_classes.indexOf(this.state.class_filter) > -1;
+      });
+
+    return shown_spells;
+  }
+
   renderSelectCantripModal = () => {
     return (
       <Dialog isOpen={this.state.select_dialog_open} onClose={this.toggleSelectDialog} title='Find Cantrip'>
         <div className='pt-dialog-body'>
           <Select
-            items={this.state.available_spells}
+            items={this.determineShownSpells()}
             itemPredicate={ (query, selected) => selected.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
             itemRenderer={ ({ handleClick, isActive, item }) => {
               const style = isActive ? 'pt-active pt-intent-primary' : '';
@@ -159,6 +174,46 @@ export default class SpellcastingCantripList extends Component {
             <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
                     text={this.state.selected_cantrip ? this.state.selected_cantrip.name : "Choose Cantrip"} />
           </Select>
+
+          <div className='spell-modal-filters'>
+            <div className='pt-form-group'>
+              <div className='pt-form-content'>
+                <div className='pt-select pt-fill'>
+                  <select onChange={(event) => this.setState({ class_filter: event.target.value })}>
+                    <option value=''>All</option>
+                    <option>Bard</option>
+                    <option>Cleric</option>
+                    <option>Druid</option>
+                    <option>Paladin</option>
+                    <option>Ranger</option>
+                    <option>Sorcerer</option>
+                    <option>Warlock</option>
+                    <option>Wizard</option>
+                  </select>
+                </div>
+                <div className='pt-form-helper-text'>Cantrip Class</div>
+              </div>
+            </div>
+            <div className='pt-form-group'>
+              <div className='pt-form-content'>
+                <div className='pt-select pt-fill'>
+                  <select onChange={(event) => this.setState({ school_filter: event.target.value })}>
+                    <option value=''>All</option>
+                    <option>Abjuration</option>
+                    <option>Conjuration</option>
+                    <option>Divination</option>
+                    <option>Enchantment</option>
+                    <option>Evocation</option>
+                    <option>Illusion</option>
+                    <option>Necromancy</option>
+                    <option>Transmutation</option>
+                  </select>
+                </div>
+                <div className='pt-form-helper-text'>Cantrip School</div>
+              </div>
+            </div>
+          </div>
+
           <div style={{ marginTop: '1.5rem' }}>
             <SpellDetails spell={this.state.selected_cantrip} />
           </div>
