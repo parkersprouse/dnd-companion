@@ -18,6 +18,11 @@ export default class Header extends Component {
 
   componentWillMount() {
     utils.isLoggedIn((loggedIn) => {
+      if (loggedIn) {
+        utils.getCurrentUserInfo((success, response) => {
+          this.setState({ username: response.username });
+        });
+      }
       this.setState({ isLoggedIn: loggedIn });
     });
   }
@@ -48,7 +53,9 @@ export default class Header extends Component {
             <Popover content={userDropdown} position={Position.BOTTOM}
                      interactionKind={PopoverInteractionKind.HOVER}
                      hoverOpenDelay={0} hoverCloseDelay={150}>
-              <AnchorButton className='pt-minimal' iconName='user' rightIconName='caret-down'>Account</AnchorButton>
+              <AnchorButton className='pt-minimal' iconName='user' rightIconName='caret-down'>
+                {this.state.username}
+              </AnchorButton>
             </Popover>
           </NavbarGroup>;
       }
