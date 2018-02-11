@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TextareaToggler from '../../TextareaToggler';
 
-export default class DetailsSheet extends Component {
+export default class PersonalityPanel extends Component {
   render() {
     return (
       <div>

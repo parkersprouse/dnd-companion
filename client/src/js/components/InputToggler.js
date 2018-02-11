@@ -22,7 +22,7 @@ export default class InputToggler extends Component {
               <InputGroup
                 value={this.state[this.props.name]}
                 placeholder=''
-                type='text'
+                type={this.props.number ? 'number' : 'text'}
                 onChange={(event) => this.setState({ [this.props.name]: event.target.value }) }
                 rightElement={<Tooltip content='Save' position={Position.TOP}>
                                 <button className='pt-button pt-minimal pt-intent-success pt-icon-tick' onClick={this.save}></button>
@@ -44,7 +44,7 @@ export default class InputToggler extends Component {
               <span className='char-sheet-editable-text' onClick={() => this.setEditing(true)}>
                 { this.state[this.props.name] !== null &&
                   this.state[this.props.name] !== '' ?
-                  this.state[this.props.name] : 'None' }
+                  this.state[this.props.name] : this.props.number ? '0' : 'None' }
               </span>
             </Tooltip>
           </div>
@@ -58,7 +58,7 @@ export default class InputToggler extends Component {
 
   save = () => {
     this.setState({ saving: true });
-    api.updateCharacter({ id: this.props.character.id, [this.props.name]: this.state[this.props.name] }, (success) => {
+    api.updateCharacter({ id: this.props.character.id, [this.props.name]: this.state[this.props.name] }, (success, response) => {
       if (success) {
         this.showSuccessToast();
         this.setEditing(false);

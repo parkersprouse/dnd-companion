@@ -82,6 +82,7 @@ export default class CreateCharacterPage extends Component {
 
     data.ability_scores = this.formatAbilityScores(data);
     data.spells = this.formatSpells();
+    data.death_saves = { success: 0, failed: 0 };
 
     data.spell_ability = 0;
     data.spell_save_dc = 0;

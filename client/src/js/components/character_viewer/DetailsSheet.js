@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import InputToggler from '../InputToggler';
 import PersonalityPanel from './details_sheet/PersonalityPanel';
+import HealthPanel from './details_sheet/HealthPanel';
 
 export default class DetailsSheet extends Component {
   render() {
@@ -29,7 +30,7 @@ export default class DetailsSheet extends Component {
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              health and ac
+              <HealthPanel character={this.props.character} />
             </div>
             <div className='pt-card'>
               weapons / armor
