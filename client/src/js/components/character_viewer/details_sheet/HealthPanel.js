@@ -37,7 +37,14 @@ export default class HealthPanel extends Component {
             <InputToggler character={this.props.character} name='hit_dice' label='Hit Dice' />
           </Grid.Column>
           <Grid.Column width={10} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
-            <DeathSavesSliders character={this.props.character} />
+            death saves are difficult
+            {/*<DeathSavesSliders character={this.props.character} />*/}
+            {/*<RadioGroup inline>
+                <Radio label={null} value="one" />
+                <Radio label={null} value="two" />
+                <Radio label={null} value="three" />
+                <Radio label={null} value="three" />
+            </RadioGroup>*/}
           </Grid.Column>
         </Grid.Row>
 
