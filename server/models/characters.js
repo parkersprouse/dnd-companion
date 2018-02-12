@@ -5,8 +5,8 @@ const attributes = {
   id:                { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, unique: true, primaryKey: true },
   name:              { type: Sequelize.TEXT, allowNull: false },
   subrace:           { type: Sequelize.TEXT },
-  level:             { type: Sequelize.TEXT, defaultValue: 1 },
-  experience:        { type: Sequelize.TEXT, defaultValue: 0 },
+  level:             { type: Sequelize.TEXT, defaultValue: '1' },
+  experience:        { type: Sequelize.TEXT, defaultValue: '0' },
   alignment:         { type: Sequelize.TEXT },
   race:              { type: Sequelize.TEXT }, // race name -- allows for custom
   backstory:         { type: Sequelize.TEXT },
@@ -19,15 +19,15 @@ const attributes = {
   background:        { type: Sequelize.TEXT },
   class:             { type: Sequelize.TEXT }, // class name -- allows for custom
   ability_scores:    { type: Sequelize.JSON }, // { 'charisma': { level: 13, modifier: 1 } }
-  passive_wisdom:    { type: Sequelize.INTEGER }, // passive perception
-  proficiency_bonus: { type: Sequelize.INTEGER },
-  inspiration:       { type: Sequelize.INTEGER },
-  armor_class:       { type: Sequelize.INTEGER },
-  speed:             { type: Sequelize.INTEGER },
-  initiative:        { type: Sequelize.INTEGER },
-  max_hp:            { type: Sequelize.INTEGER },
-  current_hp:        { type: Sequelize.INTEGER },
-  temp_hp:           { type: Sequelize.INTEGER },
+  passive_wisdom:    { type: Sequelize.TEXT }, // passive perception
+  proficiency_bonus: { type: Sequelize.TEXT },
+  inspiration:       { type: Sequelize.TEXT },
+  armor_class:       { type: Sequelize.TEXT },
+  speed:             { type: Sequelize.TEXT },
+  initiative:        { type: Sequelize.TEXT },
+  max_hp:            { type: Sequelize.TEXT },
+  current_hp:        { type: Sequelize.TEXT },
+  temp_hp:           { type: Sequelize.TEXT },
   hit_dice:          { type: Sequelize.TEXT },
   death_saves:       { type: Sequelize.JSON }, // { success: 0, failed: 2 }
   equipment:         { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of equipment objects -- [{ name: 'Lantern', amount: 1 }]
@@ -44,17 +44,17 @@ const attributes = {
   treasure:          { type: Sequelize.TEXT }, // Treasure
   backstory:         { type: Sequelize.TEXT }, // Character Backstory
   more_features:     { type: Sequelize.TEXT }, // Additional Features & Traits
-  platinum:          { type: Sequelize.INTEGER },
-  gold:              { type: Sequelize.INTEGER },
-  electrum:          { type: Sequelize.INTEGER },
-  silver:            { type: Sequelize.INTEGER },
-  copper:            { type: Sequelize.INTEGER },
+  platinum:          { type: Sequelize.TEXT },
+  gold:              { type: Sequelize.TEXT },
+  electrum:          { type: Sequelize.TEXT },
+  silver:            { type: Sequelize.TEXT },
+  copper:            { type: Sequelize.TEXT },
   proficiencies:     { type: Sequelize.ARRAY(Sequelize.TEXT) }, // array of proficiency names -- allows for custom
   spells:            { type: Sequelize.ARRAY(Sequelize.JSON) }, // [{ id: 1, spells: [{ id: 3, prepared: true }], slots: 3, slots_used: 1 }]
   spell_class:       { type: Sequelize.TEXT }, // 'Spellcasting Class'
-  spell_ability:     { type: Sequelize.INTEGER }, // 'Spellcasting Ability'
-  spell_save_dc:     { type: Sequelize.INTEGER },
-  spell_atk_bonus:   { type: Sequelize.INTEGER },
+  spell_ability:     { type: Sequelize.TEXT }, // 'Spellcasting Ability'
+  spell_save_dc:     { type: Sequelize.TEXT },
+  spell_atk_bonus:   { type: Sequelize.TEXT },
   userid:            {
                        type: Sequelize.INTEGER, allowNull: false,
                        references: {
