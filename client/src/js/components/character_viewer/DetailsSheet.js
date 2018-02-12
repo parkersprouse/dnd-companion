@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import InputToggler from '../InputToggler';
+import TextareaToggler from '../TextareaToggler';
 import PersonalityPanel from './details_sheet/PersonalityPanel';
 import HealthPanel from './details_sheet/HealthPanel';
 
 export default class DetailsSheet extends Component {
   render() {
+    console.log(this.props.character)
     return (
       <Grid stackable centered>
 
-        <Grid.Row stretched>
+        <Grid.Row>
           <Grid.Column width={5}>
             <div className='pt-card'>
               <InputToggler character={this.props.character} name='name' label='Character Name' />
@@ -22,7 +24,7 @@ export default class DetailsSheet extends Component {
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row stretched>
+        <Grid.Row>
           <Grid.Column width={5}>
             <div className='pt-card'>
               ability scores
@@ -41,12 +43,12 @@ export default class DetailsSheet extends Component {
               <PersonalityPanel character={this.props.character} />
             </div>
             <div className='pt-card'>
-              features & traits
+              <TextareaToggler character={this.props.character} rows={8} name='features' label='Features & Traits' />
             </div>
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row stretched>
+        <Grid.Row>
           <Grid.Column width={5}>
             <div className='pt-card'>
               proficiencies and languages
