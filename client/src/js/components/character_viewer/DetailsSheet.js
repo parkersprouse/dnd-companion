@@ -4,10 +4,10 @@ import InputToggler from '../InputToggler';
 import TextareaToggler from '../TextareaToggler';
 import PersonalityPanel from './details_sheet/PersonalityPanel';
 import HealthPanel from './details_sheet/HealthPanel';
+import ClassRacePanel from './details_sheet/ClassRacePanel';
 
 export default class DetailsSheet extends Component {
   render() {
-    console.log(this.props.character)
     return (
       <Grid stackable centered>
 
@@ -19,7 +19,7 @@ export default class DetailsSheet extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              details
+              <ClassRacePanel character={this.props.character} />
             </div>
           </Grid.Column>
         </Grid.Row>
