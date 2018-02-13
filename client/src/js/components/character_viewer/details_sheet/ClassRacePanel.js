@@ -16,7 +16,7 @@ export default class ClassRacePanel extends Component {
             <CustomDropdownToggler character={this.props.character} api='races' name='race' label='Race' />
           </Grid.Column>
           <Grid.Column width={6} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
-            <CustomDropdownToggler character={this.props.character} filter={} api='subraces' name='subrace' label='Subrace' />
+            <CustomDropdownToggler character={this.props.character} filter={null} api='subraces' name='subrace' label='Subrace' />
           </Grid.Column>
         </Grid.Row>
 
