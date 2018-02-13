@@ -19,18 +19,8 @@ export default class CustomDropdownToggler extends Component {
   }
 
   componentWillMount() {
-    if (this.props.name === 'alignment') {
-      this.setState({
-        options: [
-          'Lawful Good',
-          'Lawful Neutral',
-          'Lawful Evil',
-          'True Neutral',
-          'Chaotic Good',
-          'Chaotic Neutral',
-          'Chaotic Evil'
-        ]
-      });
+    if (this.props.options) {
+      this.setState({ options: this.props.options });
     }
     else {
       axios.get(constants.server + '/api/db/' + this.props.api)
@@ -130,6 +120,8 @@ export default class CustomDropdownToggler extends Component {
       if (success) {
         this.showSuccessToast();
         this.setEditing(false);
+        if (this.props.setParentState)
+          this.props.setParentState({ subrace_filter: this.state[this.props.name] });
       }
       else
         this.showErrorToast();
@@ -144,6 +136,8 @@ export default class CustomDropdownToggler extends Component {
       if (success) {
         this.showSuccessToast();
         this.setEditing(false);
+        if (this.props.setParentState)
+          this.props.setParentState({ subrace_filter: item });
       }
       else
         this.showErrorToast();
