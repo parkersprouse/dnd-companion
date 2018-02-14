@@ -89,14 +89,8 @@ export default class ClassRacePanel extends Component {
     this.loading = true;
 
     api.filterSubraces({ race: { name: this.state.subrace_filter } }, (success, response) => {
-      if (success) {
-        this.setState({ subrace_options: response.content });
-        this.loading = false;
-      }
-      else {
-        this.setState({ subrace_options: [] });
-        this.loading = false;
-      }
+      this.setState({ subrace_options: success ? response.content : [] });
+      this.loading = false;
     });
   }
 }
