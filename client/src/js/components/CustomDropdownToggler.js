@@ -33,6 +33,11 @@ export default class CustomDropdownToggler extends Component {
     }
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    if (this.props.name === 'subrace' && nextProps.options !== this.state.options)
+      this.setState({ options: nextProps.options });
+  }
+
   render() {
     if (this.state.editing) {
       if (this.state.custom) {
@@ -120,7 +125,7 @@ export default class CustomDropdownToggler extends Component {
       if (success) {
         this.showSuccessToast();
         this.setEditing(false);
-        if (this.props.setParentState)
+        if (this.props.name === 'race')
           this.props.setParentState({ subrace_filter: this.state[this.props.name] });
       }
       else

@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import CustomDropdownToggler from '../../CustomDropdownToggler';
 import InputToggler from '../../InputToggler';
+import api from '../../../lib/api';
 
 export default class ClassRacePanel extends Component {
   constructor(props) {
     super(props);
-    this.state = { subrace_filter: props.character.race };
+    this.state = {
+      subrace_filter: props.character.race,
+      subrace_options: null
+    };
     this.alignment_options = [
       'Lawful Good',
       'Lawful Neutral',
@@ -19,6 +23,7 @@ export default class ClassRacePanel extends Component {
   }
 
   render() {
+    this.filterSubraces();
     return (
       <Grid stackable centered>
 
@@ -41,7 +46,7 @@ export default class ClassRacePanel extends Component {
                                    api='subraces'
                                    name='subrace'
                                    label='Subrace'
-                                   options={null} />
+                                   options={this.state.subrace_options} />
           </Grid.Column>
         </Grid.Row>
 
@@ -77,5 +82,21 @@ export default class ClassRacePanel extends Component {
 
   setParentState = (state) => {
     this.setState(state);
+  }
+
+  filterSubraces = () => {
+    if (!this.state.subrace_filter || this.loading) return;
+    this.loading = true;
+
+    api.filterSubraces({ race: { name: this.state.subrace_filter } }, (success, response) => {
+      if (success) {
+        this.setState({ subrace_options: response.content });
+        this.loading = false;
+      }
+      else {
+        this.setState({ subrace_options: [] });
+        this.loading = false;
+      }
+    });
   }
 }
