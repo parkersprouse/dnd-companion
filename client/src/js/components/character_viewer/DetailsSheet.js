@@ -5,6 +5,7 @@ import TextareaToggler from '../TextareaToggler';
 import PersonalityPanel from './details_sheet/PersonalityPanel';
 import HealthPanel from './details_sheet/HealthPanel';
 import ClassRacePanel from './details_sheet/ClassRacePanel';
+import ProficienciesLanguagesPanel from './details_sheet/ProficienciesLanguagesPanel';
 
 export default class DetailsSheet extends Component {
   render() {
@@ -51,7 +52,7 @@ export default class DetailsSheet extends Component {
         <Grid.Row>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              proficiencies and languages
+              <ProficienciesLanguagesPanel character={this.props.character} />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
