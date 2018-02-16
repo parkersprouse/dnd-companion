@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import api from '../../lib/api';
 import utils from '../../lib/utils';
-import InputToggler from '../InputToggler';
+import CustomDropdownToggler from '../CustomDropdownToggler';
 import SpellcastingDetailsPanel from './spell_sheet/SpellcastingDetailsPanel';
 import SpellcastingSpellList from './spell_sheet/SpellcastingSpellList';
 import SpellcastingCantripList from './spell_sheet/SpellcastingCantripList';
@@ -40,7 +40,10 @@ export default class SpellSheet extends Component {
         <Grid.Row centered>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              <InputToggler character={this.props.character} name='spell_class' label='Spellcasting Class' />
+              <CustomDropdownToggler character={this.props.character}
+                                     api='classes'
+                                     name='spell_class'
+                                     label='Spellcasting Class' />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
