@@ -21,10 +21,10 @@ export default class SubraceSelector extends Component {
     });
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentWillUpdate(next_props, nextState) {
     // this doesn't actually mean anything is loading, just that the dropdown
     // shouldn't make a new request because the race hasn't changed
-    this.loading = this.props.rootState.race === nextProps.rootState.race;
+    this.loading = this.props.rootState.race === next_props.rootState.race;
   }
 
   updateOptions = () => {

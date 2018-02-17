@@ -33,9 +33,9 @@ export default class CustomDropdownToggler extends Component {
     }
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (this.props.name === 'subrace' && nextProps.options !== this.state.options)
-      this.setState({ options: nextProps.options });
+  componentWillUpdate(next_props, nextState) {
+    if (this.props.name === 'subrace' && next_props.options !== this.state.options)
+      this.setState({ options: next_props.options });
   }
 
   render() {
