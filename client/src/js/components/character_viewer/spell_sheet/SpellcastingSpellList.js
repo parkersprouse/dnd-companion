@@ -23,17 +23,15 @@ export default class SpellcastingSpellList extends Component {
   }
 
   componentWillReceiveProps(next_props) {
-    if (!this.state.available_spells) {
-      const available_spells = _.filter(next_props.all_spells, { level: next_props.level });
-      const char_spells = _.find(next_props.character.spells, { id: next_props.level });
+    const available_spells = _.filter(next_props.all_spells, { level: next_props.level });
+    const char_spells = _.find(next_props.character.spells, { id: next_props.level });
 
-      const total_slots = char_spells.slots;
-      const used_slots = char_spells.slots_used;
-      const new_total_slots = char_spells.slots;
-      const new_used_slots = char_spells.slots_used;
+    const total_slots = char_spells.slots;
+    const used_slots = char_spells.slots_used;
+    const new_total_slots = char_spells.slots;
+    const new_used_slots = char_spells.slots_used;
 
-      this.setState({ available_spells, char_spells, total_slots, used_slots, new_total_slots, new_used_slots });
-    }
+    this.setState({ available_spells, char_spells, total_slots, used_slots, new_total_slots, new_used_slots });
   }
 
   // As much as I want to use the InputToggler component for these inputs,
@@ -72,13 +70,7 @@ export default class SpellcastingSpellList extends Component {
             <div className='pt-form-group spellsheet-form-group'>
               <div className='pt-form-content'>
                 <div className='pt-input-group'>
-                  {
-                    this.renderDetails({
-                      editing: 'editing_used_slots',
-                      current: 'new_used_slots',
-                      initial: 'used_slots'
-                    })
-                  }
+                  { this.renderExpended() }
                 </div>
                 <div className='pt-form-helper-text'>
                   Expended Slots
@@ -249,6 +241,17 @@ export default class SpellcastingSpellList extends Component {
     );
   }
 
+  renderExpended = () => {
+    const new_expended = parseInt(this.state.used_slots, 10) >= parseInt(this.state.total_slots, 10) ? '0' : (parseInt(this.state.used_slots, 10) + 1) + '';
+    return (
+      <Tooltip content='Click to increment' position={Position.TOP}>
+        <span className='char-sheet-spell-header-editable' onClick={() => this.saveIncrement(new_expended)}>
+          { this.state.used_slots !== null && this.state.used_slots !== '' ? this.state.used_slots : '0' }
+        </span>
+      </Tooltip>
+    );
+  }
+
   renderSelectSpellModal = () => {
     return (
       <Dialog isOpen={this.state.select_dialog_open} onClose={this.toggleSelectDialog} title={'Find Level ' + this.props.level + ' Spell'}>
@@ -349,6 +352,21 @@ export default class SpellcastingSpellList extends Component {
     api.updateCharacter({ id: this.props.character.id, spells: this.props.character.spells }, (success, response) => {
       if (success) {
         this.setState({ [editing]: false, [initial]: this.state[current] });
+        this.showSuccessToast();
+      }
+      else
+        this.showErrorToast();
+    });
+  }
+
+  saveIncrement = (new_value) => {
+    const edited_spell_slot = _.find(this.props.character.spells, { id: this.props.level });
+    edited_spell_slot.slots_used = new_value;
+
+    api.updateCharacter({ id: this.props.character.id, spells: this.props.character.spells }, (success, response) => {
+      if (success) {
+        this.setState({ used_slots: new_value });
+        this.setState({ new_used_slots: new_value });
         this.showSuccessToast();
       }
       else

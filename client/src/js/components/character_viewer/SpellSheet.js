@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
+import { Button, Position, Toaster, Intent } from '@blueprintjs/core';
 import api from '../../lib/api';
 import utils from '../../lib/utils';
 import CustomDropdownToggler from '../CustomDropdownToggler';
@@ -12,7 +13,8 @@ export default class SpellSheet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      all_spells: []
+      all_spells: [],
+      resting: false
     }
   }
 
@@ -36,6 +38,8 @@ export default class SpellSheet extends Component {
 
     return (
       <Grid stackable>
+
+        <Button intent={null} onClick={this.rest} loading={this.state.resting}>Complete Rest</Button>
 
         <Grid.Row centered>
           <Grid.Column width={5}>
@@ -131,5 +135,44 @@ export default class SpellSheet extends Component {
 
       </Grid>
     );
+  }
+
+  rest = () => {
+    this.setState({ resting: true });
+    const spells = _.cloneDeep(this.props.character.spells);
+
+    _.each(spells, (spell, index) => {
+      spell.slots_used = '0';
+    });
+
+    api.updateCharacter({ id: this.props.character.id, spells: spells }, (success, response) => {
+      if (success) {
+        _.each(this.props.character.spells, (spell, index) => {
+          spell.slots_used = '0';
+        });
+        this.showSuccessToast();
+      }
+      else
+        this.showErrorToast();
+      this.setState({ resting: false });
+    });
+  }
+
+  showErrorToast = () => {
+    Toaster.create().show({
+      message: 'Failed to update',
+      position: Position.TOP_CENTER,
+      intent: Intent.DANGER,
+      timeout: 2000
+    });
+  }
+
+  showSuccessToast = () => {
+    Toaster.create().show({
+      message: 'Successfully Updated',
+      position: Position.TOP_CENTER,
+      intent: Intent.SUCCESS,
+      timeout: 2000
+    });
   }
 }
