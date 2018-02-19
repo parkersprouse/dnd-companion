@@ -39,7 +39,12 @@ export default class SpellSheet extends Component {
     return (
       <Grid stackable>
 
-        <Button intent={null} onClick={this.rest} loading={this.state.resting}>Complete Rest</Button>
+        <div className='text-right' style={{ width: '100%' }}>
+          <Button intent={Intent.PRIMARY} className='pt-minimal'
+                  onClick={this.rest}
+                  loading={this.state.resting}>
+          Complete Rest</Button>
+        </div>
 
         <Grid.Row centered>
           <Grid.Column width={5}>

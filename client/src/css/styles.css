@@ -34,10 +34,13 @@
   padding-left: 0.15rem; }
 
 .text-left {
-  text-align: left; }
+  text-align: left !important; }
 
 .text-center {
   text-align: center !important; }
+
+.text-right {
+  text-align: right !important; }
 
 /* Searchable dropdown customs */
 .searcher > div > span > div {
