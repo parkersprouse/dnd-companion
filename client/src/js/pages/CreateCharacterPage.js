@@ -80,6 +80,9 @@ export default class CreateCharacterPage extends Component {
     data.weapons = this.formatItems(data, 'weapons');
     data.armor = this.formatItems(data, 'armor');
 
+    if (!data.languages) data.languages = [];
+    if (!data.proficiencies) data.proficiencies = [];
+
     data.ability_scores = this.formatAbilityScores(data);
     data.spells = this.formatSpells();
     data.death_saves = { success: 0, failed: 0 };

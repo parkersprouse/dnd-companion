@@ -6,14 +6,10 @@ import utils from '../lib/utils';
 export default class Header extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isLoggedIn: null,
       isOpen: false
     }
-
-    this.configureDesktopMenu = this.configureDesktopMenu.bind(this);
-    this.configureMobileMenu = this.configureMobileMenu.bind(this);
   }
 
   componentWillMount() {
@@ -27,7 +23,17 @@ export default class Header extends Component {
     });
   }
 
-  configureDesktopMenu() {
+  render() {
+    let menu = null;
+    if (utils.isMobile())
+      menu = this.configureMobileMenu();
+    else
+      menu = this.configureDesktopMenu();
+
+    return menu;
+  }
+
+  configureDesktopMenu = () => {
     const userDropdown =
       <Menu>
         <MenuItem text='Settings' iconName='cog' href='/profile' shouldDismissPopover={false} />
@@ -68,33 +74,36 @@ export default class Header extends Component {
       }
     }
 
-    this.menu = (
+    return (
       <div className='heading'>
         <Navbar>
-          <Container>
-            <NavbarGroup>
-              <AnchorButton href='/' className='pt-minimal' iconName='home'>Home</AnchorButton>
-              { this.state.isLoggedIn ?
-                <Popover content={charDropdown} position={Position.BOTTOM}
+          {
+            this.state.isLoggedIn === null ? null :
+            <Container>
+              <NavbarGroup>
+                <AnchorButton href='/' className='pt-minimal' iconName='home'>Home</AnchorButton>
+                { this.state.isLoggedIn ?
+                  <Popover content={charDropdown} position={Position.BOTTOM}
+                           interactionKind={PopoverInteractionKind.HOVER}
+                           hoverOpenDelay={0} hoverCloseDelay={150}>
+                    <AnchorButton className='pt-minimal' rightIconName='caret-down'>Characters</AnchorButton>
+                  </Popover>
+                : null }
+                <Popover content={infoDropdown} position={Position.BOTTOM}
                          interactionKind={PopoverInteractionKind.HOVER}
                          hoverOpenDelay={0} hoverCloseDelay={150}>
-                  <AnchorButton className='pt-minimal' rightIconName='caret-down'>Characters</AnchorButton>
+                  <AnchorButton className='pt-minimal' rightIconName='caret-down'>Info</AnchorButton>
                 </Popover>
-              : null }
-              <Popover content={infoDropdown} position={Position.BOTTOM}
-                       interactionKind={PopoverInteractionKind.HOVER}
-                       hoverOpenDelay={0} hoverCloseDelay={150}>
-                <AnchorButton className='pt-minimal' rightIconName='caret-down'>Info</AnchorButton>
-              </Popover>
-            </NavbarGroup>
-            { rightSide }
-          </Container>
+              </NavbarGroup>
+              { rightSide }
+            </Container>
+          }
         </Navbar>
       </div>
     );
   }
 
-  configureMobileMenu() {
+  configureMobileMenu = () => {
     let items = null;
 
     if (this.state.isLoggedIn) {
@@ -125,7 +134,7 @@ export default class Header extends Component {
         </Menu>;
     }
 
-    this.menu = (
+    return (
       <div className='heading'>
         <Navbar>
           <div className='container'>
@@ -139,15 +148,6 @@ export default class Header extends Component {
         </Navbar>
       </div>
     );
-  }
-
-  render() {
-    if (utils.isMobile())
-      this.configureMobileMenu();
-    else
-      this.configureDesktopMenu();
-
-    return this.menu;
   }
 
 }
