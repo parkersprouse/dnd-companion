@@ -143,6 +143,8 @@ export default class CustomDropdownToggler extends Component {
         this.setEditing(false);
         if (this.props.setParentState)
           this.props.setParentState({ subrace_filter: item });
+        if (this.props.reactToChange)
+          this.props.reactToChange(item);
       }
       else
         this.showErrorToast();
