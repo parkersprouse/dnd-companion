@@ -8,9 +8,15 @@ const validator = require('validator');
 const Users = require('../models/users');
 
 function getUserBy(req, res, next) {
-  const attr = Object.keys(req.body)[0];
-  const value = attr === 'id' ? req.body[attr] : { $iLike: req.body[attr] };
-  Users.findOne({ where: { [attr]: value } })
+  const data = {};
+  _.each(req.body, (val, index) => {
+    if (typeof val === 'string')
+      data[index] = { $iLike: val };
+    else
+      data[index] = val;
+  });
+
+  Users.findOne({ where: data })
     .then((data) => {
       if (!data)
         res.status(constants.http_not_found)
