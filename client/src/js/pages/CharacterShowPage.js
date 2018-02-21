@@ -4,6 +4,7 @@ import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
 import api from '../lib/api';
+import utils from '../lib/utils';
 import validator from 'validator';
 import SpellSheet from '../components/character_viewer/SpellSheet';
 import DetailsSheet from '../components/character_viewer/DetailsSheet';
@@ -25,11 +26,13 @@ export default class CharacterShowPage extends Component {
     if (!validator.isInt(id))
       this.setState({ character: -1 });
     else
-      api.getCharacter({ id: parseInt(id, 10) }, (success, response) => {
-        if (success)
-          this.setState({ character: response.content[0] });
-        else
-          this.setState({ character: -1 });
+      utils.getCurrentUserInfo((loggedIn, res) => {
+        api.getCharacter({ id: parseInt(id, 10), userid: parseInt(res.id, 10) }, (success, response) => {
+          if (success)
+            this.setState({ character: response.content[0] });
+          else
+            this.setState({ character: -1 });
+        });
       });
   }
 
@@ -102,5 +105,35 @@ export default class CharacterShowPage extends Component {
 
   handleClose = () => {
     this.setState({ show_delete_alert: !this.state.show_delete_alert })
+  }
+
+  // Whenever our proficiency bonus, ability modifiers, or spellcasting class
+  // changes, our spellcasting modifiers need to be updated.
+  // This handles that.
+  updateSpellModifiers = () => {
+    const { ability_scores, proficiency_bonus, spell_class } = this.props.character;
+
+    let ability_modifier = null;
+    switch(spell_class) {
+      case 'Bard':
+      case 'Paladin':
+      case 'Sorcerer':
+      case 'Warlock':
+        ability_modifier = parseInt(ability_scores.charisma.modifier.replace('+', ''), 10);
+        break;
+      case 'Cleric':
+      case 'Druid':
+      case 'Ranger':
+        ability_modifier = parseInt(ability_scores.wisdom.modifier.replace('+', ''), 10);
+        break;
+      case 'Wizard':
+        ability_modifier = parseInt(ability_scores.intelligence.modifier.replace('+', ''), 10);
+        break;
+      default:
+        ability_modifier = 0;
+        break;
+    }
+
+    let proficiency = parseInt(proficiency_bonus, 10);
   }
 }

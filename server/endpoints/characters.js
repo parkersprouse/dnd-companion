@@ -27,9 +27,15 @@ function getCharacters(req, res, next) {
 }
 
 function getCharacterBy(req, res, next) {
-  const attr = Object.keys(req.body)[0];
-  const value = typeof req.body[attr] === 'number' ? req.body[attr] : { $iLike: req.body[attr] };
-  Characters.findAll({ where: { [attr]: value } })
+  const data = {};
+  _.each(req.body, (val, index) => {
+    if (typeof val === 'string')
+      data[index] = { $iLike: val };
+    else
+      data[index] = val;
+  });
+
+  Characters.findAll({ where: data })
     .then((data) => {
       if (!data || data.length === 0)
         res.status(constants.http_not_found)
