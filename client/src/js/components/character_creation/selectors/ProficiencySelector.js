@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, MenuItem } from '@blueprintjs/core';
 import { Select } from '@blueprintjs/labs';
+import _ from 'lodash';
 import api from '../../../lib/api';
 
 export default class ProficiencySelector extends Component {
@@ -16,7 +17,7 @@ export default class ProficiencySelector extends Component {
   componentWillMount() {
     api.getProficiencies((success, response) => {
       if (success)
-        this.setState({ proficiencies: response.content });
+        this.setState({ proficiencies: _.sortBy(response.content, ['name']) });
     });
   }
 

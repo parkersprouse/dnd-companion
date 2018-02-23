@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, MenuItem } from "@blueprintjs/core";
-import { Select } from "@blueprintjs/labs";
-import api from '../../../lib/api';
+import { Button, MenuItem } from '@blueprintjs/core';
+import { Select } from '@blueprintjs/labs';
 import _ from 'lodash';
+import api from '../../../lib/api';
 
 export default class WeaponSelector extends Component {
   constructor(props) {
@@ -17,8 +17,8 @@ export default class WeaponSelector extends Component {
   componentWillMount() {
     api.getEquipment((success, response) => {
       if (success) {
-        const weapons = _.filter(response.content, { equipment_category: "Weapon" });
-        this.setState({ weapons: weapons });
+        const weapons = _.filter(response.content, { equipment_category: 'Weapon' });
+        this.setState({ weapons: _.sortBy(weapons, ['name']) });
       }
     });
   }
@@ -58,7 +58,7 @@ export default class WeaponSelector extends Component {
             } }
             onItemSelect={this.selectWeapon}
             popoverProps={{ minimal: true, placement: 'top' }}
-            noResults={<MenuItem disabled text="No results" />}
+            noResults={<MenuItem disabled text='No results' />}
             resetOnSelect={true}
           >
             <Button className='pt-fill text-left dropdown-btn' rightIconName='caret-down' text={'Choose Weapon'} />

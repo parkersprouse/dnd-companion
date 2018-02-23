@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
+import _ from 'lodash';
 import api from '../../../lib/api';
 
 export default class LanguageSelector extends Component {
@@ -16,7 +17,7 @@ export default class LanguageSelector extends Component {
   componentWillMount() {
     api.getLanguages((success, response) => {
       if (success)
-        this.setState({ languages: response.content });
+        this.setState({ languages: _.sortBy(response.content, ['name']) });
     });
   }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
+import _ from 'lodash';
 import api from '../../../lib/api';
 
 export default class SubraceSelector extends Component {
@@ -17,7 +18,7 @@ export default class SubraceSelector extends Component {
   componentDidMount() {
     api.getSubraces((success, response) => {
       if (success)
-        this.setState({ subraces: response.content, all_subraces: response.content });
+        this.setState({ subraces: _.sortBy(response.content, ['name']), all_subraces: _.sortBy(response.content, ['name']) });
     });
   }
 
@@ -33,7 +34,7 @@ export default class SubraceSelector extends Component {
 
     api.filterSubraces({ race: { name: this.props.rootState.race } }, (success, response) => {
       if (success) {
-        this.setState({ subraces: response.content });
+        this.setState({ subraces: _.sortBy(response.content, ['name']) });
         this.props.setRootState({ subrace: null });
         this.loading = false;
       }

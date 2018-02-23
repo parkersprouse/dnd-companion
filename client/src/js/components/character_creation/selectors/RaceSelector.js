@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
+import _ from 'lodash';
 import api from '../../../lib/api';
 
 export default class RaceSelector extends Component {
@@ -15,7 +16,7 @@ export default class RaceSelector extends Component {
   componentDidMount() {
     api.getRaces((success, response) => {
       if (success)
-        this.setState({ races: response.content });
+        this.setState({ races: _.sortBy(response.content, ['name']) });
     });
   }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select } from "@blueprintjs/labs";
+import _ from 'lodash';
 import api from '../../../lib/api';
 
 export default class ClassSelector extends Component {
@@ -15,7 +16,7 @@ export default class ClassSelector extends Component {
   componentDidMount() {
     api.getClasses((success, response) => {
       if (success)
-        this.setState({ classes: response.content });
+        this.setState({ classes: _.sortBy(response.content, ['name']) });
     });
   }
 

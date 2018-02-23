@@ -150,13 +150,6 @@
 	"races": [],
 	"url": "/api/db/proficiencies/16"
 }, {
-	"index": 17,
-	"type": "Armor",
-	"name": "Shield",
-	"classes": [],
-	"races": [],
-	"url": "/api/db/proficiencies/17"
-}, {
 	"index": 18,
 	"type": "Armor",
 	"name": "Shields",
@@ -720,14 +713,14 @@
 }, {
 	"index": 75,
 	"type": "Artisan's Tools",
-	"name": "Disguise kit",
+	"name": "Disguise Kit",
 	"classes": [],
 	"races": [],
 	"url": "/api/db/proficiencies/75"
 }, {
 	"index": 76,
 	"type": "Artisan's Tools",
-	"name": "Forgery kit",
+	"name": "Forgery Kit",
 	"classes": [],
 	"races": [],
 	"url": "/api/db/proficiencies/76"
@@ -829,20 +822,6 @@
 	"classes": [],
 	"races": [],
 	"url": "/api/db/proficiencies/90"
-}, {
-	"index": 91,
-	"type": "Other",
-	"name": "Disguise Kit",
-	"classes": [],
-	"races": [],
-	"url": "/api/db/proficiencies/91"
-}, {
-	"index": 92,
-	"type": "Other",
-	"name": "Forgery Kit",
-	"classes": [],
-	"races": [],
-	"url": "/api/db/proficiencies/92"
 }, {
 	"index": 93,
 	"type": "Other",

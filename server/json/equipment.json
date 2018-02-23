@@ -3645,7 +3645,7 @@
 		"quantity": 60,
 		"unit": "gp"
 	},
-	"weight": 50,
+	"weight": 40,
 	"desc": ["A military saddle braces the rider, helping you keep your seat on an active mount in battle. It gives you advantage on any check you make to remain mounted. An exotic saddle is required for riding any aquatic or flying mount."],
 	"url": "/api/db/equipment/218"
 }, {
@@ -3674,7 +3674,7 @@
 	"url": "/api/db/equipment/220"
 }, {
 	"index": 221,
-	"name": "Riding",
+	"name": "Saddle, Riding",
 	"equipment_category": "Mounts and Vehicles",
 	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
 	"cost": {
@@ -3872,50 +3872,6 @@
 	"desc": ["Barding is armor designed to protect an animal’s head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."],
 	"url": "/api/db/equipment/237"
 }, {
-	"index": 238,
-	"name": "Bit and bridle",
-	"equipment_category": "Mounts and Vehicles",
-	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
-	"cost": {
-		"quantity": 2,
-		"unit": "gp"
-	},
-	"weight": 0,
-	"url": "/api/db/equipment/238"
-}, {
-	"index": 239,
-	"name": "Carriage",
-	"equipment_category": "Mounts and Vehicles",
-	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
-	"cost": {
-		"quantity": 100,
-		"unit": "gp"
-	},
-	"weight": 60,
-	"url": "/api/db/equipment/239"
-}, {
-	"index": 240,
-	"name": "Cart",
-	"equipment_category": "Mounts and Vehicles",
-	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
-	"cost": {
-		"quantity": 15,
-		"unit": "gp"
-	},
-	"weight": 20,
-	"url": "/api/db/equipment/240"
-}, {
-	"index": 241,
-	"name": "Chariot",
-	"equipment_category": "Mounts and Vehicles",
-	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
-	"cost": {
-		"quantity": 250,
-		"unit": "gp"
-	},
-	"weight": 10,
-	"url": "/api/db/equipment/241"
-}, {
 	"index": 242,
 	"name": "Animal Feed (1 day)",
 	"equipment_category": "Mounts and Vehicles",
@@ -3926,97 +3882,6 @@
 	},
 	"weight": 1,
 	"url": "/api/db/equipment/242"
-}, {
-	"index": 243,
-	"name": "Saddle, Exotic",
-	"equipment_category": "Mounts and Vehicles",
-	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
-	"cost": {
-		"quantity": 60,
-		"unit": "gp"
-	},
-	"weight": 50,
-	"desc": ["A military saddle braces the rider, helping you keep your seat on an active mount in battle. It gives you advantage on any check you make to remain mounted. An exotic saddle is required for riding any aquatic or flying mount."],
-	"url": "/api/db/equipment/243"
-}, {
-	"index": 244,
-	"name": "Saddle, Military",
-	"equipment_category": "Mounts and Vehicles",
-	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
-	"cost": {
-		"quantity": 20,
-		"unit": "gp"
-	},
-	"weight": 30,
-	"desc": ["A military saddle braces the rider, helping you keep your seat on an active mount in battle. It gives you advantage on any check you make to remain mounted. An exotic saddle is required for riding any aquatic or flying mount."],
-	"url": "/api/db/equipment/244"
-}, {
-	"index": 245,
-	"name": "Saddle, Pack",
-	"equipment_category": "Mounts and Vehicles",
-	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
-	"cost": {
-		"quantity": 5,
-		"unit": "gp"
-	},
-	"weight": 15,
-	"desc": ["A military saddle braces the rider, helping you keep your seat on an active mount in battle. It gives you advantage on any check you make to remain mounted. An exotic saddle is required for riding any aquatic or flying mount."],
-	"url": "/api/db/equipment/245"
-}, {
-	"index": 246,
-	"name": "Riding",
-	"equipment_category": "Mounts and Vehicles",
-	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
-	"cost": {
-		"quantity": 10,
-		"unit": "gp"
-	},
-	"weight": 2,
-	"url": "/api/db/equipment/246"
-}, {
-	"index": 247,
-	"name": "Saddlebags",
-	"equipment_category": "Mounts and Vehicles",
-	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
-	"cost": {
-		"quantity": 4,
-		"unit": "gp"
-	},
-	"weight": 0,
-	"url": "/api/db/equipment/247"
-}, {
-	"index": 248,
-	"name": "Sled",
-	"equipment_category": "Mounts and Vehicles",
-	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
-	"cost": {
-		"quantity": 20,
-		"unit": "gp"
-	},
-	"weight": 30,
-	"url": "/api/db/equipment/248"
-}, {
-	"index": 249,
-	"name": "Stabling (1 day)",
-	"equipment_category": "Mounts and Vehicles",
-	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
-	"cost": {
-		"quantity": 5,
-		"unit": "sp"
-	},
-	"weight": 0,
-	"url": "/api/db/equipment/249"
-}, {
-	"index": 250,
-	"name": "Wagon",
-	"equipment_category": "Mounts and Vehicles",
-	"vehicle_category": "Tack, Harness, and Drawn Vehicles",
-	"cost": {
-		"quantity": 35,
-		"unit": "gp"
-	},
-	"weight": 40,
-	"url": "/api/db/equipment/250"
 }, {
 	"index": 251,
 	"name": "Galley",
