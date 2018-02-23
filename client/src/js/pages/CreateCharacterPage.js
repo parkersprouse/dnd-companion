@@ -103,13 +103,20 @@ export default class CreateCharacterPage extends Component {
     return item.toLowerCase().replace(/ /g, '_');
   }
 
+  descLabel = (item) => {
+    return this.amountLabel(item) + '_desc';
+  }
+
   formatItems = (data, items) => {
     if (data[items] && data[items].length > 0) {
       const newItems = [];
       _.each(data[items], (item) => {
         const amount_value = this.state[this.amountLabel(item)];
-        const amount = validator.isNumeric(amount_value + '') && parseInt(amount_value, 10) > 0 ? amount_value : 1;
-        newItems.push({ name: item, amount: amount });
+        const amount = validator.isNumeric(amount_value + '') && parseInt(amount_value, 10) > 0 ? parseInt(amount_value, 10) : 1;
+        const item_data = { name: item, amount: amount };
+        if (this.state[this.descLabel(item)])
+          item_data.desc = this.state[this.descLabel(item)];
+        newItems.push(item_data);
       });
       return newItems;
     }

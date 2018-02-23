@@ -43,6 +43,10 @@ export default class EquipmentPanel extends Component {
     return equipment.toLowerCase().replace(/ /g, '_');
   }
 
+  descLabel = (equipment) => {
+    return this.amountLabel(equipment) + '_desc';
+  }
+
   handleValueChange = (value, name) => {
     this.props.setRootState({ [name]: value });
   }
@@ -54,12 +58,25 @@ export default class EquipmentPanel extends Component {
         equipmentList.push(
           <li key={index} className='pt-tree-node'>
             <div className='pt-tree-node-content'>
-              <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{equip}</span>
+              <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>
+                <Popover position={Position.TOP}>
+                  <span style={{ cursor: 'pointer' }}>{equip}</span>
+                  <div className='item-amount-popover'>
+                    <span>Custom Description:</span>
+                    <textarea name={this.descLabel(equip)} rows='4'
+                              value={this.props.rootState[this.descLabel(equip)]}
+                              className='pt-input pt-fill' type='text'
+                              onChange={(event) => this.props.setRootState({ [event.target.name]: event.target.value })}
+                              style={{ marginTop: '0.25rem' }}>
+                    </textarea>
+                  </div>
+                </Popover>
+              </span>
               <span className='pt-tree-node-secondary-label'>
                 <Popover position={Position.TOP}>
                   <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(equip)]}</span>
                   <div className='item-amount-popover'>
-                    <span>Enter Amount:</span>
+                    <span>Amount:</span>
                     <NumericInput value={this.props.rootState[this.amountLabel(equip)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(equip))} min={1} className='pt-fill' />
                   </div>
                 </Popover>

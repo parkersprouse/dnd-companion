@@ -27,13 +27,6 @@ export default class EquipmentSelector extends Component {
   selectEquipment = (selected) => {
     if (this.props.rootState.equipment && this.props.rootState.equipment.indexOf(selected.name) > -1) return;
     this.props.addEquipment(selected.name);
-    // let index = null;
-    // this.state.equipment.forEach((ele, i) => {
-    //   if (ele.name === selected.name) index = i;
-    // });
-    // if (index)
-    //   this.state.equipment.splice(index, 1);
-    // this.forceUpdate();
   }
 
   render() {

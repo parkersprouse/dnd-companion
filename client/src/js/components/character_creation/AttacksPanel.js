@@ -62,6 +62,10 @@ export default class AttacksPanel extends Component {
     return equipment.toLowerCase().replace(/ /g, '_');
   }
 
+  descLabel = (equipment) => {
+    return this.amountLabel(equipment) + '_desc';
+  }
+
   handleValueChange = (value, name) => {
     this.props.setRootState({ [name]: value });
   }
@@ -75,12 +79,25 @@ export default class AttacksPanel extends Component {
         weaponList.push(
           <li key={index} className='pt-tree-node'>
             <div className='pt-tree-node-content'>
-              <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{weapon}</span>
+              <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>
+                <Popover position={Position.TOP}>
+                  <span style={{ cursor: 'pointer' }}>{weapon}</span>
+                  <div className='item-amount-popover'>
+                    <span>Custom Description:</span>
+                    <textarea name={this.descLabel(weapon)} rows='4'
+                              value={this.props.rootState[this.descLabel(weapon)]}
+                              className='pt-input pt-fill' type='text'
+                              onChange={(event) => this.props.setRootState({ [event.target.name]: event.target.value })}
+                              style={{ marginTop: '0.25rem' }}>
+                    </textarea>
+                  </div>
+                </Popover>
+              </span>
               <span className='pt-tree-node-secondary-label'>
                 <Popover position={Position.TOP}>
                   <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(weapon)]}</span>
                   <div className='item-amount-popover'>
-                    <span>Enter Amount:</span>
+                    <span>Amount:</span>
                     <NumericInput value={this.props.rootState[this.amountLabel(weapon)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(weapon))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
@@ -99,12 +116,25 @@ export default class AttacksPanel extends Component {
         armorList.push(
           <li key={index} className='pt-tree-node'>
             <div className='pt-tree-node-content'>
-              <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{armor}</span>
+              <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>
+                <Popover position={Position.TOP}>
+                  <span style={{ cursor: 'pointer' }}>{armor}</span>
+                  <div className='item-amount-popover'>
+                    <span>Custom Description:</span>
+                    <textarea name={this.descLabel(armor)} rows='4'
+                              value={this.props.rootState[this.descLabel(armor)]}
+                              className='pt-input pt-fill' type='text'
+                              onChange={(event) => this.props.setRootState({ [event.target.name]: event.target.value })}
+                              style={{ marginTop: '0.25rem' }}>
+                    </textarea>
+                  </div>
+                </Popover>
+              </span>
               <span className='pt-tree-node-secondary-label'>
                 <Popover position={Position.TOP}>
                   <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(armor)]}</span>
                   <div className='item-amount-popover'>
-                    <span>Enter Amount:</span>
+                    <span>Amount:</span>
                     <NumericInput value={this.props.rootState[this.amountLabel(armor)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(armor))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
