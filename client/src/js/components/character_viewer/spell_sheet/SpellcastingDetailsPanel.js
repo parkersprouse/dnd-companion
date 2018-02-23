@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Tooltip, Position } from '@blueprintjs/core';
-import InputToggler from '../../InputToggler';
 
 export default class SpellcastingDetailsPanel extends Component {
   render() {

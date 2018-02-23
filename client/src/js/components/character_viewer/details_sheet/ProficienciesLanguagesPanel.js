@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
 import ProficienciesList from './ProficienciesList';
 import LanguagesList from './LanguagesList';
 
@@ -7,9 +6,9 @@ export default class ProficienciesLanguagesPanel extends Component {
   render() {
     return (
       <div>
-        <ProficienciesList character={this.props.character} />
+        <ProficienciesList character={this.props.character} setRootState={this.props.setRootState} />
         <hr />
-        <LanguagesList character={this.props.character} />
+        <LanguagesList character={this.props.character} setRootState={this.props.setRootState} />
       </div>
     );
   }

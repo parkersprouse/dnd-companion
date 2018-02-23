@@ -6,7 +6,6 @@ import api from '../../../lib/api';
 
 export default class LanguagesList extends Component {
   render() {
-    console.log(this.props.character)
     return (
       <div className='pt-form-group' style={{ marginBottom: '0' }}>
         <div className='pt-form-content searcher'>
@@ -25,6 +24,8 @@ export default class LanguagesList extends Component {
       if (success) {
         this.showSuccessToast();
         this.forceUpdate();
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
       }
       else
         this.showErrorToast();
@@ -38,6 +39,8 @@ export default class LanguagesList extends Component {
       if (success) {
         this.showSuccessToast();
         this.forceUpdate();
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
       }
       else
         this.showErrorToast();

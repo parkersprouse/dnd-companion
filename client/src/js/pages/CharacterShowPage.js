@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Tab2, Tabs2, Button, Intent, Toaster, Alert, Position, NonIdealState } from '@blueprintjs/core';
+import _ from 'lodash';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
@@ -55,10 +56,10 @@ export default class CharacterShowPage extends Component {
         <Header />
         <InnerContainer>
           <Tabs2 id='CharacterTabs'>
-            <Tab2 id='details' title='Details' panel={<DetailsSheet character={this.state.character} />} />
-            <Tab2 id='spells' title='Spells' panel={<SpellSheet character={this.state.character} />} />
-            <Tab2 id='additional' title='Additional Info' panel={<AdditionalInfoSheet character={this.state.character} />} />
-            <Tab2 id='notes' title='Notes' panel={<NotesSheet character={this.state.character} />} />
+            <Tab2 id='details' title='Details' panel={<DetailsSheet character={this.state.character} setRootState={this.setRootState} />} />
+            <Tab2 id='spells' title='Spells' panel={<SpellSheet character={this.state.character} setRootState={this.setRootState} />} />
+            <Tab2 id='additional' title='Additional Info' panel={<AdditionalInfoSheet character={this.state.character} setRootState={this.setRootState} />} />
+            <Tab2 id='notes' title='Notes' panel={<NotesSheet character={this.state.character} setRootState={this.setRootState} />} />
             <Tabs2.Expander />
           </Tabs2>
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
@@ -107,12 +108,27 @@ export default class CharacterShowPage extends Component {
     this.setState({ show_delete_alert: !this.state.show_delete_alert })
   }
 
+  setRootState = (state) => {
+    // The best way to freeze an object in time is the following
+    const previous = JSON.parse(JSON.stringify(this.state.character));
+    const current = JSON.parse(JSON.stringify(state.character));
+
+    if (previous.proficiency_bonus !== current.proficiency_bonus ||
+        previous.spell_class !== current.spell_class ||
+        !_.isEqual(previous.ability_scores, current.ability_scores)) {
+      this.updateSpellModifiers(current);
+    }
+
+    this.setState(state);
+  }
+
   // Whenever our proficiency bonus, ability modifiers, or spellcasting class
   // changes, our spellcasting modifiers need to be updated.
   // This handles that.
-  updateSpellModifiers = () => {
-    const { ability_scores, proficiency_bonus, spell_class } = this.props.character;
+  updateSpellModifiers = (char) => {
+    const { ability_scores, proficiency_bonus, spell_class } = char;
 
+    const proficiency = parseInt(proficiency_bonus, 10);
     let ability_modifier = null;
     switch(spell_class) {
       case 'Bard':
@@ -134,6 +150,16 @@ export default class CharacterShowPage extends Component {
         break;
     }
 
-    let proficiency = parseInt(proficiency_bonus, 10);
+    api.updateCharacter({
+      id: char.id,
+      spell_ability: ability_modifier,
+      spell_save_dc: 8 + ability_modifier + proficiency,
+      spell_atk_bonus: ability_modifier + proficiency
+    }, (success, response) => {
+      if (success)
+        this.setState({ character: response.content });
+      else
+        console.log(response);
+    });
   }
 }

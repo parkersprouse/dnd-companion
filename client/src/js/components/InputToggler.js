@@ -62,6 +62,8 @@ export default class InputToggler extends Component {
       if (success) {
         this.showSuccessToast();
         this.setEditing(false);
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
       }
       else
         this.showErrorToast();

@@ -5,13 +5,17 @@ export default class PersonalityPanel extends Component {
   render() {
     return (
       <div>
-        <TextareaToggler character={this.props.character} name='personality' label='Personality Traits' />
+        <TextareaToggler character={this.props.character} setRootState={this.props.setRootState}
+                         name='personality' label='Personality Traits' />
         <hr />
-        <TextareaToggler character={this.props.character} name='ideals' label='Ideals' />
+        <TextareaToggler character={this.props.character} setRootState={this.props.setRootState}
+                         name='ideals' label='Ideals' />
         <hr />
-        <TextareaToggler character={this.props.character} name='bonds' label='Bonds' />
+        <TextareaToggler character={this.props.character} setRootState={this.props.setRootState}
+                         name='bonds' label='Bonds' />
         <hr />
-        <TextareaToggler character={this.props.character} name='flaws' label='Flaws' />
+        <TextareaToggler character={this.props.character} setRootState={this.props.setRootState}
+                         name='flaws' label='Flaws' />
       </div>
     );
   }

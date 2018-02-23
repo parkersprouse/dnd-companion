@@ -58,10 +58,12 @@ export default class TextareaToggler extends Component {
 
   save = () => {
     this.setState({ saving: true });
-    api.updateCharacter({ id: this.props.character.id, [this.props.name]: this.state[this.props.name] }, (success) => {
+    api.updateCharacter({ id: this.props.character.id, [this.props.name]: this.state[this.props.name] }, (success, response) => {
       if (success) {
         this.showSuccessToast();
         this.setEditing(false);
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
       }
       else
         this.showErrorToast();

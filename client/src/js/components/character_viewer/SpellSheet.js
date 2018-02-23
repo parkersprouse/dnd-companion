@@ -50,8 +50,8 @@ export default class SpellSheet extends Component {
           <Grid.Column width={5}>
             <div className='pt-card'>
               <CustomDropdownToggler character={this.props.character}
-                                     api='classes'
-                                     name='spell_class'
+                                     setRootState={this.props.setRootState}
+                                     api='classes' name='spell_class'
                                      label='Spellcasting Class' />
             </div>
           </Grid.Column>
@@ -66,12 +66,14 @@ export default class SpellSheet extends Component {
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingCantripList character={this.props.character}
+                                       setRootState={this.props.setRootState}
                                        all_spells={this.state.all_spells} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingSpellList level={level_order[0]}
+                                     setRootState={this.props.setRootState}
                                      character={this.props.character}
                                      all_spells={this.state.all_spells} />
             </div>
@@ -79,6 +81,7 @@ export default class SpellSheet extends Component {
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingSpellList level={level_order[1]}
+                                     setRootState={this.props.setRootState}
                                      character={this.props.character}
                                      all_spells={this.state.all_spells} />
             </div>
@@ -89,6 +92,7 @@ export default class SpellSheet extends Component {
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingSpellList level={level_order[2]}
+                                     setRootState={this.props.setRootState}
                                      character={this.props.character}
                                      all_spells={this.state.all_spells} />
             </div>
@@ -96,6 +100,7 @@ export default class SpellSheet extends Component {
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingSpellList level={level_order[3]}
+                                     setRootState={this.props.setRootState}
                                      character={this.props.character}
                                      all_spells={this.state.all_spells} />
             </div>
@@ -103,6 +108,7 @@ export default class SpellSheet extends Component {
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingSpellList level={level_order[4]}
+                                     setRootState={this.props.setRootState}
                                      character={this.props.character}
                                      all_spells={this.state.all_spells} />
             </div>
@@ -113,6 +119,7 @@ export default class SpellSheet extends Component {
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingSpellList level={level_order[5]}
+                                     setRootState={this.props.setRootState}
                                      character={this.props.character}
                                      all_spells={this.state.all_spells} />
             </div>
@@ -120,6 +127,7 @@ export default class SpellSheet extends Component {
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingSpellList level={level_order[6]}
+                                     setRootState={this.props.setRootState}
                                      character={this.props.character}
                                      all_spells={this.state.all_spells} />
             </div>
@@ -127,11 +135,13 @@ export default class SpellSheet extends Component {
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingSpellList level={level_order[7]}
+                                     setRootState={this.props.setRootState}
                                      character={this.props.character}
                                      all_spells={this.state.all_spells} />
             </div>
             <div className='pt-card' style={{ marginTop: '2rem' }}>
               <SpellcastingSpellList level={level_order[8]}
+                                     setRootState={this.props.setRootState}
                                      character={this.props.character}
                                      all_spells={this.state.all_spells} />
             </div>
@@ -156,6 +166,8 @@ export default class SpellSheet extends Component {
           spell.slots_used = '0';
         });
         this.showSuccessToast();
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
       }
       else
         this.showErrorToast();

@@ -15,12 +15,13 @@ export default class DetailsSheet extends Component {
         <Grid.Row>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              <InputToggler character={this.props.character} name='name' label='Character Name' />
+              <InputToggler character={this.props.character} setRootState={this.props.setRootState}
+                            name='name' label='Character Name' />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              <ClassRacePanel character={this.props.character} />
+              <ClassRacePanel character={this.props.character} setRootState={this.props.setRootState} />
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -33,7 +34,7 @@ export default class DetailsSheet extends Component {
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <HealthPanel character={this.props.character} />
+              <HealthPanel character={this.props.character} setRootState={this.props.setRootState} />
             </div>
             <div className='pt-card'>
               weapons / armor
@@ -41,10 +42,11 @@ export default class DetailsSheet extends Component {
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <PersonalityPanel character={this.props.character} />
+              <PersonalityPanel character={this.props.character} setRootState={this.props.setRootState} />
             </div>
             <div className='pt-card'>
-              <TextareaToggler character={this.props.character} rows={8} name='features' label='Features & Traits' />
+              <TextareaToggler character={this.props.character} setRootState={this.props.setRootState}
+                               rows={8} name='features' label='Features & Traits' />
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -52,7 +54,7 @@ export default class DetailsSheet extends Component {
         <Grid.Row>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              <ProficienciesLanguagesPanel character={this.props.character} />
+              <ProficienciesLanguagesPanel character={this.props.character} setRootState={this.props.setRootState} />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
