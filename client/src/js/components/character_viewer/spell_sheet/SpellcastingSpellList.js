@@ -123,6 +123,8 @@ export default class SpellcastingSpellList extends Component {
         this.toggleSelectDialog();
         this.showSuccessToast();
         this.setState({ char_spells: _.find(response.content.spells, { id: this.props.level}) });
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
       }
       else
         this.showErrorToast();
@@ -139,6 +141,8 @@ export default class SpellcastingSpellList extends Component {
       if (success) {
         this.showSuccessToast();
         this.setState({ char_spells: _.find(response.content.spells, { id: this.props.level}) });
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
       }
       else
         this.showErrorToast();
@@ -197,6 +201,8 @@ export default class SpellcastingSpellList extends Component {
         if (success) {
           this.showSuccessToast();
           this.setState({ char_spells: _.find(response.content.spells, { id: this.props.level }) });
+          if (this.props.setRootState)
+            this.props.setRootState({ character: response.content });
         }
         else
           this.showErrorToast();
@@ -353,6 +359,8 @@ export default class SpellcastingSpellList extends Component {
       if (success) {
         this.setState({ [editing]: false, [initial]: this.state[current] });
         this.showSuccessToast();
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
       }
       else
         this.showErrorToast();
@@ -365,9 +373,10 @@ export default class SpellcastingSpellList extends Component {
 
     api.updateCharacter({ id: this.props.character.id, spells: this.props.character.spells }, (success, response) => {
       if (success) {
-        this.setState({ used_slots: new_value });
-        this.setState({ new_used_slots: new_value });
+        this.setState({ used_slots: new_value, new_used_slots: new_value });
         this.showSuccessToast();
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
       }
       else
         this.showErrorToast();

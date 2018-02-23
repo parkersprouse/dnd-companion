@@ -11,21 +11,25 @@ export default class AdditionalInfoSheet extends Component {
         <Grid.Row stretched>
           <Grid.Column width={5}>
             <div className='pt-card'>
-              <TextareaToggler character={this.props.character} name='backstory' label='Character Backstory' rows={15} />
+              <TextareaToggler character={this.props.character} setRootState={this.props.setRootState}
+                               name='backstory' label='Character Backstory' rows={15} />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <AppearancePanel character={this.props.character} />
+              <AppearancePanel character={this.props.character} setRootState={this.props.setRootState} />
             </div>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <TextareaToggler character={this.props.character} name='allies' label='Allies & Organizations' />
+              <TextareaToggler character={this.props.character} setRootState={this.props.setRootState}
+                               name='allies' label='Allies & Organizations' />
             </div>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <TextareaToggler character={this.props.character} name='more_features' label='Additional Features & Traits' />
+              <TextareaToggler character={this.props.character} setRootState={this.props.setRootState}
+                               name='more_features' label='Additional Features & Traits' />
             </div>
             <div className='pt-card'>
-              <TextareaToggler character={this.props.character} name='treasure' label='Treasure' />
+              <TextareaToggler character={this.props.character} setRootState={this.props.setRootState}
+                               name='treasure' label='Treasure' />
             </div>
           </Grid.Column>
         </Grid.Row>

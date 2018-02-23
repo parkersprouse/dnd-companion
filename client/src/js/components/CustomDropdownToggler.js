@@ -125,8 +125,10 @@ export default class CustomDropdownToggler extends Component {
       if (success) {
         this.showSuccessToast();
         this.setEditing(false);
-        if (this.props.name === 'race')
+        if (this.props.name === 'race' && this.props.setParentState)
           this.props.setParentState({ subrace_filter: this.state[this.props.name] });
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
       }
       else
         this.showErrorToast();
@@ -145,6 +147,8 @@ export default class CustomDropdownToggler extends Component {
           this.props.setParentState({ subrace_filter: item });
         if (this.props.reactToChange)
           this.props.reactToChange(item);
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
       }
       else
         this.showErrorToast();

@@ -9,7 +9,7 @@ export default class NotesSheet extends Component {
         <Grid.Row>
           <Grid.Column width={15}>
             <div className='pt-card'>
-              <TextareaToggler character={this.props.character} name='notes' rows={20} />
+              <TextareaToggler character={this.props.character} setRootState={this.props.setRootState} name='notes' rows={20} />
             </div>
           </Grid.Column>
         </Grid.Row>

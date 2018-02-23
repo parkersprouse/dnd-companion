@@ -84,6 +84,8 @@ export default class SpellcastingCantripList extends Component {
         this.toggleSelectDialog();
         this.showSuccessToast();
         this.setState({ char_spells: _.find(response.content.spells, { id: 0 }) });
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
       }
       else
         this.showErrorToast();
@@ -133,6 +135,8 @@ export default class SpellcastingCantripList extends Component {
         if (success) {
           this.showSuccessToast();
           this.setState({ char_spells: _.find(response.content.spells, { id: 0 }) });
+          if (this.props.setRootState)
+            this.props.setRootState({ character: response.content });
         }
         else
           this.showErrorToast();
