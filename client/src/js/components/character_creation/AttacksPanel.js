@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Popover, Position, NumericInput } from '@blueprintjs/core';
 import WeaponSelector from './selectors/WeaponSelector';
 import ArmorSelector from './selectors/ArmorSelector';
+import { isMobile } from '../../lib/utils';
 
 export default class AttacksPanel extends Component {
   addWeapon = (weapon) => {
@@ -80,7 +81,7 @@ export default class AttacksPanel extends Component {
           <li key={index} className='pt-tree-node'>
             <div className='pt-tree-node-content'>
               <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>
-                <Popover position={Position.TOP}>
+                <Popover position={isMobile() ? Position.TOP_LEFT : Position.TOP}>
                   <span style={{ cursor: 'pointer' }}>{weapon}</span>
                   <div className='item-amount-popover'>
                     <span>Custom Description:</span>
@@ -94,7 +95,7 @@ export default class AttacksPanel extends Component {
                 </Popover>
               </span>
               <span className='pt-tree-node-secondary-label'>
-                <Popover position={Position.TOP}>
+                <Popover position={isMobile() ? Position.TOP_RIGHT : Position.TOP}>
                   <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(weapon)]}</span>
                   <div className='item-amount-popover'>
                     <span>Amount:</span>
@@ -117,7 +118,7 @@ export default class AttacksPanel extends Component {
           <li key={index} className='pt-tree-node'>
             <div className='pt-tree-node-content'>
               <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>
-                <Popover position={Position.TOP}>
+                <Popover position={isMobile() ? Position.TOP_LEFT : Position.TOP}>
                   <span style={{ cursor: 'pointer' }}>{armor}</span>
                   <div className='item-amount-popover'>
                     <span>Custom Description:</span>
@@ -131,7 +132,7 @@ export default class AttacksPanel extends Component {
                 </Popover>
               </span>
               <span className='pt-tree-node-secondary-label'>
-                <Popover position={Position.TOP}>
+                <Popover position={isMobile() ? Position.TOP_RIGHT : Position.TOP}>
                   <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(armor)]}</span>
                   <div className='item-amount-popover'>
                     <span>Amount:</span>

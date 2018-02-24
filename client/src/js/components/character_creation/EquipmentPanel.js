@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Popover, Position, NumericInput } from '@blueprintjs/core';
 import EquipmentSelector from './selectors/EquipmentSelector';
+import { isMobile } from '../../lib/utils';
 
 export default class EquipmentPanel extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ export default class EquipmentPanel extends Component {
           <li key={index} className='pt-tree-node'>
             <div className='pt-tree-node-content'>
               <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>
-                <Popover position={Position.TOP}>
+                <Popover position={isMobile() ? Position.TOP_LEFT : Position.TOP}>
                   <span style={{ cursor: 'pointer' }}>{equip}</span>
                   <div className='item-amount-popover'>
                     <span>Custom Description:</span>
@@ -73,7 +74,7 @@ export default class EquipmentPanel extends Component {
                 </Popover>
               </span>
               <span className='pt-tree-node-secondary-label'>
-                <Popover position={Position.TOP}>
+                <Popover position={isMobile() ? Position.TOP_RIGHT : Position.TOP}>
                   <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(equip)]}</span>
                   <div className='item-amount-popover'>
                     <span>Amount:</span>
