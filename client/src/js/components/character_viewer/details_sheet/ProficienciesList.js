@@ -61,9 +61,9 @@ export default class ProficienciesList extends Component {
     });
   }
 
-  removeProficiency = (index) => {
+  removeProficiency = (prof) => {
     const profs = this.props.character.proficiencies;
-    profs.splice(index, 1);
+    profs.splice(profs.indexOf(prof), 1);
     api.updateCharacter({ id: this.props.character.id, proficiencies: profs }, (success, response) => {
       if (success) {
         this.showSuccessToast();

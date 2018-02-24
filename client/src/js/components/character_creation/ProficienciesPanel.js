@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import LanguageSelector from './selectors/LanguageSelector';
 import ProficiencySelector from './selectors/ProficiencySelector';
 
@@ -25,26 +26,29 @@ export default class ProficienciesPanel extends Component {
       this.props.setRootState({ languages: [lang] });
   }
 
-  removeProficiency = (index) => {
-    this.props.rootState.proficiencies.splice(index, 1);
-    this.props.setRootState({ proficiencies: this.props.rootState.proficiencies });
+  removeProficiency = (prof) => {
+    const { proficiencies } = this.props.rootState;
+    proficiencies.splice(proficiencies.indexOf(prof), 1);
+    this.props.setRootState({ proficiencies });
   }
 
-  removeLanguage = (index) => {
-    this.props.rootState.languages.splice(index, 1);
-    this.props.setRootState({ languages: this.props.rootState.languages });
+  removeLanguage = (lang) => {
+    const { languages } = this.props.rootState;
+    languages.splice(languages.indexOf(lang), 1);
+    this.props.setRootState({ languages });
   }
 
   render() {
     const profList = [];
     if (this.props.rootState && this.props.rootState.proficiencies) {
-      this.props.rootState.proficiencies.forEach((prof, index) => {
+      const proficiencies = _.sortBy(this.props.rootState.proficiencies, (p) => p);
+      proficiencies.forEach((prof, index) => {
         profList.push(
           <li key={index} className='pt-tree-node'>
             <div className='pt-tree-node-content'>
               <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{prof}</span>
               <span className='pt-tree-node-secondary-label'>
-                <a onClick={() => this.removeProficiency(index)} className='remove-item-btn'>
+                <a onClick={() => this.removeProficiency(prof)} className='remove-item-btn'>
                   <span className='pt-icon-cross'></span>
                 </a>
               </span>
@@ -56,13 +60,14 @@ export default class ProficienciesPanel extends Component {
 
     const langList = [];
     if (this.props.rootState && this.props.rootState.languages) {
-      this.props.rootState.languages.forEach((lang, index) => {
+      const languages = _.sortBy(this.props.rootState.languages, (l) => l);
+      languages.forEach((lang, index) => {
         langList.push(
           <li key={index} className='pt-tree-node'>
             <div className='pt-tree-node-content'>
               <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{lang}</span>
               <span className='pt-tree-node-secondary-label'>
-                <a onClick={() => this.removeLanguage(index)} className='remove-item-btn'>
+                <a onClick={() => this.removeLanguage(lang)} className='remove-item-btn'>
                   <span className='pt-icon-cross'></span>
                 </a>
               </span>

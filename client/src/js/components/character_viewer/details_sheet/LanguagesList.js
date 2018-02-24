@@ -32,9 +32,9 @@ export default class LanguagesList extends Component {
     });
   }
 
-  removeLanguage = (index) => {
+  removeLanguage = (lang) => {
     const langs = this.props.character.languages;
-    langs.splice(index, 1);
+    langs.splice(langs.indexOf(lang), 1);
     api.updateCharacter({ id: this.props.character.id, languages: langs }, (success, response) => {
       if (success) {
         this.showSuccessToast();

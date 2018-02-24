@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Popover, Position, NumericInput } from '@blueprintjs/core';
+import _ from 'lodash';
 import WeaponSelector from './selectors/WeaponSelector';
 import ArmorSelector from './selectors/ArmorSelector';
 import { isMobile } from '../../lib/utils';
@@ -41,22 +42,16 @@ export default class AttacksPanel extends Component {
       });
   }
 
-  removeWeapon = (index) => {
-    const weapon = this.props.rootState.weapons[index];
-    this.props.rootState.weapons.splice(index, 1);
-    this.props.setRootState({
-      weapons: this.props.rootState.weapons,
-      [this.amountLabel(weapon)]: null
-    });
+  removeWeapon = (weapon) => {
+    const { weapons } = this.props.rootState;
+    weapons.splice(weapons.indexOf(weapon), 1);
+    this.props.setRootState({ weapons });
   }
 
-  removeArmor = (index) => {
-    const armor = this.props.rootState.armor[index];
-    this.props.rootState.armor.splice(index, 1);
-    this.props.setRootState({
-      armor: this.props.rootState.armor,
-      [this.amountLabel(armor)]: null
-    });
+  removeArmor = (item) => {
+    const { armor } = this.props.rootState;
+    armor.splice(armor.indexOf(item), 1);
+    this.props.setRootState({ armor });
   }
 
   amountLabel = (equipment) => {
@@ -76,7 +71,8 @@ export default class AttacksPanel extends Component {
     const armorList = [];
 
     if (this.props.rootState && this.props.rootState.weapons) {
-      this.props.rootState.weapons.forEach((weapon, index) => {
+      const weapons = _.sortBy(this.props.rootState.weapons, (w) => w);
+      weapons.forEach((weapon, index) => {
         weaponList.push(
           <li key={index} className='pt-tree-node'>
             <div className='pt-tree-node-content'>
@@ -102,7 +98,7 @@ export default class AttacksPanel extends Component {
                     <NumericInput value={this.props.rootState[this.amountLabel(weapon)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(weapon))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
-                <a onClick={() => this.removeWeapon(index)} className='remove-item-btn'>
+                <a onClick={() => this.removeWeapon(weapon)} className='remove-item-btn'>
                   <span className='pt-icon-cross'></span>
                 </a>
               </span>
@@ -113,7 +109,8 @@ export default class AttacksPanel extends Component {
     }
 
     if (this.props.rootState && this.props.rootState.armor) {
-      this.props.rootState.armor.forEach((armor, index) => {
+      const armor = _.sortBy(this.props.rootState.armor, (a) => a);
+      armor.forEach((armor, index) => {
         armorList.push(
           <li key={index} className='pt-tree-node'>
             <div className='pt-tree-node-content'>
@@ -139,7 +136,7 @@ export default class AttacksPanel extends Component {
                     <NumericInput value={this.props.rootState[this.amountLabel(armor)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(armor))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
-                <a onClick={() => this.removeArmor(index)} className='remove-item-btn'>
+                <a onClick={() => this.removeArmor(armor)} className='remove-item-btn'>
                   <span className='pt-icon-cross'></span>
                 </a>
               </span>

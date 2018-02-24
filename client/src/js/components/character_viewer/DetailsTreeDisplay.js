@@ -5,15 +5,15 @@ export default class DetailsTreeDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: props.content && props.content.length > 0 ? props.content : []
-      //_.sortBy(props.content, (i) => i.name ? i.name : i) : []
+      content: props.content && props.content.length > 0 ?
+      _.sortBy(props.content, (i) => i.name ? i.name : i) : []
     }
   }
 
   componentWillReceiveProps(next_props) {
     this.setState({
-      content: next_props.content && next_props.content.length > 0 ? next_props.content : []
-      //_.sortBy(next_props.content, (i) => i.name ? i.name : i) : []
+      content: next_props.content && next_props.content.length > 0 ?
+      _.sortBy(next_props.content, (i) => i.name ? i.name : i) : []
     });
   }
 
@@ -37,12 +37,13 @@ export default class DetailsTreeDisplay extends Component {
 
   renderContent = () => {
     return _.map(this.state.content, (ele, index) => {
+      console.log(ele + " : " + index)
       return (
         <li key={index} className='pt-tree-node'>
           <div className='pt-tree-node-content'>
             <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>{ele}</span>
             <span className='pt-tree-node-secondary-label'>
-              <a onClick={() => this.props.remove(index)} className='remove-item-btn'>
+              <a onClick={() => this.props.remove(ele)} className='remove-item-btn'>
                 <span className='pt-icon-cross'></span>
               </a>
             </span>

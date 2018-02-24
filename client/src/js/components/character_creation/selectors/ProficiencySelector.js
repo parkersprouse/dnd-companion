@@ -9,8 +9,8 @@ export default class ProficiencySelector extends Component {
     super(props);
     this.state = {
       proficiencies: [],
-      isCustom: false,
-      tempProficiency: ''
+      is_custom: false,
+      temp_proficiency: ''
     };
   }
 
@@ -25,18 +25,18 @@ export default class ProficiencySelector extends Component {
   }
 
   swap = () => {
-    this.setState({ isCustom: !this.state.isCustom });
+    this.setState({ is_custom: !this.state.is_custom });
   }
 
   render() {
-    if (this.state.isCustom) {
+    if (this.state.is_custom) {
       return (
         <div style={{ marginTop: '0.5rem' }}>
           <div className='pt-control-group pt-fill'>
-            <input name='tempProficiency' value={this.state.tempProficiency} className='pt-input pt-fill' type='text'
+            <input name='temp_proficiency' value={this.state.temp_proficiency} className='pt-input pt-fill' type='text'
                    onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
             <button className='pt-button pt-intent-primary pt-fixed' type='button'
-                    onClick={() => { this.setState({ tempProficiency: '' }); this.props.addProficiency(this.state.tempProficiency); }}>Add</button>
+                    onClick={() => { this.setState({ temp_proficiency: '' }); this.props.addProficiency(this.state.temp_proficiency); }}>Add</button>
           </div>
           <div className='pt-form-helper-text'>Proficiencies (<a onClick={this.swap}>standard</a>)</div>
         </div>

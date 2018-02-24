@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Popover, Position, NumericInput } from '@blueprintjs/core';
+import _ from 'lodash';
 import EquipmentSelector from './selectors/EquipmentSelector';
 import { isMobile } from '../../lib/utils';
 
@@ -31,13 +32,10 @@ export default class EquipmentPanel extends Component {
     }
   }
 
-  removeEquipment = (index) => {
-    const equip = this.props.rootState.equipment[index];
-    this.props.rootState.equipment.splice(index, 1);
-    this.props.setRootState({
-      equipment: this.props.rootState.equipment,
-      [this.amountLabel(equip)]: null
-    });
+  removeEquipment = (equip) => {
+    const { equipment } = this.props.rootState;
+    equipment.splice(equipment.indexOf(equip), 1);
+    this.props.setRootState({ equipment });
   }
 
   amountLabel = (equipment) => {
@@ -55,7 +53,8 @@ export default class EquipmentPanel extends Component {
   render() {
     const equipmentList = [];
     if (this.props.rootState && this.props.rootState.equipment) {
-      this.props.rootState.equipment.forEach((equip, index) => {
+      const equipment = _.sortBy(this.props.rootState.equipment, (e) => e);
+      equipment.forEach((equip, index) => {
         equipmentList.push(
           <li key={index} className='pt-tree-node'>
             <div className='pt-tree-node-content'>
@@ -81,7 +80,7 @@ export default class EquipmentPanel extends Component {
                     <NumericInput value={this.props.rootState[this.amountLabel(equip)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(equip))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
-                <a onClick={() => this.removeEquipment(index)} className='remove-item-btn'>
+                <a onClick={() => this.removeEquipment(equip)} className='remove-item-btn'>
                   <span className='pt-icon-cross'></span>
                 </a>
               </span>
