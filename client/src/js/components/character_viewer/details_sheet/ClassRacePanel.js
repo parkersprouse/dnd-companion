@@ -23,7 +23,6 @@ export default class ClassRacePanel extends Component {
   }
 
   render() {
-    this.filterSubraces();
     return (
       <Grid stackable centered>
 
@@ -77,13 +76,14 @@ export default class ClassRacePanel extends Component {
 
   setParentState = (state) => {
     this.setState(state);
+    this.filterSubraces(state);
   }
 
-  filterSubraces = () => {
-    if (!this.state.subrace_filter || this.loading) return;
+  filterSubraces = (state) => {
+    if (!state.subrace_filter || this.loading) return;
     this.loading = true;
 
-    api.filterSubraces({ race: { name: this.state.subrace_filter } }, (success, response) => {
+    api.filterSubraces({ race: { name: state.subrace_filter } }, (success, response) => {
       this.setState({ subrace_options: success ? response.content : [] });
       this.loading = false;
     });

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import InputToggler from '../../InputToggler';
+import DeathSavesCounter from './DeathSavesCounter';
 
 export default class HealthPanel extends Component {
   render() {
@@ -43,14 +44,7 @@ export default class HealthPanel extends Component {
                           name='hit_dice' label='Hit Dice' />
           </Grid.Column>
           <Grid.Column width={10} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
-            death saves are difficult
-            {/*<DeathSavesSliders character={this.props.character} />*/}
-            {/*<RadioGroup inline>
-                <Radio label={null} value="one" />
-                <Radio label={null} value="two" />
-                <Radio label={null} value="three" />
-                <Radio label={null} value="three" />
-            </RadioGroup>*/}
+            <DeathSavesCounter character={this.props.character} setRootState={this.props.setRootState} />
           </Grid.Column>
         </Grid.Row>
 
