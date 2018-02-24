@@ -6,6 +6,7 @@ import PersonalityPanel from './details_sheet/PersonalityPanel';
 import HealthPanel from './details_sheet/HealthPanel';
 import ClassRacePanel from './details_sheet/ClassRacePanel';
 import ProficienciesLanguagesPanel from './details_sheet/ProficienciesLanguagesPanel';
+import EquipmentPanel from './details_sheet/EquipmentPanel';
 
 export default class DetailsSheet extends Component {
   render() {
@@ -59,7 +60,7 @@ export default class DetailsSheet extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              equipment
+              <EquipmentPanel character={this.props.character} setRootState={this.props.setRootState} />
             </div>
           </Grid.Column>
         </Grid.Row>
