@@ -15,10 +15,13 @@ export default class ProficiencySelector extends Component {
   }
 
   componentWillMount() {
-    api.getProficiencies((success, response) => {
-      if (success)
-        this.setState({ proficiencies: _.sortBy(response.content, ['name']) });
-    });
+    if (this.props.options)
+      this.setState({ proficiencies: _.sortBy(this.props.options, ['name']) });
+    else
+      api.getProficiencies((success, response) => {
+        if (success)
+          this.setState({ proficiencies: _.sortBy(response.content, ['name']) });
+      });
   }
 
   swap = () => {

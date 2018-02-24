@@ -5,15 +5,15 @@ export default class DetailsTreeDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: props.content && props.content.length > 0 ?
-      _.sortBy(props.content, (i) => i.name ? i.name : i) : []
+      content: props.content && props.content.length > 0 ? props.content : []
+      //_.sortBy(props.content, (i) => i.name ? i.name : i) : []
     }
   }
 
   componentWillReceiveProps(next_props) {
     this.setState({
-      content: next_props.content && next_props.content.length > 0 ?
-      _.sortBy(next_props.content, (i) => i.name ? i.name : i) : []
+      content: next_props.content && next_props.content.length > 0 ? next_props.content : []
+      //_.sortBy(next_props.content, (i) => i.name ? i.name : i) : []
     });
   }
 
