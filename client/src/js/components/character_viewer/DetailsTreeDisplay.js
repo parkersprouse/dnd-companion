@@ -5,12 +5,16 @@ export default class DetailsTreeDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: props.content && props.content.length > 0 ? props.content : []
+      content: props.content && props.content.length > 0 ?
+      _.sortBy(props.content, (i) => i.name ? i.name : i) : []
     }
   }
 
   componentWillReceiveProps(next_props) {
-    this.setState({ content: next_props.content && next_props.content.length > 0 ? next_props.content : [] });
+    this.setState({
+      content: next_props.content && next_props.content.length > 0 ?
+      _.sortBy(next_props.content, (i) => i.name ? i.name : i) : []
+    });
   }
 
   render() {
@@ -32,7 +36,7 @@ export default class DetailsTreeDisplay extends Component {
   }
 
   renderContent = () => {
-    const content = _.map(this.state.content, (ele, index) => {
+    return _.map(this.state.content, (ele, index) => {
       return (
         <li key={index} className='pt-tree-node'>
           <div className='pt-tree-node-content'>
@@ -46,6 +50,5 @@ export default class DetailsTreeDisplay extends Component {
         </li>
       );
     });
-    return content;
   }
 }
