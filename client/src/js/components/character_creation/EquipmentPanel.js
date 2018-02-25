@@ -14,22 +14,15 @@ export default class EquipmentPanel extends Component {
   }
 
   addEquipment = (equip) => {
-    if (!equip) return;
-
     const rootState = this.props.rootState;
-    if (rootState && rootState.equipment) {
-      rootState.equipment.push(equip);
-      this.props.setRootState({
-        equipment: rootState.equipment,
-        [this.amountLabel(equip)]: 1
-      });
-    }
-    else {
-      this.props.setRootState({
-        equipment: [equip],
-        [this.amountLabel(equip)]: 1
-      });
-    }
+    const equipment = rootState.equipment || [];
+    if (!equip || equipment.indexOf(equip) > -1) return;
+
+    equipment.push(equip);
+    this.props.setRootState({
+      equipment,
+      [this.amountLabel(equip)]: 1
+    });
   }
 
   removeEquipment = (equip) => {
@@ -114,7 +107,7 @@ export default class EquipmentPanel extends Component {
             </div>
           </Grid.Column>
           <Grid.Column width={8}>
-            <div className='pt-form-group' style={{ marginBottom: '1rem' }}>
+            <div className='pt-form-group' style={{ marginBottom: '0.5rem' }}>
               <div className='pt-form-content'>
                 <div className='pt-control-group pt-fill'>
                   <input name='temp_equipment' value={this.state.temp_equipment} className='pt-input pt-fill' type='text'

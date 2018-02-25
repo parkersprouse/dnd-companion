@@ -24,14 +24,9 @@ export default class EquipmentSelector extends Component {
     });
   }
 
-  selectEquipment = (selected) => {
-    if (this.props.rootState.equipment && this.props.rootState.equipment.indexOf(selected.name) > -1) return;
-    this.props.addEquipment(selected.name);
-  }
-
   render() {
     return (
-      <div>
+      <div style={{ marginTop: '0.5rem' }}>
         <Select
           items={this.state.equipment}
           itemPredicate={ (query, selected) => selected.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
@@ -39,7 +34,7 @@ export default class EquipmentSelector extends Component {
             const style = isActive ? 'pt-active pt-intent-primary' : '';
             return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
           } }
-          onItemSelect={this.selectEquipment}
+          onItemSelect={(selected) => this.props.addEquipment(selected.name)}
           popoverProps={{ minimal: true, placement: 'top' }}
           noResults={<MenuItem disabled text='No results' />}
           resetOnSelect={true}

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import InputToggler from '../../InputToggler';
 
 export default class MoneyInputs extends Component {
   render() {
     return (
-      <div>
+      <Fragment>
         <InputToggler character={this.props.character} setRootState={this.props.setRootState}
                       name='platinum' label='Platinum' style={{ paddingBottom: '1.5rem' }} number />
         <InputToggler character={this.props.character} setRootState={this.props.setRootState}
@@ -15,7 +15,7 @@ export default class MoneyInputs extends Component {
                       name='silver' label='Silver' style={{ paddingBottom: '1.5rem' }} number />
         <InputToggler character={this.props.character} setRootState={this.props.setRootState}
                       name='copper' label='Copper' number />
-      </div>
+      </Fragment>
     );
   }
 }
