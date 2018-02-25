@@ -215,3 +215,18 @@ $large-margin: 4rem;
   margin: 0 15px 0 0 !important;
   padding: 0 !important;
 }
+
+.pt-control.pt-checkbox input:checked ~ .death-save-one::before {
+  content: '\0031';
+  font-size: 13px;
+}
+
+.pt-control.pt-checkbox input:checked ~ .death-save-two::before {
+  content: '\0032';
+  font-size: 13px;
+}
+
+.pt-control.pt-checkbox input:checked ~ .death-save-three::before {
+  content: '\0033';
+  font-size: 13px;
+}

@@ -19,15 +19,15 @@ export default class DeathSavesCounter extends Component {
             <div className='pt-input-group'>
               <label className='pt-control pt-checkbox pt-inline death-save-input'>
                 <input type='checkbox' checked={this.state.success === 1} onChange={(event) => this.handleToggle(event, 'success', 1)} />
-                <span className='pt-control-indicator'></span>
+                <span className='pt-control-indicator death-save-one'></span>
               </label>
               <label className='pt-control pt-checkbox pt-inline death-save-input'>
                 <input type='checkbox' checked={this.state.success === 2} onChange={(event) => this.handleToggle(event, 'success', 2)} />
-                <span className='pt-control-indicator'></span>
+                <span className='pt-control-indicator death-save-two'></span>
               </label>
               <label className='pt-control pt-checkbox pt-inline death-save-input'>
                 <input type='checkbox' checked={this.state.success === 3} onChange={(event) => this.handleToggle(event, 'success', 3)} />
-                <span className='pt-control-indicator'></span>
+                <span className='pt-control-indicator death-save-three'></span>
               </label>
             </div>
             <div className='pt-form-helper-text'>
@@ -41,15 +41,15 @@ export default class DeathSavesCounter extends Component {
             <div className='pt-input-group'>
               <label className='pt-control pt-checkbox pt-inline death-save-input'>
                 <input type='checkbox' checked={this.state.failed === 1} onChange={(event) => this.handleToggle(event, 'failed', 1)} />
-                <span className='pt-control-indicator'></span>
+                <span className='pt-control-indicator death-save-one'></span>
               </label>
               <label className='pt-control pt-checkbox pt-inline death-save-input'>
                 <input type='checkbox' checked={this.state.failed === 2} onChange={(event) => this.handleToggle(event, 'failed', 2)} />
-                <span className='pt-control-indicator'></span>
+                <span className='pt-control-indicator death-save-two'></span>
               </label>
               <label className='pt-control pt-checkbox pt-inline death-save-input'>
                 <input type='checkbox' checked={this.state.failed === 3} onChange={(event) => this.handleToggle(event, 'failed', 3)} />
-                <span className='pt-control-indicator'></span>
+                <span className='pt-control-indicator death-save-three'></span>
               </label>
             </div>
             <div className='pt-form-helper-text'>
