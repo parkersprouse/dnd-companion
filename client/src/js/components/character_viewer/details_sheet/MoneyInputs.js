@@ -6,17 +6,13 @@ export default class MoneyInputs extends Component {
     return (
       <div>
         <InputToggler character={this.props.character} setRootState={this.props.setRootState}
-                      name='platinum' label='Platinum' number />
-        <br />
+                      name='platinum' label='Platinum' style={{ paddingBottom: '1.5rem' }} number />
         <InputToggler character={this.props.character} setRootState={this.props.setRootState}
-                      name='gold' label='Gold' number />
-        <br />
+                      name='gold' label='Gold' style={{ paddingBottom: '1.5rem' }} number />
         <InputToggler character={this.props.character} setRootState={this.props.setRootState}
-                      name='electrum' label='Electrum' number />
-        <br />
+                      name='electrum' label='Electrum' style={{ paddingBottom: '1.5rem' }} number />
         <InputToggler character={this.props.character} setRootState={this.props.setRootState}
-                      name='silver' label='Silver' number />
-        <br />
+                      name='silver' label='Silver' style={{ paddingBottom: '1.5rem' }} number />
         <InputToggler character={this.props.character} setRootState={this.props.setRootState}
                       name='copper' label='Copper' number />
       </div>

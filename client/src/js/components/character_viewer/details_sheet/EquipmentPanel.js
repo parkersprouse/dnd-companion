@@ -7,10 +7,10 @@ export default class EquipmentPanel extends Component {
     return (
       <Grid stackable centered>
         <Grid.Row stretched>
-          <Grid.Column width={12}>
+          <Grid.Column width={8}>
             equipment
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column width={8}>
             <MoneyInputs character={this.props.character} setRootState={this.props.setRootState} />
           </Grid.Column>
         </Grid.Row>

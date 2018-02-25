@@ -16,7 +16,8 @@ export default class InputToggler extends Component {
   render() {
     if (this.state.editing)
       return (
-        <div className='pt-form-group spellsheet-form-group'>
+        <div className='pt-form-group spellsheet-form-group'
+             style={this.props.style ? this.props.style : null}>
           <div className='pt-form-content'>
             <div className='pt-input-group'>
               <InputGroup
@@ -37,7 +38,8 @@ export default class InputToggler extends Component {
       );
 
     return (
-      <div className='pt-form-group spellsheet-form-group'>
+      <div className='pt-form-group spellsheet-form-group'
+           style={this.props.style ? this.props.style : null}>
         <div className='pt-form-content'>
           <div className='pt-input-group'>
             <Tooltip content='Click to edit' position={Position.TOP}>
