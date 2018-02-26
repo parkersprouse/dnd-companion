@@ -10,7 +10,7 @@ export default class LanguagesList extends Component {
       <div className='pt-form-group' style={{ marginBottom: '0' }}>
         <div className='pt-form-content searcher'>
           <DetailsTreeDisplay content={this.props.character.languages} remove={this.removeLanguage} />
-          <LanguageSelector addLanguage={this.addLanguage} />
+          <LanguageSelector addLanguage={this.addLanguage} centered />
         </div>
       </div>
     );

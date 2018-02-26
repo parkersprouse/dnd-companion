@@ -7,17 +7,18 @@ import api from '../../../lib/api';
 
 export default class EquipmentList extends Component {
   render() {
-    const filtered_equipment = _.reject(this.props.character.equipment, (p) => {
-      return p.equipment_category === 'Armor' ||
-             p.equipment_category === 'Weapon';
+    const filtered_equipment = _.reject(this.props.character.equipment, (e) => {
+      return e.equipment_category === 'Armor' || e.equipment_category === 'Weapon';
     });
 
     return (
       <div className='pt-form-group' style={{ marginBottom: '0' }}>
         <div className='pt-form-content searcher'>
-          <EquipmentTreeDisplay content={filtered_equipment}
-                                remove={this.removeEquipment} />
-          <EquipmentSelector addEquipment={this.addEquipment} />
+          <EquipmentTreeDisplay character={this.props.character}
+                                content={filtered_equipment}
+                                remove={this.removeEquipment}
+                                setRootState={this.props.setRootState} />
+          <EquipmentSelector addEquipment={this.addEquipment} centered />
         </div>
       </div>
     );
@@ -25,7 +26,7 @@ export default class EquipmentList extends Component {
 
   addEquipment = (equip) => {
     const equipment = this.props.character.equipment || [];
-    if (equipment.indexOf(equip) > -1) return;
+    if (_.find(equipment, { name: equip }) !== undefined) return;
     equipment.push({ name: equip, amount: 1 });
     api.updateCharacter({ id: this.props.character.id, equipment }, (success, response) => {
       if (success) {

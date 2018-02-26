@@ -9,8 +9,8 @@ export default class LanguageSelector extends Component {
     super(props);
     this.state = {
       languages: [],
-      isCustom: false,
-      tempLanguage: ''
+      is_custom: false,
+      temp_language: ''
     };
   }
 
@@ -22,20 +22,20 @@ export default class LanguageSelector extends Component {
   }
 
   swap = () => {
-    this.setState({ isCustom: !this.state.isCustom });
+    this.setState({ is_custom: !this.state.is_custom });
   }
 
   render() {
-    if (this.state.isCustom) {
+    if (this.state.is_custom) {
       return (
         <div style={{ marginTop: '0.5rem' }}>
           <div className='pt-control-group pt-fill'>
-            <input name='tempLanguage' value={this.state.tempLanguage} className='pt-input pt-fill' type='text'
+            <input name='temp_language' value={this.state.temp_language} className='pt-input pt-fill' type='text'
                    onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
             <button className='pt-button pt-intent-primary pt-fixed' type='button'
-                    onClick={() => { this.setState({ tempLanguage: '' }); this.props.addLanguage(this.state.tempLanguage); }}>Add</button>
+                    onClick={() => { this.setState({ temp_language: '' }); this.props.addLanguage(this.state.temp_language); }}>Add</button>
           </div>
-          <div className='pt-form-helper-text'>Languages (<a onClick={this.swap}>standard</a>)</div>
+          <div className={'pt-form-helper-text' + (this.props.centered ? ' text-center' : '')}>Languages (<a onClick={this.swap}>standard</a>)</div>
         </div>
       );
     }
@@ -56,7 +56,7 @@ export default class LanguageSelector extends Component {
           >
             <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={"Choose Language"} />
           </Select>
-          <div className='pt-form-helper-text'>Languages (<a onClick={this.swap}>custom</a>)</div>
+          <div className={'pt-form-helper-text' + (this.props.centered ? ' text-center' : '')}>Languages (<a onClick={this.swap}>custom</a>)</div>
         </div>
       );
     }

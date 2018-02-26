@@ -7,39 +7,21 @@ import { isMobile } from '../../lib/utils';
 
 export default class AttacksPanel extends Component {
   addWeapon = (weapon) => {
-    if (!weapon) return;
-
     const rootState = this.props.rootState;
-    if (rootState && rootState.weapons) {
-      rootState.weapons.push(weapon);
-      this.props.setRootState({
-        weapons: rootState.weapons,
-        [this.amountLabel(weapon)]: 1
-      });
-    }
-    else
-      this.props.setRootState({
-        weapons: [weapon],
-        [this.amountLabel(weapon)]: 1
-      });
+    const weapons = rootState.weapons || [];
+    if (!weapon || weapons.indexOf(weapon) > -1) return;
+
+    weapons.push(weapon);
+    this.props.setRootState({ weapons, [this.amountLabel(weapon)]: 1 });
   }
 
-  addArmor = (armor) => {
-    if (!armor) return;
-
+  addArmor = (arm) => {
     const rootState = this.props.rootState;
-    if (rootState && rootState.armor) {
-      rootState.armor.push(armor);
-      this.props.setRootState({
-        armor: rootState.armor,
-        [this.amountLabel(armor)]: 1
-      });
-    }
-    else
-      this.props.setRootState({
-        armor: [armor],
-        [this.amountLabel(armor)]: 1
-      });
+    const armor = rootState.armor || [];
+    if (!arm || armor.indexOf(arm) > -1) return;
+
+    armor.push(arm);
+    this.props.setRootState({ armor, [this.amountLabel(arm)]: 1 });
   }
 
   removeWeapon = (weapon) => {
@@ -162,7 +144,7 @@ export default class AttacksPanel extends Component {
                 }
               </ul>
             </div>
-            <WeaponSelector addWeapon={this.addWeapon} rootState={this.props.rootState} />
+            <WeaponSelector addWeapon={this.addWeapon} />
           </div>
         </div>
         <div className='pt-form-group' style={{ marginBottom: '0' }}>
@@ -179,7 +161,7 @@ export default class AttacksPanel extends Component {
                 }
               </ul>
             </div>
-            <ArmorSelector addArmor={this.addArmor} rootState={this.props.rootState} />
+            <ArmorSelector addArmor={this.addArmor} />
           </div>
         </div>
       </div>

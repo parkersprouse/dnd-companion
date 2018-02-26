@@ -38,7 +38,7 @@ export default class ProficiencySelector extends Component {
             <button className='pt-button pt-intent-primary pt-fixed' type='button'
                     onClick={() => { this.setState({ temp_proficiency: '' }); this.props.addProficiency(this.state.temp_proficiency); }}>Add</button>
           </div>
-          <div className='pt-form-helper-text'>Proficiencies (<a onClick={this.swap}>standard</a>)</div>
+          <div className={'pt-form-helper-text' + (this.props.centered ? ' text-center' : '')}>Proficiencies (<a onClick={this.swap}>standard</a>)</div>
         </div>
       );
     }
@@ -59,7 +59,7 @@ export default class ProficiencySelector extends Component {
           >
             <Button className='pt-fill text-left dropdown-btn' rightIconName='caret-down' text={'Choose Proficiency'} />
           </Select>
-          <div className='pt-form-helper-text'>Proficiencies (<a onClick={this.swap}>custom</a>)</div>
+          <div className={'pt-form-helper-text' + (this.props.centered ? ' text-center' : '')}>Proficiencies (<a onClick={this.swap}>custom</a>)</div>
         </div>
       );
     }

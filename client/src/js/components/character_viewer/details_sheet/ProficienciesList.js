@@ -39,7 +39,7 @@ export default class ProficienciesList extends Component {
           <DetailsTreeDisplay content={filtered_profs}
                               remove={this.removeProficiency} />
           <ProficiencySelector addProficiency={this.addProficiency}
-                               options={this.state.proficiencies} />
+                               options={this.state.proficiencies} centered />
         </div>
       </div>
     );

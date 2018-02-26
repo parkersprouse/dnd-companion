@@ -27,11 +27,6 @@ export default class WeaponSelector extends Component {
     this.setState({ isCustom: !this.state.isCustom });
   }
 
-  selectWeapon = (selected) => {
-    if (this.props.rootState.weapons && this.props.rootState.weapons.indexOf(selected.name) > -1) return;
-    this.props.addWeapon(selected.name);
-  }
-
   render() {
     if (this.state.isCustom) {
       return (
@@ -56,7 +51,7 @@ export default class WeaponSelector extends Component {
               const style = isActive ? 'pt-active pt-intent-primary' : '';
               return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
             } }
-            onItemSelect={this.selectWeapon}
+            onItemSelect={(selected) => this.props.addWeapon(selected.name)}
             popoverProps={{ minimal: true, placement: 'top' }}
             noResults={<MenuItem disabled text='No results' />}
             resetOnSelect={true}

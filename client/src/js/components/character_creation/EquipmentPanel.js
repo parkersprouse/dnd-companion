@@ -19,10 +19,7 @@ export default class EquipmentPanel extends Component {
     if (!equip || equipment.indexOf(equip) > -1) return;
 
     equipment.push(equip);
-    this.props.setRootState({
-      equipment,
-      [this.amountLabel(equip)]: 1
-    });
+    this.props.setRootState({ equipment, [this.amountLabel(equip)]: 1 });
   }
 
   removeEquipment = (equip) => {
@@ -107,21 +104,9 @@ export default class EquipmentPanel extends Component {
             </div>
           </Grid.Column>
           <Grid.Column width={8}>
-            <div className='pt-form-group' style={{ marginBottom: '0.5rem' }}>
-              <div className='pt-form-content'>
-                <div className='pt-control-group pt-fill'>
-                  <input name='temp_equipment' value={this.state.temp_equipment} className='pt-input pt-fill' type='text'
-                         onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
-                  <button className='pt-button pt-intent-primary pt-fixed' type='button'
-                          onClick={() => { this.setState({ temp_equipment: '' }); this.addEquipment(this.state.temp_equipment); }}>Add</button>
-                </div>
-                <div className='pt-form-helper-text'>Custom Equipment</div>
-              </div>
-            </div>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content searcher'>
-                <EquipmentSelector addEquipment={this.addEquipment} rootState={this.props.rootState} />
-                <div className='pt-form-helper-text'>Standard Equipment</div>
+                <EquipmentSelector addEquipment={this.addEquipment} marginless />
               </div>
             </div>
           </Grid.Column>

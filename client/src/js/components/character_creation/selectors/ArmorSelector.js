@@ -9,8 +9,8 @@ export default class EquipmentSelector extends Component {
     super(props);
     this.state = {
       armor: [],
-      tempArmor: '',
-      isCustom: false
+      temp_armor: '',
+      is_custom: false
     };
   }
 
@@ -24,23 +24,18 @@ export default class EquipmentSelector extends Component {
   }
 
   swap = () => {
-    this.setState({ isCustom: !this.state.isCustom });
-  }
-
-  selectArmor = (selected) => {
-    if (this.props.rootState.armor && this.props.rootState.armor.indexOf(selected.name) > -1) return;
-    this.props.addArmor(selected.name);
+    this.setState({ is_custom: !this.state.is_custom });
   }
 
   render() {
-    if (this.state.isCustom) {
+    if (this.state.is_custom) {
       return (
         <div style={{ marginTop: '0.5rem' }}>
           <div className='pt-control-group pt-fill'>
-            <input name='tempArmor' value={this.state.tempArmor} className='pt-input pt-fill' type='text'
+            <input name='temp_armor' value={this.state.temp_armor} className='pt-input pt-fill' type='text'
                    onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
             <button className='pt-button pt-intent-primary pt-fixed' type='button'
-                    onClick={() => { this.setState({ tempArmor: '' }); this.props.addArmor(this.state.tempArmor); }}>Add</button>
+                    onClick={() => { this.setState({ temp_armor: '' }); this.props.addArmor(this.state.temp_armor); }}>Add</button>
           </div>
           <div className='pt-form-helper-text'>Armor (<a onClick={this.swap}>standard</a>)</div>
         </div>
@@ -56,7 +51,7 @@ export default class EquipmentSelector extends Component {
               const style = isActive ? 'pt-active pt-intent-primary' : '';
               return <MenuItem className={style} label={null} key={item.index} onClick={handleClick} text={item.name} />
             } }
-            onItemSelect={this.selectArmor}
+            onItemSelect={(selected) => this.props.addArmor(selected.name)}
             popoverProps={{ minimal: true, placement: 'top' }}
             noResults={<MenuItem disabled text='No results' />}
             resetOnSelect={true}
