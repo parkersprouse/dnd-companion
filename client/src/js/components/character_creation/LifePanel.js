@@ -15,7 +15,7 @@ export default class LifePanel extends Component {
           <Grid.Column width={8} style={{ paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
-                <NumericInput value={this.props.rootState.armor_class}
+                <NumericInput value={this.props.root_state.armor_class}
                               onValueChange={(num, str) => this.handleValueChange(str, 'armor_class')}
                               className='pt-fill' />
                 <div className='pt-form-helper-text'>Armor Class</div>
@@ -25,7 +25,7 @@ export default class LifePanel extends Component {
           <Grid.Column width={8} style={{ paddingLeft: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
-                <NumericInput value={this.props.rootState.speed}
+                <NumericInput value={this.props.root_state.speed}
                               onValueChange={(num, str) => this.handleValueChange(str, 'speed')}
                               className='pt-fill' />
                 <div className='pt-form-helper-text'>Speed</div>
@@ -38,7 +38,7 @@ export default class LifePanel extends Component {
           <Grid.Column width={8} style={{ paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
-                <NumericInput value={this.props.rootState.max_hp}
+                <NumericInput value={this.props.root_state.max_hp}
                               onValueChange={(num, str) => this.handleValueChange(str, 'max_hp')}
                               className='pt-fill' />
                 <div className='pt-form-helper-text'>Max Hit Points</div>

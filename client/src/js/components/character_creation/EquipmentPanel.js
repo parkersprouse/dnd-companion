@@ -14,8 +14,8 @@ export default class EquipmentPanel extends Component {
   }
 
   addEquipment = (equip) => {
-    const rootState = this.props.rootState;
-    const equipment = rootState.equipment || [];
+    const root_state = this.props.root_state;
+    const equipment = root_state.equipment || [];
     if (!equip || equipment.indexOf(equip) > -1) return;
 
     equipment.push(equip);
@@ -23,7 +23,7 @@ export default class EquipmentPanel extends Component {
   }
 
   removeEquipment = (equip) => {
-    const { equipment } = this.props.rootState;
+    const { equipment } = this.props.root_state;
     equipment.splice(equipment.indexOf(equip), 1);
     this.props.setRootState({ equipment });
   }
@@ -42,8 +42,8 @@ export default class EquipmentPanel extends Component {
 
   render() {
     const equipmentList = [];
-    if (this.props.rootState && this.props.rootState.equipment) {
-      const equipment = _.sortBy(this.props.rootState.equipment, (e) => e);
+    if (this.props.root_state && this.props.root_state.equipment) {
+      const equipment = _.sortBy(this.props.root_state.equipment, (e) => e);
       equipment.forEach((equip, index) => {
         equipmentList.push(
           <li key={index} className='pt-tree-node'>
@@ -54,7 +54,7 @@ export default class EquipmentPanel extends Component {
                   <div className='item-amount-popover'>
                     <span>Custom Description:</span>
                     <textarea name={this.descLabel(equip)} rows='4'
-                              value={this.props.rootState[this.descLabel(equip)]}
+                              value={this.props.root_state[this.descLabel(equip)]}
                               className='pt-input pt-fill' type='text'
                               onChange={(event) => this.props.setRootState({ [event.target.name]: event.target.value })}
                               style={{ marginTop: '0.25rem' }}>
@@ -64,10 +64,10 @@ export default class EquipmentPanel extends Component {
               </span>
               <span className='pt-tree-node-secondary-label'>
                 <Popover position={isMobile() ? Position.TOP_RIGHT : Position.TOP}>
-                  <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(equip)]}</span>
+                  <span className='item-list-amount'>x{this.props.root_state[this.amountLabel(equip)]}</span>
                   <div className='item-amount-popover'>
                     <span>Amount:</span>
-                    <NumericInput value={this.props.rootState[this.amountLabel(equip)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(equip))} min={1} className='pt-fill' />
+                    <NumericInput value={this.props.root_state[this.amountLabel(equip)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(equip))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
                 <a onClick={() => this.removeEquipment(equip)} className='remove-item-btn'>

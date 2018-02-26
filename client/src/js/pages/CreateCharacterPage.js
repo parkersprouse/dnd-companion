@@ -40,7 +40,7 @@ export default class CreateCharacterPage extends Component {
           <h1 className='page-title'>Create Character</h1>
           { this.renderErrors() }
           <form onSubmit={this.submit}>
-            <CreateCharacterForm onInputChange={this.onInputChange} setRootState={this.setRootState} rootState={this.state} />
+            <CreateCharacterForm onInputChange={this.onInputChange} setRootState={this.setRootState} root_state={this.state} />
           </form>
         </InnerContainer>
       </OuterContainer>

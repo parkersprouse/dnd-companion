@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 export default class PersonalityPanel extends Component {
   render() {
-    const rootState = this.props.rootState;
+    const root_state = this.props.root_state;
     let personalityRows = 2, idealsRows = 2, bondsRows = 2, flawsRows = 2;
-    if (rootState) {
-      if (rootState.personality) personalityRows = Math.max(rootState.personality.split('\n').length, personalityRows);
-      if (rootState.ideals) idealsRows = Math.max(rootState.ideals.split('\n').length, idealsRows);
-      if (rootState.bonds) bondsRows = Math.max(rootState.bonds.split('\n').length, bondsRows);
-      if (rootState.flaws) flawsRows = Math.max(rootState.flaws.split('\n').length, flawsRows);
+    if (root_state) {
+      if (root_state.personality) personalityRows = Math.max(root_state.personality.split('\n').length, personalityRows);
+      if (root_state.ideals) idealsRows = Math.max(root_state.ideals.split('\n').length, idealsRows);
+      if (root_state.bonds) bondsRows = Math.max(root_state.bonds.split('\n').length, bondsRows);
+      if (root_state.flaws) flawsRows = Math.max(root_state.flaws.split('\n').length, flawsRows);
     }
     return (
       <div>

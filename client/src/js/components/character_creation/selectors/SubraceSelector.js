@@ -25,14 +25,14 @@ export default class SubraceSelector extends Component {
   componentWillUpdate(next_props, nextState) {
     // this doesn't actually mean anything is loading, just that the dropdown
     // shouldn't make a new request because the race hasn't changed
-    this.loading = this.props.rootState.race === next_props.rootState.race;
+    this.loading = this.props.root_state.race === next_props.root_state.race;
   }
 
   updateOptions = () => {
-    if (!this.props.rootState.race || this.loading) return;
+    if (!this.props.root_state.race || this.loading) return;
     this.loading = true;
 
-    api.filterSubraces({ race: { name: this.props.rootState.race } }, (success, response) => {
+    api.filterSubraces({ race: { name: this.props.root_state.race } }, (success, response) => {
       if (success) {
         this.setState({ subraces: _.sortBy(response.content, ['name']) });
         this.props.setRootState({ subrace: null });
@@ -77,7 +77,7 @@ export default class SubraceSelector extends Component {
             noResults={<MenuItem disabled text="No results" />}
             resetOnSelect={true}
           >
-            <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={!!this.props.rootState && !!this.props.rootState.subrace ? this.props.rootState.subrace : "Choose Subrace"} />
+            <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={!!this.props.root_state && !!this.props.root_state.subrace ? this.props.root_state.subrace : "Choose Subrace"} />
           </Select>
           <div className='pt-form-helper-text'>Subrace (<a onClick={this.swap}>custom</a>)</div>
         </div>

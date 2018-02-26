@@ -7,8 +7,8 @@ import { isMobile } from '../../lib/utils';
 
 export default class AttacksPanel extends Component {
   addWeapon = (weapon) => {
-    const rootState = this.props.rootState;
-    const weapons = rootState.weapons || [];
+    const root_state = this.props.root_state;
+    const weapons = root_state.weapons || [];
     if (!weapon || weapons.indexOf(weapon) > -1) return;
 
     weapons.push(weapon);
@@ -16,8 +16,8 @@ export default class AttacksPanel extends Component {
   }
 
   addArmor = (arm) => {
-    const rootState = this.props.rootState;
-    const armor = rootState.armor || [];
+    const root_state = this.props.root_state;
+    const armor = root_state.armor || [];
     if (!arm || armor.indexOf(arm) > -1) return;
 
     armor.push(arm);
@@ -25,13 +25,13 @@ export default class AttacksPanel extends Component {
   }
 
   removeWeapon = (weapon) => {
-    const { weapons } = this.props.rootState;
+    const { weapons } = this.props.root_state;
     weapons.splice(weapons.indexOf(weapon), 1);
     this.props.setRootState({ weapons });
   }
 
   removeArmor = (item) => {
-    const { armor } = this.props.rootState;
+    const { armor } = this.props.root_state;
     armor.splice(armor.indexOf(item), 1);
     this.props.setRootState({ armor });
   }
@@ -52,8 +52,8 @@ export default class AttacksPanel extends Component {
     const weaponList = [];
     const armorList = [];
 
-    if (this.props.rootState && this.props.rootState.weapons) {
-      const weapons = _.sortBy(this.props.rootState.weapons, (w) => w);
+    if (this.props.root_state && this.props.root_state.weapons) {
+      const weapons = _.sortBy(this.props.root_state.weapons, (w) => w);
       weapons.forEach((weapon, index) => {
         weaponList.push(
           <li key={index} className='pt-tree-node'>
@@ -64,7 +64,7 @@ export default class AttacksPanel extends Component {
                   <div className='item-amount-popover'>
                     <span>Custom Description:</span>
                     <textarea name={this.descLabel(weapon)} rows='4'
-                              value={this.props.rootState[this.descLabel(weapon)]}
+                              value={this.props.root_state[this.descLabel(weapon)]}
                               className='pt-input pt-fill' type='text'
                               onChange={(event) => this.props.setRootState({ [event.target.name]: event.target.value })}
                               style={{ marginTop: '0.25rem' }}>
@@ -74,10 +74,10 @@ export default class AttacksPanel extends Component {
               </span>
               <span className='pt-tree-node-secondary-label'>
                 <Popover position={isMobile() ? Position.TOP_RIGHT : Position.TOP}>
-                  <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(weapon)]}</span>
+                  <span className='item-list-amount'>x{this.props.root_state[this.amountLabel(weapon)]}</span>
                   <div className='item-amount-popover'>
                     <span>Amount:</span>
-                    <NumericInput value={this.props.rootState[this.amountLabel(weapon)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(weapon))} min={1} className='pt-fill' />
+                    <NumericInput value={this.props.root_state[this.amountLabel(weapon)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(weapon))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
                 <a onClick={() => this.removeWeapon(weapon)} className='remove-item-btn'>
@@ -90,8 +90,8 @@ export default class AttacksPanel extends Component {
       });
     }
 
-    if (this.props.rootState && this.props.rootState.armor) {
-      const armor = _.sortBy(this.props.rootState.armor, (a) => a);
+    if (this.props.root_state && this.props.root_state.armor) {
+      const armor = _.sortBy(this.props.root_state.armor, (a) => a);
       armor.forEach((armor, index) => {
         armorList.push(
           <li key={index} className='pt-tree-node'>
@@ -102,7 +102,7 @@ export default class AttacksPanel extends Component {
                   <div className='item-amount-popover'>
                     <span>Custom Description:</span>
                     <textarea name={this.descLabel(armor)} rows='4'
-                              value={this.props.rootState[this.descLabel(armor)]}
+                              value={this.props.root_state[this.descLabel(armor)]}
                               className='pt-input pt-fill' type='text'
                               onChange={(event) => this.props.setRootState({ [event.target.name]: event.target.value })}
                               style={{ marginTop: '0.25rem' }}>
@@ -112,10 +112,10 @@ export default class AttacksPanel extends Component {
               </span>
               <span className='pt-tree-node-secondary-label'>
                 <Popover position={isMobile() ? Position.TOP_RIGHT : Position.TOP}>
-                  <span className='item-list-amount'>x{this.props.rootState[this.amountLabel(armor)]}</span>
+                  <span className='item-list-amount'>x{this.props.root_state[this.amountLabel(armor)]}</span>
                   <div className='item-amount-popover'>
                     <span>Amount:</span>
-                    <NumericInput value={this.props.rootState[this.amountLabel(armor)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(armor))} min={1} className='pt-fill' />
+                    <NumericInput value={this.props.root_state[this.amountLabel(armor)]} onValueChange={(num, str) => this.handleValueChange(str, this.amountLabel(armor))} min={1} className='pt-fill' />
                   </div>
                 </Popover>
                 <a onClick={() => this.removeArmor(armor)} className='remove-item-btn'>

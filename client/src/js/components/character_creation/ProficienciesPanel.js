@@ -6,10 +6,10 @@ import ProficiencySelector from './selectors/ProficiencySelector';
 export default class ProficienciesPanel extends Component {
   addProficiency = (prof) => {
     if (!prof) return;
-    const rootState = this.props.rootState;
-    if (rootState && rootState.proficiencies) {
-      rootState.proficiencies.push(prof);
-      this.props.setRootState({ proficiencies: rootState.proficiencies });
+    const root_state = this.props.root_state;
+    if (root_state && root_state.proficiencies) {
+      root_state.proficiencies.push(prof);
+      this.props.setRootState({ proficiencies: root_state.proficiencies });
     }
     else
       this.props.setRootState({ proficiencies: [prof] });
@@ -17,31 +17,31 @@ export default class ProficienciesPanel extends Component {
 
   addLanguage = (lang) => {
     if (!lang) return;
-    const rootState = this.props.rootState;
-    if (rootState && rootState.languages) {
-      rootState.languages.push(lang);
-      this.props.setRootState({ languages: rootState.languages });
+    const root_state = this.props.root_state;
+    if (root_state && root_state.languages) {
+      root_state.languages.push(lang);
+      this.props.setRootState({ languages: root_state.languages });
     }
     else
       this.props.setRootState({ languages: [lang] });
   }
 
   removeProficiency = (prof) => {
-    const { proficiencies } = this.props.rootState;
+    const { proficiencies } = this.props.root_state;
     proficiencies.splice(proficiencies.indexOf(prof), 1);
     this.props.setRootState({ proficiencies });
   }
 
   removeLanguage = (lang) => {
-    const { languages } = this.props.rootState;
+    const { languages } = this.props.root_state;
     languages.splice(languages.indexOf(lang), 1);
     this.props.setRootState({ languages });
   }
 
   render() {
     const profList = [];
-    if (this.props.rootState && this.props.rootState.proficiencies) {
-      const proficiencies = _.sortBy(this.props.rootState.proficiencies, (p) => p);
+    if (this.props.root_state && this.props.root_state.proficiencies) {
+      const proficiencies = _.sortBy(this.props.root_state.proficiencies, (p) => p);
       proficiencies.forEach((prof, index) => {
         profList.push(
           <li key={index} className='pt-tree-node'>
@@ -59,8 +59,8 @@ export default class ProficienciesPanel extends Component {
     }
 
     const langList = [];
-    if (this.props.rootState && this.props.rootState.languages) {
-      const languages = _.sortBy(this.props.rootState.languages, (l) => l);
+    if (this.props.root_state && this.props.root_state.languages) {
+      const languages = _.sortBy(this.props.root_state.languages, (l) => l);
       languages.forEach((lang, index) => {
         langList.push(
           <li key={index} className='pt-tree-node'>

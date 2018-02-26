@@ -49,7 +49,7 @@ export default class RaceSelector extends Component {
             noResults={<MenuItem disabled text="No results" />}
             resetOnSelect={true}
           >
-            <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={!!this.props.rootState && !!this.props.rootState.race ? this.props.rootState.race : "Choose Race"} />
+            <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={!!this.props.root_state && !!this.props.root_state.race ? this.props.root_state.race : "Choose Race"} />
           </Select>
           <div className='pt-form-helper-text'>Race (<a onClick={this.swap}>custom</a>)</div>
         </div>

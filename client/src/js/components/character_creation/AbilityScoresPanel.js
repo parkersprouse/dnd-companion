@@ -20,7 +20,7 @@ export default class AbilityScoresPanel extends Component {
           <Grid.Column width={13} style={{ paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
-                <NumericInput value={this.props.rootState[score.full_name.toLowerCase()]} onValueChange={(num, str) => this.handleValueChange(str, score.full_name.toLowerCase())} className='pt-fill' />
+                <NumericInput value={this.props.root_state[score.full_name.toLowerCase()]} onValueChange={(num, str) => this.handleValueChange(str, score.full_name.toLowerCase())} className='pt-fill' />
                 <div className='pt-form-helper-text'>{score.full_name}</div>
               </div>
             </div>
@@ -28,8 +28,8 @@ export default class AbilityScoresPanel extends Component {
           <Grid.Column width={3} style={{ paddingLeft: '0.5rem' }} textAlign='center' verticalAlign='middle'>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
-                {/*<NumericInput value={this.props.rootState[score.full_name.toLowerCase() + '_modifier']} onValueChange={(num, str) => this.handleValueChange(str, score.full_name.toLowerCase() + '_modifier')} className='pt-fill' />*/}
-                <span className='no-icon'>{ this.props.rootState[score.full_name.toLowerCase() + '_modifier'] || '0' }</span>
+                {/*<NumericInput value={this.props.root_state[score.full_name.toLowerCase() + '_modifier']} onValueChange={(num, str) => this.handleValueChange(str, score.full_name.toLowerCase() + '_modifier')} className='pt-fill' />*/}
+                <span className='no-icon'>{ this.props.root_state[score.full_name.toLowerCase() + '_modifier'] || '0' }</span>
                 <div className='pt-form-helper-text'>Modifier</div>
               </div>
             </div>
@@ -44,7 +44,7 @@ export default class AbilityScoresPanel extends Component {
           <Grid.Column width={16}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
-                <NumericInput value={this.props.rootState['proficiency_bonus']} onValueChange={(num, str) => this.handleValueChange(str, 'proficiency_bonus')} className='pt-fill' />
+                <NumericInput value={this.props.root_state['proficiency_bonus']} onValueChange={(num, str) => this.handleValueChange(str, 'proficiency_bonus')} className='pt-fill' />
                 <div className='pt-form-helper-text'>Proficiency Bonus</div>
               </div>
             </div>
@@ -55,7 +55,7 @@ export default class AbilityScoresPanel extends Component {
           <Grid.Column width={16}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content'>
-                <NumericInput value={this.props.rootState['passive_wisdom']} onValueChange={(num, str) => this.handleValueChange(str, 'passive_wisdom')} className='pt-fill' />
+                <NumericInput value={this.props.root_state['passive_wisdom']} onValueChange={(num, str) => this.handleValueChange(str, 'passive_wisdom')} className='pt-fill' />
                 <div className='pt-form-helper-text'>Passive Wisdom (Perception)</div>
               </div>
             </div>

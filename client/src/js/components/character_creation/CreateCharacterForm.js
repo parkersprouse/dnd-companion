@@ -27,7 +27,7 @@ export default class CreateCharacterForm extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              <DetailsPanel update={this.props.onInputChange} setRootState={this.props.setRootState} rootState={this.props.rootState} />
+              <DetailsPanel update={this.props.onInputChange} setRootState={this.props.setRootState} root_state={this.props.root_state} />
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -35,23 +35,23 @@ export default class CreateCharacterForm extends Component {
         <Grid.Row stretched>
           <Grid.Column width={6}>
             <div className='pt-card'>
-              <AbilityScoresPanel rootState={this.props.rootState} setRootState={this.props.setRootState} />
+              <AbilityScoresPanel root_state={this.props.root_state} setRootState={this.props.setRootState} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <LifePanel update={this.props.onInputChange} rootState={this.props.rootState} setRootState={this.props.setRootState} />
+              <LifePanel update={this.props.onInputChange} root_state={this.props.root_state} setRootState={this.props.setRootState} />
             </div>
             <div className='pt-card'>
-              <AttacksPanel update={this.props.onInputChange} setRootState={this.props.setRootState} rootState={this.props.rootState} />
+              <AttacksPanel update={this.props.onInputChange} setRootState={this.props.setRootState} root_state={this.props.root_state} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='pt-card' style={{ marginBottom: '2rem' }}>
-              <PersonalityPanel update={this.props.onInputChange} rootState={this.props.rootState} />
+              <PersonalityPanel update={this.props.onInputChange} root_state={this.props.root_state} />
             </div>
             <div className='pt-card'>
-              <TraitsPanel update={this.props.onInputChange} rootState={this.props.rootState} />
+              <TraitsPanel update={this.props.onInputChange} root_state={this.props.root_state} />
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -59,12 +59,12 @@ export default class CreateCharacterForm extends Component {
         <Grid.Row>
           <Grid.Column width={6}>
             <div className='pt-card'>
-              <ProficienciesPanel update={this.props.onInputChange} setRootState={this.props.setRootState} rootState={this.props.rootState} />
+              <ProficienciesPanel update={this.props.onInputChange} setRootState={this.props.setRootState} root_state={this.props.root_state} />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>
             <div className='pt-card'>
-              <EquipmentPanel update={this.props.onInputChange} setRootState={this.props.setRootState} rootState={this.props.rootState} />
+              <EquipmentPanel update={this.props.onInputChange} setRootState={this.props.setRootState} root_state={this.props.root_state} />
             </div>
           </Grid.Column>
         </Grid.Row>

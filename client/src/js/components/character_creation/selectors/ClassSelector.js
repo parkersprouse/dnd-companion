@@ -49,7 +49,7 @@ export default class ClassSelector extends Component {
             noResults={<MenuItem disabled text="No results" />}
             resetOnSelect={true}
           >
-            <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={!!this.props.rootState && !!this.props.rootState.class ? this.props.rootState.class : "Choose Class"} />
+            <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down" text={!!this.props.root_state && !!this.props.root_state.class ? this.props.root_state.class : "Choose Class"} />
           </Select>
           <div className='pt-form-helper-text'>Class (<a onClick={this.swap}>custom</a>)</div>
         </div>

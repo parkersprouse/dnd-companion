@@ -30,7 +30,7 @@ export default class AlignmentSelector extends Component {
           resetOnSelect={true}
         >
           <Button className='pt-fill text-left dropdown-btn' rightIconName="caret-down"
-                  text={!!this.props.rootState && !!this.props.rootState.alignment ? this.props.rootState.alignment : "Choose Alignment"} />
+                  text={!!this.props.root_state && !!this.props.root_state.alignment ? this.props.root_state.alignment : "Choose Alignment"} />
         </Select>
         <div className='pt-form-helper-text'>Alignment</div>
       </div>

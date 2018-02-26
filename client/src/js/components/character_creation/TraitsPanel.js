@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 export default class TraitsPanel extends Component {
   render() {
-    const rootState = this.props.rootState;
+    const root_state = this.props.root_state;
     let rows = 8;
-    if (rootState && rootState.features) rows = Math.max(rootState.features.split('\n').length, rows);
+    if (root_state && root_state.features) rows = Math.max(root_state.features.split('\n').length, rows);
     return (
       <div className='pt-form-group' style={{ marginBottom: '0' }}>
         <div className='pt-form-content'>

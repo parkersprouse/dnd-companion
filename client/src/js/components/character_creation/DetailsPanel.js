@@ -13,21 +13,21 @@ export default class DetailsPanel extends Component {
           <Grid.Column width={5} style={{ paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content searcher'>
-                <ClassSelector update={this.props.update} setRootState={this.props.setRootState} rootState={this.props.rootState} />
+                <ClassSelector update={this.props.update} setRootState={this.props.setRootState} root_state={this.props.root_state} />
               </div>
             </div>
           </Grid.Column>
           <Grid.Column width={5} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content searcher'>
-                <RaceSelector update={this.props.update} setRootState={this.props.setRootState} rootState={this.props.rootState} />
+                <RaceSelector update={this.props.update} setRootState={this.props.setRootState} root_state={this.props.root_state} />
               </div>
             </div>
           </Grid.Column>
           <Grid.Column width={6} style={{ paddingLeft: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content searcher'>
-                <SubraceSelector update={this.props.update} setRootState={this.props.setRootState} rootState={this.props.rootState} />
+                <SubraceSelector update={this.props.update} setRootState={this.props.setRootState} root_state={this.props.root_state} />
               </div>
             </div>
           </Grid.Column>
@@ -45,7 +45,7 @@ export default class DetailsPanel extends Component {
           <Grid.Column width={5} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
               <div className='pt-form-content searcher'>
-                <AlignmentSelector update={this.props.update} setRootState={this.props.setRootState} rootState={this.props.rootState} />
+                <AlignmentSelector update={this.props.update} setRootState={this.props.setRootState} root_state={this.props.root_state} />
               </div>
             </div>
           </Grid.Column>
