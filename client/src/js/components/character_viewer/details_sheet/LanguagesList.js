@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Position, Toaster, Intent } from '@blueprintjs/core';
-import DetailsTreeDisplay from '../DetailsTreeDisplay';
+import DetailsTreeDisplay from './DetailsTreeDisplay';
 import LanguageSelector from '../../character_creation/selectors/LanguageSelector';
 import api from '../../../lib/api';
 

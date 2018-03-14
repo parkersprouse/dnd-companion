@@ -248,7 +248,7 @@ export default class SpellcastingSpellList extends Component {
   }
 
   renderExpended = () => {
-    const new_expended = parseInt(this.state.used_slots, 10) >= parseInt(this.state.total_slots, 10) ? '0' : (parseInt(this.state.used_slots, 10) + 1) + '';
+    const new_expended = Number(this.state.used_slots) >= Number(this.state.total_slots) ? '0' : (Number(this.state.used_slots) + 1) + '';
     return (
       <Tooltip content='Click to increment' position={Position.TOP}>
         <span className='char-sheet-spell-header-editable' onClick={() => this.saveIncrement(new_expended)}>

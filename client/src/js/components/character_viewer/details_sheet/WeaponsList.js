@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import { Position, Toaster, Intent } from '@blueprintjs/core';
 import _ from 'lodash';
-import EquipmentTreeDisplay from './EquipmentTreeDisplay';
-import EquipmentSelector from '../../character_creation/selectors/EquipmentSelector';
 import api from '../../../lib/api';
+import WeaponsTreeDisplay from './WeaponsTreeDisplay';
+import WeaponSelector from '../../character_creation/selectors/WeaponSelector';
 
-export default class EquipmentList extends Component {
+export default class WeaponsList extends Component {
   render() {
     return (
       <div className='pt-form-group' style={{ marginBottom: '0' }}>
         <div className='pt-form-content searcher'>
-          <EquipmentTreeDisplay character={this.props.character}
-                                content={this.props.character.equipment}
-                                remove={this.removeEquipment}
-                                setRootState={this.props.setRootState} />
-          <EquipmentSelector addEquipment={this.addEquipment} centered />
+          <WeaponsTreeDisplay character={this.props.character}
+                                  content={this.props.character.weapons}
+                                  remove={this.removeWeapon}
+                                  setRootState={this.props.setRootState} />
+          <WeaponSelector addWeapon={this.addWeapon} centered />
         </div>
       </div>
     );
   }
 
-  addEquipment = (equip) => {
-    const equipment = this.props.character.equipment || [];
-    if (_.find(equipment, { name: equip }) !== undefined) return;
-    equipment.push({ name: equip, amount: 1, desc: '' });
-    api.updateCharacter({ id: this.props.character.id, equipment }, (success, response) => {
+  addWeapon = (weapon) => {
+    const weapons = this.props.character.weapons || [];
+    if (_.find(weapons, { name: weapon }) !== undefined) return;
+    weapons.push({ name: weapon, amount: 1, equipped: false, desc: '' });
+    api.updateCharacter({ id: this.props.character.id, weapons }, (success, response) => {
       if (success) {
         this.showSuccessToast();
         this.forceUpdate();
@@ -36,10 +36,10 @@ export default class EquipmentList extends Component {
     });
   }
 
-  removeEquipment = (equip) => {
-    const equipment = this.props.character.equipment;
-    equipment.splice(equipment.indexOf(equip), 1);
-    api.updateCharacter({ id: this.props.character.id, equipment }, (success, response) => {
+  removeWeapon = (weapon) => {
+    const weapons = this.props.character.weapons;
+    weapons.splice(weapons.indexOf(weapon), 1);
+    api.updateCharacter({ id: this.props.character.id, weapons }, (success, response) => {
       if (success) {
         this.showSuccessToast();
         this.forceUpdate();

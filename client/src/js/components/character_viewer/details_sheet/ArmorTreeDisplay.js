@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Position, Popover, NumericInput, Toaster, Intent } from '@blueprintjs/core';
+import { Intent, NumericInput, Popover, Position, Toaster, Tooltip } from '@blueprintjs/core';
 import _ from 'lodash';
-import api from '../../lib/api';
-import { isMobile } from '../../lib/utils';
+import api from '../../../lib/api';
+import { isMobile } from '../../../lib/utils';
 
-export default class EquipmentTreeDisplay extends Component {
+export default class ArmorTreeDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,10 +41,19 @@ export default class EquipmentTreeDisplay extends Component {
   renderContent = () => {
     return _.map(this.state.content, (ele, index) => {
       return (
-        <li key={index} className='pt-tree-node'>
+        <li key={index} className='pt-tree-node text-left'>
           <div className='pt-tree-node-content'>
 
-            <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>
+            <span className='pt-tree-node-icon pt-icon-standard' style={{ marginRight: '0', marginLeft: '10px' }}>
+              <Tooltip content={ele.equipped ? 'Equipped' : 'Not Equipped'} position={Position.TOP}>
+                <label className='pt-control pt-switch' style={{ marginBottom: '0', paddingLeft: '26px', marginTop: '0' }}>
+                  <input type='checkbox' checked={ele.equipped} onChange={() => this.toggleEquipped(ele)} />
+                  <span className='pt-control-indicator'></span>
+                </label>
+              </Tooltip>
+            </span>
+
+            <span className='pt-tree-node-label' style={{ marginLeft: '0.75rem' }}>
               <Popover position={isMobile() ? Position.TOP_LEFT : Position.TOP}>
                 <span style={{ cursor: 'pointer' }}>{ele.name}</span>
                 <div className='item-amount-popover'>
@@ -59,7 +68,7 @@ export default class EquipmentTreeDisplay extends Component {
                   </textarea>
                   <div className='text-center' style={{ marginTop: '0.5rem', marginBottom: '-10px' }}>
                     <button className='pt-button pt-intent-success pt-minimal'
-                            onClick={() => this.save(ele)}>Save</button>
+                            onClick={() => this.save()}>Save</button>
                   </div>
                 </div>
               </Popover>
@@ -75,7 +84,7 @@ export default class EquipmentTreeDisplay extends Component {
                   }} min={1} className='pt-fill' />
                   <div className='text-center' style={{ marginTop: '0.5rem', marginBottom: '-10px' }}>
                     <button className='pt-button pt-intent-success pt-minimal'
-                            onClick={() => this.save(ele)}>Save</button>
+                            onClick={() => this.save()}>Save</button>
                   </div>
                 </div>
               </Popover>
@@ -90,17 +99,9 @@ export default class EquipmentTreeDisplay extends Component {
     });
   }
 
-  save = (ele) => {
-    // After trying this, I learned that any time an individual element is changed,
-    // it's changed directly in the `this.state.content` reference as well, so
-    // there's no need to manually update the `this.state.content` object.
-    // I don't know if I like that yet, but it's how the rest of the app is
-    // currently built, so I'll run with it for the time being.
-
-    // const equipment = this.state.content;
-    // equipment.splice(equipment.indexOf(_.find(equipment, { name: ele.name })), 1);
-    // equipment.push(ele);
-    api.updateCharacter({ id: this.props.character.id, equipment: this.state.content }, (success, response) => {
+  save = () => {
+    // See {EquipmentTreeDisplay} for details of the following implementation.
+    api.updateCharacter({ id: this.props.character.id, armor: this.state.content }, (success, response) => {
       if (success) {
         this.showSuccessToast();
         this.forceUpdate();
@@ -129,4 +130,10 @@ export default class EquipmentTreeDisplay extends Component {
       timeout: 2000
     });
   }
+
+  toggleEquipped = (ele) => {
+    ele.equipped = !ele.equipped;
+    this.save();
+  }
+
 }

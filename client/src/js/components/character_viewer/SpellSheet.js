@@ -42,7 +42,8 @@ export default class SpellSheet extends Component {
         <div className='text-right' style={{ width: '100%' }}>
           <Button intent={Intent.PRIMARY} className='pt-minimal'
                   onClick={this.rest}
-                  loading={this.state.resting}>
+                  loading={this.state.resting}
+                  style={{ marginRight: '2.5rem' }}>
           Complete Rest</Button>
         </div>
 

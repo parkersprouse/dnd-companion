@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import InputToggler from '../InputToggler';
 import TextareaToggler from '../TextareaToggler';
-import PersonalityPanel from './details_sheet/PersonalityPanel';
-import HealthPanel from './details_sheet/HealthPanel';
-import ClassRacePanel from './details_sheet/ClassRacePanel';
-import ProficienciesLanguagesPanel from './details_sheet/ProficienciesLanguagesPanel';
-import EquipmentPanel from './details_sheet/EquipmentPanel';
 import AbilityScoresPanel from './details_sheet/AbilityScoresPanel';
+import ClassRacePanel from './details_sheet/ClassRacePanel';
+import EquipmentPanel from './details_sheet/EquipmentPanel';
+import HealthPanel from './details_sheet/HealthPanel';
+import PersonalityPanel from './details_sheet/PersonalityPanel';
+import ProficienciesLanguagesPanel from './details_sheet/ProficienciesLanguagesPanel';
+import WeaponsArmorPanel from './details_sheet/WeaponsArmorPanel';
 
 export default class DetailsSheet extends Component {
   render() {
@@ -39,7 +40,7 @@ export default class DetailsSheet extends Component {
               <HealthPanel character={this.props.character} setRootState={this.props.setRootState} />
             </div>
             <div className='pt-card'>
-              weapons / armor
+              <WeaponsArmorPanel character={this.props.character} setRootState={this.props.setRootState} />
             </div>
           </Grid.Column>
           <Grid.Column width={5}>

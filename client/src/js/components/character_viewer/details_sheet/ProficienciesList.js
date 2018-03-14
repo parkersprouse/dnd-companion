@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Position, Toaster, Intent } from '@blueprintjs/core';
 import _ from 'lodash';
-import DetailsTreeDisplay from '../DetailsTreeDisplay';
+import DetailsTreeDisplay from './DetailsTreeDisplay';
 import ProficiencySelector from '../../character_creation/selectors/ProficiencySelector';
 import api from '../../../lib/api';
 

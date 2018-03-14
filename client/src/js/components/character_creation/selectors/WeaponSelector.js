@@ -37,7 +37,7 @@ export default class WeaponSelector extends Component {
             <button className='pt-button pt-intent-primary pt-fixed' type='button'
                     onClick={() => { this.setState({ tempWeapon: '' }); this.props.addWeapon(this.state.tempWeapon); }}>Add</button>
           </div>
-          <div className='pt-form-helper-text'>Weapons (<a onClick={this.swap}>standard</a>)</div>
+          <div className={'pt-form-helper-text' + (this.props.centered ? ' text-center' : '')}>Weapons (<a onClick={this.swap}>standard</a>)</div>
         </div>
       );
     }
@@ -58,7 +58,7 @@ export default class WeaponSelector extends Component {
           >
             <Button className='pt-fill text-left dropdown-btn' rightIconName='caret-down' text={'Choose Weapon'} />
           </Select>
-          <div className='pt-form-helper-text'>Weapons (<a onClick={this.swap}>custom</a>)</div>
+          <div className={'pt-form-helper-text' + (this.props.centered ? ' text-center' : '')}>Weapons (<a onClick={this.swap}>custom</a>)</div>
         </div>
       );
     }

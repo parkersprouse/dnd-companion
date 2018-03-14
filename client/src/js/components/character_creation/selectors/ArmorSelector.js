@@ -37,7 +37,7 @@ export default class EquipmentSelector extends Component {
             <button className='pt-button pt-intent-primary pt-fixed' type='button'
                     onClick={() => { this.setState({ temp_armor: '' }); this.props.addArmor(this.state.temp_armor); }}>Add</button>
           </div>
-          <div className='pt-form-helper-text'>Armor (<a onClick={this.swap}>standard</a>)</div>
+          <div className={'pt-form-helper-text' + (this.props.centered ? ' text-center' : '')}>Armor (<a onClick={this.swap}>standard</a>)</div>
         </div>
       );
     }
@@ -58,7 +58,7 @@ export default class EquipmentSelector extends Component {
           >
             <Button className='pt-fill text-left dropdown-btn' rightIconName='caret-down' text={'Choose Armor'} />
           </Select>
-          <div className='pt-form-helper-text'>Armor (<a onClick={this.swap}>custom</a>)</div>
+          <div className={'pt-form-helper-text' + (this.props.centered ? ' text-center' : '')}>Armor (<a onClick={this.swap}>custom</a>)</div>
         </div>
       );
     }

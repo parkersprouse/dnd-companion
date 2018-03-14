@@ -28,7 +28,7 @@ export default class CharacterShowPage extends Component {
       this.setState({ character: -1 });
     else
       utils.getCurrentUserInfo((loggedIn, res) => {
-        api.getCharacter({ id: parseInt(id, 10), userid: parseInt(res.id, 10) }, (success, response) => {
+        api.getCharacter({ id: Number(id), userid: Number(res.id) }, (success, response) => {
           if (success)
             this.setState({ character: response.content[0] });
           else
@@ -75,12 +75,12 @@ export default class CharacterShowPage extends Component {
   renderConfirmDeleteAlert = () => {
     return (
       <Alert
-          intent={Intent.DANGER}
-          isOpen={this.state.show_delete_alert}
-          confirmButtonText='Delete'
-          cancelButtonText='Cancel'
-          onConfirm={this.handleDelete}
-          onCancel={this.handleClose}
+        intent={Intent.DANGER}
+        isOpen={this.state.show_delete_alert}
+        confirmButtonText='Delete'
+        cancelButtonText='Cancel'
+        onConfirm={this.handleDelete}
+        onCancel={this.handleClose}
       >
         <p className='no-icon'>Are you sure you want to delete this character?</p>
         <p>This cannot be undone.</p>
@@ -128,22 +128,22 @@ export default class CharacterShowPage extends Component {
   updateSpellModifiers = (char) => {
     const { ability_scores, proficiency_bonus, spell_class } = char;
 
-    const proficiency = parseInt(proficiency_bonus, 10);
+    const proficiency = Number(proficiency_bonus);
     let ability_modifier = null;
     switch(spell_class) {
       case 'Bard':
       case 'Paladin':
       case 'Sorcerer':
       case 'Warlock':
-        ability_modifier = parseInt(ability_scores.charisma.modifier.replace('+', ''), 10);
+        ability_modifier = Number(ability_scores.charisma.modifier);
         break;
       case 'Cleric':
       case 'Druid':
       case 'Ranger':
-        ability_modifier = parseInt(ability_scores.wisdom.modifier.replace('+', ''), 10);
+        ability_modifier = Number(ability_scores.wisdom.modifier);
         break;
       case 'Wizard':
-        ability_modifier = parseInt(ability_scores.intelligence.modifier.replace('+', ''), 10);
+        ability_modifier = Number(ability_scores.intelligence.modifier);
         break;
       default:
         ability_modifier = 0;

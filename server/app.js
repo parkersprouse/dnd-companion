@@ -1,14 +1,14 @@
 // eslint-disable-next-line
 'use strict';
 
+const body_parser = require('body-parser');
+const cors = require('cors');
 const express = require('express');
+const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
-const bodyParser = require('body-parser');
-const helmet = require('helmet');
-const endpoints = require('./endpoints');
-const cors = require('cors');
 
+const endpoints = require('./endpoints');
 const app = express();
 
 // Setup logger
@@ -19,10 +19,10 @@ app.use(cors())
 app.options('*', cors()) // Pre-flight
 
 // parse application/json
-app.use(bodyParser.json());
+app.use(body_parser.json());
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(body_parser.urlencoded({ extended: false }));
 
 // make the app use helmet to protect it from a number of vulnerabilities
 app.use(helmet());

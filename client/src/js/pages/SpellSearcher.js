@@ -142,7 +142,7 @@ export default class SpellSearcher extends Component {
       });
 
     if (this.state.level_filter)
-      filtered_spells = _.filter(filtered_spells, { level: parseInt(this.state.level_filter, 10) });
+      filtered_spells = _.filter(filtered_spells, { level: Number(this.state.level_filter) });
 
     if (this.state.school_filter)
       filtered_spells = _.filter(filtered_spells, { school: { name: this.state.school_filter } });
