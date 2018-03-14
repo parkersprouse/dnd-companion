@@ -20,6 +20,8 @@ export default class ClassRacePanel extends Component {
       'Chaotic Neutral',
       'Chaotic Evil'
     ];
+
+    this.filterSubraces(this.state);
   }
 
   render() {

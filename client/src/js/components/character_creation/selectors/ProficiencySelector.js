@@ -36,7 +36,7 @@ export default class ProficiencySelector extends Component {
             <input name='temp_proficiency' value={this.state.temp_proficiency} className='pt-input pt-fill' type='text'
                    onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
             <button className='pt-button pt-intent-primary pt-fixed' type='button'
-                    onClick={() => { this.setState({ temp_proficiency: '' }); this.props.addProficiency(this.state.temp_proficiency); }}>Add</button>
+                    onClick={() => { this.setState({ temp_proficiency: '' }); this.props.addProficiency(this.state.temp_proficiency, true); }}>Add</button>
           </div>
           <div className={'pt-form-helper-text' + (this.props.centered ? ' text-center' : '')}>Proficiencies (<a onClick={this.swap}>standard</a>)</div>
         </div>

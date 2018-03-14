@@ -59,7 +59,7 @@ export default class EquipmentTreeDisplay extends Component {
                   </textarea>
                   <div className='text-center' style={{ marginTop: '0.5rem', marginBottom: '-10px' }}>
                     <button className='pt-button pt-intent-success pt-minimal'
-                            onClick={() => this.save()}>Save</button>
+                            onClick={this.save}>Save</button>
                   </div>
                 </div>
               </Popover>
@@ -75,7 +75,7 @@ export default class EquipmentTreeDisplay extends Component {
                   }} min={1} className='pt-fill' />
                   <div className='text-center' style={{ marginTop: '0.5rem', marginBottom: '-10px' }}>
                     <button className='pt-button pt-intent-success pt-minimal'
-                            onClick={() => this.save()}>Save</button>
+                            onClick={this.save}>Save</button>
                   </div>
                 </div>
               </Popover>

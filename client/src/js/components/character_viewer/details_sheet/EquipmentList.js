@@ -20,10 +20,10 @@ export default class EquipmentList extends Component {
     );
   }
 
-  addEquipment = (equip) => {
+  addEquipment = (equip, custom) => {
     const equipment = this.props.character.equipment || [];
     if (_.find(equipment, { name: equip }) !== undefined) return;
-    equipment.push({ name: equip, amount: 1, desc: '' });
+    equipment.push({ name: equip, amount: 1, desc: '', custom: !!custom });
     api.updateCharacter({ id: this.props.character.id, equipment }, (success, response) => {
       if (success) {
         this.showSuccessToast();

@@ -29,12 +29,7 @@ export default class SpellcastingCantripList extends Component {
     return (
       <Grid>
         <Grid.Row centered textAlign='center' className='spell-list-header-row'>
-          <Grid.Column width={2} verticalAlign='middle'>
-            <span className='char-sheet-spell-header'>
-              0
-            </span>
-          </Grid.Column>
-          <Grid.Column width={14} verticalAlign='middle'>
+          <Grid.Column width={16} verticalAlign='middle'>
             <span className='char-sheet-spell-header'>
               Cantrips
             </span>

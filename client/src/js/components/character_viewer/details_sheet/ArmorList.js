@@ -20,10 +20,10 @@ export default class ArmorList extends Component {
     );
   }
 
-  addArmor = (arm) => {
+  addArmor = (arm, custom) => {
     const armor = this.props.character.armor || [];
     if (_.find(armor, { name: arm }) !== undefined) return;
-    armor.push({ name: arm, amount: 1, equipped: false, desc: '' });
+    armor.push({ name: arm, amount: 1, equipped: false, desc: '', custom: !!custom });
     api.updateCharacter({ id: this.props.character.id, armor }, (success, response) => {
       if (success) {
         this.showSuccessToast();

@@ -38,7 +38,7 @@ export default class EquipmentSelector extends Component {
             <input name='temp_equipment' value={this.state.temp_equipment} className='pt-input pt-fill' type='text'
                    onChange={(event) => this.setState({ [event.target.name]: event.target.value })} />
             <button className='pt-button pt-intent-primary pt-fixed' type='button'
-                    onClick={() => { this.setState({ temp_equipment: '' }); this.props.addEquipment(this.state.temp_equipment); }}>Add</button>
+                    onClick={() => { this.setState({ temp_equipment: '' }); this.props.addEquipment(this.state.temp_equipment, true); }}>Add</button>
           </div>
           <div className={'pt-form-helper-text' + (this.props.centered ? ' text-center' : '')}>Equipment (<a onClick={this.swap}>standard</a>)</div>
         </div>

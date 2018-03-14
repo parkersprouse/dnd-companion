@@ -43,7 +43,7 @@ export default class SpellSheet extends Component {
           <Button intent={Intent.PRIMARY} className='pt-minimal'
                   onClick={this.rest}
                   loading={this.state.resting}
-                  style={{ marginRight: '2.5rem' }}>
+                  style={utils.isMobile() ? null : { marginRight: '2.5rem' }}>
           Complete Rest</Button>
         </div>
 

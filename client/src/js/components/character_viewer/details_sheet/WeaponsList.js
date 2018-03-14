@@ -20,10 +20,10 @@ export default class WeaponsList extends Component {
     );
   }
 
-  addWeapon = (weapon) => {
+  addWeapon = (weapon, custom) => {
     const weapons = this.props.character.weapons || [];
     if (_.find(weapons, { name: weapon }) !== undefined) return;
-    weapons.push({ name: weapon, amount: 1, equipped: false, desc: '' });
+    weapons.push({ name: weapon, amount: 1, equipped: false, desc: '', custom: !!custom });
     api.updateCharacter({ id: this.props.character.id, weapons }, (success, response) => {
       if (success) {
         this.showSuccessToast();
