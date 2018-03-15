@@ -11,9 +11,9 @@ export default class WeaponsList extends Component {
       <div className='pt-form-group' style={{ marginBottom: '0' }}>
         <div className='pt-form-content searcher'>
           <WeaponsTreeDisplay character={this.props.character}
-                                  content={this.props.character.weapons}
-                                  remove={this.removeWeapon}
-                                  setRootState={this.props.setRootState} />
+                              content={this.props.character.weapons}
+                              remove={this.removeWeapon}
+                              setRootState={this.props.setRootState} />
           <WeaponSelector addWeapon={this.addWeapon} centered />
         </div>
       </div>

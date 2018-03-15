@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Intent, NumericInput, Popover, Position, Toaster, Tooltip } from '@blueprintjs/core';
+import { Button, Dialog, Intent, NumericInput, Popover, Position, Toaster, Tooltip } from '@blueprintjs/core';
 import _ from 'lodash';
 import api from '../../../lib/api';
 import { isMobile } from '../../../lib/utils';
+import ArmorDetails from './ArmorDetails';
 
 export default class ArmorTreeDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      shown_armor: null,
       content: props.content && props.content.length > 0 ?
       _.sortBy(props.content, (i) => i.name ? i.name : i) : []
     }
@@ -34,6 +36,7 @@ export default class ArmorTreeDisplay extends Component {
             </li>
           }
         </ul>
+        { this.renderShowArmorDialog() }
       </div>
     );
   }
@@ -53,25 +56,9 @@ export default class ArmorTreeDisplay extends Component {
               </Tooltip>
             </span>
 
-            <span className='pt-tree-node-label' style={{ marginLeft: '0.75rem' }}>
-              <Popover position={isMobile() ? Position.TOP_LEFT : Position.TOP}>
-                <span style={{ cursor: 'pointer' }}>{ele.name}</span>
-                <div className='item-amount-popover'>
-                  <span>Custom Description:</span>
-                  <textarea rows='4' value={ele.desc}
-                            className='pt-input pt-fill' type='text'
-                            onChange={(event) => {
-                              ele.desc = event.target.value;
-                              this.forceUpdate();
-                            }}
-                            style={{ marginTop: '0.25rem' }}>
-                  </textarea>
-                  <div className='text-center' style={{ marginTop: '0.5rem', marginBottom: '-10px' }}>
-                    <button className='pt-button pt-intent-success pt-minimal'
-                            onClick={() => this.save()}>Save</button>
-                  </div>
-                </div>
-              </Popover>
+            <span className='pt-tree-node-label' style={{ marginLeft: '0.75rem', cursor: 'pointer' }}
+                  onClick={() => this.setState({ shown_armor: ele })}>
+              {ele.name}
             </span>
 
             <span className='pt-tree-node-secondary-label'>
@@ -97,6 +84,27 @@ export default class ArmorTreeDisplay extends Component {
         </li>
       );
     });
+  }
+
+  renderShowArmorDialog = () => {
+    return (
+      <Dialog isOpen={!!this.state.shown_armor} onClose={() => this.setState({ shown_armor: null })}
+              title={this.state.shown_armor ? this.state.shown_armor.name : ''}>
+        <div className='pt-dialog-body'>
+          <ArmorDetails armor={this.state.shown_armor}
+                         id={this.props.character.id}
+                         armors={this.state.content}
+                         setRootState={this.props.setRootState}
+                         showErrorToast={this.showErrorToast}
+                         showSuccessToast={this.showSuccessToast} />
+        </div>
+        <div className='pt-dialog-footer'>
+          <div className='pt-dialog-footer-actions'>
+            <Button text='Close' onClick={() => this.setState({ shown_armor: null })} />
+          </div>
+        </div>
+      </Dialog>
+    );
   }
 
   save = () => {
