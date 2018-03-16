@@ -26,6 +26,37 @@ export default class WeaponDetails extends Component {
   render() {
     if (this.state.weapon === null) return null;
 
+    const category = this.state.weapon.weapon_category || 'N/A';
+
+    let range = 'N/A';
+    if (this.state.weapon.weapon_range) {
+      range = this.state.weapon.weapon_range;
+      if (range === 'Ranged')
+        range += ': ' + this.state.weapon.ammo_range.normal + '/' + this.state.weapon.ammo_range.long
+
+      if (this.state.weapon.throw_range)
+        range += '\nThrown: ' + this.state.weapon.throw_range.normal + '/' + this.state.weapon.throw_range.long;
+    }
+
+    let damage = 'N/A';
+    if(this.state.weapon.damage)
+      if (this.state.weapon.damage.dice_value === 0)
+        damage = this.state.weapon.damage.dice_count + ' ' + this.state.weapon.damage.damage_type.name;
+      else
+        damage = this.state.weapon.damage.dice_count + 'd' + this.state.weapon.damage.dice_value + ' ' + this.state.weapon.damage.damage_type.name;
+
+    let properties = 'N/A';
+    if (this.state.weapon.properties)
+      properties = _.join(_.map(this.state.weapon.properties, (w) => w.name), ', ')
+
+    let cost = 'N/A';
+    if (this.state.weapon.cost)
+      cost = this.state.weapon.cost.quantity + ' ' + this.state.weapon.cost.unit;
+
+    let weight = 'N/A';
+    if (this.state.weapon.weight)
+      weight = this.state.weapon.weight + ' lb.';
+
     return (
       <Grid stackable centered>
 
@@ -34,21 +65,15 @@ export default class WeaponDetails extends Component {
           <Grid.Row>
             <Grid.Column width={5}>
               <div className='spell-detail-label'>Category</div>
-              <div className='spell-detail-value'>{ this.state.weapon.weapon_category || 'N/A' }</div>
+              <div className='spell-detail-value'>{ category }</div>
             </Grid.Column>
             <Grid.Column width={5}>
               <div className='spell-detail-label'>Range</div>
-              <div className='spell-detail-value'>{ this.state.weapon.weapon_range || 'N/A' }</div>
+              <div className='spell-detail-value' style={{ whiteSpace: 'pre-wrap' }}>{ range }</div>
             </Grid.Column>
             <Grid.Column width={5}>
               <div className='spell-detail-label'>Damage</div>
-              <div className='spell-detail-value'>
-                {
-                  !!this.state.weapon.damage ?
-                  this.state.weapon.damage.dice_count + 'd' + this.state.weapon.damage.dice_value + ' ' + this.state.weapon.damage.damage_type.name
-                  : 'N/A'
-                }
-              </div>
+              <div className='spell-detail-value'>{ damage }</div>
             </Grid.Column>
           </Grid.Row>
           : null
@@ -59,33 +84,15 @@ export default class WeaponDetails extends Component {
           <Grid.Row>
             <Grid.Column width={5}>
               <div className='spell-detail-label'>Properties</div>
-              <div className='spell-detail-value'>
-                {
-                  this.state.weapon.properties ?
-                  _.join(_.map(this.state.weapon.properties, (w) => w.name), ', ')
-                  : 'N/A'
-                }
-              </div>
+              <div className='spell-detail-value'>{ properties }</div>
             </Grid.Column>
             <Grid.Column width={5}>
               <div className='spell-detail-label'>Price</div>
-              <div className='spell-detail-value'>
-                {
-                  this.state.weapon.cost ?
-                  this.state.weapon.cost.quantity + ' ' + this.state.weapon.cost.unit
-                  : 'N/A'
-                }
-              </div>
+              <div className='spell-detail-value'>{ cost }</div>
             </Grid.Column>
             <Grid.Column width={5}>
               <div className='spell-detail-label'>Weight</div>
-              <div className='spell-detail-value'>
-                {
-                  this.state.weapon.weight ?
-                  this.state.weapon.weight + ' lb.'
-                  : 'N/A'
-                }
-              </div>
+              <div className='spell-detail-value'>{ weight }</div>
             </Grid.Column>
           </Grid.Row>
           : null
