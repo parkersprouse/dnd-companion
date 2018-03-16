@@ -7,7 +7,10 @@ import ProfilePage from './pages/ProfilePage';
 import CharacterListPage from './pages/CharacterListPage';
 import CharacterShowPage from './pages/CharacterShowPage';
 import CreateCharacterPage from './pages/CreateCharacterPage';
+import ArmorSearcher from './pages/ArmorSearcher';
+import EquipmentSearcher from './pages/EquipmentSearcher';
 import SpellSearcher from './pages/SpellSearcher';
+import WeaponsSearcher from './pages/WeaponsSearcher';
 import NotFound from './pages/NotFound';
 import utils from './lib/utils';
 
@@ -54,7 +57,10 @@ export default class AppRouter extends Component {
         <PrivateRoute exact path='/characters' component={CharacterListPage} />
         <PrivateRoute exact path='/characters/new' component={CreateCharacterPage} />
         <PrivateRoute exact path='/characters/:id' component={CharacterShowPage} />
-        <Route exact path='/spells' component={SpellSearcher} />
+        <Route exact path='/info/armor' component={ArmorSearcher} />
+        <Route exact path='/info/equipment' component={EquipmentSearcher} />
+        <Route exact path='/info/spells' component={SpellSearcher} />
+        <Route exact path='/info/weapons' component={WeaponsSearcher} />
         <Route exact path='/logout' render={() => { utils.logout(); return <Redirect to='/' /> }} />
         <Route path='*' component={NotFound} />
       </Switch>

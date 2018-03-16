@@ -48,7 +48,10 @@ export default class Header extends Component {
 
     const infoDropdown =
       <Menu>
-        <MenuItem text='Spell List' iconName='th' href='/spells' shouldDismissPopover={false} />
+        <MenuItem text='Armor List' iconName='th' href='/info/armor' shouldDismissPopover={false} />
+        <MenuItem text='Equipment List' iconName='th' href='/info/equipment' shouldDismissPopover={false} />
+        <MenuItem text='Spell List' iconName='th' href='/info/spells' shouldDismissPopover={false} />
+        <MenuItem text='Weapon List' iconName='th' href='/info/weapons' shouldDismissPopover={false} />
       </Menu>;
 
     let rightSide = null;
@@ -115,7 +118,10 @@ export default class Header extends Component {
             <MenuItem text='New Character' href='/characters/new' />
           </MenuItem>
           <MenuItem text='Info'>
-            <MenuItem text='Spell List' href='/spells' />
+            <MenuItem text='Armor List' href='/info/armor' />
+            <MenuItem text='Equipment List' href='/info/equipment' />
+            <MenuItem text='Spell List' href='/info/spells' />
+            <MenuItem text='Weapon List' href='/info/weapons' />
           </MenuItem>
           <MenuItem text='Profile' href='/profile' />
           <MenuDivider />
