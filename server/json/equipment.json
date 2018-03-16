@@ -25,9 +25,6 @@
 	"properties": [{
 		"url": "/api/db/weapon-properties/4",
 		"name": "Light"
-	}, {
-		"url": "/api/db/weapon-properties/11",
-		"name": "Monk"
 	}],
 	"url": "/api/db/equipment/1"
 }, {
@@ -63,9 +60,6 @@
 	}, {
 		"url": "/api/db/weapon-properties/8",
 		"name": "Thrown"
-	}, {
-		"url": "/api/db/weapon-properties/11",
-		"name": "Monk"
 	}],
 	"throw_range": {
 		"normal": 20,
@@ -131,9 +125,6 @@
 	}, {
 		"url": "/api/db/weapon-properties/8",
 		"name": "Thrown"
-	}, {
-		"url": "/api/db/weapon-properties/11",
-		"name": "Monk"
 	}],
 	"throw_range": {
 		"normal": 20,
@@ -167,9 +158,6 @@
 	"properties": [{
 		"url": "/api/db/weapon-properties/8",
 		"name": "Thrown"
-	}, {
-		"url": "/api/db/weapon-properties/11",
-		"name": "Monk"
 	}],
 	"throw_range": {
 		"normal": 30,
@@ -206,9 +194,6 @@
 	}, {
 		"url": "/api/db/weapon-properties/8",
 		"name": "Thrown"
-	}, {
-		"url": "/api/db/weapon-properties/11",
-		"name": "Monk"
 	}],
 	"throw_range": {
 		"normal": 20,
@@ -239,10 +224,7 @@
 		"long": null
 	},
 	"weight": 4,
-	"properties": [{
-		"url": "/api/db/weapon-properties/11",
-		"name": "Monk"
-	}],
+	"properties": [],
 	"url": "/api/db/equipment/7"
 }, {
 	"index": 8,
@@ -271,9 +253,6 @@
 	"properties": [{
 		"url": "/api/db/weapon-properties/10",
 		"name": "Versatile"
-	}, {
-		"url": "/api/db/weapon-properties/11",
-		"name": "Monk"
 	}],
 	"2h_damage": {
 		"dice_count": 1,
@@ -311,9 +290,6 @@
 	"properties": [{
 		"url": "/api/db/weapon-properties/4",
 		"name": "Light"
-	}, {
-		"url": "/api/db/weapon-properties/11",
-		"name": "Monk"
 	}],
 	"url": "/api/db/equipment/9"
 }, {
@@ -329,7 +305,7 @@
 	},
 	"damage": {
 		"dice_count": 1,
-		"dice_value": 4,
+		"dice_value": 6,
 		"damage_type": {
 			"url": "/api/db/damage-types/8",
 			"name": "Piercing"
@@ -346,9 +322,6 @@
 	}, {
 		"url": "/api/db/weapon-properties/10",
 		"name": "Versatile"
-	}, {
-		"url": "/api/db/weapon-properties/11",
-		"name": "Monk"
 	}],
 	"throw_range": {
 		"normal": 20,
@@ -397,6 +370,10 @@
 		"url": "/api/db/weapon-properties/9",
 		"name": "Two-Handed"
 	}],
+  "ammo_range": {
+    "normal": 80,
+    "long": 320
+  },
 	"url": "/api/db/equipment/11"
 }, {
 	"index": 12,
@@ -421,7 +398,7 @@
 		"normal": 5,
 		"long": null
 	},
-	"weight": 0.25,
+	"weight": "1/4",
 	"properties": [{
 		"url": "/api/db/weapon-properties/2",
 		"name": "Finesse"
@@ -465,6 +442,10 @@
 		"url": "/api/db/weapon-properties/9",
 		"name": "Two-Handed"
 	}],
+  "ammo_range": {
+    "normal": 80,
+    "long": 320
+  },
 	"url": "/api/db/equipment/13"
 }, {
 	"index": 14,
@@ -494,6 +475,10 @@
 		"url": "/api/db/weapon-properties/1",
 		"name": "Ammunition"
 	}],
+  "ammo_range": {
+    "normal": 30,
+    "long": 120
+  },
 	"url": "/api/db/equipment/14"
 }, {
 	"index": 15,
@@ -946,9 +931,6 @@
 	}, {
 		"url": "/api/db/weapon-properties/4",
 		"name": "Light"
-	}, {
-		"url": "/api/db/weapon-properties/11",
-		"name": "Monk"
 	}],
 	"url": "/api/db/equipment/28"
 }, {
@@ -967,7 +949,7 @@
 		"dice_value": 6,
 		"damage_type": {
 			"url": "/api/db/damage-types/12",
-			"name": "Slashing"
+			"name": "Piercing"
 		}
 	},
 	"range": {
@@ -986,10 +968,18 @@
 		"normal": 20,
 		"long": 60
 	},
+  "2h_damage": {
+		"dice_count": 1,
+		"dice_value": 8,
+		"damage_type": {
+      "url": "/api/db/damage-types/12",
+			"name": "Piercing"
+		}
+	},
 	"url": "/api/db/equipment/29"
 }, {
 	"index": 30,
-	"name": "War pick",
+	"name": "War Pick",
 	"equipment_category": "Weapon",
 	"weapon_category": "Martial",
 	"weapon_range": "Melee",
@@ -1095,7 +1085,7 @@
 	},
 	"damage": {
 		"dice_count": 1,
-		"dice_value": 1,
+		"dice_value": 0,
 		"damage_type": {
 			"url": "/api/db/damage-types/8",
 			"name": "Piercing"
@@ -1107,12 +1097,16 @@
 	},
 	"weight": 1,
 	"properties": [{
-			"name": "Ammunition",
-			"url": "/api/db/weapon-properties/1"
-		}, {
-			"name": "Loading",
-			"url": "/api/db/weapon-properties/5"
-		}],
+		"name": "Ammunition",
+		"url": "/api/db/weapon-properties/1"
+	}, {
+		"name": "Loading",
+		"url": "/api/db/weapon-properties/5"
+	}],
+  "ammo_range": {
+		"normal": 25,
+		"long": 100
+	},
 	"url": "/api/db/equipment/33"
 }, {
 	"index": 34,
@@ -1139,15 +1133,19 @@
 	},
 	"weight": 3,
 	"properties": [{
-			"name": "Ammunition",
-			"url": "/api/db/weapon-properties/1"
-		}, {
+		"url": "/api/db/weapon-properties/1",
+    "name": "Ammunition"
+	}, {
 		"url": "/api/db/weapon-properties/4",
 		"name": "Light"
 	}, {
-			"name": "Loading",
-			"url": "/api/db/weapon-properties/5"
-		}],
+		"url": "/api/db/weapon-properties/5",
+    "name": "Loading"
+	}],
+  "ammo_range": {
+		"normal": 30,
+		"long": 120
+	},
 	"url": "/api/db/equipment/34"
 }, {
 	"index": 35,
@@ -1174,18 +1172,22 @@
 	},
 	"weight": 18,
 	"properties": [{
-			"name": "Ammunition",
-			"url": "/api/db/weapon-properties/1"
-		}, {
-		"url": "/api/db/weapon-properties/4",
-		"name": "Light"
+		"url": "/api/db/weapon-properties/1",
+    "name": "Ammunition"
 	}, {
-			"name": "Loading",
-			"url": "/api/db/weapon-properties/5"
-		}, {
+		"url": "/api/db/weapon-properties/4",
+		"name": "Heavy"
+	}, {
+		"url": "/api/db/weapon-properties/5",
+    "name": "Loading"
+	}, {
 		"url": "/api/db/weapon-properties/9",
 		"name": "Two-Handed"
 	}],
+  "ammo_range": {
+		"normal": 100,
+		"long": 400
+	},
 	"url": "/api/db/equipment/35"
 }, {
 	"index": 36,
@@ -1212,15 +1214,19 @@
 	},
 	"weight": 2,
 	"properties": [{
-			"name": "Ammunition",
-			"url": "/api/db/weapon-properties/1"
-		}, {
+		"url": "/api/db/weapon-properties/1",
+    "name": "Ammunition"
+	}, {
 		"url": "/api/db/weapon-properties/3",
 		"name": "Heavy"
 	}, {
 		"url": "/api/db/weapon-properties/9",
 		"name": "Two-Handed"
 	}],
+  "ammo_range": {
+		"normal": 150,
+		"long": 600
+	},
 	"url": "/api/db/equipment/36"
 }, {
 	"index": 37,
@@ -1234,12 +1240,9 @@
 		"unit": "gp"
 	},
 	"damage": {
-		"dice_count": 1,
+		"dice_count": 0,
 		"dice_value": 0,
-		"damage_type": {
-			"url": "/api/db/damage-types/12",
-			"name": "Slashing"
-		}
+		"damage_type": null
 	},
 	"range": {
 		"normal": 5,
