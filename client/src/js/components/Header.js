@@ -135,7 +135,10 @@ export default class Header extends Component {
           <MenuItem text='Login' href='/login' />
           <MenuItem text='Register' href='/register' />
           <MenuItem text='Info'>
-            <MenuItem text='Spell List' href='/spells' />
+            <MenuItem text='Armor List' href='/info/armor' />
+            <MenuItem text='Equipment List' href='/info/equipment' />
+            <MenuItem text='Spell List' href='/info/spells' />
+            <MenuItem text='Weapon List' href='/info/weapons' />
           </MenuItem>
         </Menu>;
     }

@@ -4,7 +4,7 @@ import { Button, Intent, Position, Tooltip } from '@blueprintjs/core';
 import _ from 'lodash';
 import api from '../../../lib/api';
 
-export default class WeaponDetails extends Component {
+export default class CustomWeaponDetails extends Component {
   constructor(props) {
     super(props);
 

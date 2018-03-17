@@ -3,7 +3,7 @@ import { Button, Dialog, Intent, NumericInput, Popover, Position, Toaster, Toolt
 import _ from 'lodash';
 import api from '../../../lib/api';
 import { isMobile } from '../../../lib/utils';
-import WeaponDetails from './WeaponDetails';
+import CustomWeaponDetails from './CustomWeaponDetails';
 
 export default class WeaponsTreeDisplay extends Component {
   constructor(props) {
@@ -91,7 +91,7 @@ export default class WeaponsTreeDisplay extends Component {
       <Dialog isOpen={!!this.state.shown_weapon} onClose={() => this.setState({ shown_weapon: null })}
               title={this.state.shown_weapon ? this.state.shown_weapon.name : ''}>
         <div className='pt-dialog-body'>
-          <WeaponDetails weapon={this.state.shown_weapon}
+          <CustomWeaponDetails weapon={this.state.shown_weapon}
                          id={this.props.character.id}
                          weapons={this.state.content}
                          setRootState={this.props.setRootState}
