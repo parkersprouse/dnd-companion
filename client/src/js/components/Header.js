@@ -109,6 +109,14 @@ export default class Header extends Component {
   configureMobileMenu = () => {
     let items = null;
 
+    const info_menu =
+      <MenuItem text='Info'>
+        <MenuItem text='Armor List' href='/info/armor' />
+        <MenuItem text='Equipment List' href='/info/equipment' />
+        <MenuItem text='Spell List' href='/info/spells' />
+        <MenuItem text='Weapon List' href='/info/weapons' />
+      </MenuItem>;
+
     if (this.state.isLoggedIn) {
       items =
         <Menu>
@@ -117,12 +125,7 @@ export default class Header extends Component {
             <MenuItem text='My Characters' href='/characters' />
             <MenuItem text='New Character' href='/characters/new' />
           </MenuItem>
-          <MenuItem text='Info'>
-            <MenuItem text='Armor List' href='/info/armor' />
-            <MenuItem text='Equipment List' href='/info/equipment' />
-            <MenuItem text='Spell List' href='/info/spells' />
-            <MenuItem text='Weapon List' href='/info/weapons' />
-          </MenuItem>
+          { info_menu }
           <MenuItem text='Profile' href='/profile' />
           <MenuDivider />
           <MenuItem text='Logout' href='/logout' />
@@ -134,12 +137,7 @@ export default class Header extends Component {
           <MenuItem text='Home' href='/' />
           <MenuItem text='Login' href='/login' />
           <MenuItem text='Register' href='/register' />
-          <MenuItem text='Info'>
-            <MenuItem text='Armor List' href='/info/armor' />
-            <MenuItem text='Equipment List' href='/info/equipment' />
-            <MenuItem text='Spell List' href='/info/spells' />
-            <MenuItem text='Weapon List' href='/info/weapons' />
-          </MenuItem>
+          { info_menu }
         </Menu>;
     }
 

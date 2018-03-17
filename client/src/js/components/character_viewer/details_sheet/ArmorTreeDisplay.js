@@ -3,7 +3,7 @@ import { Button, Dialog, Intent, NumericInput, Popover, Position, Toaster, Toolt
 import _ from 'lodash';
 import api from '../../../lib/api';
 import { isMobile } from '../../../lib/utils';
-import ArmorDetails from './ArmorDetails';
+import CustomArmorDetails from './CustomArmorDetails';
 
 export default class ArmorTreeDisplay extends Component {
   constructor(props) {
@@ -91,7 +91,7 @@ export default class ArmorTreeDisplay extends Component {
       <Dialog isOpen={!!this.state.shown_armor} onClose={() => this.setState({ shown_armor: null })}
               title={this.state.shown_armor ? this.state.shown_armor.name : ''}>
         <div className='pt-dialog-body'>
-          <ArmorDetails armor={this.state.shown_armor}
+          <CustomArmorDetails armor={this.state.shown_armor}
                          id={this.props.character.id}
                          armors={this.state.content}
                          setRootState={this.props.setRootState}

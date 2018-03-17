@@ -36,7 +36,7 @@ export default class WeaponSearcher extends Component {
   render() {
     let rendered_weapons = null;
     if (this.state.name_filter || this.state.category_filter || this.state.range_filter || this.state.property_filter)
-      rendered_weapons = this.renderFilteredSpells();
+      rendered_weapons = this.renderFilteredWeapons();
     else
       rendered_weapons = this.renderAllWeapons();
 
@@ -139,7 +139,7 @@ export default class WeaponSearcher extends Component {
     return this.createWeaponList(this.state.weapons);
   }
 
-  renderFilteredSpells = () => {
+  renderFilteredWeapons = () => {
     let filtered_weapons = this.state.weapons;
 
     if (this.state.name_filter)
