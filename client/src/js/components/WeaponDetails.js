@@ -19,11 +19,16 @@ export default class WeaponDetails extends Component {
     }
 
     let damage = 'N/A';
-    if(this.props.weapon.damage && this.props.weapon.damage.damage_type)
+    if(this.props.weapon.damage && this.props.weapon.damage.damage_type) {
       if (this.props.weapon.damage.dice_value === 0)
         damage = this.props.weapon.damage.dice_count + ' ' + this.props.weapon.damage.damage_type.name;
       else
         damage = this.props.weapon.damage.dice_count + 'd' + this.props.weapon.damage.dice_value + ' ' + this.props.weapon.damage.damage_type.name;
+
+      if (this.props.weapon['2h_damage']) {
+        damage += '\n' + this.props.weapon['2h_damage'].dice_count + 'd' + this.props.weapon['2h_damage'].dice_value + ' ' + this.props.weapon['2h_damage'].damage_type.name;
+      }
+    }
 
     let properties = 'N/A';
     if (this.props.weapon.properties && this.props.weapon.properties.length > 0)
@@ -55,7 +60,7 @@ export default class WeaponDetails extends Component {
           </Grid.Column>
           <Grid.Column width={5}>
             <div className='spell-detail-label'>Damage</div>
-            <div className='spell-detail-value'>{ damage }</div>
+            <div className='spell-detail-value' style={{ whiteSpace: 'pre-wrap' }}>{ damage }</div>
           </Grid.Column>
         </Grid.Row>
 

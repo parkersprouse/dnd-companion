@@ -1262,7 +1262,11 @@
 		"long": 15
 	},
 	"url": "/api/db/equipment/37"
-}, {
+},
+
+
+
+{
 	"index": 38,
 	"name": "Padded",
 	"equipment_category": "Armor",
@@ -1496,7 +1500,11 @@
 		"unit": "gp"
 	},
 	"url": "/api/db/equipment/50"
-}, {
+},
+
+
+
+{
 	"index": 51,
 	"name": "Abacus",
 	"equipment_category": "Adventuring Gear",

@@ -39,11 +39,16 @@ export default class CustomWeaponDetails extends Component {
     }
 
     let damage = 'N/A';
-    if(this.state.weapon.damage && this.state.weapon.damage.damage_type)
+    if(this.state.weapon.damage && this.state.weapon.damage.damage_type) {
       if (this.state.weapon.damage.dice_value === 0)
         damage = this.state.weapon.damage.dice_count + ' ' + this.state.weapon.damage.damage_type.name;
       else
         damage = this.state.weapon.damage.dice_count + 'd' + this.state.weapon.damage.dice_value + ' ' + this.state.weapon.damage.damage_type.name;
+
+      if (this.state.weapon['2h_damage']) {
+        damage += '\n' + this.state.weapon['2h_damage'].dice_count + 'd' + this.state.weapon['2h_damage'].dice_value + ' ' + this.state.weapon['2h_damage'].damage_type.name;
+      }
+    }
 
     let properties = 'N/A';
     if (this.state.weapon.properties)
@@ -77,7 +82,7 @@ export default class CustomWeaponDetails extends Component {
             </Grid.Column>
             <Grid.Column width={5}>
               <div className='spell-detail-label'>Damage</div>
-              <div className='spell-detail-value'>{ damage }</div>
+              <div className='spell-detail-value' style={{ whiteSpace: 'pre-wrap' }}>{ damage }</div>
             </Grid.Column>
           </Grid.Row>
           : null
