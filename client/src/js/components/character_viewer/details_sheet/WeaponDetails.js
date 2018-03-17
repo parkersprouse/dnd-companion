@@ -31,7 +31,7 @@ export default class WeaponDetails extends Component {
     let range = 'N/A';
     if (this.state.weapon.weapon_range) {
       range = this.state.weapon.weapon_range;
-      if (range === 'Ranged')
+      if (range === 'Ranged' && this.state.weapon.ammo_range)
         range += ': ' + this.state.weapon.ammo_range.normal + '/' + this.state.weapon.ammo_range.long
 
       if (this.state.weapon.throw_range)
@@ -39,7 +39,7 @@ export default class WeaponDetails extends Component {
     }
 
     let damage = 'N/A';
-    if(this.state.weapon.damage)
+    if(this.state.weapon.damage && this.state.weapon.damage.damage_type)
       if (this.state.weapon.damage.dice_value === 0)
         damage = this.state.weapon.damage.dice_count + ' ' + this.state.weapon.damage.damage_type.name;
       else
@@ -56,6 +56,10 @@ export default class WeaponDetails extends Component {
     let weight = 'N/A';
     if (this.state.weapon.weight)
       weight = this.state.weapon.weight + ' lb.';
+
+    let special = null;
+    if (this.state.weapon.special)
+      special = _.map(this.state.weapon.special, (e) => <div>{e}</div>)
 
     return (
       <Grid stackable centered>
@@ -93,6 +97,19 @@ export default class WeaponDetails extends Component {
             <Grid.Column width={5}>
               <div className='spell-detail-label'>Weight</div>
               <div className='spell-detail-value'>{ weight }</div>
+            </Grid.Column>
+          </Grid.Row>
+          : null
+        }
+
+        {
+          !this.props.weapon.custom && special ?
+          <Grid.Row>
+            <Grid.Column width={15}>
+              <div className='spell-detail-label'>Special Properties</div>
+              <div className='spell-detail-value'>
+                { special }
+              </div>
             </Grid.Column>
           </Grid.Row>
           : null
