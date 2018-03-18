@@ -51,7 +51,7 @@ export default class ArmorSearcher extends Component {
               <Grid.Column width={8} style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
                 <div className='pt-input-group pt-fill'>
                   <span className='pt-icon pt-icon-search'></span>
-                  <input type='text' className='pt-input' placeholder='Filter Weapons'
+                  <input type='text' className='pt-input' placeholder='Filter Armor'
                          onChange={(event) => this.setState({ name_filter: event.target.value })} />
                 </div>
               </Grid.Column>
