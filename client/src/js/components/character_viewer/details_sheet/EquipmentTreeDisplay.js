@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Position, Popover, NumericInput, Toaster, Intent } from '@blueprintjs/core';
+import { Button, Dialog, Intent, NumericInput, Popover, Position, Toaster } from '@blueprintjs/core';
 import _ from 'lodash';
 import api from '../../../lib/api';
 import { isMobile } from '../../../lib/utils';
+import CustomEquipmentDetails from './CustomEquipmentDetails';
 
 export default class EquipmentTreeDisplay extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ export default class EquipmentTreeDisplay extends Component {
             </li>
           }
         </ul>
+        { this.renderShowEquipmentDialog() }
       </div>
     );
   }
@@ -44,25 +46,9 @@ export default class EquipmentTreeDisplay extends Component {
         <li key={index} className='pt-tree-node'>
           <div className='pt-tree-node-content'>
 
-            <span className='pt-tree-node-label' style={{ paddingLeft: '10px' }}>
-              <Popover position={isMobile() ? Position.TOP_LEFT : Position.TOP}>
-                <span style={{ cursor: 'pointer' }}>{ele.name}</span>
-                <div className='item-amount-popover'>
-                  <span>Custom Description:</span>
-                  <textarea rows='4' value={ele.desc}
-                            className='pt-input pt-fill' type='text'
-                            onChange={(event) => {
-                              ele.desc = event.target.value;
-                              this.forceUpdate();
-                            }}
-                            style={{ marginTop: '0.25rem' }}>
-                  </textarea>
-                  <div className='text-center' style={{ marginTop: '0.5rem', marginBottom: '-10px' }}>
-                    <button className='pt-button pt-intent-success pt-minimal'
-                            onClick={this.save}>Save</button>
-                  </div>
-                </div>
-              </Popover>
+            <span className='pt-tree-node-label' style={{ marginLeft: '0.75rem', cursor: 'pointer' }}
+                  onClick={() => this.setState({ shown_equipment: ele })}>
+              {ele.name}
             </span>
 
             <span className='pt-tree-node-secondary-label'>
@@ -88,6 +74,27 @@ export default class EquipmentTreeDisplay extends Component {
         </li>
       );
     });
+  }
+
+  renderShowEquipmentDialog = () => {
+    return (
+      <Dialog isOpen={!!this.state.shown_equipment} onClose={() => this.setState({ shown_equipment: null })}
+              title={this.state.shown_equipment ? this.state.shown_equipment.name : ''}>
+        <div className='pt-dialog-body'>
+          <CustomEquipmentDetails equipment={this.state.shown_equipment}
+                                  id={this.props.character.id}
+                                  equipments={this.state.content}
+                                  setRootState={this.props.setRootState}
+                                  showErrorToast={this.showErrorToast}
+                                  showSuccessToast={this.showSuccessToast} />
+        </div>
+        <div className='pt-dialog-footer'>
+          <div className='pt-dialog-footer-actions'>
+            <Button text='Close' onClick={() => this.setState({ shown_equipment: null })} />
+          </div>
+        </div>
+      </Dialog>
+    );
   }
 
   save = () => {

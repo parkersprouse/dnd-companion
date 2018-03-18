@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
-import _ from 'lodash';
 
 export default class ArmorDetails extends Component {
   render() {
