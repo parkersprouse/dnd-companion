@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Grid, Loader } from 'semantic-ui-react';
 import { Tab2, Tabs2, Button, Intent, Toaster, Alert, Position, NonIdealState } from '@blueprintjs/core';
 import _ from 'lodash';
 import OuterContainer from '../components/OuterContainer';
@@ -38,7 +39,21 @@ export default class CharacterShowPage extends Component {
   }
 
   render() {
-    if (!this.state.character) return null;
+    if (!this.state.character)
+      return (
+        <OuterContainer>
+          <Header />
+          <InnerContainer>
+            <Grid stackable centered>
+              <Grid.Row style={{ marginTop: '2rem' }}>
+                <Grid.Column width={16}>
+                  <Loader active content='Loading...' />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </InnerContainer>
+        </OuterContainer>
+      );
 
     else if (this.state.character === -1)
       return (

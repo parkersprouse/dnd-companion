@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Loader } from 'semantic-ui-react';
 import { Button, Intent, Position, Tooltip } from '@blueprintjs/core';
 import _ from 'lodash';
 import api from '../../../lib/api';
@@ -24,7 +24,16 @@ export default class CustomArmorDetails extends Component {
   }
 
   render() {
-    if (this.state.equipment === null) return null;
+    if (this.state.equipment === null)
+      return (
+        <Grid stackable centered>
+          <Grid.Row style={{ marginTop: '2rem' }}>
+            <Grid.Column width={16}>
+              <Loader active content='Loading...' />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      );
 
     return (
       <Grid stackable centered>
