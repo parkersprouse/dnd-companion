@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Position, Toaster, Intent, Tooltip, InputGroup } from '@blueprintjs/core';
+import { Button, Position, Toaster, Intent, Tooltip, InputGroup } from '@blueprintjs/core';
 import { valueify } from '../lib/utils';
 import api from '../lib/api';
 
@@ -26,7 +26,9 @@ export default class InputToggler extends Component {
                 type={this.props.number ? 'number' : 'text'}
                 onChange={(event) => this.setState({ [this.props.name]: event.target.value }) }
                 rightElement={<Tooltip content='Save' position={Position.TOP}>
-                                <button className='pt-button pt-minimal pt-intent-success pt-icon-tick' onClick={this.save}></button>
+                                <Button intent={Intent.SUCCESS} className='pt-minimal'
+                                        onClick={this.save} iconName='tick'
+                                        loading={this.state.saving}></Button>
                               </Tooltip>}
               />
             </div>
