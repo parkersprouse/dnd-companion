@@ -165,6 +165,9 @@ export default class CharacterShowPage extends Component {
         break;
     }
 
+    if (Number.isNaN(ability_modifier))
+      ability_modifier = 0;
+
     api.updateCharacter({
       id: char.id,
       spell_ability: ability_modifier,
