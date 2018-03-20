@@ -143,6 +143,10 @@ module.exports = {
 
   getSpells: function(callback) {
     performGet('/api/db/spells', callback);
+  },
+
+  getTrinkets: function(callback) {
+    performGet('/api/db/trinkets', callback);
   }
 
 }
