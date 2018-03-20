@@ -4,6 +4,24 @@ import { Button, Position, Toaster, Intent, Tooltip, InputGroup } from '@bluepri
 import { valueify } from '../../../lib/utils';
 import api from '../../../lib/api';
 
+function showErrorToast() {
+  Toaster.create().show({
+    message: 'Failed to update',
+    position: Position.TOP_CENTER,
+    intent: Intent.DANGER,
+    timeout: 2000
+  });
+}
+
+function showSuccessToast() {
+  Toaster.create().show({
+    message: 'Successfully Updated',
+    position: Position.TOP_CENTER,
+    intent: Intent.SUCCESS,
+    timeout: 2000
+  });
+}
+
 class AbilityInputToggler extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +64,7 @@ class AbilityInputToggler extends Component {
         <div className='pt-form-content'>
           <div className='pt-input-group'>
             <Tooltip content='Click to edit' position={Position.TOP}>
-              <span className='char-sheet-editable-text' onClick={() => this.setEditing(true)}>
+              <span className='char-sheet-editable-text no-icon' onClick={() => this.setEditing(true)}>
                 { this.state[this.props.name] !== null &&
                   this.state[this.props.name] !== '' ?
                   this.state[this.props.name] : this.props.number ? '0' : 'None'
@@ -123,37 +141,19 @@ class AbilityInputToggler extends Component {
     this.props.character.ability_scores[this.props.name].modifier = this.determineModifier(this.state[this.props.name]);
     api.updateCharacter({ id: this.props.character.id, ability_scores: this.props.character.ability_scores }, (success, response) => {
       if (success) {
-        this.showSuccessToast();
+        showSuccessToast();
         this.setEditing(false);
         if (this.props.setRootState)
           this.props.setRootState({ character: response.content });
       }
       else
-        this.showErrorToast();
+        showErrorToast();
       this.setState({ saving: false });
     });
   }
 
   setEditing = (editing) => {
     this.setState({ editing });
-  }
-
-  showErrorToast = () => {
-    Toaster.create().show({
-      message: 'Failed to update',
-      position: Position.TOP_CENTER,
-      intent: Intent.DANGER,
-      timeout: 2000
-    });
-  }
-
-  showSuccessToast = () => {
-    Toaster.create().show({
-      message: 'Successfully Updated',
-      position: Position.TOP_CENTER,
-      intent: Intent.SUCCESS,
-      timeout: 2000
-    });
   }
 }
 
@@ -162,55 +162,233 @@ export default class AbilityScoreInputs extends Component {
     return (
       <Grid stackable centered>
 
+        <hr style={{ width: '100%', marginTop: '10px', marginBottom: '10px' }} />
+
         <Grid.Row stretched>
-          <Grid.Column width={16}>
+          <Grid.Column width={6}>
             <AbilityInputToggler character={this.props.character}
                                  setRootState={this.props.setRootState}
                                  name='strength' label='Strength' number />
           </Grid.Column>
+          <Grid.Column width={10}>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('STR')} onChange={(e) => this.toggle(e, 'STR')} />
+              <span className='pt-control-indicator'></span>
+              Saving Throws
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Athletics')} onChange={(e) => this.toggle(e, 'Athletics')} />
+              <span className='pt-control-indicator'></span>
+              Athletics
+            </label>
+          </Grid.Column>
         </Grid.Row>
 
+        <hr style={{ width: '100%', marginTop: '10px', marginBottom: '10px' }} />
+
         <Grid.Row stretched>
-          <Grid.Column width={16}>
+          <Grid.Column width={6}>
             <AbilityInputToggler character={this.props.character}
                                  setRootState={this.props.setRootState}
                                  name='dexterity' label='Dexterity' number />
           </Grid.Column>
+          <Grid.Column width={10}>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('DEX')} onChange={(e) => this.toggle(e, 'DEX')} />
+              <span className='pt-control-indicator'></span>
+              Saving Throws
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Acrobatics')} onChange={(e) => this.toggle(e, 'Acrobatics')} />
+              <span className='pt-control-indicator'></span>
+              Acrobatics
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Sleight of Hand')} onChange={(e) => this.toggle(e, 'Sleight of Hand')} />
+              <span className='pt-control-indicator'></span>
+              Sleight of Hand
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Stealth')} onChange={(e) => this.toggle(e, 'Stealth')} />
+              <span className='pt-control-indicator'></span>
+              Stealth
+            </label>
+          </Grid.Column>
         </Grid.Row>
 
+        <hr style={{ width: '100%', marginTop: '10px', marginBottom: '10px' }} />
+
         <Grid.Row stretched>
-          <Grid.Column width={16}>
+          <Grid.Column width={6}>
             <AbilityInputToggler character={this.props.character}
                                  setRootState={this.props.setRootState}
                                  name='constitution' label='Constitution' number />
           </Grid.Column>
+          <Grid.Column width={10}>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('CON')} onChange={(e) => this.toggle(e, 'CON')} />
+              <span className='pt-control-indicator'></span>
+              Saving Throws
+            </label>
+          </Grid.Column>
         </Grid.Row>
 
+        <hr style={{ width: '100%', marginTop: '10px', marginBottom: '10px' }} />
+
         <Grid.Row stretched>
-          <Grid.Column width={16}>
+          <Grid.Column width={6}>
             <AbilityInputToggler character={this.props.character}
                                  setRootState={this.props.setRootState}
                                  name='intelligence' label='Intelligence' number />
           </Grid.Column>
+          <Grid.Column width={10}>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('INT')} onChange={(e) => this.toggle(e, 'INT')} />
+              <span className='pt-control-indicator'></span>
+              Saving Throws
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Arcana')} onChange={(e) => this.toggle(e, 'Arcana')} />
+              <span className='pt-control-indicator'></span>
+              Arcana
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('History')} onChange={(e) => this.toggle(e, 'History')} />
+              <span className='pt-control-indicator'></span>
+              History
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Investigation')} onChange={(e) => this.toggle(e, 'Investigation')} />
+              <span className='pt-control-indicator'></span>
+              Investigation
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Nature')} onChange={(e) => this.toggle(e, 'Nature')} />
+              <span className='pt-control-indicator'></span>
+              Nature
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Religion')} onChange={(e) => this.toggle(e, 'Religion')} />
+              <span className='pt-control-indicator'></span>
+              Religion
+            </label>
+          </Grid.Column>
         </Grid.Row>
 
+        <hr style={{ width: '100%', marginTop: '10px', marginBottom: '10px' }} />
+
         <Grid.Row stretched>
-          <Grid.Column width={16}>
+          <Grid.Column width={6}>
             <AbilityInputToggler character={this.props.character}
                                  setRootState={this.props.setRootState}
                                  name='wisdom' label='Wisdom' number />
           </Grid.Column>
+          <Grid.Column width={10}>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('WIS')} onChange={(e) => this.toggle(e, 'WIS')} />
+              <span className='pt-control-indicator'></span>
+              Saving Throws
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Animal Handling')} onChange={(e) => this.toggle(e, 'Animal Handling')} />
+              <span className='pt-control-indicator'></span>
+              Animal Handling
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Insight')} onChange={(e) => this.toggle(e, 'Insight')} />
+              <span className='pt-control-indicator'></span>
+              Insight
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Medicine')} onChange={(e) => this.toggle(e, 'Medicine')} />
+              <span className='pt-control-indicator'></span>
+              Medicine
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Perception')} onChange={(e) => this.toggle(e, 'Perception')} />
+              <span className='pt-control-indicator'></span>
+              Perception
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Survival')} onChange={(e) => this.toggle(e, 'Survival')} />
+              <span className='pt-control-indicator'></span>
+              Survival
+            </label>
+          </Grid.Column>
         </Grid.Row>
 
+        <hr style={{ width: '100%', marginTop: '10px', marginBottom: '10px' }} />
+
         <Grid.Row stretched>
-          <Grid.Column width={16}>
+          <Grid.Column width={6}>
             <AbilityInputToggler character={this.props.character}
                                  setRootState={this.props.setRootState}
                                  name='charisma' label='Charisma' number />
+          </Grid.Column>
+          <Grid.Column width={10}>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('CHA')} onChange={(e) => this.toggle(e, 'CHA')} />
+              <span className='pt-control-indicator'></span>
+              Saving Throws
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Deception')} onChange={(e) => this.toggle(e, 'Deception')} />
+              <span className='pt-control-indicator'></span>
+              Deception
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Intimidation')} onChange={(e) => this.toggle(e, 'Intimidation')} />
+              <span className='pt-control-indicator'></span>
+              Intimidation
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Performance')} onChange={(e) => this.toggle(e, 'Performance')} />
+              <span className='pt-control-indicator'></span>
+              Performance
+            </label>
+            <label className='pt-control pt-checkbox'>
+              <input type='checkbox' checked={this.has('Persuasion')} onChange={(e) => this.toggle(e, 'Persuasion')} />
+              <span className='pt-control-indicator'></span>
+              Persuasion
+            </label>
           </Grid.Column>
         </Grid.Row>
 
       </Grid>
     );
+  }
+
+  has = (save) => {
+    let prefix = 'Skill: ';
+    if (['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'].indexOf(save) > -1)
+      prefix = 'Saving Throw: ';
+
+    return this.props.character.proficiencies.indexOf(prefix + save) > -1;
+  }
+
+  toggle = (event, save) => {
+    let prefix = 'Skill: ';
+    if (['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'].indexOf(save) > -1)
+      prefix = 'Saving Throw: ';
+
+    if (event.target.checked)
+      this.props.character.proficiencies.push(prefix + save);
+    else
+      this.props.character.proficiencies.splice(this.props.character.proficiencies.indexOf(prefix + save), 1);
+
+    this.save();
+  }
+
+  save = () => {
+    api.updateCharacter({ id: this.props.character.id, proficiencies: this.props.character.proficiencies }, (success, response) => {
+      if (success) {
+        showSuccessToast();
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
+      }
+      else
+        showErrorToast();
+      this.forceUpdate();
+    });
   }
 }

@@ -11,26 +11,23 @@ export default class AbilityScoresPanel extends Component {
           <Grid.Column width={5}>
             <InputToggler character={this.props.character}
                           setRootState={this.props.setRootState}
-                          number name='proficiency_bonus' label='Proficiency Bonus' number />
+                          number name='proficiency_bonus' label='Proficiency Bonus' />
           </Grid.Column>
           <Grid.Column width={5}>
             <InputToggler character={this.props.character}
                           setRootState={this.props.setRootState}
-                          number name='inspiration' label='Inspiration' number />
+                          number name='inspiration' label='Inspiration' />
           </Grid.Column>
           <Grid.Column width={5}>
             <InputToggler character={this.props.character}
                           setRootState={this.props.setRootState}
-                          number name='passive_wisdom' label='Passive Perception (Wisdom)' number />
+                          number name='passive_wisdom' label='Passive Perception (Wisdom)' />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row stretched>
-          <Grid.Column width={6}>
+          <Grid.Column width={16}>
             <AbilityScoreInputs character={this.props.character}
                                 setRootState={this.props.setRootState}/>
-          </Grid.Column>
-          <Grid.Column width={10}>
-            scores
           </Grid.Column>
         </Grid.Row>
       </Grid>
