@@ -109,6 +109,10 @@ const traits = require('./endpoints/db/traits');
 router.get('/db/traits', traits.getAll);
 router.post('/db/traits', traits.getSpecific);
 
+const trinkets = require('./endpoints/db/trinkets');
+router.get('/db/trinkets', trinkets.getAll);
+router.post('/db/trinkets', trinkets.getSpecific);
+
 const weapon_properties = require('./endpoints/db/weapon_properties');
 router.get('/db/weapon_properties', weapon_properties.getAll);
 router.post('/db/weapon_properties', weapon_properties.getSpecific);

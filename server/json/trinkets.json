@@ -1,0 +1,401 @@
+[{
+		"roll": "01",
+		"desc": "A mummified goblin hand"
+	},
+	{
+		"roll": "02",
+		"desc": "A piece of crystal that faintly glows in the moonlight"
+	},
+	{
+		"roll": "03",
+		"desc": "A gold coin minted in an unknown land"
+	},
+	{
+		"roll": "04",
+		"desc": "A diary written in a language you don't know"
+	},
+	{
+		"roll": "05",
+		"desc": "A brass ring that never tarnishes"
+	},
+	{
+		"roll": "06",
+		"desc": "An old chess piece made from glass"
+	},
+	{
+		"roll": "07",
+		"desc": "A pair of knucklebone dice, each with a skull symbol on the side that would normally show six pips"
+	},
+	{
+		"roll": "08",
+		"desc": "A small idol depicting a nightmarish creature that gives you unsettling dreams when you sleep near it"
+	},
+	{
+		"roll": "09",
+		"desc": "A rope necklace from which dangles four mummified elf fingers"
+	},
+	{
+		"roll": "10",
+		"desc": "The deed for a parcel of land in a realm unknown to you"
+	},
+	{
+		"roll": "11",
+		"desc": "A 1-ounce block made from an unknown material"
+	},
+	{
+		"roll": "12",
+		"desc": "A small cloth doll skewered with needles"
+	},
+	{
+		"roll": "13",
+		"desc": "A tooth from an unknown beast opened"
+	},
+	{
+		"roll": "14",
+		"desc": "An enormous scale, perhaps from a dragon"
+	},
+	{
+		"roll": "15",
+		"desc": "A bright green feather"
+	},
+	{
+		"roll": "16",
+		"desc": "An old divination card bearing your likeness"
+	},
+	{
+		"roll": "17",
+		"desc": "A glass orb filled with moving smoke"
+	},
+	{
+		"roll": "18",
+		"desc": "A 1-pound egg with a bright red shell"
+	},
+	{
+		"roll": "19",
+		"desc": "A pipe that blows bubbles"
+	},
+	{
+		"roll": "20",
+		"desc": "A glass jar containing a weird bit of flesh floating in pickling fluid"
+	},
+	{
+		"roll": "21",
+		"desc": "A tiny gnome-crafted music box that plays a song you dimly remember from your childhood"
+	},
+	{
+		"roll": "22",
+		"desc": "A small wooden statuette of a smug halfling"
+	},
+	{
+		"roll": "23",
+		"desc": "A brass orb etched with strange runes"
+	},
+	{
+		"roll": "24",
+		"desc": "A multicolored stone disk"
+	},
+	{
+		"roll": "25",
+		"desc": "A tiny silver icon of a raven"
+	},
+	{
+		"roll": "26",
+		"desc": "A bag containing forty-seven humanoid teeth, one of which is rotten"
+	},
+	{
+		"roll": "27",
+		"desc": "A shard of obsidian that always feels warm to the touch"
+	},
+	{
+		"roll": "28",
+		"desc": "A dragon's bony talon hanging from a plain leather necklace"
+	},
+	{
+		"roll": "29",
+		"desc": "A pair of old socks"
+	},
+	{
+		"roll": "30",
+		"desc": "A blank book whose pages refuse to hold ink, chalk, graphite, or any other substance for marking"
+	},
+	{
+		"roll": "31",
+		"desc": "A silver badge in the shape of a five-pointed star"
+	},
+	{
+		"roll": "32",
+		"desc": "A knife that belonged to a relative"
+	},
+	{
+		"roll": "33",
+		"desc": "A glass vial filled with nail clippings"
+	},
+	{
+		"roll": "34",
+		"desc": "A rectangular metal device with two tiny metal cups on one end that throws sparks when wet"
+	},
+	{
+		"roll": "35",
+		"desc": "A white, sequined glove sized for a human"
+	},
+	{
+		"roll": "36",
+		"desc": "A vest with one hundred tiny pockets"
+	},
+	{
+		"roll": "37",
+		"desc": "A small, weightless stone block"
+	},
+	{
+		"roll": "38",
+		"desc": "A tiny sketch portrait of a goblin"
+	},
+	{
+		"roll": "39",
+		"desc": "An empty glass vial that smells of perfume when opened"
+	},
+	{
+		"roll": "40",
+		"desc": "A gemstone that looks like a lump of coal when examined by anyone but you"
+	},
+	{
+		"roll": "41",
+		"desc": "A scrap of cloth from an old banner"
+	},
+	{
+		"roll": "42",
+		"desc": "A rank insignia from a lost legionnaire"
+	},
+	{
+		"roll": "43",
+		"desc": "A tiny silver bell without a clapper"
+	},
+	{
+		"roll": "44",
+		"desc": "A mechanical canary inside a gnomish lamp"
+	},
+	{
+		"roll": "45",
+		"desc": "A tiny chest carved to look like it has numerous feet on the bottom"
+	},
+	{
+		"roll": "46",
+		"desc": "A dead sprite inside a clear glass bottle"
+	},
+	{
+		"roll": "47",
+		"desc": "A metal can that has no opening but sounds as if it is filled with liquid, sand, spiders, or broken glass (your choice)"
+	},
+	{
+		"roll": "48",
+		"desc": "A glass orb filled with water, in which swims a clockwork goldfish"
+	},
+	{
+		"roll": "49",
+		"desc": "A silver spoon with an M engraved on the handle"
+	},
+	{
+		"roll": "50",
+		"desc": "A whistle made from gold-colored wood"
+	},
+	{
+		"roll": "51",
+		"desc": "A dead scarab beetle the size of your hand"
+	},
+	{
+		"roll": "52",
+		"desc": "Two toy soldiers, one with a missing head"
+	},
+	{
+		"roll": "53",
+		"desc": "A small box filled with different-sized buttons"
+	},
+	{
+		"roll": "54",
+		"desc": "A candle that can't be lit"
+	},
+	{
+		"roll": "55",
+		"desc": "A tiny cage with no door"
+	},
+	{
+		"roll": "56",
+		"desc": "An old key"
+	},
+	{
+		"roll": "57",
+		"desc": "An indecipherable treasure map"
+	},
+	{
+		"roll": "58",
+		"desc": "A hilt from a broken sword"
+	},
+	{
+		"roll": "59",
+		"desc": "A rabbit's foot"
+	},
+	{
+		"roll": "60",
+		"desc": "A glass eye"
+	},
+	{
+		"roll": "61",
+		"desc": "A cameo carved in the likeness of a hideous person"
+	},
+	{
+		"roll": "62",
+		"desc": "A silver skull the size of a coin"
+	},
+	{
+		"roll": "63",
+		"desc": "An alabaster mask"
+	},
+	{
+		"roll": "64",
+		"desc": "A pyramid of sticky black incense that smells very bad"
+	},
+	{
+		"roll": "65",
+		"desc": "A nightcap that, when worn, gives you pleasant dreams"
+	},
+	{
+		"roll": "66",
+		"desc": "A single caltrop made from bone"
+	},
+	{
+		"roll": "67",
+		"desc": "A gold monocle frame without the lens"
+	},
+	{
+		"roll": "68",
+		"desc": "A 1-inch cube, each side painted a different color"
+	},
+	{
+		"roll": "69",
+		"desc": "A crystal knob from a door"
+	},
+	{
+		"roll": "70",
+		"desc": "A small packet filled with pink dust"
+	},
+	{
+		"roll": "71",
+		"desc": "A fragment of a beautiful song, written as musical notes on two pieces of parchment"
+	},
+	{
+		"roll": "72",
+		"desc": "A silver teardrop earring made from a real teardrop"
+	},
+	{
+		"roll": "73",
+		"desc": "The shell of an egg painted with scenes of human misery in disturbing detail"
+	},
+	{
+		"roll": "74",
+		"desc": "A fan that, when unfolded, shows a sleeping cat"
+	},
+	{
+		"roll": "75",
+		"desc": "A set of bone pipes"
+	},
+	{
+		"roll": "76",
+		"desc": "A four-leaf clover pressed inside a book discussing manners and etiquette"
+	},
+	{
+		"roll": "77",
+		"desc": "A sheet of parchment upon which is drawn a complex mechanical contraption"
+	},
+	{
+		"roll": "78",
+		"desc": "An ornate scabbard that fits no blade you have found so far"
+	},
+	{
+		"roll": "79",
+		"desc": "An invitation to a party where a murder happened"
+	},
+	{
+		"roll": "80",
+		"desc": "A bronze pentacle with an etching of a rat's head in its center"
+	},
+	{
+		"roll": "81",
+		"desc": "A purple handkerchief embroidered with the name of a powerful archmage"
+	},
+	{
+		"roll": "82",
+		"desc": "Half of a floorplan for a temple, castle, or some other structure"
+	},
+	{
+		"roll": "83",
+		"desc": "A bit of folded cloth that, when unfolded, turns into a stylish cap"
+	},
+	{
+		"roll": "84",
+		"desc": "A receipt of deposit at a bank in a far-flung city"
+	},
+	{
+		"roll": "85",
+		"desc": "A diary with seven missing pages"
+	},
+	{
+		"roll": "86",
+		"desc": "An empty silver snuffbox bearing an inscription on the surface that says \"dreams\""
+	},
+	{
+		"roll": "87",
+		"desc": "An iron holy symbol devoted to an unknown god"
+	},
+	{
+		"roll": "88",
+		"desc": "A book that tells the story of a legendary hero's rise and fall, with the last chapter missing"
+	},
+	{
+		"roll": "89",
+		"desc": "A vial of dragon blood"
+	},
+	{
+		"roll": "90",
+		"desc": "An ancient arrow of elven design"
+	},
+	{
+		"roll": "91",
+		"desc": "A needle that never bends"
+	},
+	{
+		"roll": "92",
+		"desc": "An ornate brooch of dwarven design"
+	},
+	{
+		"roll": "93",
+		"desc": "An empty wine bottle bearing a pretty label that says, \"The Wizard of Wines Winery, Red Dragon Crush, 331422-W\""
+	},
+	{
+		"roll": "94",
+		"desc": "A mosaic tile with a multicolored, glazed surface"
+	},
+	{
+		"roll": "95",
+		"desc": "A petrified mouse"
+	},
+	{
+		"roll": "96",
+		"desc": "A black pirate flag adorned with a dragon's skull and crossbones"
+	},
+	{
+		"roll": "97",
+		"desc": "A tiny mechanical crab or spider that moves about when it's not being observed"
+	},
+	{
+		"roll": "98",
+		"desc": "A glass jar containing lard with a label that reads, \"Griffon Grease\""
+	},
+	{
+		"roll": "99",
+		"desc": "A wooden box with a ceramic bottom that holds a living worm with a head on each end of its body"
+	},
+	{
+		"roll": "100",
+		"desc": "A metal urn containing the ashes of a hero"
+	}
+]
