@@ -128,8 +128,69 @@ function updateUser(req, res, next) {
   }
 }
 
+function updateUserPassword(req, res, next) {
+  if (!req.body.password) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: null,
+        message: 'New password cannot be empty'
+      });
+  }
+  else if (!req.body.confirm_password || req.body.password !== req.body.confirm_password) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: null,
+        message: 'Passwords did not match'
+      });
+  }
+  else {
+    const salt = bcrypt.genSaltSync();
+    const pw_hash = bcrypt.hashSync(req.body.password, salt);
+
+    Users.update({ pw_hash }, { where: { id: req.body.id }, returning: true })
+      .then((data) => {
+        if (!data[0]) {
+          res.status(constants.http_bad_request)
+            .json({
+              status: 'failure',
+              content: data[0],
+              message: 'No user updated, check provided ID'
+            });
+        }
+        else {
+          // data[0] is the number of rows affected
+          // data[1] is the array containing the returned rows
+          // data[1][0] is the first user that was returned
+          // data[1][0].dataValues is the object containing the values of the returned row
+          const payload = utils.generateJwtPayload(data[1][0].dataValues);
+          const token = jwt.sign(payload, config.jwtSecret);
+          res.status(constants.http_ok)
+            .json({
+              status: 'success',
+              content: {
+                data: data[1][0].dataValues,
+                token: token
+              },
+              message: 'Updated user'
+            });
+        }
+      })
+      .catch((err) => {
+        res.status(constants.http_bad_request)
+          .json({
+            status: 'failure',
+            content: err.message,
+            message: 'There was a problem when updating your password'
+          });
+      });
+  }
+}
+
 module.exports = {
   getUsers,
   getUserBy,
-  updateUser
+  updateUser,
+  updateUserPassword
 }

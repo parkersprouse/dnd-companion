@@ -20,6 +20,7 @@ export default class ProfilePage extends Component {
       email: null,
       name: null,
       error_msg: null,
+      pw_error_msg: null,
       submitting: false
     }
   }
@@ -89,7 +90,46 @@ export default class ProfilePage extends Component {
                         <Button iconName='tick'
                                 intent={Intent.PRIMARY}
                                 type='submit'
-                                loading={this.state.submitting}>Update
+                                loading={this.state.submitting}>Update Account
+                        </Button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </Grid.Column>
+              <Grid.Column width={6}>
+                <div className='pt-card'>
+                  { this.renderPWError() }
+                  <form onSubmit={this.submitPassword}>
+
+                    <FormGroup label={<FormLabel required>New Password</FormLabel>} labelFor='pw-input'>
+                      <input id='pw-input'
+                             name='pw'
+                             className='pt-input'
+                             style={{ width: '100%' }}
+                             placeholder='New Password'
+                             type='password'
+                             value={this.state.pw}
+                             onChange={this.handleInputChange} />
+                    </FormGroup>
+
+                    <FormGroup label={<FormLabel required>Confirm New Password</FormLabel>} labelFor='cpw-input'>
+                      <input id='cpw-input'
+                             name='cpw'
+                             className='pt-input'
+                             style={{ width: '100%' }}
+                             placeholder='Confirm New Password'
+                             type='password'
+                             value={this.state.cpw}
+                             onChange={this.handleInputChange} />
+                    </FormGroup>
+
+                    <div className='pt-form-group' style={{ marginBottom: '0' }}>
+                      <div className='pt-form-content' style={{ textAlign: 'center' }}>
+                        <Button iconName='tick'
+                                intent={Intent.PRIMARY}
+                                type='submit'
+                                loading={this.state.submitting}>Update Password
                         </Button>
                       </div>
                     </div>
@@ -114,6 +154,17 @@ export default class ProfilePage extends Component {
       return (
         <div className='pt-callout pt-intent-danger form-error-msg'>
           <span className='pt-icon-error'></span> { this.state.error_msg }
+        </div>
+      );
+
+    return null;
+  }
+
+  renderPWError = () => {
+    if (this.state.pw_error_msg)
+      return (
+        <div className='pt-callout pt-intent-danger form-error-msg'>
+          <span className='pt-icon-error'></span> { this.state.pw_error_msg }
         </div>
       );
 
@@ -146,6 +197,21 @@ export default class ProfilePage extends Component {
       }
       else
         this.setState({ error_msg: response.message })
+      this.setState({ submitting: false })
+    });
+  }
+
+  submitPassword = (e) => {
+    e.preventDefault();
+    this.setState({ submitting: true, pw_error_msg: null });
+    api.updateUserPassword({ id: this.state.user.id, password: this.state.pw, confirm_password: this.state.cpw }, (success, response) => {
+      if (success) {
+        cookie.remove('token');
+        cookie.set('token', response.content.token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false, secure: false });
+        this.showSuccessToast();
+      }
+      else
+        this.setState({ pw_error_msg: response.message })
       this.setState({ submitting: false })
     });
   }

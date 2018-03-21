@@ -19,7 +19,7 @@ router.post('/misc/verifyauthtoken', misc.verifyAuthToken);
 router.get('/users', users.getUsers);
 router.post('/users', users.getUserBy);
 router.patch('/users/update', users.updateUser);
-// router.patch('/users/updatepw', users.updateUserPassword);
+router.patch('/users/updatepw', users.updateUserPassword);
 
 // characters endpoints
 router.get('/characters', characters.getCharacters);
