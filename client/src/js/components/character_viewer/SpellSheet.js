@@ -47,7 +47,7 @@ export default class SpellSheet extends Component {
           Complete Rest</Button>
         </div>
 
-        <Grid.Row centered>
+        <Grid.Row centered stretched>
           <Grid.Column width={5}>
             <div className='pt-card'>
               <CustomDropdownToggler character={this.props.character}
@@ -63,7 +63,7 @@ export default class SpellSheet extends Component {
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row centered>
+        <Grid.Row centered stretched>
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingCantripList character={this.props.character}
@@ -89,7 +89,7 @@ export default class SpellSheet extends Component {
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row centered>
+        <Grid.Row centered stretched>
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingSpellList level={level_order[2]}
@@ -116,7 +116,7 @@ export default class SpellSheet extends Component {
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row centered>
+        <Grid.Row centered stretched>
           <Grid.Column width={5}>
             <div className='pt-card'>
               <SpellcastingSpellList level={level_order[5]}

@@ -15,7 +15,7 @@ export default class DetailsSheet extends Component {
     return (
       <Grid stackable centered>
 
-        <Grid.Row>
+        <Grid.Row stretched>
           <Grid.Column width={5}>
             <div className='pt-card'>
               <InputToggler character={this.props.character} setRootState={this.props.setRootState}
@@ -29,7 +29,7 @@ export default class DetailsSheet extends Component {
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row>
+        <Grid.Row stretched>
           <Grid.Column width={5}>
             <div className='pt-card'>
               <AbilityScoresPanel character={this.props.character} setRootState={this.props.setRootState} />
@@ -54,7 +54,7 @@ export default class DetailsSheet extends Component {
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row>
+        <Grid.Row stretched>
           <Grid.Column width={5}>
             <div className='pt-card'>
               <ProficienciesLanguagesPanel character={this.props.character} setRootState={this.props.setRootState} />
