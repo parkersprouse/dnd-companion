@@ -16,7 +16,9 @@ export default class InputToggler extends Component {
   render() {
     if (this.state.editing)
       return (
-        <div className='pt-form-group spellsheet-form-group'
+        <div className={this.props.className ?
+                        'pt-form-group spellsheet-form-group ' + this.props.className
+                        : 'pt-form-group spellsheet-form-group'}
              style={this.props.style ? this.props.style : null}>
           <div className='pt-form-content'>
             <div className='pt-input-group'>
@@ -40,7 +42,9 @@ export default class InputToggler extends Component {
       );
 
     return (
-      <div className='pt-form-group spellsheet-form-group'
+      <div className={this.props.className ?
+                      'pt-form-group spellsheet-form-group ' + this.props.className
+                      : 'pt-form-group spellsheet-form-group'}
            style={this.props.style ? this.props.style : null}>
         <div className='pt-form-content'>
           <div className='pt-input-group'>

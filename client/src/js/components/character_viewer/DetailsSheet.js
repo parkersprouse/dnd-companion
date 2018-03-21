@@ -19,7 +19,7 @@ export default class DetailsSheet extends Component {
           <Grid.Column width={5}>
             <div className='pt-card'>
               <InputToggler character={this.props.character} setRootState={this.props.setRootState}
-                            name='name' label='Character Name' />
+                            name='name' label='Character Name' className='col-vertical-center' />
             </div>
           </Grid.Column>
           <Grid.Column width={10}>

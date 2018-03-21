@@ -168,3 +168,11 @@
 .pt-control.pt-checkbox input:checked ~ .death-save-three::before {
   content: '\0033';
   font-size: 13px; }
+
+@media screen and (min-width: 768px) {
+  .col-vertical-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; } }
