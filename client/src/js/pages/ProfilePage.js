@@ -46,7 +46,7 @@ export default class ProfilePage extends Component {
         <InnerContainer>
           <h1 className='page-title'>Profile</h1>
           <Grid stackable centered>
-            <Grid.Row stretched>
+            <Grid.Row verticalAlign='middle'>
               <Grid.Column width={6}>
                 <div className='pt-card'>
                   { this.renderError() }
