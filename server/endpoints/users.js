@@ -113,9 +113,9 @@ function updateUser(req, res, next) {
       .catch((err) => {
         let message = 'There was an unknown problem when updating your account';
         if (err.name === constants.db_err_duplicate) {
-          if (err.errors[0].path === 'username')
+          if (err.errors[0].path === 'username' || err.errors[0].path === 'lower(username)')
             message = 'That username is already in use';
-          else if (err.errors[0].path === 'email')
+          else if (err.errors[0].path === 'email' || err.errors[0].path === 'lower(email)')
             message = 'That e-mail address is already in use';
         }
         res.status(constants.http_bad_request)
