@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Loader } from 'semantic-ui-react';
-import { Button, Intent, Position, Tooltip } from '@blueprintjs/core';
+import { Button, InputGroup, Intent, Position, Tooltip } from '@blueprintjs/core';
 import _ from 'lodash';
 import api from '../../../lib/api';
 
@@ -11,7 +11,9 @@ export default class CustomArmorDetails extends Component {
     this.state = {
       armor: null,
       editing_desc: false,
-      saving_desc: false
+      saving_desc: false,
+      editing_name: false,
+      saving_name: false
     }
 
     api.getEquipment((success, response) => {
@@ -96,6 +98,29 @@ export default class CustomArmorDetails extends Component {
           : null
         }
 
+        {
+          this.props.armor.custom ?
+          <Grid.Row style={{ paddingBottom: '0.5rem' }}>
+            <Grid.Column width={15}>
+              {
+                this.state.editing_name ?
+                <InputGroup
+                  defaultValue={this.props.armor.name}
+                  placeholder='Name'
+                  onChange={(event) => this.props.armor.name = event.target.value}
+                  rightElement={<Tooltip content='Save' position={Position.TOP}>
+                                  <Button intent={Intent.SUCCESS} className='pt-minimal'
+                                          onClick={this.saveName} iconName='tick'
+                                          loading={this.state.saving_name}></Button>
+                                </Tooltip>}
+                />
+                : <a onClick={() => this.setState({ editing_name: true })}>Change Name</a>
+              }
+            </Grid.Column>
+          </Grid.Row>
+          : null
+        }
+
         <Grid.Row>
           <Grid.Column width={15}>
             <div className='spell-detail-label'>Custom Description / Details</div>
@@ -144,6 +169,21 @@ export default class CustomArmorDetails extends Component {
       else
         this.props.showErrorToast();
       this.setState({ saving_desc: false });
+    });
+  }
+
+  saveName = () => {
+    this.setState({ saving_name: true });
+    api.updateCharacter({ id: this.props.id, armor: this.props.armors }, (success, response) => {
+      if (success) {
+        this.props.showSuccessToast();
+        this.setState({ editing_name: false });
+        if (this.props.setRootState)
+          this.props.setRootState({ character: response.content });
+      }
+      else
+        this.props.showErrorToast();
+      this.setState({ saving_name: false });
     });
   }
 }
