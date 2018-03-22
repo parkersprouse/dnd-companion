@@ -53,7 +53,7 @@ export default class ProfilePage extends Component {
                 <div className='pt-card'>
                   { this.renderCurPWError() }
                   <FormGroup label={<FormLabel required>Current Password</FormLabel>} labelFor='curpw-input'
-                             helperText='Current password is needed to make any profile changes'>
+                             helperText='Current password is required to make any profile changes'>
                     <input id='curpw-input'
                            name='curpw'
                            className='pt-input'
@@ -66,7 +66,7 @@ export default class ProfilePage extends Component {
                 </div>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row stretched>
+            <Grid.Row verticalAlign='middle'>
               <Grid.Column width={6}>
                 <div className='pt-card'>
                   { this.renderError() }
