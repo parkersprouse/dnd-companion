@@ -19,8 +19,10 @@ export default class ProfilePage extends Component {
       username: null,
       email: null,
       name: null,
+      curpw: '',
       error_msg: null,
       pw_error_msg: null,
+      cur_pw_error_msg: null,
       submitting: false
     }
   }
@@ -46,7 +48,25 @@ export default class ProfilePage extends Component {
         <InnerContainer>
           <h1 className='page-title'>Profile</h1>
           <Grid stackable centered>
-            <Grid.Row verticalAlign='middle'>
+            <Grid.Row>
+              <Grid.Column width={6}>
+                <div className='pt-card'>
+                  { this.renderCurPWError() }
+                  <FormGroup label={<FormLabel required>Current Password</FormLabel>} labelFor='curpw-input'
+                             helperText='Current password is needed to make any profile changes'>
+                    <input id='curpw-input'
+                           name='curpw'
+                           className='pt-input'
+                           style={{ width: '100%' }}
+                           placeholder='Current Password'
+                           type='password'
+                           value={this.state.curpw}
+                           onChange={this.handleInputChange} />
+                  </FormGroup>
+                </div>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row stretched>
               <Grid.Column width={6}>
                 <div className='pt-card'>
                   { this.renderError() }
@@ -150,7 +170,7 @@ export default class ProfilePage extends Component {
   }
 
   renderError = () => {
-    if (this.state.error_msg)
+    if (!!this.state.error_msg)
       return (
         <div className='pt-callout pt-intent-danger form-error-msg'>
           <span className='pt-icon-error'></span> { this.state.error_msg }
@@ -161,7 +181,7 @@ export default class ProfilePage extends Component {
   }
 
   renderPWError = () => {
-    if (this.state.pw_error_msg)
+    if (!!this.state.pw_error_msg)
       return (
         <div className='pt-callout pt-intent-danger form-error-msg'>
           <span className='pt-icon-error'></span> { this.state.pw_error_msg }
@@ -169,6 +189,21 @@ export default class ProfilePage extends Component {
       );
 
     return null;
+  }
+
+  renderCurPWError = () => {
+    if (!!this.state.cur_pw_error_msg)
+      return (
+        <div className='pt-callout pt-intent-danger form-error-msg'>
+          <span className='pt-icon-error'></span> { this.state.cur_pw_error_msg }
+        </div>
+      );
+
+    return null;
+  }
+
+  resetErrors = () => {
+    this.setState({ error_msg: null, pw_error_msg: null, cur_pw_error_msg: null });
   }
 
   showSuccessToast = () => {
@@ -182,8 +217,9 @@ export default class ProfilePage extends Component {
 
   submit = (e) => {
     e.preventDefault();
-    this.setState({ submitting: true, error_msg: null });
-    api.updateUser({ id: this.state.user.id, username: this.state.username, email: this.state.email, name: this.state.name }, (success, response) => {
+    this.resetErrors();
+    this.setState({ submitting: true });
+    api.updateUser({ id: this.state.user.id, username: this.state.username, email: this.state.email, name: this.state.name, curpwhash: this.state.user.pw_hash, curpw: this.state.curpw }, (success, response) => {
       if (success) {
         cookie.remove('token');
         cookie.set('token', response.content.token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false, secure: false });
@@ -191,28 +227,31 @@ export default class ProfilePage extends Component {
           user: response.content.data,
           username: response.content.data.username,
           email: response.content.data.email,
-          name: response.content.data.name
+          name: response.content.data.name,
+          curpw: ''
         });
         this.showSuccessToast();
       }
       else
-        this.setState({ error_msg: response.message })
-      this.setState({ submitting: false })
+        this.setState({ error_msg: response.message, cur_pw_error_msg: response.cur_pw_msg });
+      this.setState({ submitting: false });
     });
   }
 
   submitPassword = (e) => {
     e.preventDefault();
-    this.setState({ submitting: true, pw_error_msg: null });
-    api.updateUserPassword({ id: this.state.user.id, password: this.state.pw, confirm_password: this.state.cpw }, (success, response) => {
+    this.resetErrors();
+    this.setState({ submitting: true });
+    api.updateUserPassword({ id: this.state.user.id, password: this.state.pw, confirm_password: this.state.cpw, curpwhash: this.state.user.pw_hash, curpw: this.state.curpw }, (success, response) => {
       if (success) {
         cookie.remove('token');
         cookie.set('token', response.content.token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false, secure: false });
         this.showSuccessToast();
+        this.setState({ user: response.content.data, curpw: '' });
       }
       else
-        this.setState({ pw_error_msg: response.message })
-      this.setState({ submitting: false })
+        this.setState({ pw_error_msg: response.message, cur_pw_error_msg: response.cur_pw_msg });
+      this.setState({ submitting: false });
     });
   }
 }

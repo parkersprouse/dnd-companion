@@ -7,7 +7,7 @@ function generateJwtPayload(data) {
     email: data.email,
     username: data.username,
     name: data.name,
-    hash: data.pw_hash
+    pw_hash: data.pw_hash
   }
 }
 

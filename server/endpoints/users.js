@@ -65,7 +65,23 @@ function getUsers(req, res, next) {
 }
 
 function updateUser(req, res, next) {
-  if (!req.body.username) {
+  if (!req.body.curpw) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: null,
+        cur_pw_msg: 'Current password is required'
+      });
+  }
+  else if (!bcrypt.compareSync(req.body.curpw, req.body.curpwhash)) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: null,
+        cur_pw_msg: 'Current password is incorrect'
+      });
+  }
+  else if (!req.body.username) {
     res.status(constants.http_bad_request)
       .json({
         status: 'failure',
@@ -82,7 +98,7 @@ function updateUser(req, res, next) {
       });
   }
   else {
-    Users.update(req.body, { where: { id: req.body.id }, returning: true })
+    Users.update({ username: req.body.username, email: req.body.email, name: req.body.name }, { where: { id: req.body.id }, returning: true })
       .then((data) => {
         if (!data[0]) {
           res.status(constants.http_bad_request)
@@ -129,7 +145,23 @@ function updateUser(req, res, next) {
 }
 
 function updateUserPassword(req, res, next) {
-  if (!req.body.password) {
+  if (!req.body.curpw) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: null,
+        cur_pw_msg: 'Current password is required'
+      });
+  }
+  else if (!bcrypt.compareSync(req.body.curpw, req.body.curpwhash)) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        content: null,
+        cur_pw_msg: 'Current password is incorrect'
+      });
+  }
+  else if (!req.body.password) {
     res.status(constants.http_bad_request)
       .json({
         status: 'failure',

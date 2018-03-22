@@ -14,7 +14,7 @@ function failedToVerifyToken(res) {
 }
 
 function userIsCorrect(decoded, data) {
-  return (decoded.hash === data.pw_hash) &&
+  return (decoded.pw_hash === data.pw_hash) &&
          (decoded.email === data.email) &&
          (decoded.username === data.username)
 }
