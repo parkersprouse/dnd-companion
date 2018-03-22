@@ -103,34 +103,37 @@ export default class CreateCharacterPage extends Component {
     return item.toLowerCase().replace(/ /g, '_');
   }
 
+  customLabel = (item) => {
+    return this.amountLabel(item) + '_custom';
+  }
+
   descLabel = (item) => {
     return this.amountLabel(item) + '_desc';
   }
 
   formatItems = (data, items) => {
     if (data[items] && data[items].length > 0) {
-      const newItems = [];
-      _.each(data[items], (item) => {
+      return _.map(data[items], (item) => {
         const amount_value = this.state[this.amountLabel(item)];
         const amount = validator.isNumeric(amount_value + '') && Number(amount_value) > 0 ? Number(amount_value) : 1;
-        const item_data = { name: item, amount: amount };
+        const custom = this.state[this.customLabel(item)];
+        const item_data = { name: item, amount: amount, custom: custom };
         if (this.state[this.descLabel(item)])
           item_data.desc = this.state[this.descLabel(item)];
-        newItems.push(item_data);
+        return item_data;
       });
-      return newItems;
     }
     return null;
   }
 
   formatAbilityScores = (data) => {
     const ability_scores = {};
-    ability_scores.strength =     { level: data.strength || '0',     modifier: data.strength_modifier || '0' }
-    ability_scores.dexterity =    { level: data.dexterity || '0',    modifier: data.dexterity_modifier || '0' }
+    ability_scores.strength =     { level: data.strength     || '0', modifier: data.strength_modifier     || '0' }
+    ability_scores.dexterity =    { level: data.dexterity    || '0', modifier: data.dexterity_modifier    || '0' }
     ability_scores.constitution = { level: data.constitution || '0', modifier: data.constitution_modifier || '0' }
     ability_scores.intelligence = { level: data.intelligence || '0', modifier: data.intelligence_modifier || '0' }
-    ability_scores.wisdom =       { level: data.wisdom || '0',       modifier: data.wisdom_modifier || '0' }
-    ability_scores.charisma =     { level: data.charisma || '0',     modifier: data.charisma_modifier || '0' }
+    ability_scores.wisdom =       { level: data.wisdom       || '0', modifier: data.wisdom_modifier       || '0' }
+    ability_scores.charisma =     { level: data.charisma     || '0', modifier: data.charisma_modifier     || '0' }
     return ability_scores;
   }
 

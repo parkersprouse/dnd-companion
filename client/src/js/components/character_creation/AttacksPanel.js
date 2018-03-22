@@ -6,22 +6,22 @@ import ArmorSelector from './selectors/ArmorSelector';
 import { isMobile } from '../../lib/utils';
 
 export default class AttacksPanel extends Component {
-  addWeapon = (weapon) => {
+  addWeapon = (weapon, custom) => {
     const root_state = this.props.root_state;
     const weapons = root_state.weapons || [];
     if (!weapon || weapons.indexOf(weapon) > -1) return;
 
     weapons.push(weapon);
-    this.props.setRootState({ weapons, [this.amountLabel(weapon)]: 1 });
+    this.props.setRootState({ weapons, [this.amountLabel(weapon)]: 1, [this.customLabel(weapon)]: !!custom });
   }
 
-  addArmor = (arm) => {
+  addArmor = (arm, custom) => {
     const root_state = this.props.root_state;
     const armor = root_state.armor || [];
     if (!arm || armor.indexOf(arm) > -1) return;
 
     armor.push(arm);
-    this.props.setRootState({ armor, [this.amountLabel(arm)]: 1 });
+    this.props.setRootState({ armor, [this.amountLabel(arm)]: 1, [this.customLabel(arm)]: !!custom });
   }
 
   removeWeapon = (weapon) => {
@@ -38,6 +38,10 @@ export default class AttacksPanel extends Component {
 
   amountLabel = (equipment) => {
     return equipment.toLowerCase().replace(/ /g, '_');
+  }
+
+  customLabel = (equipment) => {
+    return this.amountLabel(equipment) + '_custom';
   }
 
   descLabel = (equipment) => {

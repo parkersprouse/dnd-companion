@@ -13,13 +13,13 @@ export default class EquipmentPanel extends Component {
     }
   }
 
-  addEquipment = (equip) => {
+  addEquipment = (equip, custom) => {
     const root_state = this.props.root_state;
     const equipment = root_state.equipment || [];
     if (!equip || equipment.indexOf(equip) > -1) return;
 
     equipment.push(equip);
-    this.props.setRootState({ equipment, [this.amountLabel(equip)]: 1 });
+    this.props.setRootState({ equipment, [this.amountLabel(equip)]: 1, [this.customLabel(equip)]: !!custom });
   }
 
   removeEquipment = (equip) => {
@@ -30,6 +30,10 @@ export default class EquipmentPanel extends Component {
 
   amountLabel = (equipment) => {
     return equipment.toLowerCase().replace(/ /g, '_');
+  }
+
+  customLabel = (equipment) => {
+    return this.amountLabel(equipment) + '_custom';
   }
 
   descLabel = (equipment) => {
