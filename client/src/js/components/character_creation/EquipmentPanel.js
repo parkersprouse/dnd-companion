@@ -3,6 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import { Popover, Position, NumericInput } from '@blueprintjs/core';
 import _ from 'lodash';
 import EquipmentSelector from './selectors/EquipmentSelector';
+import FormLabel from '../FormLabel';
 import { isMobile } from '../../lib/utils';
 
 export default class EquipmentPanel extends Component {
@@ -11,37 +12,6 @@ export default class EquipmentPanel extends Component {
     this.state = {
       temp_equipment: ''
     }
-  }
-
-  addEquipment = (equip, custom) => {
-    const root_state = this.props.root_state;
-    const equipment = root_state.equipment || [];
-    if (!equip || equipment.indexOf(equip) > -1) return;
-
-    equipment.push(equip);
-    this.props.setRootState({ equipment, [this.amountLabel(equip)]: 1, [this.customLabel(equip)]: !!custom });
-  }
-
-  removeEquipment = (equip) => {
-    const { equipment } = this.props.root_state;
-    equipment.splice(equipment.indexOf(equip), 1);
-    this.props.setRootState({ equipment });
-  }
-
-  amountLabel = (equipment) => {
-    return equipment.toLowerCase().replace(/ /g, '_');
-  }
-
-  customLabel = (equipment) => {
-    return this.amountLabel(equipment) + '_custom';
-  }
-
-  descLabel = (equipment) => {
-    return this.amountLabel(equipment) + '_desc';
-  }
-
-  handleValueChange = (value, name) => {
-    this.props.setRootState({ [name]: value });
   }
 
   render() {
@@ -87,10 +57,10 @@ export default class EquipmentPanel extends Component {
     return (
       <Grid stackable centered verticalAlign='middle'>
 
-        <Grid.Row>
+        <Grid.Row centered>
           <Grid.Column width={8}>
             <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content'>
+              <div className='pt-form-content searcher'>
                 <div className='pt-tree pt-elevation-0'>
                   <ul className='pt-tree-node-list pt-tree-root'>
                     {
@@ -103,14 +73,41 @@ export default class EquipmentPanel extends Component {
                     }
                   </ul>
                 </div>
-                <div className='pt-form-helper-text'>Equipment</div>
+                <EquipmentSelector addEquipment={this.addEquipment} />
               </div>
             </div>
           </Grid.Column>
           <Grid.Column width={8}>
-            <div className='pt-form-group' style={{ marginBottom: '0' }}>
-              <div className='pt-form-content searcher'>
-                <EquipmentSelector addEquipment={this.addEquipment} marginless />
+            <div style={isMobile() ? null : { width: 'fit-content', marginLeft: 'auto', marginRight: 'auto' }}>
+              <div className='pt-form-group' style={{ marginBottom: '2rem' }}>
+                <div className='pt-form-content'>
+                  <NumericInput value={this.props.root_state.platinum} onValueChange={(num, str) => this.handleValueChange(str, 'platinum')} min={0} />
+                  <div className="pt-form-helper-text"><FormLabel>Platinum</FormLabel></div>
+                </div>
+              </div>
+              <div className='pt-form-group' style={{ marginBottom: '1.5rem' }}>
+                <div className='pt-form-content'>
+                  <NumericInput value={this.props.root_state.gold} onValueChange={(num, str) => this.handleValueChange(str, 'gold')} min={0} />
+                  <div className="pt-form-helper-text"><FormLabel>Gold</FormLabel></div>
+                </div>
+              </div>
+              <div className='pt-form-group' style={{ marginBottom: '1.5rem' }}>
+                <div className='pt-form-content'>
+                  <NumericInput value={this.props.root_state.electrum} onValueChange={(num, str) => this.handleValueChange(str, 'electrum')} min={0} />
+                  <div className="pt-form-helper-text"><FormLabel>Electrum</FormLabel></div>
+                </div>
+              </div>
+              <div className='pt-form-group' style={{ marginBottom: '1.5rem' }}>
+                <div className='pt-form-content'>
+                  <NumericInput value={this.props.root_state.silver} onValueChange={(num, str) => this.handleValueChange(str, 'silver')} min={0} />
+                  <div className="pt-form-helper-text"><FormLabel>Silver</FormLabel></div>
+                </div>
+              </div>
+              <div className='pt-form-group' style={{ marginBottom: '0' }}>
+                <div className='pt-form-content'>
+                  <NumericInput value={this.props.root_state.copper} onValueChange={(num, str) => this.handleValueChange(str, 'copper')} min={0} />
+                  <div className="pt-form-helper-text"><FormLabel>Copper</FormLabel></div>
+                </div>
               </div>
             </div>
           </Grid.Column>
@@ -119,4 +116,36 @@ export default class EquipmentPanel extends Component {
       </Grid>
     );
   }
+
+  addEquipment = (equip, custom) => {
+    const root_state = this.props.root_state;
+    const equipment = root_state.equipment || [];
+    if (!equip || equipment.indexOf(equip) > -1) return;
+
+    equipment.push(equip);
+    this.props.setRootState({ equipment, [this.amountLabel(equip)]: 1, [this.customLabel(equip)]: !!custom });
+  }
+
+  amountLabel = (equipment) => {
+    return equipment.toLowerCase().replace(/ /g, '_');
+  }
+
+  customLabel = (equipment) => {
+    return this.amountLabel(equipment) + '_custom';
+  }
+
+  descLabel = (equipment) => {
+    return this.amountLabel(equipment) + '_desc';
+  }
+
+  handleValueChange = (value, name) => {
+    this.props.setRootState({ [name]: value });
+  }
+
+  removeEquipment = (equip) => {
+    const { equipment } = this.props.root_state;
+    equipment.splice(equipment.indexOf(equip), 1);
+    this.props.setRootState({ equipment });
+  }
+
 }

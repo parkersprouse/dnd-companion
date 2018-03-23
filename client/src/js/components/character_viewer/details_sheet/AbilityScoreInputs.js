@@ -137,9 +137,14 @@ class AbilityInputToggler extends Component {
 
   save = () => {
     this.setState({ saving: true });
-    this.props.character.ability_scores[this.props.name].level = this.state[this.props.name];
-    this.props.character.ability_scores[this.props.name].modifier = this.determineModifier(this.state[this.props.name]);
-    api.updateCharacter({ id: this.props.character.id, ability_scores: this.props.character.ability_scores }, (success, response) => {
+
+    // Directly updating `this.props.character.ability_scores` prevents the spellcasting modifiers
+    // from updating because `setRootState()` doesn't see the change since it's technically made
+    // before the method is called
+    const scores = JSON.parse(JSON.stringify(this.props.character.ability_scores));
+    scores[this.props.name].level = this.state[this.props.name];
+    scores[this.props.name].modifier = this.determineModifier(this.state[this.props.name]);
+    api.updateCharacter({ id: this.props.character.id, ability_scores: scores }, (success, response) => {
       if (success) {
         showSuccessToast();
         this.setEditing(false);
