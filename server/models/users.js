@@ -5,8 +5,8 @@ const attributes = {
   email:        { type: Sequelize.TEXT, allowNull: false, unique: true },
   username:     { type: Sequelize.TEXT, allowNull: false, unique: true },
   name:         { type: Sequelize.TEXT },
-  pw_hash:      { type: Sequelize.TEXT, allowNull: false }//,
-  //pw_reset_key: { type: Sequelize.TEXT }
+  pw_hash:      { type: Sequelize.TEXT, allowNull: false },
+  pw_reset_key: { type: Sequelize.TEXT }
 };
 
 const tableSettings = {

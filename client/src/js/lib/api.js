@@ -110,7 +110,7 @@ module.exports = {
     patch('/api/characters/update', data, callback);
   },
 
-  doDeleteCharacter: function(id, callback) {
+  deleteCharacter: function(id, callback) {
     doDelete('/api/characters/doDelete/' + id, callback);
   },
 
