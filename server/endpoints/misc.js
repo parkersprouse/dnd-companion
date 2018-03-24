@@ -23,7 +23,7 @@ function userIsCorrect(decoded, data) {
 
 function verifyAuthToken(req, res, next) {
   try {
-    const decoded = jwt.verify(req.body.token, config.jwtSecret);
+    const decoded = jwt.verify(req.body.token, config.jwt_secret);
     Users.findOne({ where: { id: decoded.id } })
       .then((data) => {
         if (!data) failedToVerifyToken(res);

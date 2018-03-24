@@ -1,7 +1,7 @@
 const config = require('./index');
 const SparkPost = require('sparkpost');
 
-const mailer = new SparkPost(config.sparkpostKey);
+const mailer = new SparkPost(config.sparkpost_key);
 
 function sendMail({ subject, content, addresses }, callback) {
   const recipients = [];

@@ -27,7 +27,7 @@ export default class LoginPage extends Component {
           }
           <LoginForm location={this.props.location} />
           <div className='login-form-extra-links'>
-            <a href='/register'>Register</a> | <a href='/register'>Forgot Password</a>
+            <a href='/register'>Register</a> | <a href='/account-recovery'>Forgot Username/Password</a>
           </div>
         </InnerContainer>
       </OuterContainer>
