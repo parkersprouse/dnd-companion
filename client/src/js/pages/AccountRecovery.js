@@ -91,8 +91,10 @@ export default class AccountRecovery extends Component {
     api.sendRecoveryEmail(this.state.email, (success, response) => {
       if (success)
         this.setState({ success: true, submitting: false });
-      else
+      else {
+        console.log(response.content)
         this.setState({ error: response.message, submitting: false });
+      }
     });
   }
 }
