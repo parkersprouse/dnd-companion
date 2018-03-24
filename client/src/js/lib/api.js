@@ -23,8 +23,8 @@ function post(endpoint, data, callback) {
   });
 }
 
-function delete(endpoint, callback) {
-  axios.delete(constants.server + endpoint)
+function doDelete(endpoint, callback) {
+  axios.doDelete(constants.server + endpoint)
   .then((response) => {
     callback(response.status === constants.http_ok ||
              response.status === constants.http_no_content, response.data);
@@ -85,7 +85,7 @@ module.exports = {
   },
 
   sendRecoveryEmail: function(email, callback) {
-    post('/api/misc/sendrecoveryemail', { email }, callback)
+    post('/api/misc/sendrecoveryemail', { email }, callback);
   },
 
   // Character Data
@@ -110,8 +110,8 @@ module.exports = {
     patch('/api/characters/update', data, callback);
   },
 
-  deleteCharacter: function(id, callback) {
-    delete('/api/characters/delete/' + id, callback);
+  doDeleteCharacter: function(id, callback) {
+    doDelete('/api/characters/doDelete/' + id, callback);
   },
 
   // DnD Data
