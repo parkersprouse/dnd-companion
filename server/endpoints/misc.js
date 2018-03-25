@@ -25,62 +25,71 @@ function userIsCorrect(decoded, data) {
 // public functions
 
 function sendRecoveryEmail(req, res, next) {
-  Users.findOne({ where: { email: { $iLike: req.body.email } } })
-    .then((data) => {
-      if (!data)
-        res.status(constants.http_ok)
-          .json({
-            status: 'success',
-            message: 'Success'
-          });
-      else {
-        const key = crypto.randomBytes(64).toString('hex');
-        const user = data.get({ plain: true });
+  if (!req.body.email) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        message: 'Please make sure you enter an e-mail address'
+      });
+  }
+  else {
+    Users.findOne({ where: { email: { $iLike: req.body.email } } })
+      .then((data) => {
+        if (!data)
+          res.status(constants.http_ok)
+            .json({
+              status: 'success',
+              message: 'Success'
+            });
+        else {
+          const key = crypto.randomBytes(64).toString('hex');
+          const user = data.get({ plain: true });
 
-        Users.update({ pw_reset_key: key }, { where: { email: { $iLike: req.body.email } } })
-          .then((data) => {
-            if (!data[0]) {
+          Users.update({ pw_reset_key: key }, { where: { email: { $iLike: req.body.email } } })
+            .then((data) => {
+              if (!data[0]) {
+                res.status(constants.http_bad_request)
+                  .json({
+                    status: 'failure',
+                    content: err.message,
+                    message: 'There was an unexpected error when attempting to send the e-mail'
+                  });
+              }
+              else {
+                mailer({
+                  subject: "DnD Companion App Account Recovery",
+                  content: "A request was made to recover the account information associated with \
+                            this e-mail address.<br /><br />Your username is: <b>" + user.username + "</b>.\
+                            <br /><br />To reset your password, <a href='http://dnd.parkersprouse.me/account-recovery?key=" + key + "'>click here</a>.",
+                  addresses: [req.body.email]
+                }, (success) => {
+                  res.status(constants.http_ok)
+                    .json({
+                      status: 'success',
+                      message: 'Success'
+                    });
+                });
+              }
+            })
+            .catch((err) => {
               res.status(constants.http_bad_request)
                 .json({
                   status: 'failure',
                   content: err.message,
                   message: 'There was an unexpected error when attempting to send the e-mail'
                 });
-            }
-            else {
-              mailer({
-                subject: "DnD Companion App Account Recovery",
-                content: "A request was made to recover the account information associated with \
-                          this e-mail address.<br /><br />Your username is: <b>" + user.username + "</b>.\
-                          <br /><br />To reset your password, <a href='http://dnd.parkersprouse.me/account-recovery?key=" + key + "'>click here</a>.",
-                addresses: [req.body.email]
-              }, (success) => {
-                res.status(constants.http_ok)
-                  .json({
-                    status: 'success',
-                    message: 'Success'
-                  });
-              });
-            }
-          })
-          .catch((err) => {
-            res.status(constants.http_bad_request)
-              .json({
-                status: 'failure',
-                content: err.message,
-                message: 'There was an unexpected error when attempting to send the e-mail'
-              });
+            });
+        }
+      })
+      .catch((err) => {
+        res.status(constants.http_bad_request)
+          .json({
+            status: 'failure',
+            content: err.message,
+            message: 'There was an unexpected error when attempting to send the e-mail'
           });
-      }
-    })
-    .catch((err) => {
-      res.status(constants.http_bad_request)
-        .json({
-          status: 'failure',
-          content: err.message,
-          message: 'There was an unexpected error when attempting to send the e-mail'
-        });
-    });
+      });
+  }
 }
 
 function verifyAuthToken(req, res, next) {
