@@ -14,6 +14,7 @@ router.post('/auth/register', auth.register);
 
 // misc endpoints
 router.post('/misc/verifyauthtoken', misc.verifyAuthToken);
+router.post('/misc/verifyresetkey', misc.verifyResetKey);
 router.post('/misc/sendrecoveryemail', misc.sendRecoveryEmail);
 
 // user endpoints

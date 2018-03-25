@@ -119,7 +119,33 @@ function verifyAuthToken(req, res, next) {
   }
 }
 
+function verifyResetKey(req, res, next) {
+  Users.findOne({ where: { pw_reset_key: req.body.key } })
+    .then((data) => {
+      if (data)
+        res.status(constants.http_ok)
+          .json({
+            status: 'success',
+            message: 'Reset key valid'
+          });
+      else
+        res.status(constants.http_bad_request)
+          .json({
+            status: 'failure',
+            message: 'Reset key invalid'
+          });
+    })
+    .catch((err) => {
+      res.status(constants.http_bad_request)
+        .json({
+          status: 'failure',
+          message: 'Reset key invalid'
+        });
+    });
+}
+
 module.exports = {
   verifyAuthToken,
+  verifyResetKey,
   sendRecoveryEmail
 }

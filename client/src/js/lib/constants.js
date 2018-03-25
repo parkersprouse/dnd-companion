@@ -4,5 +4,5 @@ module.exports = {
   http_bad_request: 400,
   http_unauthorized: 401,
   http_server_error: 500,
-  server: ''//process.env.REACT_APP_SERVER || ''
+  server: 'http://localhost:9000'//process.env.REACT_APP_SERVER || ''
 }

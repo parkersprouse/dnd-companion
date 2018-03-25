@@ -88,6 +88,10 @@ module.exports = {
     post('/api/misc/sendrecoveryemail', { email }, callback);
   },
 
+  verifyResetKey: function(key, callback) {
+    post('/api/misc/verifyresetkey', { key }, callback);
+  },
+
   // Character Data
 
   getAllCharacters: function(callback) {
