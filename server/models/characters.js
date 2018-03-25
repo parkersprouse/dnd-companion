@@ -30,6 +30,7 @@ const attributes = {
   temp_hp:           { type: Sequelize.TEXT },
   hit_dice:          { type: Sequelize.TEXT },
   death_saves:       { type: Sequelize.JSON }, // { success: 0, failed: 2 }
+  attunement:        { type: Sequelize.JSON }, // { amount: 1, items: ['Item'] }
   equipment:         { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of equipment objects -- [{ name: 'Lantern', amount: 1 }]
   weapons:           { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of weapon objects -- [{ name: 'Sword', amount: 1 }]
   armor:             { type: Sequelize.ARRAY(Sequelize.JSON) }, // array of armor objects -- [{ name: 'Breastplate', amount: 1 }]
@@ -65,12 +66,12 @@ const attributes = {
                      }
 };
 
-const tableSettings = {
+const table_config = {
   timestamps:      false,
   freezeTableName: true,
   underscored:     true
 };
 
-const Characters = db.define('characters', attributes, tableSettings);
+const Characters = db.define('characters', attributes, table_config);
 
 module.exports = Characters;
