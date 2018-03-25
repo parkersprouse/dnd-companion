@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt-nodejs');
 const config = require('../config');
 const constants = require('../config/constants');
-const db = require('../config/db').db;
 const jwt = require('jsonwebtoken');
 const utils = require('../utils.js');
 const validator = require('validator');
@@ -64,6 +63,53 @@ function getUsers(req, res, next) {
     });
 }
 
+function resetPassword(req, res, next) {
+  if (!req.body.pass || !req.body.confirm_pass) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        message: 'Please make sure both fields are filled out'
+      });
+  }
+  else if (req.body.pass !== req.body.confirm_pass) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        message: "Passwords did not match"
+      });
+  }
+  else {
+    const salt = bcrypt.genSaltSync();
+    const pw_hash = bcrypt.hashSync(req.body.pass, salt);
+
+    Users.update({ pw_hash, pw_reset_key: null }, { where: { pw_reset_key: req.body.reset_key }, returning: true })
+      .then((data) => {
+        if (!data[0]) {
+          res.status(constants.http_bad_request)
+            .json({
+              status: 'failure',
+              message: 'There was an unexpected error when attempting to update your password'
+            });
+        }
+        else {
+          res.status(constants.http_ok)
+            .json({
+              status: 'success',
+              message: 'Success'
+            });
+        }
+      })
+      .catch((err) => {
+        res.status(constants.http_bad_request)
+          .json({
+            status: 'failure',
+            content: err.message,
+            message: 'There was an unexpected error when attempting to update your password'
+          });
+      });
+  }
+}
+
 function updateUser(req, res, next) {
   if (!req.body.curpw) {
     res.status(constants.http_bad_request)
@@ -114,7 +160,7 @@ function updateUser(req, res, next) {
           // data[1][0] is the first user that was returned
           // data[1][0].dataValues is the object containing the values of the returned row
           const payload = utils.generateJwtPayload(data[1][0].dataValues);
-          const token = jwt.sign(payload, config.jwtSecret);
+          const token = jwt.sign(payload, config.jwt_secret);
           res.status(constants.http_ok)
             .json({
               status: 'success',
@@ -197,7 +243,7 @@ function updateUserPassword(req, res, next) {
           // data[1][0] is the first user that was returned
           // data[1][0].dataValues is the object containing the values of the returned row
           const payload = utils.generateJwtPayload(data[1][0].dataValues);
-          const token = jwt.sign(payload, config.jwtSecret);
+          const token = jwt.sign(payload, config.jwt_secret);
           res.status(constants.http_ok)
             .json({
               status: 'success',
@@ -223,6 +269,7 @@ function updateUserPassword(req, res, next) {
 module.exports = {
   getUsers,
   getUserBy,
+  resetPassword,
   updateUser,
   updateUserPassword
 }

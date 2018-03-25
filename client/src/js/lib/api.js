@@ -3,53 +3,53 @@
 const axios = require('axios');
 const constants = require('./constants');
 
-function performGet(endpoint, callback) {
+function get(endpoint, callback) {
   axios.get(constants.server + endpoint)
-  .then(function (response) {
+  .then((response) => {
     callback(response.status === constants.http_ok, response.data);
   })
-  .catch(function (error) {
+  .catch((error) => {
     callback(false, error.response.data);
   });
 }
 
-function performPost(endpoint, data, callback) {
+function post(endpoint, data, callback) {
   axios.post(constants.server + endpoint, data)
-  .then(function (response) {
+  .then((response) => {
     callback(response.status === constants.http_ok, response.data);
   })
-  .catch(function (error) {
+  .catch((error) => {
     callback(false, error.response.data);
   });
 }
 
-function performDelete(endpoint, callback) {
-  axios.delete(constants.server + endpoint)
-  .then(function (response) {
+function doDelete(endpoint, callback) {
+  axios.doDelete(constants.server + endpoint)
+  .then((response) => {
     callback(response.status === constants.http_ok ||
              response.status === constants.http_no_content, response.data);
   })
-  .catch(function (error) {
+  .catch((error) => {
     callback(false, error.response.data);
   });
 }
 
-function performPut(endpoint, data, callback) {
+function put(endpoint, data, callback) {
   axios.put(constants.server + endpoint, data)
-  .then(function (response) {
+  .then((response) => {
     callback(response.status === constants.http_ok, response.data);
   })
-  .catch(function (error) {
+  .catch((error) => {
     callback(false, error.response.data);
   });
 }
 
-function performPatch(endpoint, data, callback) {
+function patch(endpoint, data, callback) {
   axios.patch(constants.server + endpoint, data)
-  .then(function (response) {
+  .then((response) => {
     callback(response.status === constants.http_ok, response.data);
   })
-  .catch(function (error) {
+  .catch((error) => {
     callback(false, error.response.data);
   });
 }
@@ -57,96 +57,111 @@ function performPatch(endpoint, data, callback) {
 module.exports = {
 
   register: function(data, callback) {
-    performPost('/api/auth/register', data, callback);
+    post('/api/auth/register', data, callback);
   },
 
   login: function(data, callback) {
-    performPost('/api/auth/login', data, callback);
+    post('/api/auth/login', data, callback);
   },
 
   getUsers: function(callback) {
-    performGet('/api/users', callback);
+    get('/api/users', callback);
   },
 
   getUserBy: function(data, callback) {
-    performPost('/api/users', data, callback);
+    post('/api/users', data, callback);
   },
 
   updateUser: function(data, callback) {
-    performPatch('/api/users/update', data, callback);
+    patch('/api/users/update', data, callback);
   },
 
   updateUserPassword: function(data, callback) {
-    performPatch('/api/users/updatepw', data, callback);
+    patch('/api/users/updatepw', data, callback);
   },
 
   verifyAuthToken: function(token, callback) {
-    performPost('/api/misc/verifyauthtoken', { token: token }, callback);
+    post('/api/misc/verifyauthtoken', { token }, callback);
   },
 
+  sendRecoveryEmail: function(email, callback) {
+    post('/api/misc/sendrecoveryemail', { email }, callback);
+  },
+
+  verifyResetKey: function(key, callback) {
+    post('/api/misc/verifyresetkey', { key }, callback);
+  },
+
+  resetUserPassword: function(data, callback) {
+    patch('/api/users/resetpassword', data, callback);
+  },
+
+  // Character Data
+
   getAllCharacters: function(callback) {
-    performGet('/api/characters', callback);
+    get('/api/characters', callback);
   },
 
   getUsersCharacters: function(userid, callback) {
-    performPost('/api/characters', { userid: userid }, callback);
+    post('/api/characters', { userid: userid }, callback);
   },
 
   getCharacter: function(data, callback) {
-    performPost('/api/characters', data, callback);
+    post('/api/characters', data, callback);
   },
 
   createCharacter: function(data, callback) {
-    performPost('/api/characters/new', data, callback);
+    post('/api/characters/new', data, callback);
   },
 
   updateCharacter: function(data, callback) {
-    performPatch('/api/characters/update', data, callback);
+    patch('/api/characters/update', data, callback);
   },
 
   deleteCharacter: function(id, callback) {
-    performDelete('/api/characters/delete/' + id, callback);
+    doDelete('/api/characters/doDelete/' + id, callback);
   },
 
   // DnD Data
+
   getAbilityScores: function(callback) {
-    performGet('/api/db/ability_scores', callback);
+    get('/api/db/ability_scores', callback);
   },
 
   getClasses: function(callback) {
-    performGet('/api/db/classes', callback);
+    get('/api/db/classes', callback);
   },
 
   getEquipment: function(callback) {
-    performGet('/api/db/equipment', callback);
+    get('/api/db/equipment', callback);
   },
 
   getLanguages: function(callback) {
-    performGet('/api/db/languages', callback);
+    get('/api/db/languages', callback);
   },
 
   getProficiencies: function(callback) {
-    performGet('/api/db/proficiencies', callback);
+    get('/api/db/proficiencies', callback);
   },
 
   getRaces: function(callback) {
-    performGet('/api/db/races', callback);
+    get('/api/db/races', callback);
   },
 
   getSubraces: function(callback) {
-    performGet('/api/db/subraces', callback);
+    get('/api/db/subraces', callback);
   },
 
   filterSubraces: function(data, callback) {
-    performPost('/api/db/subraces', data, callback);
+    post('/api/db/subraces', data, callback);
   },
 
   getSpells: function(callback) {
-    performGet('/api/db/spells', callback);
+    get('/api/db/spells', callback);
   },
 
   getTrinkets: function(callback) {
-    performGet('/api/db/trinkets', callback);
+    get('/api/db/trinkets', callback);
   }
 
 }

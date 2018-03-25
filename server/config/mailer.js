@@ -1,7 +1,7 @@
 const config = require('./index');
 const SparkPost = require('sparkpost');
 
-const mailer = new SparkPost(config.sparkpostKey);
+const mailer = new SparkPost(config.sparkpost_key);
 
 function sendMail({ subject, content, addresses }, callback) {
   const recipients = [];
@@ -12,11 +12,11 @@ function sendMail({ subject, content, addresses }, callback) {
   mailer.transmissions.send({
     content: {
       from: 'parker@mail.parkersprouse.me',
-      subject: subject,
-      html: '<html><body><p>' + content + '</p><p style="margin-top: 3rem"><i>Please do not reply to this e-mail</i></p></body></html>',
+      subject,
+      html: '<html><body><p>' + content + '</p><p style="margin-top: 2rem"><i>Please do not reply to this e-mail</i></p></body></html>',
       text: content
     },
-    recipients: recipients
+    recipients
   })
   .then(data => {
     console.log(data);

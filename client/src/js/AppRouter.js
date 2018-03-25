@@ -12,6 +12,7 @@ import EquipmentSearcher from './pages/EquipmentSearcher';
 import SpellSearcher from './pages/SpellSearcher';
 import TrinketsSearcher from './pages/TrinketsSearcher';
 import WeaponsSearcher from './pages/WeaponsSearcher';
+import AccountRecovery from './pages/AccountRecovery';
 import NotFound from './pages/NotFound';
 import utils from './lib/utils';
 
@@ -63,6 +64,7 @@ export default class AppRouter extends Component {
         <Route exact path='/info/spells' component={SpellSearcher} />
         <Route exact path='/info/trinkets' component={TrinketsSearcher} />
         <Route exact path='/info/weapons' component={WeaponsSearcher} />
+        <OnlyPublicRoute exact path='/account-recovery' component={AccountRecovery} />
         <Route exact path='/logout' render={() => { utils.logout(); return <Redirect to='/' /> }} />
         <Route path='*' component={NotFound} />
       </Switch>

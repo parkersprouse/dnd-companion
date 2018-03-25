@@ -41,7 +41,7 @@ function login(req, res, next) {
           const match = bcrypt.compareSync(password, data.pw_hash);
           if (match) {
             const payload = utils.generateJwtPayload(data);
-            const token = jwt.sign(payload, config.jwtSecret);
+            const token = jwt.sign(payload, config.jwt_secret);
             res.status(constants.http_ok)
               .json({
                 status: 'success',

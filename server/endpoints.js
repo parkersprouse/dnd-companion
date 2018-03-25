@@ -14,12 +14,15 @@ router.post('/auth/register', auth.register);
 
 // misc endpoints
 router.post('/misc/verifyauthtoken', misc.verifyAuthToken);
+router.post('/misc/verifyresetkey', misc.verifyResetKey);
+router.post('/misc/sendrecoveryemail', misc.sendRecoveryEmail);
 
 // user endpoints
 router.get('/users', users.getUsers);
 router.post('/users', users.getUserBy);
 router.patch('/users/update', users.updateUser);
 router.patch('/users/updatepw', users.updateUserPassword);
+router.patch('/users/resetpassword', users.resetPassword);
 
 // characters endpoints
 router.get('/characters', characters.getCharacters);

@@ -1,11 +1,12 @@
 const { db, Sequelize } = require('../config/db');
 
 const attributes = {
-  id:       { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, unique: true, primaryKey: true },
-  email:    { type: Sequelize.TEXT, allowNull: false, unique: true },
-  username: { type: Sequelize.TEXT, allowNull: false, unique: true },
-  name:     { type: Sequelize.TEXT },
-  pw_hash:  { type: Sequelize.TEXT, allowNull: false }
+  id:           { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, unique: true, primaryKey: true },
+  email:        { type: Sequelize.TEXT, allowNull: false, unique: true },
+  username:     { type: Sequelize.TEXT, allowNull: false, unique: true },
+  name:         { type: Sequelize.TEXT },
+  pw_hash:      { type: Sequelize.TEXT, allowNull: false },
+  pw_reset_key: { type: Sequelize.TEXT }
 };
 
 const tableSettings = {
