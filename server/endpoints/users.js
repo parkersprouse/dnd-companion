@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt-nodejs');
 const config = require('../config');
 const constants = require('../config/constants');
-const db = require('../config/db').db;
 const jwt = require('jsonwebtoken');
 const utils = require('../utils.js');
 const validator = require('validator');
@@ -62,6 +61,53 @@ function getUsers(req, res, next) {
           message: 'Failed to get all users'
         });
     });
+}
+
+function resetPassword(req, res, next) {
+  if (!req.body.pass || !req.body.confirm_pass) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        message: 'Please make sure both fields are filled out'
+      });
+  }
+  else if (req.body.pass !== req.body.confirm_pass) {
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        message: "Passwords did not match"
+      });
+  }
+  else {
+    const salt = bcrypt.genSaltSync();
+    const pw_hash = bcrypt.hashSync(req.body.pass, salt);
+
+    Users.update({ pw_hash, pw_reset_key: null }, { where: { pw_reset_key: req.body.reset_key }, returning: true })
+      .then((data) => {
+        if (!data[0]) {
+          res.status(constants.http_bad_request)
+            .json({
+              status: 'failure',
+              message: 'There was an unexpected error when attempting to update your password'
+            });
+        }
+        else {
+          res.status(constants.http_ok)
+            .json({
+              status: 'success',
+              message: 'Success'
+            });
+        }
+      })
+      .catch((err) => {
+        res.status(constants.http_bad_request)
+          .json({
+            status: 'failure',
+            content: err.message,
+            message: 'There was an unexpected error when attempting to update your password'
+          });
+      });
+  }
 }
 
 function updateUser(req, res, next) {
@@ -223,6 +269,7 @@ function updateUserPassword(req, res, next) {
 module.exports = {
   getUsers,
   getUserBy,
+  resetPassword,
   updateUser,
   updateUserPassword
 }

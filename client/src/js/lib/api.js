@@ -92,6 +92,10 @@ module.exports = {
     post('/api/misc/verifyresetkey', { key }, callback);
   },
 
+  resetUserPassword: function(data, callback) {
+    patch('/api/users/resetpassword', data, callback);
+  },
+
   // Character Data
 
   getAllCharacters: function(callback) {

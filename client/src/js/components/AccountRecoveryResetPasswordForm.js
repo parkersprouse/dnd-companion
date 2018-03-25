@@ -74,11 +74,11 @@ export default class AccountRecoverySendEmailForm extends Component {
   submit = (e) => {
     e.preventDefault();
     this.setState({ submitting: true, success: false, error: null });
-    // api.sendRecoveryEmail(this.state.email, (success, response) => {
-    //   if (success)
-    //     this.setState({ success: true, submitting: false });
-    //   else
-    //     this.setState({ error: response.message, submitting: false });
-    // });
+    api.resetUserPassword({ pass: this.state.pass, confirm_pass: this.state.confirm_pass, reset_key: this.props.reset_key }, (success, response) => {
+      if (success)
+        this.setState({ success: true, submitting: false });
+      else
+        this.setState({ error: response.message, submitting: false });
+    });
   }
 }

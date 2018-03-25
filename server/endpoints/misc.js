@@ -145,7 +145,7 @@ function verifyResetKey(req, res, next) {
 }
 
 module.exports = {
+  sendRecoveryEmail,
   verifyAuthToken,
-  verifyResetKey,
-  sendRecoveryEmail
+  verifyResetKey
 }

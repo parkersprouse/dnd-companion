@@ -37,7 +37,7 @@ export default class AccountRecovery extends Component {
               <Grid.Row stretched>
                 {
                   this.state.reset_key ?
-                  <AccountRecoveryResetPasswordForm /> :
+                  <AccountRecoveryResetPasswordForm reset_key={this.state.reset_key} /> :
                   <AccountRecoverySendEmailForm />
                 }
               </Grid.Row>
