@@ -24,7 +24,7 @@ function post(endpoint, data, callback) {
 }
 
 function doDelete(endpoint, callback) {
-  axios.doDelete(constants.server + endpoint)
+  axios.delete(constants.server + endpoint)
   .then((response) => {
     callback(response.status === constants.http_ok ||
              response.status === constants.http_no_content, response.data);
@@ -119,7 +119,7 @@ module.exports = {
   },
 
   deleteCharacter: function(id, callback) {
-    doDelete('/api/characters/doDelete/' + id, callback);
+    doDelete('/api/characters/delete/' + id, callback);
   },
 
   // DnD Data
