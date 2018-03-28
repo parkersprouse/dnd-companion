@@ -7,16 +7,16 @@ import AttunementsTreeDisplay from './AttunementsTreeDisplay';
 
 export default class AttunementsList extends Component {
   render() {
-    let options = _.map(this.props.character.equipment, 'name');
-    options = _.concat(options, _.map(this.props.character.weapons, 'name'));
-    options = _.concat(options, _.map(this.props.character.armor, 'name'));
+    let options = _.map(this.props.character.equipment || [], 'name');
+    options = _.concat(options, _.map(this.props.character.weapons || [], 'name'));
+    options = _.concat(options, _.map(this.props.character.armor || [], 'name'));
     options = _.sortBy(options, (i) => i);
 
     return (
       <div className='pt-form-group' style={{ marginBottom: '0' }}>
         <div className='pt-form-content searcher'>
           <AttunementsTreeDisplay character={this.props.character}
-                                  content={this.props.character.attunements.items}
+                                  content={this.props.character.attunements ? this.props.character.attunements.items : []}
                                   remove={this.removeAttunement}
                                   setRootState={this.props.setRootState} />
           <div style={{ marginTop: '0.5rem' }}>
