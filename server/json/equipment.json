@@ -3824,4 +3824,42 @@
 		"unit": "mph"
 	},
 	"url": "/api/db/equipment/256"
+},
+
+{
+	"index": 257,
+	"name": "Potion of greater healing",
+	"equipment_category": "Adventuring Gear",
+	"gear_category": "Standard Gear",
+	"cost": {
+		"quantity": 150,
+		"unit": "gp"
+	},
+	"weight": 0.5,
+	"desc": ["A character who drinks the magical red fluid in this vial regains 4d4 + 4 hit points. Drinking or administering a potion takes an action."],
+	"url": "/api/db/equipment/129"
+}, {
+	"index": 258,
+	"name": "Potion of superior healing",
+	"equipment_category": "Adventuring Gear",
+	"gear_category": "Standard Gear",
+	"cost": {
+		"quantity": 450,
+		"unit": "gp"
+	},
+	"weight": 0.5,
+	"desc": ["A character who drinks the magical red fluid in this vial regains 8d4 + 8 hit points. Drinking or administering a potion takes an action."],
+	"url": "/api/db/equipment/129"
+}, {
+	"index": 259,
+	"name": "Potion of supreme healing",
+	"equipment_category": "Adventuring Gear",
+	"gear_category": "Standard Gear",
+	"cost": {
+		"quantity": 1350,
+		"unit": "gp"
+	},
+	"weight": 0.5,
+	"desc": ["A character who drinks the magical red fluid in this vial regains 10d4 + 20 hit points. Drinking or administering a potion takes an action."],
+	"url": "/api/db/equipment/129"
 }]
