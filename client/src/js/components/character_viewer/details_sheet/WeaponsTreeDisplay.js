@@ -92,11 +92,12 @@ export default class WeaponsTreeDisplay extends Component {
               title={this.state.shown_weapon ? this.state.shown_weapon.name : ''}>
         <div className='pt-dialog-body'>
           <CustomWeaponDetails weapon={this.state.shown_weapon}
-                         id={this.props.character.id}
-                         weapons={this.state.content}
-                         setRootState={this.props.setRootState}
-                         showErrorToast={this.showErrorToast}
-                         showSuccessToast={this.showSuccessToast} />
+                               id={this.props.character.id}
+                               weapons={this.state.content}
+                               setRootState={this.props.setRootState}
+                               showErrorToast={this.showErrorToast}
+                               showSuccessToast={this.showSuccessToast}
+                               character={this.props.character} />
         </div>
         <div className='pt-dialog-footer'>
           <div className='pt-dialog-footer-actions'>

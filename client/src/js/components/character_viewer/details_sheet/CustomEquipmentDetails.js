@@ -13,7 +13,8 @@ export default class CustomArmorDetails extends Component {
       editing_desc: false,
       saving_desc: false,
       editing_name: false,
-      saving_name: false
+      saving_name: false,
+      orig_name: this.props.equipment.name
     }
 
     api.getEquipment((success, response) => {
@@ -202,7 +203,19 @@ export default class CustomArmorDetails extends Component {
 
   saveName = () => {
     this.setState({ saving_name: true });
-    api.updateCharacter({ id: this.props.id, equipment: this.props.equipments }, (success, response) => {
+    const data = { id: this.props.id, equipment: this.props.equipments };
+
+    const { attunements } = this.props.character;
+    if (attunements) {
+      for (let i = 0; i < attunements.items.length; i++) {
+        if (attunements.items[i] === this.state.orig_name) {
+          attunements.items[i] = this.props.equipment.name;
+          data.attunements = attunements;
+        }
+      }
+    }
+
+    api.updateCharacter(data, (success, response) => {
       if (success) {
         this.props.showSuccessToast();
         this.setState({ editing_name: false });

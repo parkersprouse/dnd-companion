@@ -92,11 +92,12 @@ export default class ArmorTreeDisplay extends Component {
               title={this.state.shown_armor ? this.state.shown_armor.name : ''}>
         <div className='pt-dialog-body'>
           <CustomArmorDetails armor={this.state.shown_armor}
-                         id={this.props.character.id}
-                         armors={this.state.content}
-                         setRootState={this.props.setRootState}
-                         showErrorToast={this.showErrorToast}
-                         showSuccessToast={this.showSuccessToast} />
+                              id={this.props.character.id}
+                              armors={this.state.content}
+                              setRootState={this.props.setRootState}
+                              showErrorToast={this.showErrorToast}
+                              showSuccessToast={this.showSuccessToast}
+                              character={this.props.character} />
         </div>
         <div className='pt-dialog-footer'>
           <div className='pt-dialog-footer-actions'>

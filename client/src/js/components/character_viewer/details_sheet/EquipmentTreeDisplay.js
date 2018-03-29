@@ -86,7 +86,8 @@ export default class EquipmentTreeDisplay extends Component {
                                   equipments={this.state.content}
                                   setRootState={this.props.setRootState}
                                   showErrorToast={this.showErrorToast}
-                                  showSuccessToast={this.showSuccessToast} />
+                                  showSuccessToast={this.showSuccessToast}
+                                  character={this.props.character} />
         </div>
         <div className='pt-dialog-footer'>
           <div className='pt-dialog-footer-actions'>
