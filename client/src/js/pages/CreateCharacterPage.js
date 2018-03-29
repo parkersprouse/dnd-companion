@@ -3,7 +3,7 @@ import { Button, Intent } from '@blueprintjs/core';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
-import CreateCharacterForm from '../components/character_creation/CreateCharacterForm';
+import CreateCharacterForm from '../components/characters/character_creation/CreateCharacterForm';
 import utils from '../lib/utils';
 import _ from 'lodash';
 import validator from 'validator';

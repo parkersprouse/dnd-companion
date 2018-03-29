@@ -8,10 +8,10 @@ import Header from '../components/Header';
 import api from '../lib/api';
 import utils from '../lib/utils';
 import validator from 'validator';
-import SpellSheet from '../components/character_viewer/SpellSheet';
-import DetailsSheet from '../components/character_viewer/DetailsSheet';
-import AdditionalInfoSheet from '../components/character_viewer/AdditionalInfoSheet';
-import NotesSheet from '../components/character_viewer/NotesSheet';
+import SpellSheet from '../components/characters/character_viewer/SpellSheet';
+import DetailsSheet from '../components/characters/character_viewer/DetailsSheet';
+import AdditionalInfoSheet from '../components/characters/character_viewer/AdditionalInfoSheet';
+import NotesSheet from '../components/characters/character_viewer/NotesSheet';
 
 export default class CharacterShowPage extends Component {
   constructor(props) {
