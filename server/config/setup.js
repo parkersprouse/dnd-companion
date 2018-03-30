@@ -4,6 +4,7 @@
 
 const Characters = require('../models/characters');
 const Games = require('../models/games');
+const Messages = require('../models/messages');
 const Users = require('../models/users');
 
 function sleep(ms) {
@@ -23,6 +24,8 @@ async function setup() {
   //await sleep(1000);
   //Games.drop();
   //await sleep(1000);
+  //Messages.drop();
+  //await sleep(1000);
 
   // CREATE ALL TABLES
   //Users.sync();
@@ -30,6 +33,8 @@ async function setup() {
   //Characters.sync();
   //await sleep(1000);
   //Games.sync();
+  //await sleep(1000);
+  //Messages.sync();
 }
 
 module.exports = setup;

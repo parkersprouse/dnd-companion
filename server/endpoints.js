@@ -6,6 +6,7 @@ const router = require('express').Router();
 const auth = require('./endpoints/auth');
 const characters = require('./endpoints/characters');
 const games = require('./endpoints/games');
+const messages = require('./endpoints/messages');
 const misc = require('./endpoints/misc');
 const users = require('./endpoints/users');
 
@@ -27,6 +28,14 @@ router.post('/games', games.getGameBy);
 router.post('/games/new', games.createGame);
 router.patch('/games/update', games.updateGame);
 router.delete('/games/delete/:id', games.deleteGame);
+
+// messages endpoints
+router.get('/messages', messages.getMessages);
+router.get('/messages/:user_id', messages.getMessagesToUser);
+router.post('/messages', messages.getMessageBy);
+router.post('/messages/new', messages.createMessage);
+//router.patch('/messages/update', messages.updateMessage);
+//router.delete('/messages/delete/:id', messages.deleteMessage);
 
 // misc endpoints
 router.post('/misc/verifyauthtoken', misc.verifyAuthToken);
