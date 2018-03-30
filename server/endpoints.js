@@ -4,13 +4,29 @@
 const router = require('express').Router();
 
 const auth = require('./endpoints/auth');
-const misc = require('./endpoints/misc');
 const characters = require('./endpoints/characters');
+const games = require('./endpoints/games');
+const misc = require('./endpoints/misc');
 const users = require('./endpoints/users');
 
 // auth endpoints
 router.post('/auth/login', auth.login);
 router.post('/auth/register', auth.register);
+
+// characters endpoints
+router.get('/characters', characters.getCharacters);
+router.post('/characters', characters.getCharacterBy);
+router.post('/characters/new', characters.createCharacter);
+router.patch('/characters/update', characters.updateCharacter);
+router.delete('/characters/delete/:id', characters.deleteCharacter);
+
+// games endpoints
+router.get('/games', games.getGames);
+router.get('/games/:user_id', games.getUsersGames);
+router.post('/games', games.getGameBy);
+router.post('/games/new', games.createGame);
+router.patch('/games/update', games.updateGame);
+router.delete('/games/delete/:id', games.deleteGame);
 
 // misc endpoints
 router.post('/misc/verifyauthtoken', misc.verifyAuthToken);
@@ -23,13 +39,6 @@ router.post('/users', users.getUserBy);
 router.patch('/users/update', users.updateUser);
 router.patch('/users/updatepw', users.updateUserPassword);
 router.patch('/users/resetpassword', users.resetPassword);
-
-// characters endpoints
-router.get('/characters', characters.getCharacters);
-router.post('/characters', characters.getCharacterBy);
-router.post('/characters/new', characters.createCharacter);
-router.patch('/characters/update', characters.updateCharacter);
-router.delete('/characters/delete/:id', characters.deleteCharacter);
 
 // 5e database endpoints
 const ability_scores = require('./endpoints/db/ability_scores');

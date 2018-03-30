@@ -9,7 +9,7 @@ const attributes = {
   pw_reset_key: { type: Sequelize.TEXT }
 };
 
-const tableSettings = {
+const table_config = {
   timestamps:      false,
   freezeTableName: true,
   underscored:     true,
@@ -27,6 +27,6 @@ const tableSettings = {
   }]
 };
 
-const Users = db.define('users', attributes, tableSettings);
+const Users = db.define('users', attributes, table_config);
 
 module.exports = Users;
