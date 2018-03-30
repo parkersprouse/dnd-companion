@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Popover, Position, NumericInput } from '@blueprintjs/core';
 import _ from 'lodash';
-import EquipmentSelector from './selectors/EquipmentSelector';
+import EquipmentSelector from '../selectors/EquipmentSelector';
 import FormLabel from '../../FormLabel';
 import { isMobile } from '../../../lib/utils';
 

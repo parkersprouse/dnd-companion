@@ -3,7 +3,7 @@ import { Position, Toaster, Intent } from '@blueprintjs/core';
 import _ from 'lodash';
 import api from '../../../../lib/api';
 import ArmorTreeDisplay from './ArmorTreeDisplay';
-import ArmorSelector from '../../character_creation/selectors/ArmorSelector';
+import ArmorSelector from '../../selectors/ArmorSelector';
 
 export default class ArmorList extends Component {
   render() {

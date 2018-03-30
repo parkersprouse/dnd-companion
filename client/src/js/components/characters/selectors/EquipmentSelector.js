@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, MenuItem } from '@blueprintjs/core';
 import { Select } from '@blueprintjs/labs';
 import _ from 'lodash';
-import api from '../../../../lib/api';
+import api from '../../../lib/api';
 
 export default class EquipmentSelector extends Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Position, Toaster, Intent } from '@blueprintjs/core';
 import DetailsTreeDisplay from './DetailsTreeDisplay';
-import LanguageSelector from '../../character_creation/selectors/LanguageSelector';
+import LanguageSelector from '../../selectors/LanguageSelector';
 import api from '../../../../lib/api';
 
 export default class LanguagesList extends Component {

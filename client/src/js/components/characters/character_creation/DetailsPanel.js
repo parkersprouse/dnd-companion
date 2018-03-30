@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
-import ClassSelector from './selectors/ClassSelector';
-import RaceSelector from './selectors/RaceSelector';
-import SubraceSelector from './selectors/SubraceSelector';
-import AlignmentSelector from './selectors/AlignmentSelector';
+import ClassSelector from '../selectors/ClassSelector';
+import RaceSelector from '../selectors/RaceSelector';
+import SubraceSelector from '../selectors/SubraceSelector';
+import AlignmentSelector from '../selectors/AlignmentSelector';
 
 export default class DetailsPanel extends Component {
   render() {

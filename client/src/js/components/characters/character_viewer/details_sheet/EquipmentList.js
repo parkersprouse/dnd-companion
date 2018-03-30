@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Position, Toaster, Intent } from '@blueprintjs/core';
 import _ from 'lodash';
 import EquipmentTreeDisplay from './EquipmentTreeDisplay';
-import EquipmentSelector from '../../character_creation/selectors/EquipmentSelector';
+import EquipmentSelector from '../../selectors/EquipmentSelector';
 import api from '../../../../lib/api';
 
 export default class EquipmentList extends Component {

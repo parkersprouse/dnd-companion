@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Popover, Position, NumericInput } from '@blueprintjs/core';
 import _ from 'lodash';
-import WeaponSelector from './selectors/WeaponSelector';
-import ArmorSelector from './selectors/ArmorSelector';
+import WeaponSelector from '../selectors/WeaponSelector';
+import ArmorSelector from '../selectors/ArmorSelector';
 import { isMobile } from '../../../lib/utils';
 
 export default class AttacksPanel extends Component {

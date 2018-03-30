@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Position, Toaster, Intent } from '@blueprintjs/core';
 import _ from 'lodash';
 import DetailsTreeDisplay from './DetailsTreeDisplay';
-import ProficiencySelector from '../../character_creation/selectors/ProficiencySelector';
+import ProficiencySelector from '../../selectors/ProficiencySelector';
 import api from '../../../../lib/api';
 
 export default class ProficienciesList extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import LanguageSelector from './selectors/LanguageSelector';
-import ProficiencySelector from './selectors/ProficiencySelector';
+import LanguageSelector from '../selectors/LanguageSelector';
+import ProficiencySelector from '../selectors/ProficiencySelector';
 
 export default class ProficienciesPanel extends Component {
   addProficiency = (prof) => {

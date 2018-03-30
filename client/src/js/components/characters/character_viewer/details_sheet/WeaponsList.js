@@ -3,7 +3,7 @@ import { Position, Toaster, Intent } from '@blueprintjs/core';
 import _ from 'lodash';
 import api from '../../../../lib/api';
 import WeaponsTreeDisplay from './WeaponsTreeDisplay';
-import WeaponSelector from '../../character_creation/selectors/WeaponSelector';
+import WeaponSelector from '../../selectors/WeaponSelector';
 
 export default class WeaponsList extends Component {
   render() {
