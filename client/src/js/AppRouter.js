@@ -7,6 +7,8 @@ import ProfilePage from './pages/ProfilePage';
 import CharacterListPage from './pages/CharacterListPage';
 import CharacterShowPage from './pages/CharacterShowPage';
 import CreateCharacterPage from './pages/CreateCharacterPage';
+import UsersListPage from './pages/UsersListPage';
+import UserShowPage from './pages/UserShowPage';
 import ArmorSearcher from './pages/ArmorSearcher';
 import EquipmentSearcher from './pages/EquipmentSearcher';
 import SpellSearcher from './pages/SpellSearcher';
@@ -59,6 +61,8 @@ export default class AppRouter extends Component {
         <PrivateRoute exact path='/characters' component={CharacterListPage} />
         <PrivateRoute exact path='/characters/new' component={CreateCharacterPage} />
         <PrivateRoute exact path='/characters/:id' component={CharacterShowPage} />
+        <PrivateRoute exact path='/users' component={UsersListPage} />
+        <PrivateRoute exact path='/users/:id' component={UserShowPage} />
         <Route exact path='/info/armor' component={ArmorSearcher} />
         <Route exact path='/info/equipment' component={EquipmentSearcher} />
         <Route exact path='/info/spells' component={SpellSearcher} />

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const utils = require('../utils.js');
 const validator = require('validator');
 const Users = require('../models/users');
+const _ = require('lodash');
 
 function getUserBy(req, res, next) {
   const data = {};
