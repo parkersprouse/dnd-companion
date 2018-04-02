@@ -12,6 +12,7 @@ import UserShowPage from './pages/UserShowPage';
 import GameListPage from './pages/GameListPage';
 //import CharacterShowPage from './pages/CharacterShowPage';
 import CreateGamePage from './pages/CreateGamePage';
+import JoinGamePage from './pages/JoinGamePage';
 import ArmorSearcher from './pages/ArmorSearcher';
 import EquipmentSearcher from './pages/EquipmentSearcher';
 import SpellSearcher from './pages/SpellSearcher';
@@ -71,6 +72,7 @@ export default class AppRouter extends Component {
 
         <PrivateRoute exact path='/games' component={GameListPage} />
         <PrivateRoute exact path='/games/new' component={CreateGamePage} />
+        <PrivateRoute exact path='/games/join' component={JoinGamePage} />
         {/* <PrivateRoute exact path='/games/:id' component={GameShowPage} /> */}
 
         <Route exact path='/info/armor' component={ArmorSearcher} />
