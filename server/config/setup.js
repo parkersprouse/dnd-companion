@@ -22,9 +22,9 @@ async function setup() {
   //await sleep(1000);
   //Users.drop();
   //await sleep(1000);
-  //Games.drop();
-  //await sleep(1000);
   //Messages.drop();
+  //await sleep(1000);
+  //Games.drop();
   //await sleep(1000);
 
   // CREATE ALL TABLES

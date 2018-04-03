@@ -1,4 +1,5 @@
 const { db, Sequelize } = require('../config/db');
+const Messages = require('./messages');
 const Users = require('./users');
 
 const attributes = {
@@ -25,5 +26,6 @@ const table_config = {
 };
 
 const Games = db.define('games', attributes, table_config);
+Games.hasMany(Messages, { onDelete: 'cascade', hooks: true });
 
 module.exports = Games;

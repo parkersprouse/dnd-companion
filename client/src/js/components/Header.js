@@ -46,6 +46,13 @@ export default class Header extends Component {
         <MenuItem text='New Character' iconName='plus' href='/characters/new' shouldDismissPopover={false} />
       </Menu>;
 
+    const gameDropdown =
+      <Menu>
+        <MenuItem text='My Games' iconName='properties' href='/games' shouldDismissPopover={false} />
+        <MenuItem text='Join Game' iconName='plus' href='/games/join' shouldDismissPopover={false} />
+        <MenuItem text='New Game' iconName='plus' href='/games/new' shouldDismissPopover={false} />
+      </Menu>;
+
     const infoDropdown =
       <Menu>
         <MenuItem text='Armor List' iconName='th' href='/info/armor' shouldDismissPopover={false} />
@@ -93,6 +100,13 @@ export default class Header extends Component {
                     <AnchorButton className='pt-minimal' rightIconName='caret-down'>Characters</AnchorButton>
                   </Popover>
                 : null }
+                { this.state.isLoggedIn ?
+                  <Popover content={gameDropdown} position={Position.BOTTOM}
+                           interactionKind={PopoverInteractionKind.HOVER}
+                           hoverOpenDelay={0} hoverCloseDelay={150}>
+                    <AnchorButton className='pt-minimal' rightIconName='caret-down'>Games</AnchorButton>
+                  </Popover>
+                : null }
                 <Popover content={infoDropdown} position={Position.BOTTOM}
                          interactionKind={PopoverInteractionKind.HOVER}
                          hoverOpenDelay={0} hoverCloseDelay={150}>
@@ -126,6 +140,11 @@ export default class Header extends Component {
           <MenuItem text='Characters'>
             <MenuItem text='My Characters' href='/characters' />
             <MenuItem text='New Character' href='/characters/new' />
+          </MenuItem>
+          <MenuItem text='Games'>
+            <MenuItem text='My Games' href='/games' />
+            <MenuItem text='Join Game' href='/games/join' />
+            <MenuItem text='New Game' href='/games/new' />
           </MenuItem>
           { info_menu }
           <MenuItem text='Profile' href='/profile' />

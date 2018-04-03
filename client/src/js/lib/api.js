@@ -142,6 +142,10 @@ module.exports = {
     post('/api/games/new', data, callback);
   },
 
+  joinGame: function(data, callback) {
+    post('/api/games/join', data, callback);
+  },
+
   updateGame: function(data, callback) {
     patch('/api/games/update', data, callback);
   },

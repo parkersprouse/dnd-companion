@@ -111,6 +111,75 @@ function createGame(req, res, next) {
       });
 }
 
+function joinGame(req, res, next) {
+  if (!req.body.code || !req.body.char_id)
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        message: 'Please make sure all required fields are filled out'
+      });
+  else
+    Games.findOne({ where: { code: req.body.code } })
+      .then((data) => {
+        if (!data)
+          res.status(constants.http_bad_request)
+            .json({
+              status: 'failure',
+              message: 'No game exists with the provided code'
+            });
+        else {
+          const { char_ids, user_ids, id } = data;
+          Games.findAll({ where: { char_ids: { $contains: [Number(req.body.char_id)] } } })
+            .then((data) => {
+              if (data.length > 0)
+                res.status(constants.http_bad_request)
+                  .json({
+                    status: 'failure',
+                    message: 'That character is already part of a different game'
+                  });
+              else {
+                char_ids.push(req.body.char_id);
+                if (user_ids.indexOf(req.body.user_id) === -1)
+                  user_ids.push(req.body.user_id);
+                Games.update({ char_ids, user_ids }, { where: { id }, returning: true })
+                  .then((data) => {
+                    res.status(constants.http_ok)
+                      .json({
+                        status: 'success',
+                        content: data[1][0].dataValues,
+                        message: 'The game was successfully joined'
+                      });
+                  })
+                  .catch((err) => {
+                    console.log(err)
+                    res.status(constants.http_server_error)
+                      .json({
+                        status: 'failure',
+                        message: 'There was an unknown problem when attempting to join the game'
+                      });
+                  });
+              }
+            })
+            .catch((err) => {
+              console.log(err)
+              res.status(constants.http_server_error)
+                .json({
+                  status: 'failure',
+                  message: 'There was an unknown problem when attempting to join the game'
+                });
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        res.status(constants.http_server_error)
+          .json({
+            status: 'failure',
+            message: 'There was an unknown problem when attempting to join the game'
+          });
+      });
+}
+
 function updateGame(req, res, next) {
   Games.update(req.body, { where: { id: req.body.id }, returning: true })
     .then((data) => {
@@ -178,6 +247,7 @@ module.exports = {
   getGameBy,
   getUsersGames,
   createGame,
+  joinGame,
   updateGame,
   deleteGame
 }
