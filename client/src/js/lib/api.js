@@ -134,7 +134,7 @@ module.exports = {
     get('/api/games/' + userid, callback);
   },
 
-  getGame: function(data, callback) {
+  getGames: function(data, callback) {
     post('/api/games', data, callback);
   },
 
