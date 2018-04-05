@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Tab2, Tabs2 } from '@blueprintjs/core';
 import { Grid, Loader } from 'semantic-ui-react';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
+import GamesYouRunList from '../components/games/game_list/GamesYouRunList';
+import GamesYouPlayList from '../components/games/game_list/GamesYouPlayList';
 import api from '../lib/api';
 import utils from '../lib/utils';
 
@@ -11,12 +14,15 @@ export default class GameListPage extends Component {
     super(props);
     this.state = {
       dm_games: null,
-      player_games: null
+      player_games: null,
+      user_id: null
     };
   }
 
   componentWillMount() {
     utils.getCurrentUserInfo((success, response) => {
+
+      this.setState({ user_id: response.id });
 
       api.getGames({ owner_id: response.id }, (success, response) => {
         if (success)
@@ -36,7 +42,7 @@ export default class GameListPage extends Component {
   }
 
   render() {
-    if (!this.state.dm_games || !this.state.player_games)
+    if (!this.state.dm_games || !this.state.player_games || !this.state.user_id)
       return (
         <OuterContainer>
           <Header />
@@ -57,9 +63,10 @@ export default class GameListPage extends Component {
         <Header />
         <InnerContainer>
           <h1 className='page-title'>Your Games</h1>
-          Games you run: { this.state.dm_games.length }
-          <hr />
-          Games you have a character in: { this.state.player_games.length }
+          <Tabs2 id='games-tabs' vertical={true}>
+            <Tab2 id='dm' title='Games You Run' panel={<GamesYouRunList games={this.state.dm_games} />} />
+            <Tab2 id='player' title='Games You Play' panel={<GamesYouPlayList games={this.state.player_games} user={this.state.user_id} />} />
+          </Tabs2>
         </InnerContainer>
       </OuterContainer>
     );
