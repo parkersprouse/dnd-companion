@@ -10,7 +10,7 @@ import CreateCharacterPage from './pages/CreateCharacterPage';
 import UsersListPage from './pages/UsersListPage';
 import UserShowPage from './pages/UserShowPage';
 import GameListPage from './pages/GameListPage';
-//import CharacterShowPage from './pages/CharacterShowPage';
+import GameShowPage from './pages/GameShowPage';
 import CreateGamePage from './pages/CreateGamePage';
 import JoinGamePage from './pages/JoinGamePage';
 import ArmorSearcher from './pages/ArmorSearcher';
@@ -73,7 +73,7 @@ export default class AppRouter extends Component {
         <PrivateRoute exact path='/games' component={GameListPage} />
         <PrivateRoute exact path='/games/new' component={CreateGamePage} />
         <PrivateRoute exact path='/games/join' component={JoinGamePage} />
-        {/* <PrivateRoute exact path='/games/:id' component={GameShowPage} /> */}
+        <PrivateRoute exact path='/games/:id' component={GameShowPage} />
 
         <Route exact path='/info/armor' component={ArmorSearcher} />
         <Route exact path='/info/equipment' component={EquipmentSearcher} />
@@ -82,7 +82,7 @@ export default class AppRouter extends Component {
         <Route exact path='/info/weapons' component={WeaponsSearcher} />
 
         <OnlyPublicRoute exact path='/account-recovery' component={AccountRecovery} />
-        <Route exact path='/logout' render={() => { utils.logout(); return <Redirect to='/' /> }} />
+        <Route exact path='/logout' render={utils.logout} />
         <Route path='*' component={NotFound} />
       </Switch>
     );

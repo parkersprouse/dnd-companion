@@ -12,7 +12,7 @@ export default class GamesYouPlayList extends Component {
   }
 
   componentWillMount() {
-    api.getUsersCharacters(this.props.user, (success, response) => {
+    api.getUsersCharacters(this.props.user_id, (success, response) => {
       if (success)
         this.setState({ characters: response.content });
       else
@@ -31,11 +31,18 @@ export default class GamesYouPlayList extends Component {
   }
 
   createGameList = () => {
-    const char_ids = _.map(this.state.characters, 'id');
-    
+    const user_char_ids = _.map(this.state.characters, 'id');
+
     return _.map(this.props.games, (game) => {
-      const char_id = _.intersection(game.char_ids, char_ids)[0];
-      const char_name = _.find(this.state.characters, (char) => char.id === char_id).name;
+      const user_char_ids_in_game = _.intersection(game.char_ids, user_char_ids);
+
+      // We can't use map here because elements that don't match will return
+      // undefined and that will ruin the collection.
+      const char_names = [];
+      _.forEach(this.state.characters, (char) => {
+        if (user_char_ids_in_game.indexOf(char.id) > -1)
+          char_names.push(char.name);
+      });
 
       return <div className='pt-card pt-elevation-0 pt-interactive character-card'
                   onClick={() => window.location.href = '/games/' + game.id}
@@ -45,7 +52,7 @@ export default class GamesYouPlayList extends Component {
                     <Item.Content>
                       <Item.Header as='h3'>{ game.name }</Item.Header>
                       <Item.Description>{ game.description }</Item.Description>
-                      <Item.Meta>Character: { char_name }</Item.Meta>
+                      <Item.Meta>Characters: { _.join(char_names, ', ') }</Item.Meta>
                     </Item.Content>
                   </Item>
                 </Item.Group>

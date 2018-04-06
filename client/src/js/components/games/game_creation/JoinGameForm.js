@@ -60,7 +60,7 @@ export default class JoinGameForm extends Component {
                 </FormGroup>
                 <div className='pt-form-group' style={{ marginBottom: '0' }}>
                   <div className='pt-form-content' style={{ textAlign: 'center' }}>
-                    <Button iconName='plus'
+                    <Button iconName='new-person'
                             intent={Intent.PRIMARY}
                             type='submit'
                             loading={this.state.is_submitting}>Join

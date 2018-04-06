@@ -63,9 +63,9 @@ export default class GameListPage extends Component {
         <Header />
         <InnerContainer>
           <h1 className='page-title'>Your Games</h1>
-          <Tabs2 id='games-tabs' vertical={true}>
+          <Tabs2 id='games-tabs' vertical={!utils.isMobile()}>
             <Tab2 id='dm' title='Games You Run' panel={<GamesYouRunList games={this.state.dm_games} />} />
-            <Tab2 id='player' title='Games You Play' panel={<GamesYouPlayList games={this.state.player_games} user={this.state.user_id} />} />
+            <Tab2 id='player' title='Games You Play' panel={<GamesYouPlayList games={this.state.player_games} user_id={this.state.user_id} />} />
           </Tabs2>
         </InnerContainer>
       </OuterContainer>

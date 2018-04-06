@@ -49,7 +49,7 @@ export default class Header extends Component {
     const gameDropdown =
       <Menu>
         <MenuItem text='My Games' iconName='properties' href='/games' shouldDismissPopover={false} />
-        <MenuItem text='Join Game' iconName='plus' href='/games/join' shouldDismissPopover={false} />
+        <MenuItem text='Join Game' iconName='new-person' href='/games/join' shouldDismissPopover={false} />
         <MenuItem text='New Game' iconName='plus' href='/games/new' shouldDismissPopover={false} />
       </Menu>;
 

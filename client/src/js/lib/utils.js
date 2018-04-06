@@ -23,6 +23,7 @@ module.exports = {
 
   logout: function() {
     cookies.remove('token');
+    window.location.href = '/';
   },
 
   getCurrentUserInfo: function(callback) {
