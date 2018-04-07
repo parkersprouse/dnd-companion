@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NonIdealState } from '@blueprintjs/core';
+import { NonIdealState, Position, Tooltip } from '@blueprintjs/core';
 import { Grid, Loader } from 'semantic-ui-react';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
@@ -80,7 +80,9 @@ export default class GameShowPage extends Component {
                 <h6 style={{ marginBottom: '0' }}>{ game.description || 'No description' }</h6>
               </Grid.Column>
               <Grid.Column width={5} textAlign='right'>
-                Game Code: <strong>{ game.code }</strong>
+                Game Code: <Tooltip content='Users can use this code to join this game' position={Position.TOP}>
+                              <strong>{ game.code }</strong>
+                            </Tooltip>
               </Grid.Column>
             </Grid.Row>
 
