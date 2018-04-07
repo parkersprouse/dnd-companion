@@ -80,15 +80,20 @@ export default class GameShowPage extends Component {
                 <h6 style={{ marginBottom: '0' }}>{ game.description || 'No description' }</h6>
               </Grid.Column>
               <Grid.Column width={5} textAlign='right'>
-                Game Code: <Tooltip content='Users can use this code to join this game' position={Position.TOP}>
+                Game Code: <Tooltip content='Players can use this code to join this game' position={Position.TOP}>
                               <strong>{ game.code }</strong>
                             </Tooltip>
               </Grid.Column>
             </Grid.Row>
 
             <Grid.Row>
-              <Grid.Column width={11}>
-
+              <Grid.Column width={5}>
+                <div className='pt-card'>
+                </div>
+              </Grid.Column>
+              <Grid.Column width={6}>
+                <div className='pt-card'>
+                </div>
               </Grid.Column>
               <Grid.Column width={5}>
                 <CharactersPanel ids={game.char_ids} user_id={this.state.user_id} />
