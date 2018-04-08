@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import api from '../lib/api';
 import utils from '../lib/utils';
 import CharactersPanel from '../components/games/game_show/CharactersPanel';
+import ChatPanel from '../components/games/game_show/ChatPanel';
 
 export default class GameShowPage extends Component {
   constructor(props) {
@@ -92,8 +93,7 @@ export default class GameShowPage extends Component {
                 </div>
               </Grid.Column>
               <Grid.Column width={6}>
-                <div className='pt-card'>
-                </div>
+                <ChatPanel {...this.state} />
               </Grid.Column>
               <Grid.Column width={5}>
                 <CharactersPanel ids={game.char_ids} user_id={this.state.user_id} />
