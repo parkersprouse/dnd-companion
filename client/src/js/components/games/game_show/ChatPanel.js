@@ -19,6 +19,9 @@ export default class CharactersPanel extends Component {
   render() {
     return (
       <div className='pt-card'>
+        <div style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid #ccc' }}>
+          (time) [Group] Message
+        </div>
         <form onSubmit={this.submitMessage}>
           <div className='pt-control-group'>
             <input type='text' className='pt-input pt-fill'
@@ -34,7 +37,7 @@ export default class CharactersPanel extends Component {
   submitMessage = (e) => {
     e.preventDefault();
     if (!this.state.msg) return null;
-    
+
     console.log(this.state.msg)
     this.setState({ msg: '' })
   }

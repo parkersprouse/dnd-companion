@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Grid, Item } from 'semantic-ui-react';
+import { Item } from 'semantic-ui-react';
 import api from '../../../lib/api';
-import utils from '../../../lib/utils';
-import _ from 'lodash';
 
 export default class CharactersPanel extends Component {
   constructor(props) {
@@ -30,13 +28,7 @@ export default class CharactersPanel extends Component {
 
     return (
       <div className='pt-card'>
-        <div style={{ width: '100%',
-                      textAlign: 'center',
-                      fontWeight: 'bold',
-                      borderBottom: '1px solid #ccc',
-                      paddingBottom: '0.5rem',
-                      marginTop: '-10px',
-                      marginBottom: '1rem' }}>
+        <div className='game-show-panel-header'>
           Characters
         </div>
         { this.renderChars() }
@@ -45,13 +37,14 @@ export default class CharactersPanel extends Component {
   }
 
   renderChars = () => {
-    return _.map(this.state.chars, (char) => {
+    return this.state.chars.map((char) => {
       return (
-        <div key={char.id} className='pt-card pt-elevation-0 pt-interactive character-card'>
+        <div key={char.id} className='pt-card pt-elevation-0 pt-interactive character-card'
+             onClick={() => console.log(char)}>
           <Item.Group>
             <Item>
               <Item.Content>
-                <Item.Header as='h3'>{ char.name }</Item.Header>
+                <Item.Header as='h5'>{ char.name }</Item.Header>
                 {
                   char.race || char.class ?
                   <Item.Meta>{ (char.race + ' ' + char.class).trim() }</Item.Meta> : null

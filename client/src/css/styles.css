@@ -179,3 +179,12 @@
 
 .pt-tab-panel {
   width: 100%; }
+
+.game-show-panel-header {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.5rem;
+  margin-top: -10px;
+  margin-bottom: 1rem; }
