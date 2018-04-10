@@ -29,21 +29,20 @@ export default class GameCodePanel extends Component {
 
   renderInviteModal = () => {
     return (
-      <Dialog isOpen={this.state.dialog_open} title={'Invite User'}
+      <Dialog isOpen={this.state.dialog_open} title={'Invite Player'}
               onClose={() => this.setState({ selected_spell: null, dialog_open: false })}>
         <div className='pt-dialog-body'>
-          <div className='pt-form-group'>
+          <div className='pt-form-group' style={{ margin: '0' }}>
             <div className='pt-form-content'>
               <input id='email' className='pt-input pt-fill' placeholder='E-mail'
                      onChange={(e) => this.setState({ email: e.target.value })} />
-              <div className='pt-form-helper-text'>E-mail</div>
             </div>
           </div>
         </div>
         <div className='pt-dialog-footer'>
           <div className='pt-dialog-footer-actions'>
             <Button text='Close' onClick={this.toggleDialog} />
-            <Button text='Send' intent={Intent.PRIMARY} onClick={this.send} />
+            <Button text='Send' intent={Intent.PRIMARY} onClick={this.send} disabled={!this.state.email} />
           </div>
         </div>
       </Dialog>
@@ -52,7 +51,7 @@ export default class GameCodePanel extends Component {
 
   showSuccess() {
     Toaster.create().show({
-      message: 'Successfully Updated',
+      message: 'E-mail Successfully Sent',
       position: Position.TOP_CENTER,
       intent: Intent.SUCCESS,
       timeout: 2000

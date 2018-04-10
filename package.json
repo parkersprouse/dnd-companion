@@ -25,6 +25,7 @@
     "prop-types": "^15.6.0",
     "query-string": "^5.0.1",
     "sequelize": "^4.28.6",
+    "socket.io": "^2.1.0",
     "sparkpost": "^2.1.2",
     "universal-cookie": "^2.1.2",
     "validator": "^9.2.0"
