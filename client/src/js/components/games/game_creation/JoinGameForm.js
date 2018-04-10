@@ -10,7 +10,7 @@ export default class JoinGameForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: '',
+      code: utils.valueify(props.code, ''),
       char_id: null,
       user_id: null,
       is_submitting: false,

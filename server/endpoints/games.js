@@ -1,7 +1,8 @@
-const constants = require('../config/constants');
-const db = require('../config/db').db;
 const validator = require('validator');
 const _ = require('lodash');
+const constants = require('../config/constants');
+const db = require('../config/db').db;
+const mailer = require('../config/mailer');
 const Games = require('../models/games');
 
 function getGames(req, res, next) {
@@ -180,6 +181,29 @@ function joinGame(req, res, next) {
       });
 }
 
+function inviteToGame(req, res, next) {
+  if (!req.body.email)
+    res.status(constants.http_bad_request)
+      .json({
+        status: 'failure',
+        message: 'Please fill out an e-mail address to invite'
+      });
+  else {
+    mailer({
+      subject: "DnD Game Invite - DnD Companion App",
+      content: "You've been sent an invite to join a game on the DnD Companion App.\
+                <br /><br />To join the game, <a href='http://dnd.parkersprouse.me/games/join?code=" + req.body.code + "'>click here</a>.",
+      addresses: [req.body.email]
+    }, (success) => {
+      res.status(constants.http_ok)
+        .json({
+          status: 'success',
+          message: 'Success'
+        });
+    });
+  }
+}
+
 function updateGame(req, res, next) {
   Games.update(req.body, { where: { id: req.body.id }, returning: true })
     .then((data) => {
@@ -248,6 +272,7 @@ module.exports = {
   getUsersGames,
   createGame,
   joinGame,
+  inviteToGame,
   updateGame,
   deleteGame
 }

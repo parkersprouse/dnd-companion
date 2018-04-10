@@ -27,6 +27,7 @@ router.get('/games/:user_id', games.getUsersGames);
 router.post('/games', games.getGameBy);
 router.post('/games/new', games.createGame);
 router.post('/games/join', games.joinGame);
+router.post('/games/invite', games.inviteToGame);
 router.patch('/games/update', games.updateGame);
 router.delete('/games/delete/:id', games.deleteGame);
 

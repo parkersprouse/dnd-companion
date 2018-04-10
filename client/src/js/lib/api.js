@@ -154,6 +154,10 @@ module.exports = {
     doDelete('/api/games/delete/' + id, callback);
   },
 
+  sendGameInvite: function(data, callback) {
+    post('/api/games/invite', data, callback);
+  },
+
   // Message Data
 
   getMessages: function(callback) {

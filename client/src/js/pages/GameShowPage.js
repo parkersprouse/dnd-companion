@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NonIdealState, Position, Tooltip } from '@blueprintjs/core';
+import { NonIdealState } from '@blueprintjs/core';
 import { Grid, Loader } from 'semantic-ui-react';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
@@ -8,6 +8,7 @@ import api from '../lib/api';
 import utils from '../lib/utils';
 import CharactersPanel from '../components/games/game_show/CharactersPanel';
 import ChatPanel from '../components/games/game_show/ChatPanel';
+import GameCodePanel from '../components/games/game_show/GameCodePanel';
 
 export default class GameShowPage extends Component {
   constructor(props) {
@@ -81,9 +82,7 @@ export default class GameShowPage extends Component {
                 <h6 style={{ marginBottom: '0' }}>{ game.description || 'No description' }</h6>
               </Grid.Column>
               <Grid.Column width={5} textAlign='right'>
-                Game Code: <Tooltip content='Players can use this code to join this game' position={Position.TOP}>
-                              <strong>{ game.code }</strong>
-                            </Tooltip>
+                <GameCodePanel code={game.code} />
               </Grid.Column>
             </Grid.Row>
 

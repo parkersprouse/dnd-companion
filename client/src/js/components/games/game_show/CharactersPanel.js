@@ -39,7 +39,7 @@ export default class CharactersPanel extends Component {
   renderChars = () => {
     return this.state.chars.map((char) => {
       return (
-        <div key={char.id} className='pt-card pt-elevation-0 pt-interactive character-card'
+        <div key={char.id} className='pt-card pt-elevation-0 character-card'
              onClick={() => console.log(char)}>
           <Item.Group>
             <Item>
