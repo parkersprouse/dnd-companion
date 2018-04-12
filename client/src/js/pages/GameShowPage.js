@@ -16,7 +16,7 @@ export default class GameShowPage extends Component {
     this.state = {
       game: null,
       user_is_dm: false,
-      user_id: null
+      user: null
     }
   }
 
@@ -24,12 +24,12 @@ export default class GameShowPage extends Component {
     const { id } = this.props.computedMatch.params;
 
     utils.getCurrentUserInfo((success, response) => {
-      const current_user_id = response.id;
+      const current_user = response;
       api.getGames({ id: Number(id) }, (success, response) => {
         if (success) {
           const game = response.content[0];
-          if (game.owner_id === current_user_id || game.user_ids.indexOf(current_user_id) > -1)
-            this.setState({ game, user_is_dm: game.owner_id === current_user_id, user_id: current_user_id });
+          if (game.owner_id === current_user.id || game.user_ids.indexOf(current_user.id) > -1)
+            this.setState({ game, user_is_dm: game.owner_id === current_user.id, user: current_user });
           else
             this.setState({ game: -1 });
         }
@@ -95,7 +95,7 @@ export default class GameShowPage extends Component {
                 <ChatPanel {...this.state} />
               </Grid.Column>
               <Grid.Column width={4}>
-                <CharactersPanel ids={game.char_ids} user_id={this.state.user_id} />
+                <CharactersPanel ids={game.char_ids} />
               </Grid.Column>
             </Grid.Row>
 

@@ -3,20 +3,31 @@ import { Grid, Item } from 'semantic-ui-react';
 import api from '../../../lib/api';
 import utils from '../../../lib/utils';
 import _ from 'lodash';
+import socketIOclient from 'socket.io-client';
 
-export default class CharactersPanel extends Component {
+export default class ChatPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       msg: ''
-    }
+    };
   }
 
   componentWillMount() {
+    this.socket = socketIOclient('http://localhost:9000');
+    this.socket.emit('join game', { user: this.props.user.username, game: this.props.game.id });
 
+    window.onbeforeunload = () => {
+      console.log('goodbye')
+    };
   }
 
   render() {
+    this.socket.on('get message', message => {
+      if (message.user !== this.props.user.username)
+        console.log(`[${message.user}]: ${message.text}`);
+    });
+
     return (
       <div className='pt-card'>
         <div style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid #ccc' }}>
@@ -39,6 +50,7 @@ export default class CharactersPanel extends Component {
     if (!this.state.msg) return null;
 
     console.log(this.state.msg)
+    this.socket.emit('send message', { text: this.state.msg, user: this.props.user.username });
     this.setState({ msg: '' })
   }
 }
