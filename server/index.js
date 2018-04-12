@@ -12,15 +12,15 @@ const server = http.createServer(app);
 const io = socketIO(server);
 
 io.on('connection', socket => {
-  console.log('User connected: ' + socket.id);
+  let room = '';
 
-  socket.on('disconnect', () => {
-    console.log('User disconnected: ' + socket.id);
+  socket.on('join game', data => {
+    room = data.game + '';
+    socket.join(room);
   });
 
   socket.on('send message', message => {
-    console.log('Message received: ' + JSON.parse(JSON.stringify(message)));
-    io.sockets.emit('get message', message);
+    io.to(room).emit('get message', message);
   });
 });
 

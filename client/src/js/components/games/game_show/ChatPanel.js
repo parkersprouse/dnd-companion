@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Item } from 'semantic-ui-react';
 import api from '../../../lib/api';
+import constants from '../../../lib/constants';
 import utils from '../../../lib/utils';
 import _ from 'lodash';
 import socketIOclient from 'socket.io-client';
@@ -9,13 +10,19 @@ export default class ChatPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      msg: ''
+      msg: '',
+      messages: []
     };
   }
 
   componentWillMount() {
-    this.socket = socketIOclient('http://localhost:9000');
+    this.socket = socketIOclient(constants.server);
     this.socket.emit('join game', { user: this.props.user.username, game: this.props.game.id });
+
+    this.socket.on('get message', message => {
+      this.state.messages.push(message);
+      this.forceUpdate();
+    });
 
     window.onbeforeunload = () => {
       console.log('goodbye')
@@ -23,15 +30,14 @@ export default class ChatPanel extends Component {
   }
 
   render() {
-    this.socket.on('get message', message => {
-      if (message.user !== this.props.user.username)
-        console.log(`[${message.user}]: ${message.text}`);
+    const render_msgs = this.state.messages.map((msg, index) => {
+      return <div key={index}>[{msg.user}]: {msg.text}</div>
     });
 
     return (
       <div className='pt-card'>
         <div style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid #ccc' }}>
-          (time) [Group] Message
+          { render_msgs }
         </div>
         <form onSubmit={this.submitMessage}>
           <div className='pt-control-group'>

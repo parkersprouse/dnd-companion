@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Grid, Item } from 'semantic-ui-react';
 import { Button, Dialog, Intent, Position, Toaster, Tooltip } from '@blueprintjs/core';
 import api from '../../../lib/api';
-import utils from '../../../lib/utils';
-import _ from 'lodash';
 
 export default class GameCodePanel extends Component {
   constructor(props) {
