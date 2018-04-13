@@ -17,6 +17,19 @@ io.on('connection', socket => {
   socket.on('join game', data => {
     room = data.game + '';
     socket.join(room);
+    io.to(room).emit('get message', {
+      text: `${data.user.username} has joined the chat`,
+      user: data.user,
+      to: 'system'
+    });
+  });
+
+  socket.on('leave game', data => {
+    io.to(room).emit('get message', {
+      text: `${data.user.username} has left the chat`,
+      user: data.user,
+      to: 'system'
+    });
   });
 
   socket.on('send message', message => {

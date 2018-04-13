@@ -27,18 +27,17 @@ export default class ChatPanel extends Component {
     }
 
     this.socket = socketIOclient(constants.server);
-    this.socket.emit('join game', { user: this.props.user.username, game: this.props.game.id });
+    this.socket.emit('join game', { user: this.props.user, game: this.props.game.id });
 
     this.socket.on('get message', msg => {
       if (msg.to === 'group' && this.props.user_is_dm) return;
-      if (msg.to !== 'group' && msg.to !== 'table' &&
-          msg.to !== this.props.user.username && msg.user !== this.props.user.username) return;
+      if (msg.to !== 'group' && msg.to !== 'table' && msg.to !== 'system' && msg.to !== this.props.user.username && msg.user.username !== this.props.user.username) return;
       this.state.messages.push(msg);
       this.forceUpdate();
     });
 
     window.onbeforeunload = () => {
-      this.socket.emit('leave game', { user: this.props.user.username, game: this.props.game.id });
+      this.socket.emit('leave game', { user: this.props.user, game: this.props.game.id });
     };
   }
 
@@ -47,12 +46,17 @@ export default class ChatPanel extends Component {
       let msg_class = 'chat-msg-private';
       if (msg.to === 'group') msg_class = 'chat-msg-group';
       else if (msg.to === 'table') msg_class = 'chat-msg-table';
-      return <div key={index} className={msg_class}>[{msg.user}]: {msg.text}</div>
+      else if (msg.to === 'system') msg_class = '';
+      return (
+        <div key={index} className={msg_class}>
+          { msg.to !== 'system' ? `[${msg.user.username}]: ` : null }{msg.text}
+        </div>
+      );
     });
 
     return (
       <div className='pt-card'>
-        <div style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid #ccc' }}>
+        <div style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid #ccc', maxHeight: '400px', overflowY: 'auto' }}>
           { render_msgs }
         </div>
         <form onSubmit={this.submitMessage}>
@@ -70,9 +74,14 @@ export default class ChatPanel extends Component {
             <input type='text' className='pt-input pt-fill'
                    placeholder='Enter Message...' name='msg' value={this.state.msg}
                    onChange={this.onInputChange} />
-            <button className='pt-button pt-intent-primary' type='submit'>Send</button>
+            <button className='pt-button pt-intent-primary pt-icon-key-enter' type='submit'></button>
           </div>
         </form>
+        <div style={{ marginTop: '0.5rem' }}>
+          <span className='chat-msg-private'>Private Message</span><br />
+          <span className='chat-msg-group'>Group Message</span><br />
+          <span className='chat-msg-table'>Table Message</span>
+        </div>
       </div>
     );
   }
@@ -84,9 +93,9 @@ export default class ChatPanel extends Component {
   renderPrivateMessageOptions = () => {
     const ordered_players = _.sortBy(this.state.players, 'username');
     const players = [];
-    ordered_players.forEach(player => {
+    ordered_players.forEach((player, index) => {
       if (player.username !== this.props.user.username)
-        players.push(<option>{ player.username }</option>);
+        players.push(<option key={index}>{ player.username }</option>);
     });
     return players;
   }
@@ -94,9 +103,7 @@ export default class ChatPanel extends Component {
   submitMessage = (e) => {
     e.preventDefault();
     if (!this.state.msg) return null;
-
-    console.log(this.state.msg);
-    this.socket.emit('send message', { text: this.state.msg, user: this.props.user.username, to: this.state.to });
+    this.socket.emit('send message', { text: this.state.msg, user: this.props.user, to: this.state.to });
     this.setState({ msg: '' });
   }
 }
