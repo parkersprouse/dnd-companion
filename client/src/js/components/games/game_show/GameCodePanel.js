@@ -7,7 +7,8 @@ export default class GameCodePanel extends Component {
     super(props);
     this.state = {
       email: '',
-      dialog_open: false
+      dialog_open: false,
+      sending: false
     }
   }
 
@@ -39,7 +40,8 @@ export default class GameCodePanel extends Component {
         <div className='pt-dialog-footer'>
           <div className='pt-dialog-footer-actions'>
             <Button text='Close' onClick={this.toggleDialog} />
-            <Button text='Send' intent={Intent.PRIMARY} onClick={this.send} disabled={!this.state.email} />
+            <Button text='Send' intent={Intent.PRIMARY} onClick={this.send}
+                    disabled={!this.state.email} loading={this.state.sending} />
           </div>
         </div>
       </Dialog>
@@ -57,8 +59,10 @@ export default class GameCodePanel extends Component {
 
   send = () => {
     if (!this.state.email) return null;
+    this.setState({ sending: true });
     api.sendGameInvite({ email: this.state.email, code: this.props.code }, (success, response) => {
       this.showSuccess();
+      this.setState({ sending: false });
     });
   }
 

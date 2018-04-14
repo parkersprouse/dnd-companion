@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, Item } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import api from '../../../lib/api';
 import constants from '../../../lib/constants';
-import utils from '../../../lib/utils';
 import _ from 'lodash';
 import socketIOclient from 'socket.io-client';
 
@@ -13,8 +12,11 @@ export default class ChatPanel extends Component {
       msg: '',
       to: 'table',
       messages: [],
-      players: []
+      players: [],
+      online_players: []
     };
+
+    this.to_options = ['group', 'table', 'system'];
   }
 
   componentWillMount() {
@@ -25,20 +27,7 @@ export default class ChatPanel extends Component {
         this.forceUpdate();
       });
     }
-
-    this.socket = socketIOclient(constants.server);
-    this.socket.emit('join game', { user: this.props.user, game: this.props.game.id });
-
-    this.socket.on('get message', msg => {
-      if (msg.to === 'group' && this.props.user_is_dm) return;
-      if (msg.to !== 'group' && msg.to !== 'table' && msg.to !== 'system' && msg.to !== this.props.user.username && msg.user.username !== this.props.user.username) return;
-      this.state.messages.push(msg);
-      this.forceUpdate();
-    });
-
-    window.onbeforeunload = () => {
-      this.socket.emit('leave game', { user: this.props.user, game: this.props.game.id });
-    };
+    this.configureSockets();
   }
 
   render() {
@@ -47,15 +36,33 @@ export default class ChatPanel extends Component {
       if (msg.to === 'group') msg_class = 'chat-msg-group';
       else if (msg.to === 'table') msg_class = 'chat-msg-table';
       else if (msg.to === 'system') msg_class = '';
+
+      let to = null;
+      if (this.to_options.indexOf(msg.to) === -1)
+        if (msg.to === this.props.user.username)
+          to = `[from ${msg.user.username}]: `;
+        else
+          to = `[to ${msg.to}]: `;
+      else if (msg.to !== 'system')
+        to = `[${msg.user.username}]: `;
+
       return (
-        <div key={index} className={msg_class}>
-          { msg.to !== 'system' ? `[${msg.user.username}]: ` : null }{msg.text}
+        <div key={ index } className={ 'no-icon ' + msg_class }>
+          { to }{ msg.text }
+        </div>
+      );
+    });
+
+    const online_players = this.state.online_players.map((user, index) => {
+      return (
+        <div key={ index } className='no-icon'>
+          { user }
         </div>
       );
     });
 
     return (
-      <div className='pt-card'>
+      <div className='pt-card' style={{ marginBottom: '2rem' }}>
         <div style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid #ccc', maxHeight: '400px', overflowY: 'auto' }}>
           { render_msgs }
         </div>
@@ -78,12 +85,44 @@ export default class ChatPanel extends Component {
           </div>
         </form>
         <div style={{ marginTop: '0.5rem' }}>
-          <span className='chat-msg-private'>Private Message</span><br />
-          <span className='chat-msg-group'>Group Message</span><br />
-          <span className='chat-msg-table'>Table Message</span>
+          <Grid stackable centered>
+            <Grid.Row>
+              <Grid.Column width={8} style={{ textAlign: 'center' }}>
+                <div style={{ marginBottom: '0.25rem', paddingBottom: '0.25rem', borderBottom: '1px solid #ccc' }}>Key</div>
+                <div className='chat-msg-private'>Private</div>
+                <div className='chat-msg-group'>Group</div>
+                <div className='chat-msg-table'>Table</div>
+              </Grid.Column>
+              <Grid.Column width={8} style={{ textAlign: 'center' }}>
+                <div style={{ marginBottom: '0.25rem', paddingBottom: '0.25rem', borderBottom: '1px solid #ccc' }}>Currently Online</div>
+                { online_players }
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         </div>
       </div>
     );
+  }
+
+  configureSockets = () => {
+    this.socket = socketIOclient(constants.server);
+    this.socket.emit('join game', { user: this.props.user, game: this.props.game.id });
+
+    this.socket.on('join game', online_players => this.setState({ online_players }));
+    this.socket.on('leave game', online_players => this.setState({ online_players }));
+
+    this.socket.on('get message', msg => {
+      if (msg.to === 'group' && this.props.user_is_dm)
+        return;
+      if (this.to_options.indexOf(msg.to) === -1 && msg.to !== this.props.user.username && msg.user.username !== this.props.user.username)
+        return;
+      this.state.messages.push(msg);
+      this.forceUpdate();
+    });
+
+    window.onbeforeunload = () => {
+      this.socket.emit('leave game', { user: this.props.user, game: this.props.game.id });
+    }
   }
 
   onInputChange = (e) => {
