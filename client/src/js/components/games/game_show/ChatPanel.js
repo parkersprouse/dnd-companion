@@ -12,6 +12,7 @@ export default class ChatPanel extends Component {
       msg: '',
       to: 'table',
       messages: [],
+      dm: null,
       players: [],
       online_players: []
     };
@@ -26,6 +27,10 @@ export default class ChatPanel extends Component {
           this.setState({ players: this.state.players.concat([response.content]) });
       });
     }
+    api.getUserBy({ id: this.props.game.owner_id}, (success, response) => {
+      if (success)
+        this.setState({ dm: response.content });
+    });
     this.configureSockets();
   }
 
@@ -135,6 +140,8 @@ export default class ChatPanel extends Component {
   renderPrivateMessageOptions = () => {
     const ordered_players = _.sortBy(this.state.players, 'username');
     const players = [];
+    if (this.state.dm)
+      players.push(<option key={this.state.dm.username}>{ this.state.dm.username }</option>);
     ordered_players.forEach((player, index) => {
       if (player.username !== this.props.user.username)
         players.push(<option key={index}>{ player.username }</option>);
