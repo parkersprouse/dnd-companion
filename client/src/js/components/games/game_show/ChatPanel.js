@@ -128,6 +128,15 @@ export default class ChatPanel extends Component {
       this.msg_container.scrollTop = this.msg_container.scrollHeight;
     });
 
+    // Prevent Timeouts
+    setTimeout(() => {
+      this.socket.emit('ping');
+    }, 30000);
+
+    this.socket.on('pong', () => {
+      console.log('got pong from server');
+    });
+
     window.onbeforeunload = () => {
       this.socket.emit('leave game', { user: this.props.user, game: this.props.game.id });
     }

@@ -65,6 +65,11 @@ io.on('connection', socket => {
     //   io.to(room).emit('get message', msg);
     // }
   });
+
+  socket.on('ping', () => {
+    console.log('got ping from client');
+    io.to(room).emit('pong')
+  });
 });
 
 server.listen(PORT, () => {
