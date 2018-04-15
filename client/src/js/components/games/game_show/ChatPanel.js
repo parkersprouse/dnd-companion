@@ -63,43 +63,41 @@ export default class ChatPanel extends Component {
 
     return (
       <div className='pt-card' style={{ marginBottom: '2rem' }}>
-        <div style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid #ccc', maxHeight: '400px', overflowY: 'auto' }}>
-          { render_msgs }
-        </div>
-        <form onSubmit={this.submitMessage}>
-          <div className='pt-control-group'>
-            <div className='pt-select'>
-              <select value={this.state.to} onChange={this.onInputChange} name='to'>
-                <option value='table'>Table</option>
-                {
-                  this.props.user_is_dm ? null :
-                  <option value='group'>Group</option>
-                }
-                { this.renderPrivateMessageOptions() }
-              </select>
-            </div>
-            <input type='text' className='pt-input pt-fill'
-                   placeholder='Enter Message...' name='msg' value={this.state.msg}
-                   onChange={this.onInputChange} />
-            <button className='pt-button pt-intent-primary pt-icon-key-enter' type='submit'></button>
-          </div>
-        </form>
-        <div style={{ marginTop: '0.5rem' }}>
-          <Grid stackable centered>
-            <Grid.Row>
-              <Grid.Column width={8} style={{ textAlign: 'center' }}>
-                <div style={{ marginBottom: '0.25rem', paddingBottom: '0.25rem', borderBottom: '1px solid #ccc' }}>Key</div>
-                <div className='chat-msg-private'>Private</div>
-                <div className='chat-msg-group'>Group</div>
-                <div className='chat-msg-table'>Table</div>
-              </Grid.Column>
-              <Grid.Column width={8} style={{ textAlign: 'center' }}>
-                <div style={{ marginBottom: '0.25rem', paddingBottom: '0.25rem', borderBottom: '1px solid #ccc' }}>Currently Online</div>
-                { online_players }
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </div>
+        <Grid stackable centered>
+          <Grid.Row>
+            <Grid.Column width={11}>
+              <div ref={(el) => this.msg_container = el}
+                   style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid #ccc', maxHeight: '300px', overflowY: 'auto' }}>
+                { render_msgs }
+              </div>
+              <form onSubmit={this.submitMessage}>
+                <div className='pt-control-group'>
+                  <div className='pt-select'>
+                    <select value={this.state.to} onChange={this.onInputChange} name='to'>
+                      <option value='table'>Table</option>
+                      {
+                        this.props.user_is_dm ? null :
+                        <option value='group'>Group</option>
+                      }
+                      { this.renderPrivateMessageOptions() }
+                    </select>
+                  </div>
+                  <input type='text' className='pt-input pt-fill'
+                         placeholder='Enter Message...' name='msg' value={this.state.msg}
+                         onChange={this.onInputChange} />
+                  <button className='pt-button pt-intent-primary pt-icon-key-enter' type='submit'></button>
+                </div>
+              </form>
+              <div style={{ marginTop: '1rem' }}>
+                <span className='chat-msg-private'>Private</span> <span className='chat-msg-group'>Group</span> <span className='chat-msg-table'>Table</span>
+              </div>
+            </Grid.Column>
+            <Grid.Column width={5} style={{ textAlign: 'center' }}>
+              <div style={{ marginBottom: '0.25rem', paddingBottom: '0.25rem', borderBottom: '1px solid #ccc', fontWeight: 'bold' }}>Currently Online</div>
+              { online_players }
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }
@@ -118,6 +116,7 @@ export default class ChatPanel extends Component {
         return;
       this.state.messages.push(msg);
       this.forceUpdate();
+      this.msg_container.scrollTop = this.msg_container.scrollHeight;
     });
 
     window.onbeforeunload = () => {
