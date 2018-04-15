@@ -3,6 +3,7 @@
 
 require('dotenv').config();
 
+const axios = require('axios');
 const socketIO = require('socket.io');
 const http = require('http');
 const app = require('./app');
