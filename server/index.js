@@ -45,24 +45,25 @@ io.on('connection', socket => {
   });
 
   socket.on('send message', msg => {
-    if (msg.to !== 'system') {
-      const to = msg.to !== 'group' && msg.to !== 'table' ? 'private' : msg.to;
-      axios.post('/api/messages', { message: msg.text,
-                                    game_id: msg.game.id,
-                                    sender_id: msg.user.id,
-                                    type: to,
-                                    receiver_ids: [] })
-      .then((response) => {
-        io.to(room).emit('get message', msg);
-      })
-      .catch((error) => {
-        console.log('Message failed to save to database');
-        console.log(error);
-      });
-    }
-    else {
-      io.to(room).emit('get message', msg);
-    }
+    io.to(room).emit('get message', msg);
+    // if (msg.to !== 'system') {
+    //   const to = msg.to !== 'group' && msg.to !== 'table' ? 'private' : msg.to;
+    //   axios.post('/api/messages', { message: msg.text,
+    //                                 game_id: msg.game.id,
+    //                                 sender_id: msg.user.id,
+    //                                 type: to,
+    //                                 receiver_ids: [] })
+    //   .then((response) => {
+    //     io.to(room).emit('get message', msg);
+    //   })
+    //   .catch((error) => {
+    //     console.log('Message failed to save to database');
+    //     console.log(error);
+    //   });
+    // }
+    // else {
+    //   io.to(room).emit('get message', msg);
+    // }
   });
 });
 
