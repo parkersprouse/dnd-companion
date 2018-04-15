@@ -23,8 +23,7 @@ export default class ChatPanel extends Component {
     for (let i = 0; i < this.props.game.user_ids.length; i++) {
       api.getUserBy({ id: this.props.game.user_ids[i]}, (success, response) => {
         if (success)
-          this.state.players.push(response.content);
-        this.forceUpdate();
+          this.setState({ players: this.state.players.concat([response.content]) });
       });
     }
     this.configureSockets();
@@ -67,7 +66,13 @@ export default class ChatPanel extends Component {
           <Grid.Row>
             <Grid.Column width={11}>
               <div ref={(el) => this.msg_container = el}
-                   style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid #ccc', maxHeight: '300px', overflowY: 'auto' }}>
+                   style={{ marginBottom: '1rem',
+                            padding: '0.5rem',
+                            height: '300px',
+                            maxHeight: '300px',
+                            overflowY: 'auto',
+                            border: '1px solid #ccc',
+                            borderRadius: '4px' }}>
                 { render_msgs }
               </div>
               <form onSubmit={this.submitMessage}>
@@ -88,7 +93,7 @@ export default class ChatPanel extends Component {
                   <button className='pt-button pt-intent-primary pt-icon-key-enter' type='submit'></button>
                 </div>
               </form>
-              <div style={{ marginTop: '1rem' }}>
+              <div style={{ marginTop: '1rem', textAlign: 'center' }}>
                 <span className='chat-msg-private'>Private</span> <span className='chat-msg-group'>Group</span> <span className='chat-msg-table'>Table</span>
               </div>
             </Grid.Column>
@@ -114,8 +119,7 @@ export default class ChatPanel extends Component {
         return;
       if (this.to_options.indexOf(msg.to) === -1 && msg.to !== this.props.user.username && msg.user.username !== this.props.user.username)
         return;
-      this.state.messages.push(msg);
-      this.forceUpdate();
+      this.setState({ messages: this.state.messages.concat([msg]) });
       this.msg_container.scrollTop = this.msg_container.scrollHeight;
     });
 

@@ -89,8 +89,8 @@ export default class GameShowPage extends Component {
             <Grid.Row>
               <Grid.Column width={11}>
                 <ChatPanel {...this.state} />
-                <div className='pt-card'>
-                </div>
+                {/*<div className='pt-card'>
+                </div>*/}
               </Grid.Column>
               <Grid.Column width={5}>
                 <CharactersPanel ids={game.char_ids} />

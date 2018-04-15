@@ -17,11 +17,12 @@ io.on('connection', socket => {
   socket.on('join game', data => {
     room = data.game + '';
     socket.join(room);
-    if (!io.sockets.adapter.rooms[room].players)
-      io.sockets.adapter.rooms[room].players = [];
-    if (io.sockets.adapter.rooms[room].players.indexOf(data.user.username) === -1)
-      io.sockets.adapter.rooms[room].players.push(data.user.username);
-    io.to(room).emit('join game', io.sockets.adapter.rooms[room].players);
+    const cur_room = io.sockets.adapter.rooms[room];
+    if (!cur_room.players)
+      cur_room.players = [];
+    if (cur_room.players.indexOf(data.user.username) === -1)
+      cur_room.players.push(data.user.username);
+    io.to(room).emit('join game', cur_room.players);
     io.to(room).emit('get message', {
       text: `${data.user.username} has joined the chat`,
       user: data.user,
@@ -30,13 +31,11 @@ io.on('connection', socket => {
   });
 
   socket.on('leave game', data => {
-    if (io.sockets.adapter.rooms[room] &&
-        io.sockets.adapter.rooms[room].players.indexOf(data.user.username) > -1) {
-      io.sockets.adapter.rooms[room].players.splice(
-        io.sockets.adapter.rooms[room].players.indexOf(data.user.username), 1
-      );
+    const cur_room = io.sockets.adapter.rooms[room];
+    if (cur_room && cur_room.players.indexOf(data.user.username) > -1) {
+      cur_room.players.splice(cur_room.players.indexOf(data.user.username), 1);
     }
-    io.to(room).emit('leave game', io.sockets.adapter.rooms[room] ? io.sockets.adapter.rooms[room].players : []);
+    io.to(room).emit('leave game', cur_room ? cur_room.players : []);
     io.to(room).emit('get message', {
       text: `${data.user.username} has left the chat`,
       user: data.user,
