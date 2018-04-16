@@ -14,7 +14,8 @@ export default class ChatPanel extends Component {
       messages: [],
       dm: null,
       players: [],
-      online_players: []
+      online_players: [],
+      previous_messages_collected: false
     };
 
     this.to_options = ['group', 'table', 'system'];
@@ -22,20 +23,22 @@ export default class ChatPanel extends Component {
 
   componentWillMount() {
     for (let i = 0; i < this.props.game.user_ids.length; i++) {
-      api.getUserBy({ id: this.props.game.user_ids[i]}, (success, response) => {
+      api.getUserBy({ id: this.props.game.user_ids[i] }, (success, response) => {
         if (success)
           this.setState({ players: this.state.players.concat([response.content]) });
       });
     }
-    api.getUserBy({ id: this.props.game.owner_id}, (success, response) => {
+    api.getUserBy({ id: this.props.game.owner_id }, (success, response) => {
       if (success)
         this.setState({ dm: response.content });
     });
-    this.getPreviousMessages();
     this.configureSockets();
   }
 
   render() {
+    if (this.state.players.length === this.props.game.user_ids.length && this.state.dm && !this.state.previous_messages_collected)
+      this.getPreviousMessages();
+
     const render_msgs = this.state.messages.map((msg, index) => {
       let msg_class = 'chat-msg-private';
       if (msg.to === 'group') msg_class = 'chat-msg-group';
@@ -149,8 +152,28 @@ export default class ChatPanel extends Component {
 
   getPreviousMessages = () => {
     api.getUsersMessages(this.props.user.id, (success, response) => {
-      console.log(success);
-      console.log(response);
+      this.setState({ previous_messages_collected: true });
+      if (success) {
+        response.content.forEach((msg) => {
+          let to = '';
+          if (msg.type === 'group' || msg.type === 'table') to = msg.type;
+          else {
+            if (_.find(this.state.players, { id: msg.receiver_ids[0] }))
+              to = _.find(this.state.players, { id: msg.receiver_ids[0] }).username;
+            else
+              to = this.state.dm.username;
+          }
+
+          let user = null;
+          if (_.find(this.state.players, { id: msg.sender_id }))
+            user = _.find(this.state.players, { id: msg.sender_id });
+          else
+            user = this.state.dm;
+
+          const new_msg = { text: msg.message, to, user };
+          this.setState({ messages: this.state.messages.concat([new_msg]) });
+        });
+      }
     });
   }
 
