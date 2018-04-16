@@ -3,10 +3,11 @@
 
 require('dotenv').config();
 
-const axios = require('axios');
 const socketIO = require('socket.io');
+const _ = require('lodash');
 const http = require('http');
 const app = require('./app');
+const Messages = require('./models/messages');
 
 const PORT = process.env.PORT || 9000;
 const server = http.createServer(app);
@@ -45,30 +46,34 @@ io.on('connection', socket => {
   });
 
   socket.on('send message', msg => {
-    io.to(room).emit('get message', msg);
-    // if (msg.to !== 'system') {
-    //   const to = msg.to !== 'group' && msg.to !== 'table' ? 'private' : msg.to;
-    //   axios.post('/api/messages', { message: msg.text,
-    //                                 game_id: msg.game.id,
-    //                                 sender_id: msg.user.id,
-    //                                 type: to,
-    //                                 receiver_ids: [] })
-    //   .then((response) => {
-    //     io.to(room).emit('get message', msg);
-    //   })
-    //   .catch((error) => {
-    //     console.log('Message failed to save to database');
-    //     console.log(error);
-    //   });
-    // }
-    // else {
-    //   io.to(room).emit('get message', msg);
-    // }
-  });
+    //io.to(room).emit('get message', msg);
+    if (msg.to !== 'system') {
+      const to = msg.to !== 'group' && msg.to !== 'table' ? 'private' : msg.to;
 
-  socket.on('ping', () => {
-    console.log('got ping from client');
-    io.to(room).emit('pong')
+      let receiver_ids = null;
+      if (to === 'table')
+        receiver_ids = _.uniqBy(msg.players.map((player) => player.id).concat([msg.game.owner_id]), (id) => id);
+      else if (to === 'group')
+        receiver_ids = _.uniqBy(msg.players.map((player) => player.id), (id) => id);
+      else
+        receiver_ids = [_.find(msg.players, { username: msg.to }).id];
+
+      Messages.create({ message: msg.text,
+                        game_id: msg.game.id,
+                        sender_id: msg.user.id,
+                        type: to,
+                        receiver_ids })
+        .then((data) => {
+          io.to(room).emit('get message', msg);
+        })
+        .catch((err) => {
+          console.log('Message failed to save to database');
+          console.log(error);
+        });
+    }
+    else {
+      io.to(room).emit('get message', msg);
+    }
   });
 });
 

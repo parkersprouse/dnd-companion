@@ -166,7 +166,8 @@ export default class ChatPanel extends Component {
     e.preventDefault();
     if (!this.state.msg) return null;
     this.socket.emit('send message', { text: this.state.msg, user: this.props.user,
-                                       to: this.state.to, game: this.props.game });
+                                       to: this.state.to, game: this.props.game,
+                                       players: this.state.players });
     this.setState({ msg: '' });
   }
 }

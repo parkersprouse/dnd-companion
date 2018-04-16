@@ -1,5 +1,4 @@
 const constants = require('../config/constants');
-const db = require('../config/db').db;
 const validator = require('validator');
 const _ = require('lodash');
 const Messages = require('../models/messages');
