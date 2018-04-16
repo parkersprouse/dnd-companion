@@ -129,13 +129,18 @@ export default class ChatPanel extends Component {
     });
 
     // Prevent Timeouts
-    setTimeout(() => {
-      this.socket.emit('ping');
-    }, 30000);
+    // setTimeout(() => {
+    //   this.socket.emit('ping');
+    // }, 30000);
 
-    this.socket.on('pong', () => {
-      console.log('got pong from server');
+    this.socket.on('connect_timeout', (timeout) => {
+      console.log('timeout');
+      console.log(timeout);
     });
+
+    // this.socket.on('pong', () => {
+    //   console.log('got pong from server');
+    // });
 
     window.onbeforeunload = () => {
       this.socket.emit('leave game', { user: this.props.user, game: this.props.game.id });
