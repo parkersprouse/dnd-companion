@@ -164,7 +164,7 @@ module.exports = {
     get('/api/messages', callback);
   },
 
-  getMessagesToUser: function(userid, callback) {
+  getUsersMessages: function(userid, callback) {
     get('/api/messages/' + userid, callback);
   },
 

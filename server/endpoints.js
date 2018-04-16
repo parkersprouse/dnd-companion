@@ -33,7 +33,7 @@ router.delete('/games/delete/:id', games.deleteGame);
 
 // messages endpoints
 router.get('/messages', messages.getMessages);
-router.get('/messages/:user_id', messages.getMessagesToUser);
+router.get('/messages/:user_id', messages.getUsersMessages);
 router.post('/messages', messages.getMessageBy);
 router.post('/messages/new', messages.createMessage);
 //router.patch('/messages/update', messages.updateMessage);
@@ -142,11 +142,5 @@ router.post('/db/weapon_properties', weapon_properties.getSpecific);
 
 
 //require('./config/setup')();
-// const mailer = require('./config/mailer');
-// mailer({
-//   subject: "Hello",
-//   content: "How is this working?",
-//   addresses: ['parker@parkersprouse.me']
-// }, (success) => { console.log(success) });
 
 module.exports = router;

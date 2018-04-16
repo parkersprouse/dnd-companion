@@ -31,6 +31,7 @@ export default class ChatPanel extends Component {
       if (success)
         this.setState({ dm: response.content });
     });
+    this.getPreviousMessages();
     this.configureSockets();
   }
 
@@ -144,6 +145,13 @@ export default class ChatPanel extends Component {
     window.onbeforeunload = () => {
       this.socket.emit('leave game', { user: this.props.user, game: this.props.game.id });
     }
+  }
+
+  getPreviousMessages = () => {
+    api.getUsersMessages(this.props.user.id, (success, response) => {
+      console.log(success);
+      console.log(response);
+    });
   }
 
   onInputChange = (e) => {

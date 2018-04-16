@@ -46,10 +46,8 @@ io.on('connection', socket => {
   });
 
   socket.on('send message', msg => {
-    //io.to(room).emit('get message', msg);
     if (msg.to !== 'system') {
       const to = msg.to !== 'group' && msg.to !== 'table' ? 'private' : msg.to;
-
       let receiver_ids = null;
       if (to === 'table')
         receiver_ids = _.uniqBy(msg.players.map((player) => player.id).concat([msg.game.owner_id]), (id) => id);
@@ -57,12 +55,8 @@ io.on('connection', socket => {
         receiver_ids = _.uniqBy(msg.players.map((player) => player.id), (id) => id);
       else
         receiver_ids = [_.find(msg.players, { username: msg.to }).id];
-
-      Messages.create({ message: msg.text,
-                        game_id: msg.game.id,
-                        sender_id: msg.user.id,
-                        type: to,
-                        receiver_ids })
+      Messages.create({ message: msg.text, game_id: msg.game.id,
+                        sender_id: msg.user.id, type: to, receiver_ids })
         .then((data) => {
           io.to(room).emit('get message', msg);
         })

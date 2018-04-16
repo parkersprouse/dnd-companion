@@ -55,19 +55,20 @@ function getMessageBy(req, res, next) {
     });
 }
 
-function getMessagesToUser(req, res, next) {
+function getUsersMessages(req, res, next) {
   Messages.findAll()
     .then((data) => {
       const messages = [];
       data.forEach((m) => {
         const message = m.get({ plain: true });
-        if (message.receiver_ids.indexOf(Number(req.params.user_id)) > -1)
+        if (message.receiver_ids.indexOf(Number(req.params.user_id)) > -1 ||
+            message.sender_id === Number(req.params.user_id))
           messages.push(message);
       });
       res.status(constants.http_ok)
         .json({
           status: 'success',
-          content: messages,
+          content: _.sortBy(messages, 'created_at'),
           message: 'Got all messages'
         });
     })
@@ -76,7 +77,7 @@ function getMessagesToUser(req, res, next) {
         .json({
           status: 'failure',
           content: err.message,
-          message: 'Failed to get user\'s messages'
+          message: "Failed to get user's messages"
         });
     });
 }
@@ -104,6 +105,6 @@ function createMessage(req, res, next) {
 module.exports = {
   getMessages,
   getMessageBy,
-  getMessagesToUser,
+  getUsersMessages,
   createMessage
 }
