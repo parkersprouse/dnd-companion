@@ -128,16 +128,15 @@ export default class ChatPanel extends Component {
       this.msg_container.scrollTop = this.msg_container.scrollHeight;
     });
 
-    // Prevent Timeouts
+    // Prevent Timeouts - doesn't work
     // setTimeout(() => {
     //   this.socket.emit('ping');
     // }, 30000);
-
-    this.socket.on('connect_timeout', (timeout) => {
-      console.log('timeout');
-      console.log(timeout);
-    });
-
+    // Don't know if the following works
+    // this.socket.on('connect_timeout', (timeout) => {
+    //   console.log('timeout');
+    //   console.log(timeout);
+    // });
     // this.socket.on('pong', () => {
     //   console.log('got pong from server');
     // });
