@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { NonIdealState } from '@blueprintjs/core';
 import { Grid, Loader } from 'semantic-ui-react';
-import _ from 'lodash';
+import api from '../lib/api';
+import utils from '../lib/utils';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
-import api from '../lib/api';
-import utils from '../lib/utils';
 import CharacterShowTabs from '../components/characters/character_viewer/CharacterShowTabs';
 import CharactersPanel from '../components/games/game_show/CharactersPanel';
 import ChatPanel from '../components/games/game_show/ChatPanel';
@@ -96,7 +95,7 @@ export default class GameShowPage extends Component {
                 </div>*/}
               </Grid.Column>
               <Grid.Column width={5}>
-                <CharactersPanel {...this.state} setRootState={this.setRootState}/>
+                <CharactersPanel {...this.state} setRootState={this.setRootState} />
               </Grid.Column>
             </Grid.Row>
 
@@ -104,7 +103,7 @@ export default class GameShowPage extends Component {
               this.state.selected_char ?
               <Grid.Row style={{ borderTop: '1px solid #ccc' }}>
                 <Grid.Column width={16}>
-                  <CharacterShowTabs character={this.state.selected_char} setRootState={this.setRootState} />
+                  <CharacterShowTabs character={this.state.selected_char} />
                 </Grid.Column>
               </Grid.Row>
               : null
@@ -118,60 +117,6 @@ export default class GameShowPage extends Component {
   }
 
   setRootState = (state) => {
-    // This needs to be moved to the CharacterShowTabs component and out of here and the CharacterShowPage
-    if (state.character) {
-      const previous = JSON.parse(JSON.stringify(this.state.selected_char));
-      const current = JSON.parse(JSON.stringify(state.character));
-
-      if (previous.proficiency_bonus !== current.proficiency_bonus ||
-          previous.spell_class !== current.spell_class ||
-          !_.isEqual(previous.ability_scores, current.ability_scores)) {
-        this.updateSpellModifiers(current);
-      }
-    }
-
     this.setState(state);
-  }
-
-  // This needs to be moved to the CharacterShowTabs component and out of here and the CharacterShowPage
-  updateSpellModifiers = (char) => {
-    const { ability_scores, proficiency_bonus, spell_class } = char;
-
-    const proficiency = Number(proficiency_bonus);
-    let ability_modifier = null;
-    switch(spell_class) {
-      case 'Bard':
-      case 'Paladin':
-      case 'Sorcerer':
-      case 'Warlock':
-        ability_modifier = Number(ability_scores.charisma.modifier);
-        break;
-      case 'Cleric':
-      case 'Druid':
-      case 'Ranger':
-        ability_modifier = Number(ability_scores.wisdom.modifier);
-        break;
-      case 'Wizard':
-        ability_modifier = Number(ability_scores.intelligence.modifier);
-        break;
-      default:
-        ability_modifier = 0;
-        break;
-    }
-
-    if (Number.isNaN(ability_modifier))
-      ability_modifier = 0;
-
-    api.updateCharacter({
-      id: char.id,
-      spell_ability: ability_modifier,
-      spell_save_dc: 8 + ability_modifier + proficiency,
-      spell_atk_bonus: ability_modifier + proficiency
-    }, (success, response) => {
-      if (success)
-        this.setState({ selected_char: response.content });
-      else
-        console.log(response);
-    });
   }
 }
