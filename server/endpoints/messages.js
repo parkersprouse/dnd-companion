@@ -61,8 +61,9 @@ function getUsersMessages(req, res, next) {
       const messages = [];
       data.forEach((m) => {
         const message = m.get({ plain: true });
-        if (message.receiver_ids.indexOf(Number(req.params.user_id)) > -1 ||
-            message.sender_id === Number(req.params.user_id))
+        if (
+          (message.receiver_ids.indexOf(Number(req.params.user_id)) > -1 || message.sender_id === Number(req.params.user_id)) && message.game_id === Number(req.params.game_id)
+        )
           messages.push(message);
       });
       res.status(constants.http_ok)

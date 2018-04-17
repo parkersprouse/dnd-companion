@@ -14,8 +14,7 @@ export default class ChatPanel extends Component {
       messages: [],
       dm: null,
       players: [],
-      online_players: [],
-      previous_messages_collected: false
+      online_players: []
     };
 
     this.to_options = ['group', 'table', 'system'];
@@ -26,19 +25,20 @@ export default class ChatPanel extends Component {
       api.getUserBy({ id: this.props.game.user_ids[i] }, (success, response) => {
         if (success)
           this.setState({ players: this.state.players.concat([response.content]) });
+        if (this.state.players.length === this.props.game.user_ids.length && this.state.dm)
+          this.getPreviousMessages(); // in case the dm is gotten before all players
       });
     }
     api.getUserBy({ id: this.props.game.owner_id }, (success, response) => {
       if (success)
         this.setState({ dm: response.content });
+      if (this.state.players.length === this.props.game.user_ids.length && this.state.dm)
+        this.getPreviousMessages(); // in case the dm is the last person gotten
     });
     this.configureSockets();
   }
 
   render() {
-    if (this.state.players.length === this.props.game.user_ids.length && this.state.dm && !this.state.previous_messages_collected)
-      this.getPreviousMessages();
-
     const render_msgs = this.state.messages.map((msg, index) => {
       let msg_class = 'chat-msg-private';
       if (msg.to === 'group') msg_class = 'chat-msg-group';
@@ -118,7 +118,6 @@ export default class ChatPanel extends Component {
 
   configureSockets = () => {
     this.socket = socketIOclient(constants.server);
-    this.socket.emit('join game', { user: this.props.user, game: this.props.game.id });
 
     this.socket.on('join game', online_players => this.setState({ online_players }));
     this.socket.on('leave game', online_players => this.setState({ online_players }));
@@ -151,8 +150,7 @@ export default class ChatPanel extends Component {
   }
 
   getPreviousMessages = () => {
-    api.getUsersMessages(this.props.user.id, (success, response) => {
-      this.setState({ previous_messages_collected: true });
+    api.getUsersMessages(this.props.user.id, this.props.game.id, (success, response) => {
       if (success) {
         response.content.forEach((msg) => {
           let to = '';
@@ -173,6 +171,8 @@ export default class ChatPanel extends Component {
           const new_msg = { text: msg.message, to, user };
           this.setState({ messages: this.state.messages.concat([new_msg]) });
         });
+        // emit our join game event after all previous messages are gotten
+        this.socket.emit('join game', { user: this.props.user, game: this.props.game.id });
       }
     });
   }

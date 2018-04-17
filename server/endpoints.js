@@ -33,7 +33,7 @@ router.delete('/games/delete/:id', games.deleteGame);
 
 // messages endpoints
 router.get('/messages', messages.getMessages);
-router.get('/messages/:user_id', messages.getUsersMessages);
+router.get('/messages/:user_id/:game_id', messages.getUsersMessages);
 router.post('/messages', messages.getMessageBy);
 router.post('/messages/new', messages.createMessage);
 //router.patch('/messages/update', messages.updateMessage);

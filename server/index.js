@@ -52,9 +52,13 @@ io.on('connection', socket => {
       if (to === 'table')
         receiver_ids = _.uniqBy(msg.players.map((player) => player.id).concat([msg.game.owner_id]), (id) => id);
       else if (to === 'group')
-        receiver_ids = _.uniqBy(msg.players.map((player) => player.id), (id) => id);
-      else
-        receiver_ids = [_.find(msg.players, { username: msg.to }).id];
+        receiver_ids = _.difference(_.uniqBy(msg.players.map((player) => player.id), (id) => id), [msg.game.owner_id]);
+      else {
+        if (_.find(msg.players, { username: msg.to }))
+          receiver_ids = [_.find(msg.players, { username: msg.to }).id];
+        else
+          receiver_ids = [msg.game.owner_id];
+      }
       Messages.create({ message: msg.text, game_id: msg.game.id,
                         sender_id: msg.user.id, type: to, receiver_ids })
         .then((data) => {
