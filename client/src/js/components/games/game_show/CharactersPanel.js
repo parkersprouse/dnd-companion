@@ -13,17 +13,16 @@ export default class CharactersPanel extends Component {
   componentWillMount() {
     // I'm playing a dangerous game with this, but that's the way it's gonna be for now.
     // That's the story of this entire app.
-    for (let i = 0; i < this.props.ids.length; i++) {
-      api.getCharacter({ id: this.props.ids[i]}, (success, response) => {
+    for (let i = 0; i < this.props.game.char_ids.length; i++) {
+      api.getCharacter({ id: this.props.game.char_ids[i]}, (success, response) => {
         if (success)
-          this.state.chars.push(response.content[0]);
-        this.forceUpdate();
+          this.setState({ chars: this.state.chars.concat([response.content[0]]) });
       });
     }
   }
 
   render() {
-    if (this.state.chars.length !== this.props.ids.length)
+    if (this.state.chars.length !== this.props.game.char_ids.length)
       return null;
 
     return (
@@ -36,11 +35,16 @@ export default class CharactersPanel extends Component {
     );
   }
 
+  clickChar = (char) => {
+    if (char.userid !== this.props.user.id) return;
+    this.props.setRootState({ selected_char: char });
+  }
+
   renderChars = () => {
     return this.state.chars.map((char) => {
       return (
-        <div key={char.id} className='pt-card pt-elevation-0 character-card'
-             onClick={() => console.log(char)}>
+        <div key={char.id} className={'pt-card pt-elevation-0 character-card' + (char.userid === this.props.user.id ? ' pt-interactive' : '')}
+             onClick={() => this.clickChar(char)}>
           <Item.Group>
             <Item>
               <Item.Content>

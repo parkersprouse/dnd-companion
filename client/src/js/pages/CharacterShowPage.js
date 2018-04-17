@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Loader } from 'semantic-ui-react';
-import { Tab2, Tabs2, Button, Intent, Toaster, Alert, Position, NonIdealState } from '@blueprintjs/core';
+import { Button, Intent, Toaster, Alert, Position, NonIdealState } from '@blueprintjs/core';
 import _ from 'lodash';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
@@ -8,10 +8,7 @@ import Header from '../components/Header';
 import api from '../lib/api';
 import utils from '../lib/utils';
 import validator from 'validator';
-import SpellSheet from '../components/characters/character_viewer/SpellSheet';
-import DetailsSheet from '../components/characters/character_viewer/DetailsSheet';
-import AdditionalInfoSheet from '../components/characters/character_viewer/AdditionalInfoSheet';
-import NotesSheet from '../components/characters/character_viewer/NotesSheet';
+import CharacterShowTabs from '../components/characters/character_viewer/CharacterShowTabs';
 
 export default class CharacterShowPage extends Component {
   constructor(props) {
@@ -70,13 +67,7 @@ export default class CharacterShowPage extends Component {
       <OuterContainer>
         <Header />
         <InnerContainer>
-          <Tabs2 id='CharacterTabs'>
-            <Tab2 id='details' title='Details' panel={<DetailsSheet character={this.state.character} setRootState={this.setRootState} />} />
-            <Tab2 id='spells' title='Spells' panel={<SpellSheet character={this.state.character} setRootState={this.setRootState} />} />
-            <Tab2 id='additional' title='Additional Info' panel={<AdditionalInfoSheet character={this.state.character} setRootState={this.setRootState} />} />
-            <Tab2 id='notes' title='Notes' panel={<NotesSheet character={this.state.character} setRootState={this.setRootState} />} />
-            <Tabs2.Expander />
-          </Tabs2>
+          <CharacterShowTabs character={this.state.character} setRootState={this.setRootState}/>
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
             <Button intent={Intent.DANGER} className='pt-minimal'
                     onClick={() => this.setState({ show_delete_alert: true })}>Delete</Button>

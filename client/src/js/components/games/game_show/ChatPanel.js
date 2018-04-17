@@ -84,7 +84,8 @@ export default class ChatPanel extends Component {
                             borderRadius: '4px' }}>
                 { render_msgs }
               </div>
-              <form onSubmit={this.submitMessage}>
+              <form onSubmit={this.submitMessage} autoComplete='off'>
+                <input autoComplete='off' name='hidden' type='text' style={{ display: 'none' }} />
                 <div className='pt-control-group'>
                   <div className='pt-select'>
                     <select value={this.state.to} onChange={this.onInputChange} name='to'>
@@ -129,6 +130,10 @@ export default class ChatPanel extends Component {
         return;
       this.setState({ messages: this.state.messages.concat([msg]) });
       this.msg_container.scrollTop = this.msg_container.scrollHeight;
+    });
+
+    this.socket.on('disconnect', (reason) => {
+      console.log(reason)
     });
 
     // Prevent Timeouts - doesn't work
