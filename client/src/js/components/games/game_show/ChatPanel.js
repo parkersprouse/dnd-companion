@@ -133,21 +133,8 @@ export default class ChatPanel extends Component {
     });
 
     this.socket.on('disconnect', (reason) => {
-      console.log(reason)
+      console.log(`Disconnect: ${reason}`)
     });
-
-    // Prevent Timeouts - doesn't work
-    // setTimeout(() => {
-    //   this.socket.emit('ping');
-    // }, 30000);
-    // Don't know if the following works
-    // this.socket.on('connect_timeout', (timeout) => {
-    //   console.log('timeout');
-    //   console.log(timeout);
-    // });
-    // this.socket.on('pong', () => {
-    //   console.log('got pong from server');
-    // });
 
     window.onbeforeunload = () => {
       this.socket.emit('leave game', { user: this.props.user, game: this.props.game.id });

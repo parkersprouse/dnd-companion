@@ -12,6 +12,8 @@ const Messages = require('./models/messages');
 const PORT = process.env.PORT || 9000;
 const server = http.createServer(app);
 const io = socketIO(server);
+io.set('heartbeat timeout', 10000);
+io.set('heartbeat interval', 5000);
 
 io.on('connection', socket => {
   let room = '';
@@ -58,8 +60,7 @@ io.on('connection', socket => {
           receiver_ids = [_.find(msg.players, { username: msg.to }).id];
         else
           receiver_ids = [msg.game.owner_id];
-      Messages.create({ message: msg.text, game_id: msg.game.id,
-                        sender_id: msg.user.id, type: to, receiver_ids })
+      Messages.create({ message: msg.text, game_id: msg.game.id, sender_id: msg.user.id, type: to, receiver_ids })
         .then((data) => {
           io.to(room).emit('get message', msg);
         })
