@@ -48,7 +48,7 @@ export default class GameCodePanel extends Component {
     );
   }
 
-  showSuccess() {
+  showSuccess = () => {
     Toaster.create().show({
       message: 'E-mail Successfully Sent',
       position: Position.TOP_CENTER,

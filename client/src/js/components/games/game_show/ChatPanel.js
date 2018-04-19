@@ -136,9 +136,12 @@ export default class ChatPanel extends Component {
       console.log(`Disconnect: ${reason}`)
     });
 
-    window.onbeforeunload = () => {
+    const leave_game = () => {
       this.socket.emit('leave game', { user: this.props.user, game: this.props.game.id });
     }
+
+    window.onbeforeunload = leave_game;
+    document.pagehide = leave_game;
   }
 
   getPreviousMessages = () => {
