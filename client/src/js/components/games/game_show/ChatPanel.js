@@ -141,6 +141,7 @@ export default class ChatPanel extends Component {
     }
 
     window.onbeforeunload = leave_game;
+    window.unload = leave_game;
     document.pagehide = leave_game;
   }
 

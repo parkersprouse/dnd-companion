@@ -12,9 +12,13 @@ const Messages = require('./models/messages');
 const PORT = process.env.PORT || 9000;
 const server = http.createServer(app);
 const io = socketIO(server);
+
+// There's no telling if this is actually doing anything, but we'll try it out
 io.set('heartbeat timeout', 10000);
 io.set('heartbeat interval', 5000);
 
+// Details of each type of event emission
+// https://stackoverflow.com/a/10099325
 io.on('connection', socket => {
   let room = '';
 
