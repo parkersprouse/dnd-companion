@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Position, Tooltip } from '@blueprintjs/core';
 import { Grid } from 'semantic-ui-react';
-import api from '../../../lib/api';
-import constants from '../../../lib/constants';
 import _ from 'lodash';
 import socketIOclient from 'socket.io-client';
+import moment from 'moment';
+import api from '../../../lib/api';
+import constants from '../../../lib/constants';
 
 export default class ChatPanel extends Component {
   constructor(props) {
@@ -45,18 +47,27 @@ export default class ChatPanel extends Component {
       else if (msg.to === 'table') msg_class = 'chat-msg-table';
       else if (msg.to === 'system') msg_class = '';
 
+      const time = moment(msg.time).format('h:mma - MMM Do, YYYY');
       let to = null;
       if (this.to_options.indexOf(msg.to) === -1)
         if (msg.to === this.props.user.username)
-          to = `[from ${msg.user.username}]: `;
+          to = `from ${msg.user.username}`;
         else
-          to = `[to ${msg.to}]: `;
+          to = `to ${msg.to}`;
       else if (msg.to !== 'system')
-        to = `[${msg.user.username}]: `;
+        to = `${msg.user.username}`;
 
       return (
-        <div key={ index } className={ 'no-icon ' + msg_class }>
-          { to }{ msg.text }
+        <div key={ index } className={ 'no-icon ' + msg_class } style={{ marginBottom: '0.5rem' }}>
+          {
+            to ?
+            <Tooltip position={Position.TOP} content={time}>
+              <span style={{ cursor: 'default', fontWeight: 'bold' }}>{ to }</span>
+            </Tooltip>
+            : null
+          }
+          { to ? <br /> : null }
+          <span style={ to ? { paddingLeft: '1rem' } : null}>{ msg.text }</span>
         </div>
       );
     });
@@ -164,7 +175,7 @@ export default class ChatPanel extends Component {
           else
             user = this.state.dm;
 
-          const new_msg = { text: msg.message, to, user };
+          const new_msg = { text: msg.message, time: msg.created_at, to, user };
           this.setState({ messages: this.state.messages.concat([new_msg]) });
         });
         // emit our join game event after all previous messages are gotten

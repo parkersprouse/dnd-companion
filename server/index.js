@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const socketIO = require('socket.io');
 const _ = require('lodash');
+
 const http = require('http');
 const app = require('./app');
 const Messages = require('./models/messages');
@@ -66,6 +67,7 @@ io.on('connection', socket => {
           receiver_ids = [msg.game.owner_id];
       Messages.create({ message: msg.text, game_id: msg.game.id, sender_id: msg.user.id, type: to, receiver_ids })
         .then((data) => {
+          msg.time = data.created_at;
           io.to(room).emit('get message', msg);
         })
         .catch((err) => {

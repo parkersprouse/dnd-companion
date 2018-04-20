@@ -91,13 +91,15 @@ export default class GameShowPage extends Component {
                   <Tooltip content='Edit Game' position={Position.TOP}>
                     <div style={{ width: 'fit-content' }}>
                       <h2 onClick={this.toggleEditModal} style={{ cursor: 'pointer' }}>{ game.name }</h2>
-                      <h6 onClick={this.toggleEditModal} style={{ marginBottom: '0', cursor: 'pointer' }}>{ game.description || 'No description' }</h6>
+                      <h6 onClick={this.toggleEditModal} style={{ marginBottom: '0', cursor: 'pointer' }}>
+                        { game.description || <i>No Description</i> }
+                      </h6>
                     </div>
                   </Tooltip>
                   :
                   <div>
                     <h2>{ game.name }</h2>
-                    <h6 style={{ marginBottom: '0' }}>{ game.description || 'No description' }</h6>
+                    <h6 style={{ marginBottom: '0' }}>{ game.description || <i>No Description</i> }</h6>
                   </div>
                 }
               </Grid.Column>
