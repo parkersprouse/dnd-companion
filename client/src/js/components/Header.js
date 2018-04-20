@@ -24,13 +24,9 @@ export default class Header extends Component {
   }
 
   render() {
-    let menu = null;
     if (utils.isMobile())
-      menu = this.configureMobileMenu();
-    else
-      menu = this.configureDesktopMenu();
-
-    return menu;
+      return this.configureMobileMenu();
+    return this.configureDesktopMenu();
   }
 
   configureDesktopMenu = () => {
