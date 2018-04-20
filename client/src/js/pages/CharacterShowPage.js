@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { Grid, Loader } from 'semantic-ui-react';
-import { Tab2, Tabs2, Button, Intent, Toaster, Alert, Position, NonIdealState } from '@blueprintjs/core';
-import _ from 'lodash';
+import { Button, Intent, Toaster, Alert, Position, NonIdealState } from '@blueprintjs/core';
+import validator from 'validator';
+import api from '../lib/api';
+import utils from '../lib/utils';
 import OuterContainer from '../components/OuterContainer';
 import InnerContainer from '../components/InnerContainer';
 import Header from '../components/Header';
-import api from '../lib/api';
-import utils from '../lib/utils';
-import validator from 'validator';
-import SpellSheet from '../components/characters/character_viewer/SpellSheet';
-import DetailsSheet from '../components/characters/character_viewer/DetailsSheet';
-import AdditionalInfoSheet from '../components/characters/character_viewer/AdditionalInfoSheet';
-import NotesSheet from '../components/characters/character_viewer/NotesSheet';
+import CharacterShowTabs from '../components/characters/character_viewer/CharacterShowTabs';
 
 export default class CharacterShowPage extends Component {
   constructor(props) {
@@ -70,13 +66,7 @@ export default class CharacterShowPage extends Component {
       <OuterContainer>
         <Header />
         <InnerContainer>
-          <Tabs2 id='CharacterTabs'>
-            <Tab2 id='details' title='Details' panel={<DetailsSheet character={this.state.character} setRootState={this.setRootState} />} />
-            <Tab2 id='spells' title='Spells' panel={<SpellSheet character={this.state.character} setRootState={this.setRootState} />} />
-            <Tab2 id='additional' title='Additional Info' panel={<AdditionalInfoSheet character={this.state.character} setRootState={this.setRootState} />} />
-            <Tab2 id='notes' title='Notes' panel={<NotesSheet character={this.state.character} setRootState={this.setRootState} />} />
-            <Tabs2.Expander />
-          </Tabs2>
+          <CharacterShowTabs character={this.state.character} />
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
             <Button intent={Intent.DANGER} className='pt-minimal'
                     onClick={() => this.setState({ show_delete_alert: true })}>Delete</Button>
@@ -121,63 +111,5 @@ export default class CharacterShowPage extends Component {
 
   handleClose = () => {
     this.setState({ show_delete_alert: !this.state.show_delete_alert })
-  }
-
-  setRootState = (state) => {
-    // The best way to freeze an object in time is the following
-    const previous = JSON.parse(JSON.stringify(this.state.character));
-    const current = JSON.parse(JSON.stringify(state.character));
-
-    if (previous.proficiency_bonus !== current.proficiency_bonus ||
-        previous.spell_class !== current.spell_class ||
-        !_.isEqual(previous.ability_scores, current.ability_scores)) {
-      this.updateSpellModifiers(current);
-    }
-
-    this.setState(state);
-  }
-
-  // Whenever our proficiency bonus, ability modifiers, or spellcasting class
-  // changes, our spellcasting modifiers need to be updated.
-  // This handles that.
-  updateSpellModifiers = (char) => {
-    const { ability_scores, proficiency_bonus, spell_class } = char;
-
-    const proficiency = Number(proficiency_bonus);
-    let ability_modifier = null;
-    switch(spell_class) {
-      case 'Bard':
-      case 'Paladin':
-      case 'Sorcerer':
-      case 'Warlock':
-        ability_modifier = Number(ability_scores.charisma.modifier);
-        break;
-      case 'Cleric':
-      case 'Druid':
-      case 'Ranger':
-        ability_modifier = Number(ability_scores.wisdom.modifier);
-        break;
-      case 'Wizard':
-        ability_modifier = Number(ability_scores.intelligence.modifier);
-        break;
-      default:
-        ability_modifier = 0;
-        break;
-    }
-
-    if (Number.isNaN(ability_modifier))
-      ability_modifier = 0;
-
-    api.updateCharacter({
-      id: char.id,
-      spell_ability: ability_modifier,
-      spell_save_dc: 8 + ability_modifier + proficiency,
-      spell_atk_bonus: ability_modifier + proficiency
-    }, (success, response) => {
-      if (success)
-        this.setState({ character: response.content });
-      else
-        console.log(response);
-    });
   }
 }

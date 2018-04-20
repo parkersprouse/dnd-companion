@@ -56,6 +56,8 @@ function patch(endpoint, data, callback) {
 
 module.exports = {
 
+  // User Data
+
   register: function(data, callback) {
     post('/api/auth/register', data, callback);
   },
@@ -120,6 +122,58 @@ module.exports = {
 
   deleteCharacter: function(id, callback) {
     doDelete('/api/characters/delete/' + id, callback);
+  },
+
+  // Game Data
+
+  getAllGames: function(callback) {
+    get('/api/games', callback);
+  },
+
+  getUsersGames: function(userid, callback) {
+    get('/api/games/' + userid, callback);
+  },
+
+  getGames: function(data, callback) {
+    post('/api/games', data, callback);
+  },
+
+  createGame: function(data, callback) {
+    post('/api/games/new', data, callback);
+  },
+
+  joinGame: function(data, callback) {
+    post('/api/games/join', data, callback);
+  },
+
+  updateGame: function(data, callback) {
+    patch('/api/games/update', data, callback);
+  },
+
+  deleteGame: function(id, callback) {
+    doDelete('/api/games/delete/' + id, callback);
+  },
+
+  sendGameInvite: function(data, callback) {
+    post('/api/games/invite', data, callback);
+  },
+
+  // Message Data
+
+  getMessages: function(callback) {
+    get('/api/messages', callback);
+  },
+
+  getUsersMessages: function(userid, gameid, callback) {
+    get(`/api/messages/${userid}/${gameid}`, callback);
+  },
+
+  getMessage: function(data, callback) {
+    post('/api/messages', data, callback);
+  },
+
+  createMessage: function(data, callback) {
+    post('/api/messages/new', data, callback);
   },
 
   // DnD Data

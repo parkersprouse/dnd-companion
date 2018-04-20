@@ -36,7 +36,7 @@ export default class TextareaToggler extends Component {
     return (
       <div className='pt-form-group' style={{ marginBottom: '0' }}>
         <div className='pt-form-content'>
-          <div className='pt-input-group' style={{ whiteSpace: 'pre-wrap', cursor: 'pointer' }} onClick={() => this.setEditing(true)}>
+          <div className='pt-input-group no-icon' style={{ whiteSpace: 'pre-wrap', cursor: 'pointer' }} onClick={() => this.setEditing(true)}>
             <Tooltip content='Click to edit' position={Position.TOP}>
               { this.state[this.props.name] !== null && this.state[this.props.name] !== '' ? this.state[this.props.name] : 'None. Click to edit.' }
             </Tooltip>
