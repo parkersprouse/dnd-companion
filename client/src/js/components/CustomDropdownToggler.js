@@ -104,7 +104,7 @@ export default class CustomDropdownToggler extends Component {
         <div className='pt-form-content'>
           <div className='pt-input-group'>
             <Tooltip content='Click to edit' position={Position.TOP}>
-              <span className='char-sheet-editable-text' onClick={() => this.setEditing(true)}>
+              <span className='char-sheet-editable-text no-icon' onClick={() => this.setEditing(true)}>
                 { this.state[this.props.name] !== null &&
                   this.state[this.props.name] !== '' ?
                   this.state[this.props.name] : this.props.number ? '0' : 'None' }
