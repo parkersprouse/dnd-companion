@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Dialog, Intent, NonIdealState, Position, Toaster, Tooltip } from '@blueprintjs/core';
+import { Alert, Button, Dialog, Intent, NonIdealState, Position, Toaster, Tooltip } from '@blueprintjs/core';
 import { Grid, Loader } from 'semantic-ui-react';
 import api from '../lib/api';
 import utils from '../lib/utils';
@@ -23,6 +23,7 @@ export default class GameShowPage extends Component {
       sending: false,
       game_name: '',
       game_desc: '',
+      show_delete_alert: false,
       show_edit_modal: false
     }
   }
@@ -108,7 +109,7 @@ export default class GameShowPage extends Component {
               </Grid.Column>
             </Grid.Row>
 
-            <Grid.Row>
+            <Grid.Row style={ this.state.user_is_dm ? { paddingBottom: '0' } : null}>
               <Grid.Column width={11}>
                 <ChatPanel {...this.state} />
                 {/*<div className='pt-card'>
@@ -122,7 +123,7 @@ export default class GameShowPage extends Component {
             {
               this.state.user_is_dm ?
               <div style={{ textAlign: 'center' }}>
-                <button className='pt-button pt-minimal pt-intent-danger' onClick={() => this.setState({ show_delete_modal: true })}>Delete Game</button>
+                <button className='pt-button pt-minimal pt-intent-danger' onClick={() => this.setState({ show_delete_alert: true })}>Delete Game</button>
               </div>
               : null
             }
@@ -140,9 +141,37 @@ export default class GameShowPage extends Component {
           </Grid>
 
           { this.renderEditModal() }
+          { this.renderConfirmDeleteAlert() }
 
         </InnerContainer>
       </OuterContainer>
+    );
+  }
+
+  handleDelete = () => {
+    api.deleteGame(this.state.game.id, (success, response) => {
+      if (success) {
+        window.location.href = '/games';
+      }
+      else {
+        this.showFail('Failed to delete game');
+      }
+    });
+  }
+
+  renderConfirmDeleteAlert = () => {
+    return (
+      <Alert
+        intent={Intent.DANGER}
+        isOpen={this.state.show_delete_alert}
+        confirmButtonText='Delete'
+        cancelButtonText='Cancel'
+        onConfirm={this.handleDelete}
+        onCancel={() => this.setState({ show_delete_alert: false })}
+      >
+        <p className='no-icon'>Are you sure you want to delete this game?</p>
+        <p>This cannot be undone.</p>
+      </Alert>
     );
   }
 
@@ -191,9 +220,9 @@ export default class GameShowPage extends Component {
     });
   }
 
-  showFail = () => {
+  showFail = (message) => {
     Toaster.create().show({
-      message: 'Failed To Updated',
+      message,
       position: Position.TOP_CENTER,
       intent: Intent.DANGER,
       timeout: 2000
@@ -211,7 +240,7 @@ export default class GameShowPage extends Component {
       }
       else {
         this.setState({ sending: false });
-        this.showFail();
+        this.showFail('Failed To Update');
       }
     });
   }

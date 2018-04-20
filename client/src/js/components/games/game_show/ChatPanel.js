@@ -6,6 +6,7 @@ import socketIOclient from 'socket.io-client';
 import moment from 'moment';
 import api from '../../../lib/api';
 import constants from '../../../lib/constants';
+import { isMobile } from '../../../lib/utils';
 
 export default class ChatPanel extends Component {
   constructor(props) {
@@ -61,13 +62,12 @@ export default class ChatPanel extends Component {
         <div key={ index } className={ 'no-icon ' + msg_class } style={{ marginBottom: '0.5rem' }}>
           {
             to ?
-            <Tooltip position={Position.TOP} content={time}>
-              <span style={{ cursor: 'default', fontWeight: 'bold' }}>{ to }</span>
+            <Tooltip position={isMobile() ? Position.RIGHT : Position.TOP} content={time}>
+              <div style={{ cursor: 'default', fontWeight: 'bold' }}>{ to }</div>
             </Tooltip>
             : null
           }
-          { to ? <br /> : null }
-          <span style={ to ? { paddingLeft: '1rem' } : null}>{ msg.text }</span>
+          <div style={ to ? { paddingLeft: '1rem' } : null}>{ msg.text }</div>
         </div>
       );
     });
