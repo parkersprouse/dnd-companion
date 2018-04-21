@@ -30,7 +30,22 @@ export default class GameCodePanel extends Component {
       <Dialog isOpen={this.state.dialog_open} title={'Invite Player'}
               onClose={() => this.setState({ selected_spell: null, dialog_open: false })}>
         <div className='pt-dialog-body'>
+
+          <div className='pt-form-group'>
+            <label className='pt-label'>
+              Give this link to someone to allow them to join this game:
+            </label>
+            <div className='pt-form-content'>
+              <code><a target='_blank' href={`http://dnd.parkersprouse.me/games/join?code=${this.props.code}`}>
+                {`http://dnd.parkersprouse.me/games/join?code=${this.props.code}`}
+              </a></code>
+            </div>
+          </div>
+
           <div className='pt-form-group' style={{ margin: '0' }}>
+            <label className='pt-label' htmlFor='email'>
+              Or send them an email with the link:
+            </label>
             <div className='pt-form-content'>
               <input id='email' className='pt-input pt-fill' placeholder='E-mail'
                      onChange={(e) => this.setState({ email: e.target.value })} />
