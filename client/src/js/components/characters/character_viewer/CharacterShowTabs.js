@@ -15,6 +15,11 @@ export default class CharacterShowTabs extends Component {
     }
   }
 
+  componentWillReceiveProps(next_props) {
+    if (next_props.character)
+      this.setState({ character: next_props.character });
+  }
+
   render() {
     return (
       <Tabs2 id='CharacterTabs'>
