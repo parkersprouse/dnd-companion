@@ -36,9 +36,9 @@ export default class GameCodePanel extends Component {
               Give this link to someone to allow them to join this game:
             </label>
             <div className='pt-form-content'>
-              <code><a target='_blank' href={`http://dnd.parkersprouse.me/games/join?code=${this.props.code}`}>
+              <a target='_blank' href={`http://dnd.parkersprouse.me/games/join?code=${this.props.code}`}>
                 {`http://dnd.parkersprouse.me/games/join?code=${this.props.code}`}
-              </a></code>
+              </a>
             </div>
           </div>
 

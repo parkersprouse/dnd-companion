@@ -130,7 +130,7 @@ export default class GameShowPage extends Component {
 
             {
               this.state.selected_char ?
-              <Grid.Row style={{ borderTop: '1px solid #ccc' }}>
+              <Grid.Row style={{ borderTop: 'double', borderTopColor: '#ccc' }}>
                 <Grid.Column width={16}>
                   <CharacterShowTabs character={this.state.selected_char} />
                 </Grid.Column>
