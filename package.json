@@ -2,6 +2,10 @@
   "name": "dnd-companion-app-server",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "8.11.3",
+    "npm": "6.1.0"
+  },
   "scripts": {
     "start": "node server",
     "dev": "cd client && npm run build && cd .. && node server",
@@ -10,24 +14,24 @@
   "dependencies": {
     "axios": "^0.17.1",
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
-    "express": "^4.16.2",
-    "helmet": "^3.9.0",
-    "jsonwebtoken": "^8.1.0",
-    "lodash": "^4.17.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.10",
     "moment": "^2.22.1",
     "morgan": "^1.9.0",
     "pg": "6.4.2",
     "pg-hstore": "^2.3.2",
-    "pg-promise": "^7.3.2",
-    "prop-types": "^15.6.0",
-    "query-string": "^5.0.1",
-    "sequelize": "^4.28.6",
-    "socket.io": "^2.1.0",
+    "pg-promise": "^7.5.4",
+    "prop-types": "^15.6.2",
+    "query-string": "^5.1.1",
+    "sequelize": "^4.38.0",
+    "socket.io": "^2.1.1",
     "sparkpost": "^2.1.2",
-    "universal-cookie": "^2.1.2",
-    "validator": "^9.2.0"
+    "universal-cookie": "^2.2.0",
+    "validator": "^9.4.1"
   }
 }

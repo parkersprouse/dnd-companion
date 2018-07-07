@@ -216,6 +216,14 @@ module.exports = {
 
   getTrinkets: function(callback) {
     get('/api/db/trinkets', callback);
+  },
+
+  getWeaponProperties: function(callback) {
+    get('/api/db/weapon_properties', callback);
+  },
+
+  filterWeaponProperties: function(data, callback) {
+    post('/api/db/weapon_properties', data, callback);
   }
 
 }

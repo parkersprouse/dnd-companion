@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Popup } from 'semantic-ui-react';
 import _ from 'lodash';
+import WeaponPropertyDetails from './WeaponPropertyDetails';
 
 export default class WeaponDetails extends Component {
   render() {
@@ -30,9 +31,19 @@ export default class WeaponDetails extends Component {
       }
     }
 
-    let properties = 'N/A';
-    if (this.props.weapon.properties && this.props.weapon.properties.length > 0)
-      properties = _.join(_.map(this.props.weapon.properties, (w) => w.name), ', ')
+    let properties = [];
+    if (this.props.weapon.properties && this.props.weapon.properties.length > 0) {
+      this.props.weapon.properties.forEach((prop) => {
+        properties.push(
+          <Popup key={prop.name} trigger={<span style={{ cursor: 'pointer' }}>{prop.name}</span>} hoverable wide>
+            <WeaponPropertyDetails property={prop.name} />
+          </Popup>
+        );
+        properties.push(<br key={prop.name + '2'} />);
+      });
+    }
+    if (properties.length === 0)
+      properties = 'N/A';
 
     let cost = 'N/A';
     if (this.props.weapon.cost)
